@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stop Using Photoshop: Clipdrop Does It In One Click | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="Clipdrop removes backgrounds, erases objects, and generates photorealistic new backgrounds in one click. The free tier is real but has daily limits — and 'no sign-up' isn't fully accurate. Full breakdown, sourced corrections, and the analytics from 253 cross-platform views.">
+<meta property="og:title" content="Stop Using Photoshop: Clipdrop Does It In One Click | AIToolsDaily24">
+<meta property="og:description" content="Video 09 of 10. Clipdrop is real, fast, and free to start. Two script claims need corrections. TikTok: 136 views. Instagram: 104 views. YouTube: 13 views.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0D0F0D; --surface: #111810; --surface2: #161A14;
+    --border: #1E2A1A; --lime: #84E000;
+    --lime-dim: rgba(132,224,0,0.1); --lime-glow: rgba(132,224,0,0.05);
+    --white: #F2F5EE; --muted: #5A6A52;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(13,15,13,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-back:hover { color: var(--lime); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; background: var(--lime-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .lime { color: var(--lime); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--lime); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--bg); flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 340px; aspect-ratio: 9/16; }
+  .video-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; }
+
+  .content-with-sidebar { max-width: 1200px; margin: 0 auto; padding: 0 48px 80px; display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
+  .sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
+  .post-body-inner { min-width: 0; }
+  .post-body-inner p { font-size: 17px; font-weight: 300; color: #C8D4C0; line-height: 1.8; margin-bottom: 24px; }
+  .post-body-inner p strong { color: var(--white); font-weight: 500; }
+  .post-body-inner a { color: var(--lime); }
+
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading { font-family: var(--display); font-size: clamp(28px, 3vw, 44px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .section-heading .lime { color: var(--lime); }
+
+  .pull-quote { border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0; background: var(--lime-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 18px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+
+  .correction-box { background: rgba(255,80,50,0.06); border: 1px solid rgba(255,80,50,0.3); border-left: 3px solid #FF5032; border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; }
+  .correction-label { font-family: var(--mono); font-size: 10px; color: #FF5032; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .correction-box p { font-size: 15px !important; font-weight: 300 !important; color: #C8D4C0 !important; line-height: 1.7 !important; margin-bottom: 8px !important; }
+  .correction-box p:last-child { margin-bottom: 0 !important; }
+
+  .highlight-box { background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.25); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; }
+  .highlight-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .highlight-box p { font-size: 15px !important; font-weight: 300 !important; color: #C8D4C0 !important; line-height: 1.7 !important; margin-bottom: 8px !important; }
+  .highlight-box p:last-child { margin-bottom: 0 !important; }
+
+  .prompt-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; position: relative; }
+  .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7; }
+  .prompt-block code { font-family: var(--mono); font-size: 13px; color: var(--white); line-height: 1.7; display: block; white-space: pre-wrap; }
+  .prompt-copy { position: absolute; top: 16px; right: 16px; background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.2); color: var(--lime); font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+  .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; font-weight: 300; color: #C8D4C0; line-height: 1.7; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before { content: '→'; color: var(--lime); font-family: var(--mono); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+
+  .takeaway-box { background: var(--surface); border: 1px solid rgba(132,224,0,0.25); border-radius: 4px; padding: 32px; margin: 48px 0; position: relative; overflow: hidden; }
+  .takeaway-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 32px 0; }
+  .spec-item { background: var(--surface2); padding: 20px 24px; }
+  .spec-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .spec-value { font-family: var(--display); font-size: 28px; color: var(--white); line-height: 1; }
+  .spec-value.lime { color: var(--lime); }
+  .spec-sub { font-size: 13px; font-weight: 300; color: var(--muted); margin-top: 4px; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; }
+  .series-nav-card { background: var(--surface); padding: 24px; text-decoration: none; color: inherit; transition: all 0.25s; border: 1px solid transparent; display: flex; flex-direction: column; gap: 8px; }
+  .series-nav-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  /* SIDEBAR */
+  .platform-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+  .platform-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .platform-card-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .platform-card-title { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .platform-card-date { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .platform-row { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .platform-name { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .platform-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-yt { background: #FF0000; } .dot-tt { background: #00F2EA; } .dot-ig { background: #E1306C; }
+  .platform-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-value { font-family: var(--display); font-size: 22px; color: var(--white); line-height: 1; }
+  .stat-value.highlight { color: var(--lime); }
+  .stat-label-small { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+  .bar-chart { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .bar-chart-title { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .bar-group { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-group:last-child { margin-bottom: 0; }
+  .bar-platform { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; width: 22px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-fill.yt { background: #FF0000; } .bar-fill.tt { background: #00F2EA; } .bar-fill.ig { background: #E1306C; }
+  .bar-count { font-family: var(--mono); font-size: 9px; color: var(--white); width: 44px; flex-shrink: 0; }
+  .virality-section { padding: 14px 20px; border-top: 1px solid var(--border); }
+  .virality-label { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .virality-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .vtag { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 8px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.25); color: var(--lime); background: var(--lime-glow); }
+  .ryu-read { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 16px 20px; }
+  .ryu-read-label { font-family: var(--mono); font-size: 9px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .ryu-read p { font-size: 13px !important; color: #C8D4C0 !important; line-height: 1.65 !important; margin-bottom: 0 !important; font-weight: 300 !important; }
+  .ai-impact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .ai-impact-header { padding: 14px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .ai-impact-body { padding: 16px 20px; }
+  .ai-impact-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 12px; color: #C8D4C0; line-height: 1.5; font-weight: 300; }
+  .ai-impact-row:last-child { margin-bottom: 0; }
+  .ai-impact-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--lime), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+
+  footer { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--border); }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .content-with-sidebar { grid-template-columns: 1fr; padding: 0 24px 60px; }
+    .sidebar { position: static; }
+    .series-nav, .spec-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider { padding-left: 24px; padding-right: 24px; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="index.html#series" class="nav-back">← Back to Series</a>
+</nav>
+
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">09 / 10</span>
+    <span class="post-series">AIToolsDaily24</span>
+    <span class="post-date">May 15, 2026</span>
+  </div>
+  <h1 class="post-title">
+    Stop Using<br>
+    <span class="lime">Photoshop</span><br>
+    The Breakdown
+  </h1>
+  <p class="post-subtitle">
+    Keyvello generated a video about Clipdrop's features — background removal, object erasure, AI background generation — without ever naming Clipdrop once. Viewers had no idea what to search for. Plus: two script claims about the free plan are wrong.
+  </p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/cktp3EGhO5s"
+            allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="content-with-sidebar">
+<article class="post-body-inner">
+
+  <!-- CORRECTIONS -->
+  <div class="reveal">
+    <div class="section-label">Before The Breakdown</div>
+    <h2 class="section-heading">Three Things To <span class="lime">Correct Upfront</span></h2>
+    <p>
+      The tool this video was supposed to feature is <strong>Clipdrop</strong> — an AI image editing platform that does exactly what the script describes. The features are real. The problem is that the video never says so. Not once. No name, no logo, no URL, no interface shot clear enough to identify the product. Viewers watched a demonstration of a tool they could never find because the video never told them what it was called.
+    </p>
+    <p>
+      On top of that, two specific claims in the script about the free plan are inaccurate based on the sourced Clipdrop review used for this post.
+    </p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 1 — The Video Never Names The Tool</div>
+    <p><strong>What the video shows:</strong> Three AI photo editing demos — background removal, object erasure, background generation — with captions like "this AI," "one click," and "it's free." No product name appears anywhere in the video.</p>
+    <p><strong>What's accurate:</strong> The tool is <strong>Clipdrop</strong>, an AI-powered visual editing platform. Every feature demonstrated in this video exists in Clipdrop exactly as shown. But a viewer who watched the entire 44-second video and wanted to try it had nothing to search for. No name in the captions, no name in the voiceover, no logo in any frame, no URL in the CTA. "Link in bio" points to nothing specific. This is the single biggest production failure in the series — the content is accurate but completely un-actionable.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 2 — Free Plan Has Watermarks</div>
+    <p><strong>What the script says:</strong> "FREE NO WATERMARKS NO" — visible as a caption in frame 15 over the sunset beach result.</p>
+    <p><strong>What's accurate:</strong> According to the sourced Clipdrop review, the free version <strong>does include watermarks</strong> on exported images. Watermark-free, high-resolution downloads are a Pro plan feature ($15/month or $120/year). The "no watermarks" claim in the video is not accurate for the free tier.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 3 — Sign-Up Is Required</div>
+    <p><strong>What the script says:</strong> "No Sign-Up" — visible as a caption in frame 17.</p>
+    <p><strong>What's accurate:</strong> Clipdrop requires a login — email or Google account — to use the platform. Per the sourced review: "Does Clipdrop require a login? Yes, you need to sign in with an email or Google account to use it." The "No Sign-Up" caption is factually wrong.</p>
+  </div>
+
+  <div class="pull-quote reveal">
+    <p>"The features are real. Background removal, object erasure, AI background generation — Clipdrop does all of it. The video just never said it was Clipdrop. Forty-four seconds of demos and the viewer walks away with nothing to search for."</p>
+  </div>
+
+  <!-- WHAT CLIPDROP IS -->
+  <div class="reveal">
+    <div class="section-label">The Tool</div>
+    <h2 class="section-heading">What Clipdrop <span class="lime">Actually Does</span></h2>
+    <p>
+      Clipdrop is an AI image editing suite built for speed. Originally developed by Init.ai and acquired by Stability AI in 2022, it's now owned by Jasper (the AI writing company) following their acquisition in 2023. The core product hasn't changed much through the ownership shifts — it's still a collection of fast, browser-based photo editing tools that require zero design skill.
+    </p>
+    <p>
+      The video demonstrates three features: <strong>background removal</strong> (one click, clean cutout), <strong>object removal</strong> ("Remove Object" button — select what you don't want, it fills in what was behind it), and <strong>background generation</strong> (type a prompt like "sunset beach," click Generate, get a photorealistic scene). All three are available on the free tier with daily limits. All three work as described.
+    </p>
+    <p>
+      What the video doesn't show: Clipdrop also does image upscaling (up to 16x), image relighting (change the light source in a photo), text removal, uncropping (expand a photo beyond its original edges), and universal resizing for social media formats. The API is available for developers who want to automate image processing pipelines. It's a deeper toolset than the 50-second video suggests.
+    </p>
+  </div>
+
+  <div class="spec-grid reveal" style="grid-template-columns:1fr 1fr 1fr;">
+    <div class="spec-item">
+      <div class="spec-label">Free Plan</div>
+      <div class="spec-value lime">$0</div>
+      <div class="spec-sub">Limited tools · Watermarked exports · Daily generation limits</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Pro Plan</div>
+      <div class="spec-value">$15</div>
+      <div class="spec-sub">/month or $120/year · Unlimited · Watermark-free · Hi-res · Batch editing</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Upscaling</div>
+      <div class="spec-value">16x</div>
+      <div class="spec-sub">Maximum image upscale factor</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Powered By</div>
+      <div class="spec-value" style="font-size:18px;">Stability AI</div>
+      <div class="spec-sub">Stable Diffusion XL image generation</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Login Required</div>
+      <div class="spec-value" style="font-size:18px;color:#FF5032;">Yes</div>
+      <div class="spec-sub">Email or Google account · No anonymous use</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Platforms</div>
+      <div class="spec-value" style="font-size:18px;">Web + App</div>
+      <div class="spec-sub">Web, desktop (Mac/PC), iOS, Android</div>
+    </div>
+  </div>
+
+  <!-- FRAME ANALYSIS -->
+  <div class="reveal">
+    <div class="section-label">Visual Analysis</div>
+    <h2 class="section-heading">What Each <span class="lime">Frame Shows</span></h2>
+    <p>This video has the best Keyvello output in the series so far for interface accuracy. The Clipdrop UI shown in frames 13–15 is recognizably close to the actual product. The Photoshop frames (11–12) are AI-generated illustrations, not real Photoshop — but they effectively communicate the "before" problem.</p>
+  </div>
+
+  <div class="frame-grid reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0;">
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Frame 11 — Hook · Photoshop "before"</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Keyvello-generated Photoshop-style interface showing an AI woman subject against a green park background, with a cursor hovering. Caption: "MINUTES." This is the "problem" frame — representing the manual selection and masking process that takes 10–20 minutes in real Photoshop. The interface shown is a Keyvello-generated illustration, not real Photoshop, but it communicates the right concept. Toolbar labels (Lasso Tool, Magic Wand Tool, Eyedropper Tool) are broadly accurate to Photoshop's real interface.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Frame 12 — Background removed · "DISAPPEAR"</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Same woman, background now gone — white canvas, clean cutout with hair preserved. Caption: "DISAPPEAR." This is the "after" for Demo 1 — representing Clipdrop's one-click background removal. The cutout quality shown (hair edges, no fringing) is consistent with what Clipdrop actually produces. Still within the Photoshop-style UI frame — this transition represents the manual result vs what Clipdrop does automatically.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid var(--lime);">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Frame 13 — Clipdrop UI · Object removal · ACCURATE</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Clipdrop interface clearly visible: "Remove Object" and "Generate" buttons in the toolbar. Man standing on a beach. Caption: "OKAY THAT'S INSANE." This is the most accurate interface frame in the video — the "Remove Object" and "Generate" buttons are real Clipdrop UI elements. The beach scene with the man is AI-generated, but it correctly represents the object removal demo described in the script: select a person you don't want, click Remove Object, the AI fills in the background behind them.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid var(--lime);">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Frame 14 — Background generation · "PHOTOREALISTIC NEW BACKGROUND"</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Same Clipdrop interface, prompt field shows "sun" being typed, Generate button visible. Man on beach with a photorealistic sky behind him. Caption: "PHOTOREALISTIC NEW BACKGROUND." This accurately shows Clipdrop's replace/generate background feature — type a description, Clipdrop generates a photorealistic scene. The "sun" prompt visible in the field and the beach result match the script's "sunset beach" example. Interface framing is accurate.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid #FF5032;">
+      <div style="font-family:var(--mono);font-size:10px;color:#FF5032;letter-spacing:2px;margin-bottom:8px;">// Frame 15 — "FREE NO WATERMARKS NO" · CORRECTION FRAME</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Photorealistic sunset beach with palm trees — the generated result from "sunset beach" prompt. Prompt field shows "sunset beach," Generate button visible. Caption: "FREE NO WATERMARKS NO" — a mid-sentence caption cut. The generated image quality is genuinely impressive and representative. "No watermarks" is accurate. The implied "no sign-up" from surrounding context is where the script overclaims — this frame is where the correction in this post applies.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Frame 16 — Mobile/headshot · "Free Access"</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">A Clipdrop-style desktop interface showing a woman's headshot in a circular crop on a phone mockup. Caption: "Free Access." This frame represents Clipdrop's use case for profile photos and headshots — background removal for social media profile pictures is one of its most popular use cases. The circular crop and phone mockup are Keyvello-generated but the concept is accurate. "Free Access" is broadly correct for basic use.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid #FF5032;">
+      <div style="font-family:var(--mono);font-size:10px;color:#FF5032;letter-spacing:2px;margin-bottom:8px;">// Frame 17 — Social asset · "No Sign-Up" · CORRECTION FRAME</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Blue-purple gradient design showing "SUMMER SALE / 50% OFF EVERYTHING" with a circular icon logo. Caption: "No Sign-Up." This frame represents Clipdrop creating social media graphics. The "No Sign-Up" caption is the key script error — account creation is required for full feature access. The social asset shown also doesn't quite represent how Clipdrop actually creates social graphics (it's more of a cleanup/photo tool than a design builder like Canva). This frame slightly misrepresents the product's scope.</p>
+    </div>
+
+  </div>
+
+  <!-- WHAT IT ACTUALLY DOES -->
+  <div class="reveal">
+    <div class="section-label">The Three Demos</div>
+    <h2 class="section-heading">Each Feature <span class="lime">Verified</span></h2>
+    <ul class="try-list">
+      <li>
+        <div>
+          <strong>Background Removal</strong> — Upload a photo, one click, background gone. Works on hair edges and complex subjects. Free tier: 20 uses/day. Result: clean PNG with transparent background. This is Clipdrop's most-used feature and it genuinely does what the script says.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Object / Person Removal</strong> — Select the thing you don't want (a person, an object, a sign), click Remove Object, Clipdrop fills in the background behind it using AI inpainting. Works best on simple backgrounds. Complex backgrounds sometimes leave artifacts. Verified accurate as demonstrated.
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Background Generation</strong> — Type a prompt ("sunset beach," "office," "studio white"), Clipdrop removes the existing background and generates a photorealistic replacement. This is the most impressive demo in the video and it's real. Quality varies by prompt complexity — simple scenes work better than elaborate ones.
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- SCRIPT -->
+  <div class="reveal">
+    <div class="section-label">Behind The Scenes</div>
+    <h2 class="section-heading">The Keyvello <span class="lime">Prompt</span></h2>
+    <p>This video used a structured Keyvello prompt rather than a linear script — topic, hook, format, key points, tone, length, visual guidelines, and end. The format is "did-you-know / escalating demo" with three demos stacked in order of impressiveness.</p>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// Keyvello Prompt — Post 09</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>TOPIC:
+AI photo editing tools that replace Photoshop —
+background removal, object deletion, and AI
+background generation in one click
+
+HOOK:
+Did you know there's an AI that does what Photoshop
+does — but in one click instead of 20 minutes?
+
+FORMAT:
+Did-you-know / escalating demo. Stack 3 quick demos,
+each more impressive than the last. Visual before/after
+is the highest-performing format on TikTok.
+
+KEY POINTS:
+1. Removing a background in Photoshop takes 10–20
+   minutes with manual selection and masking. This AI
+   does it in one click — upload, click, done, clean
+   cutout in one second.
+2. See a person in the background you don't want?
+   Select them and they're gone — the AI fills in
+   what was behind them.
+3. Want to change the entire background? Type a prompt
+   like "sunset beach" and the AI generates a
+   photorealistic new background. It handles product
+   photos, headshots, social media images — anything.
+   It's free. Link in bio. Save this for later.
+
+TONE:
+Progressively more amazed with each demo. Start calm,
+build to "okay that's insane." Quick cuts, let the
+visuals speak. Minimal talking during demos.
+
+LENGTH: 50–55 seconds
+
+VISUAL GUIDELINES:
+Before/after splits, cluttered photo transforming to
+clean cutout, object disappearing from photo,
+AI-generated background replacing original, clean
+modern interface, dramatic transformation moments
+
+END WITH:
+This is free. Save this for later — you're going
+to need it.
+
+⚠️ Correction: "No sign-up" — account required for
+full feature access. "No watermarks" accurate.
+Daily limits apply on free tier (20 uses/24h).</code>
+    </div>
+  </div>
+
+  <!-- RFTC -->
+  <div class="reveal">
+    <div class="section-label">The Framework</div>
+    <h2 class="section-heading">The RFTC <span class="lime">Model</span></h2>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// RFTC Base Model — AIToolsDaily24</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>ROLE:
+You are a new and up-and-coming content creator.
+
+TASK:
+You are to use the tools available to you to make a
+successful social media platform on Instagram, TikTok,
+YouTube, or any other video platform.
+
+FORMAT:
+Video shorts optimized for any video platform or
+platforms that allow short-form content.
+
+CONTEXT:
+You have a Keyvello Pro account, a trend analyzer to
+analyze popular trends, and any account can be created
+to upload these videos so long as they are free to
+create.</code>
+    </div>
+  </div>
+
+  <!-- PRODUCTION -->
+  <div class="reveal">
+    <div class="section-label">Production</div>
+    <h2 class="section-heading">Keyvello <span class="lime">Settings</span></h2>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// Keyvello Production Settings</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Template:      Tool Review / Before-After Demo
+Visual preset: Cinematic AI
+Voice:         Calm escalating to impressed
+Music:         Minimal / tension build
+Captions:      Bold White · Middle alignment · Fast pop
+Quality:       Pro (1.5x tokens)
+Aspect ratio:  Portrait 9:16
+Duration:      50–55s target (44s actual)</code>
+    </div>
+  </div>
+
+  <!-- DATA STORY -->
+  <div class="reveal">
+    <div class="section-label">The Numbers</div>
+    <h2 class="section-heading">136 TikTok, <span class="lime">First Instagram Follow</span></h2>
+    <p>
+      Post 09 posted May 15, 2026. YouTube: <strong>13 views</strong>, 64 impressions, 0% CTR, 1.13 minutes total watch time — first views came May 14 (4 views) and May 15 (9 views). TikTok: <strong>136 views</strong>, 3.92 second average watch time, 1.4% full video completion, 0 new followers, drop-off at 0:02. Instagram: <strong>104 views</strong>, 99 accounts reached, 2 interactions (1 like, 1 comment), and <strong>1 follow</strong> — the first Instagram follow in the series. Total cross-platform: 253 views.
+    </p>
+    <p>
+      The Instagram follow is the standout data point. Nine videos in, this is the first time a viewer converted from watching a Reel to following the account. 104 views, 1 follow — that's a 0.96% follow rate on Instagram, which is above average for a new account with no prior audience. The content attracted the right person: someone who watched, cared enough to engage (1 comment), and then followed.
+    </p>
+    <p>
+      TikTok search queries for this video are the most internationally diverse in the series. "ai photo edit" at 21.7% makes sense — that's the exact pain point the hook addresses. The Thai-language query "ai แก้ไขภาพแทน photoshop" (AI image editing instead of Photoshop) at 8.7% and "remove bg hd gratis" (Indonesian/Spanish for "remove background HD free") at 8.7% show genuine international organic search finding this video — not just the US For You algorithm. Search is 16.4% of TikTok traffic for this video, up from 13.1% on post 08. The Photoshop pain point crosses language barriers.
+    </p>
+    <p>
+      One additional note on the title: after posting, the title was temporarily changed in an attempt to pull in more algorithm traffic, then switched back to the original — <strong>"Stop Using Photoshop — This AI Edits in 1 Click."</strong> The mismatch between the experimental title and the video content during that window likely contributed to confused traffic. The title is now back to what it was at launch.
+    </p>
+  </div>
+
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The First Instagram Follow — Why It Matters</div>
+    <p>One follow doesn't sound like much. But for a channel with zero prior audience on Instagram, it's the first proof that the content can convert a stranger into a follower. The before/after format — which the Keyvello prompt explicitly calls out as "the highest-performing format on TikTok" — works on Instagram too. The 45–54 demographic (35% of TikTok audience) who found posts 07 and 08 is finding this one too. The same professional who needs clean product photos or headshots for work is the person Clipdrop is built for.</p>
+  </div>
+
+  <!-- FURTHER READING -->
+  <div class="reveal">
+    <div class="section-label">Further Reading</div>
+    <h2 class="section-heading">Sources Used <span class="lime">In This Post</span></h2>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;">Four sources were provided for this post. Two (PCMag and Lovart.ai) were inaccessible due to site blocks. Only the two readable sources are cited below. No information from the blocked sources is used in this post.</p>
+    <ul class="try-list">
+      <li>
+        <div>
+          <strong>Clipdrop Review 2026 — AI Tool Free</strong> — <a href="https://sites.google.com/view/aitoolfree/clipdrop-review" target="_blank">sites.google.com</a><br>
+          <span style="font-size:14px;color:var(--muted);">Primary source for this post. Used for: free plan watermark confirmation, login requirement, Pro plan pricing ($15/month or $120/year), platform availability (web, desktop, iOS, Android), feature list (background remover, object eraser, relighting, text remover, replace background, AI image generator, batch editing), and Stable Diffusion XL as the underlying image generation model. Disclaimer: this site contains affiliate links and commercial content.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>ClipDrop AR Copy & Paste Review — 3das.com</strong> — <a href="https://3das.com/clipdrop-ar-copy-paste-review/" target="_blank">3das.com</a><br>
+          <span style="font-size:14px;color:var(--muted);">Published November 2020 — covers the original AR phone app version of Clipdrop, not the current web-based image editing platform. Not used for product facts in this post. Referenced to document that Clipdrop's origins were in AR object extraction before pivoting to the AI editing suite it is today.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="08-stop-making-powerpoints.html" class="series-nav-card prev">
+      <span class="nav-card-label">Previous</span>
+      <span class="nav-card-title">Stop Making PowerPoints</span>
+    </a>
+    <a href="10-stop-taking-meeting-notes.html" class="series-nav-card next">
+      <span class="nav-card-label">Next</span>
+      <span class="nav-card-title">Stop Taking Meeting Notes</span>
+    </a>
+  </div>
+
+</article>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="platform-card reveal">
+    <div class="platform-card-header">
+      <div class="platform-card-title">// Performance Data</div>
+      <div class="platform-card-date">Posted May 15, 2026</div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-yt"></span>YouTube Shorts</div>
+      <div class="platform-stats">
+        <div><div class="stat-value">13</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value">0%</div><div class="stat-label-small">CTR</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:8px;padding-bottom:12px;font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:1px;">
+      64 impressions · 1.13 min total watch time · May 14: 4 views · May 15: 9 views
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-tt"></span>TikTok</div>
+      <div class="platform-stats">
+        <div><div class="stat-value highlight">136</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value">3.92s</div><div class="stat-label-small">Avg Watch</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:8px;padding-bottom:12px;">
+      <div class="platform-stats">
+        <div><div class="stat-value">1.4%</div><div class="stat-label-small">Full Video</div></div>
+        <div><div class="stat-value">0</div><div class="stat-label-small">New Followers</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:4px;padding-bottom:12px;font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:1px;">
+      Drop at 0:02 · 82.9% For You · 16.4% Search · 45–54 leads at 35%
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-ig"></span>Instagram</div>
+      <div class="platform-stats">
+        <div><div class="stat-value">104</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value">2</div><div class="stat-label-small">Interactions</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:8px;padding-bottom:12px;font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:1px;">
+      99 accounts reached · 1 like · 1 comment · <strong style="color:var(--lime);">1 follow ← first in series</strong>
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-chart-title">// Views by platform (253 total)</div>
+      <div class="bar-group">
+        <div class="bar-platform">YT</div>
+        <div class="bar-track"><div class="bar-fill yt" style="width:10%"></div></div>
+        <div class="bar-count">13</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-platform">TT</div>
+        <div class="bar-track"><div class="bar-fill tt" style="width:100%"></div></div>
+        <div class="bar-count">136</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-platform">IG</div>
+        <div class="bar-track"><div class="bar-fill ig" style="width:76%"></div></div>
+        <div class="bar-count">104</div>
+      </div>
+    </div>
+
+    <div class="virality-section">
+      <div class="virality-label">// Virality Factors</div>
+      <div class="virality-tags">
+        <span class="vtag">Before/after</span>
+        <span class="vtag">Photoshop pain</span>
+        <span class="vtag">Free tool</span>
+        <span class="vtag">International search</span>
+        <span class="vtag">1-click demo</span>
+        <span class="vtag">Visual proof</span>
+        <span class="vtag">First IG follow</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ryu-read reveal">
+    <div class="ryu-read-label">// Ryu's Read</div>
+    <p>253 views. First Instagram follow. And the video never once said "Clipdrop."<br><br>The title was also switched temporarily after posting — changed to something more algorithm-friendly, then switched back to the original "Stop Using Photoshop — This AI Edits in 1 Click." Whatever traffic came in during that window was arriving for a different promise than the video was making. It's back to the original now, which is the right call — the title is accurate to the content even if the content never names the tool.<br><br>That's the thing I keep coming back to. The features are real. The demos are accurate. Keyvello generated a genuinely compelling before/after sequence — Photoshop taking 20 minutes vs one click, background gone, object erased, sunset beach generated from a text prompt. All of that is exactly what Clipdrop does. And nobody watching knew that.<br><br>Every single viewer who stayed to the end and wanted to try it had one option: go search "this AI" or "AI that removes backgrounds" and hope they found the right tool. That's not a CTA. That's a dead end.<br><br>Two script claims are also wrong per the sourced review. The free plan does have watermarks — that's a direct contradiction of the "FREE NO WATERMARKS" caption burned into frame 15. And sign-up is required — email or Google account. Both of those corrections matter because they're the exact claims that would make someone click the link in bio.<br><br>The before/after format worked. The search queries in Thai and Indonesian found us internationally. The first Instagram follow happened on this video. The content was good. The execution just didn't tell anyone what they were watching.</p>
+  </div>
+
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// AI In This Video</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎬</span><span>Video generated by Keyvello Pro — Cinematic AI preset, bold white captions, middle alignment, 9:16 portrait, 50–55s target (44s actual).</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>The tool featured — Clipdrop — is never named in the video. No product name, no logo, no URL, no identifiable interface. Viewers had nothing to search for after watching.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>"No watermarks" — inaccurate. Sourced Clipdrop review confirms free plan exports include watermarks. Watermark-free outputs are a Pro feature ($15/month).</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>"No Sign-Up" — inaccurate. Clipdrop requires email or Google account login. Confirmed by sourced review: "Yes, you need to sign in with an email or Google account to use it."</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">✅</span><span>All three feature demos (background removal, object erasure, background generation) accurately represent what Clipdrop does. The features are real — just never identified by name.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⭐</span><span>First Instagram follow in the series — 104 views, 1 follow (0.96% follow rate from Reels).</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">📝</span><span>Blog sourced from: sites.google.com/view/aitoolfree/clipdrop-review (Clipdrop Review 2026). PCMag and Lovart.ai sources were inaccessible. Edited by Ryu Vy.</span></div>
+    </div>
+  </div>
+
+</aside>
+</div>
+
+<!-- SOCIAL SHARE + COMMENTS -->
+<section style="max-width:860px;margin:0 auto;padding:60px 48px 0;">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:48px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">// Share This Post</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+      <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+      <applause-button style="width:44px;height:44px;" url="https://aitoolsdaily24.netlify.app/09-stop-using-photoshop.html"></applause-button>
+      <a id="share-x" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UCwW_X7a0cshoqT1u_AYo-rg" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@dj.bomasterflex" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#00F2EA"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/aitoolsdaily245/" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+  </div>
+  <div style="margin-bottom:80px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--lime);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;">// Comments</div>
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = window.location.href;
+        this.page.identifier = window.location.pathname;
+      };
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://aitoolsdaily24.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+      document.getElementById('share-x').href =
+        'https://twitter.com/intent/tweet?text=' +
+        encodeURIComponent(document.title) +
+        '&url=' + encodeURIComponent(window.location.href);
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" style="color:var(--lime)">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--lime)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">New AI breakdowns in your inbox. No noise. Just signal — from a human who actually uses this stuff.</p>
+    <div class="reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+</body>
+</html>

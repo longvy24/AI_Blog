@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stop Making PowerPoints: Gamma AI Actually Builds Them For You | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="Gamma AI is real, profitable, and used by 70 million people. But the script has one pricing error and the 'free forever' claim needs a caveat. Here's the sourced breakdown — plus why this video posted May 13 and what the analytics actually show.">
+<meta property="og:title" content="Stop Making PowerPoints: Gamma AI Actually Builds Them | AIToolsDaily24">
+<meta property="og:description" content="Video 08 of 10. Gamma has 70M users, $100M ARR, $2.1B valuation — and a free plan that's genuinely useful. One script correction, full tool breakdown, and the real pricing tiers.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0D0F0D; --surface: #111810; --surface2: #161A14;
+    --border: #1E2A1A; --lime: #84E000;
+    --lime-dim: rgba(132,224,0,0.1); --lime-glow: rgba(132,224,0,0.05);
+    --white: #F2F5EE; --muted: #5A6A52;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(13,15,13,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-back:hover { color: var(--lime); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; background: var(--lime-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .lime { color: var(--lime); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--lime); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--bg); flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 340px; aspect-ratio: 9/16; }
+  .video-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; }
+
+  .content-with-sidebar { max-width: 1200px; margin: 0 auto; padding: 0 48px 80px; display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
+  .sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
+  .post-body-inner { min-width: 0; }
+  .post-body-inner p { font-size: 17px; font-weight: 300; color: #C8D4C0; line-height: 1.8; margin-bottom: 24px; }
+  .post-body-inner p strong { color: var(--white); font-weight: 500; }
+  .post-body-inner a { color: var(--lime); }
+
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading { font-family: var(--display); font-size: clamp(28px, 3vw, 44px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .section-heading .lime { color: var(--lime); }
+
+  .pull-quote { border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0; background: var(--lime-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 18px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+
+  .correction-box { background: rgba(255,80,50,0.06); border: 1px solid rgba(255,80,50,0.3); border-left: 3px solid #FF5032; border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; }
+  .correction-label { font-family: var(--mono); font-size: 10px; color: #FF5032; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .correction-box p { font-size: 15px !important; font-weight: 300 !important; color: #C8D4C0 !important; line-height: 1.7 !important; margin-bottom: 8px !important; }
+  .correction-box p:last-child { margin-bottom: 0 !important; }
+
+  .prompt-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; position: relative; }
+  .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7; }
+  .prompt-block code { font-family: var(--mono); font-size: 13px; color: var(--white); line-height: 1.7; display: block; white-space: pre-wrap; }
+  .prompt-copy { position: absolute; top: 16px; right: 16px; background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.2); color: var(--lime); font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+  .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; font-weight: 300; color: #C8D4C0; line-height: 1.7; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before { content: '→'; color: var(--lime); font-family: var(--mono); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+
+  .takeaway-box { background: var(--surface); border: 1px solid rgba(132,224,0,0.25); border-radius: 4px; padding: 32px; margin: 48px 0; position: relative; overflow: hidden; }
+  .takeaway-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 32px 0; }
+  .spec-item { background: var(--surface2); padding: 20px 24px; }
+  .spec-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .spec-value { font-family: var(--display); font-size: 28px; color: var(--white); line-height: 1; }
+  .spec-value.lime { color: var(--lime); }
+  .spec-sub { font-size: 13px; font-weight: 300; color: var(--muted); margin-top: 4px; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; }
+  .series-nav-card { background: var(--surface); padding: 24px; text-decoration: none; color: inherit; transition: all 0.25s; border: 1px solid transparent; display: flex; flex-direction: column; gap: 8px; }
+  .series-nav-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  /* SIDEBAR */
+  .platform-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+  .platform-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .platform-card-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .platform-card-title { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .platform-card-date { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .platform-row { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .platform-name { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .platform-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-yt { background: #FF0000; } .dot-tt { background: #00F2EA; } .dot-ig { background: #E1306C; }
+  .platform-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-value { font-family: var(--display); font-size: 22px; color: var(--white); line-height: 1; }
+  .stat-value.highlight { color: var(--lime); }
+  .stat-label-small { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+  .bar-chart { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .bar-chart-title { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .bar-group { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-group:last-child { margin-bottom: 0; }
+  .bar-platform { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; width: 22px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-fill.yt { background: #FF0000; } .bar-fill.tt { background: #00F2EA; } .bar-fill.ig { background: #E1306C; }
+  .bar-count { font-family: var(--mono); font-size: 9px; color: var(--white); width: 44px; flex-shrink: 0; }
+  .virality-section { padding: 14px 20px; border-top: 1px solid var(--border); }
+  .virality-label { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .virality-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .vtag { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 8px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.25); color: var(--lime); background: var(--lime-glow); }
+  .ryu-read { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 16px 20px; }
+  .ryu-read-label { font-family: var(--mono); font-size: 9px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .ryu-read p { font-size: 13px !important; color: #C8D4C0 !important; line-height: 1.65 !important; margin-bottom: 0 !important; font-weight: 300 !important; }
+  .ai-impact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .ai-impact-header { padding: 14px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .ai-impact-body { padding: 16px 20px; }
+  .ai-impact-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 12px; color: #C8D4C0; line-height: 1.5; font-weight: 300; }
+  .ai-impact-row:last-child { margin-bottom: 0; }
+  .ai-impact-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--lime), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+
+  footer { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--border); }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .content-with-sidebar { grid-template-columns: 1fr; padding: 0 24px 60px; }
+    .sidebar { position: static; }
+    .series-nav, .spec-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider { padding-left: 24px; padding-right: 24px; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="index.html#series" class="nav-back">← Back to Series</a>
+</nav>
+
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">08 / 10</span>
+    <span class="post-series">AIToolsDaily24</span>
+    <span class="post-date">May 13, 2026</span>
+  </div>
+  <h1 class="post-title">
+    Stop Making<br>
+    <span class="lime">PowerPoints</span><br>
+    The Breakdown
+  </h1>
+  <p class="post-subtitle">
+    Gamma AI has 70 million users and $100M ARR. The free plan is real. One pricing claim in the script needs a correction — and the free credits don't refresh.
+  </p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/eai9NwLvy3s"
+            allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="content-with-sidebar">
+<article class="post-body-inner">
+
+  <!-- CORRECTIONS -->
+  <div class="reveal">
+    <div class="section-label">Before The Breakdown</div>
+    <h2 class="section-heading">Four Things To <span class="lime">Correct Upfront</span></h2>
+    <p>
+      Gamma is real, profitable, and the tool does what the script says. The video has four documented production errors — one in the first frame viewers see, one in the pricing claim, one in the interface representation, and one visual transition glitch.
+    </p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 1 — "Free Forever" Needs A Caveat</div>
+    <p><strong>What the script says:</strong> "It's free to start — and I mean free forever, not free trial."</p>
+    <p><strong>What's accurate:</strong> Gamma does have a free plan with no time limit and no credit card required — that part is correct. But the 400 AI credits included at sign-up are <strong>one-time, not a monthly refresh</strong>. Once used, they're gone unless you earn more through referrals. "Free forever" implies ongoing unlimited access — the reality is a one-time credit budget. For regular use, Plus at $9/month (billed annually) is where ongoing monthly credits (1,000/month) and unlimited-ish AI generation actually live.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 2 — "Qaurterly Sals Report" Misspelling In Hook Frame</div>
+    <p><strong>What the video shows:</strong> The hook frame — the first thing viewers read — has an on-screen text overlay that reads <strong>"Qaurterly Sals Report"</strong>. Two words misspelled. "Quarterly" → "Qaurterly." "Sales" → "Sals."</p>
+    <p><strong>What's accurate:</strong> This is a Keyvello image generation error. The AI character's torso has this misspelled text burned into the frame in a red-outlined box. It's visible for several seconds at the start of the video — the exact moment viewers are deciding whether to keep watching. A misspelled word in a video about AI tools that are supposed to make your work look professional is a particularly bad look.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 3 — Gamma's Outro Frame Is A Fake Social Profile</div>
+    <p><strong>What the video shows:</strong> The outro/CTA sequence shows a desktop monitor with a social-profile-style card that has "GAMMA" labeled at the bottom left, a "Follow" button, a performance chart, and a building photo. A hand points at a "Follow" button.</p>
+    <p><strong>What's accurate:</strong> This is not Gamma's interface. Gamma is a presentation tool — it doesn't have a social profile with a "Follow" button. Keyvello generated a social media profile mockup and labeled it "GAMMA." Viewers who watch this sequence see what looks like a social account for a tool called Gamma, not the actual tool they'd go to gamma.app to use. The CTA "Follow" button also doesn't specify which platform or handle to follow — there's no @AIToolsDaily24 visible in the frame.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 4 — Visual Bug: Disconnected Screen Transition</div>
+    <p><strong>What the video shows:</strong> A transition glitch where the screen content doesn't visually connect to the laptop/device framing. The "no screen to laptop" visual bug creates a jarring cut where a floating screen appears without a clear device context.</p>
+    <p><strong>What's accurate:</strong> This is a Keyvello generation artifact from the scene transition — the AI-generated visual continuity broke between frames. It's a production quality issue that likely contributed to drop-off during that segment. In a video about a tool that promises to make your work look polished, a broken visual transition undercuts the message.</p>
+  </div>
+
+  <div class="pull-quote reveal">
+    <p>"The tool is exactly what it says it is. But the hook frame has two misspellings, the outro misrepresents Gamma's interface, and the free plan claim needs a caveat. The video sold the right product with the wrong production quality."</p>
+  </div>
+
+  <!-- WHAT GAMMA ACTUALLY IS -->
+  <div class="reveal">
+    <div class="section-label">The Tool</div>
+    <h2 class="section-heading">What Gamma <span class="lime">Actually Does</span></h2>
+    <p>
+      Gamma is an AI-powered platform for generating presentations, documents, and websites from a text prompt. You describe what you want — a pitch deck, a one-pager, a project brief — and Gamma builds it in under 60 seconds: layout, text, images, structure. No slide-by-slide manual work. Founded in 2020 by Grant Lee, James Fox, and Jon Noronha (all former Optimizely colleagues), Gamma added AI in early 2023 and the growth was immediate.
+    </p>
+  </div>
+
+  <div class="spec-grid reveal" style="grid-template-columns:1fr 1fr 1fr;">
+    <div class="spec-item">
+      <div class="spec-label">Total Users</div>
+      <div class="spec-value lime">70M</div>
+      <div class="spec-sub">As of late 2025 — global</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Annual Revenue</div>
+      <div class="spec-value lime">$100M</div>
+      <div class="spec-sub">ARR — profitable since 2023</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Valuation</div>
+      <div class="spec-value">$2.1B</div>
+      <div class="spec-sub">Series B led by a16z, Nov 2025</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Content Created</div>
+      <div class="spec-value">400M+</div>
+      <div class="spec-sub">Presentations, docs & sites total</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Daily Output</div>
+      <div class="spec-value">1M+</div>
+      <div class="spec-sub">Pieces of content created per day</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Team Size</div>
+      <div class="spec-value">52</div>
+      <div class="spec-sub">Employees — notably lean for scale</div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <p>
+      The key thing Gamma does differently from PowerPoint or Google Slides: it doesn't use a fixed 16:9 slide format. Instead, it uses a card-based, scrollable layout — variable-height content blocks that can hold text, images, video embeds, live charts, and interactive elements. This makes Gamma presentations look native on the web and on mobile, which is exactly why the share-as-a-link workflow works so well. The tradeoff: when you export to PowerPoint (which you can do — it's supported on all paid plans and the free tier), the card-based layout doesn't always translate cleanly to fixed slides. Text shifts, spacing changes, and formatting sometimes needs cleanup. If your final destination is always a .pptx file opened on someone's desktop, Gamma may add a step rather than remove one.
+    </p>
+    <p>
+      The <strong>Gamma Agent</strong> — introduced with version 3.0 in 2025 — is what the script is actually describing when it says "you just type what you want." It's a conversational AI you prompt to refine, restructure, or regenerate sections of your presentation. You can say "make the intro punchier" or "add a slide about competitive positioning" and it executes. This is the feature that makes Gamma feel more like a design partner than a template tool.
+    </p>
+    <p>
+      Beyond presentations, Gamma now generates websites, documents, social content, and standalone design assets (logos, infographics, diagrams) through Gamma Imagine — launched November 2025. The Generate API has been generally available since January 2026, allowing programmatic content creation at scale. Zapier and Make integrations connect it to 8,000+ apps. This isn't a narrow one-trick tool — it's positioning itself as a full visual communication platform.
+    </p>
+  </div>
+
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The One Real Limitation To Know</div>
+    <p>Gamma is cloud-only with no offline editing. Its card format is great for web sharing but imperfect for PowerPoint compatibility — the export works but often needs cleanup. And the free tier's 400 one-time credits, while generous enough to test the platform thoroughly, aren't a "free forever" unlimited plan. For anyone who needs to create presentations weekly, the $8/month Plus plan is the practical entry point for professional use.</p>
+  </div>
+
+  <!-- FRAME ANALYSIS -->
+  <div class="reveal">
+    <div class="section-label">Visual Analysis</div>
+    <h2 class="section-heading">What Each <span class="lime">Frame Shows</span></h2>
+    <p>All visuals are Keyvello-generated. The AI renders a plausible version of Gamma's interface in several frames, though the specific prompts and outputs shown are illustrative rather than actual Gamma screenshots. One frame has the recurring handle error.</p>
+  </div>
+
+  <div class="frame-grid reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0;">
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid #FF5032;">
+      <div style="font-family:var(--mono);font-size:10px;color:#FF5032;letter-spacing:2px;margin-bottom:8px;">// Frame 1 — Hook · SPELLING ERROR</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">AI-generated woman at a desk, frustrated expression, laptop open. Text overlay reads: <strong>"Qaurterly Sals Report"</strong> — two misspellings ("Qaurterly" and "Sals"). This is a Keyvello generation error burned into the hook frame. The word appears over the AI character's torso in a red-outlined box. It's the first text most viewers would read in the first two seconds.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid #FF5032;">
+      <div style="font-family:var(--mono);font-size:10px;color:#FF5032;letter-spacing:2px;margin-bottom:8px;">// Frame 2 — Presentation output · CHART ERRORS</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">"Quarterly Sales Report" slide on a laptop screen — correctly spelled this time. Bullet points: "Sales increased by 20% in Q1" and "Top performer: West region." Bar chart visible, but the X-axis labels are duplicated: Jan, Jan, Feb, Mar, Mar — a Keyvello generation artifact. The Y-axis shows "10%" and "20%" on one side but "10" on the other. Caption: "CHARTS AND KEY METRICS." The slide structure is representative of Gamma output; the chart data is illustrative and the axis errors are production artifacts.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid #FF5032;">
+      <div style="font-family:var(--mono);font-size:10px;color:#FF5032;letter-spacing:2px;margin-bottom:8px;">// Frame 3 — AI editing · GARBLED TEXT</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Laptop showing a document titled "Q2 Business Review / Updated Q2 Metrics." The content body is entirely garbled placeholder text — strings of nonsense words that appear to be generated characters, not real content. A tablet is visible in the background showing a partial slide. Caption: "SAY MAKE IT MORE" — a mid-sentence caption fragment. The document framing represents Gamma's editing workflow; the body text is a recurring Keyvello limitation where generated documents contain unreadable filler.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid #FF5032;">
+      <div style="font-family:var(--mono);font-size:10px;color:#FF5032;letter-spacing:2px;margin-bottom:8px;">// Frame 4 — "Zero design" frame · GARBLED TABLE</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Tablet on a desk showing "Sales Pitch Highlights" — a table with multiple rows and columns. All table cell content is unreadable garbled text. Caption: "YOU NEED ZERO DESIGN." The table structure is visually accurate to what Gamma generates; the content is Keyvello's standard limitation with text inside tables. A second device is partially visible on the left. The "zero design needed" claim in the caption is accurate for Gamma — the visual evidence just doesn't prove it because the text can't be read.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Frame 5 — Performance review output</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Desktop monitor showing "Q2 Performance Review" — dark blue presentation slide with a performance chart card embedded. The card shows two trend lines with orange and blue markers. Caption: "I'LL SEND YOU THE" — mid-sentence cut (likely "I'll send you the link"). This frame is more visually polished than the earlier ones and accurately represents the kind of chart-embedded deck Gamma produces. The chart data is illustrative.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid #FF5032;">
+      <div style="font-family:var(--mono);font-size:10px;color:#FF5032;letter-spacing:2px;margin-bottom:8px;">// Frame 6 — Gamma CTA frame · WRONG INTERFACE</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Desktop monitor showing a social-profile-style UI card with the word <strong>"GAMMA"</strong> visible in the lower left, a "Follow" button, a performance chart, and a building photo. A hand points at the screen. This is <strong>not Gamma's actual interface</strong> — it appears to be a Keyvello-generated social profile mockup that has "GAMMA" labeled on it. Gamma is a presentation tool, not a social platform. The "Follow" button and social card format are not how Gamma looks or works. This frame misrepresents what Gamma actually is.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid #FF5032;">
+      <div style="font-family:var(--mono);font-size:10px;color:#FF5032;letter-spacing:2px;margin-bottom:8px;">// Frame 7 — Follow button CTA · VISUAL BUG + GARBLED TEXT</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Close-up of a "Follow" button being tapped on a screen. The surrounding card content shows a building image at top and garbled Lorem-style placeholder text below. This is the outro CTA frame. Notably, <strong>no channel handle is visible</strong> in this frame — unlike post 07 which showed "@TechVisualsPro." The CTA asks viewers to "Follow" without specifying where or who. You also noted a "visual bug: no screen to laptop" — this appears to be a transition glitch where the screen content doesn't visually connect to the laptop device framing in preceding frames.</p>
+    </div>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Frame 8 — Title card (hook)</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Clean dark blue background with diagonal light panel design. Text: <strong>"STOP MAKING POWERPOINTS / THIS AI / BUILDS THEM"</strong> in yellow, white, and cyan. This is the cleanest frame in the video — no garbled text, no generation errors. It's the title card that matches the YouTube title. The contrast between this polished frame and the garbled document frames throughout the video is notable.</p>
+    </div>
+
+  </div>
+
+  <!-- PRICING -->
+  <div class="reveal">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-heading">What It Actually <span class="lime">Costs</span></h2>
+    <p>Gamma's pricing as of May 2026, sourced from the official gamma.app pricing page and cross-referenced with independent reviews. The script references "free to start" accurately — but undersells the credit limitation.</p>
+  </div>
+
+  <div class="spec-grid reveal" style="grid-template-columns:1fr 1fr;">
+    <div class="spec-item">
+      <div class="spec-label">Free Plan</div>
+      <div class="spec-value lime">$0</div>
+      <div class="spec-sub">400 one-time AI credits · No CC required · Gamma branding on output</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Plus Plan</div>
+      <div class="spec-value">$9</div>
+      <div class="spec-sub">/seat/month ($108/year) · 1,000 monthly credits · No branding · Advanced AI image models</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Pro Plan</div>
+      <div class="spec-value">$18</div>
+      <div class="spec-sub">/seat/month ($216/year) · 4,000 credits · Premium models · Custom branding & fonts · API · Analytics</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Ultra Plan</div>
+      <div class="spec-value">$90</div>
+      <div class="spec-sub">/seat/month ($1,080/year) · 20,000 credits · 75 cards/prompt · Most advanced models · 100 custom domains</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Team Plan</div>
+      <div class="spec-value">$20</div>
+      <div class="spec-sub">/seat/month ($240/year, min. 2 seats) · 6,000 credits/seat · Shared brand theme · Admin controls</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Business Plan</div>
+      <div class="spec-value">$40</div>
+      <div class="spec-sub">/seat/month ($480/year, min. 10 seats) · 10,000 credits/seat · SSO · SOC 2 · Advanced data controls</div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <p>The practical entry point for anyone who wants to use Gamma seriously is <strong>Plus at $9/month</strong> (billed annually at $108/seat/year). That's where the branding comes off, you get 1,000 monthly AI credits (which refresh), and exports to PowerPoint and PDF are unrestricted. The free plan's 400 one-time credits are genuinely enough to build several full presentations and evaluate whether the tool fits your workflow before spending anything. Note that Plus credits are <em>monthly</em> — 1,000/month — whereas the free plan's 400 are one-time only.</p>
+  </div>
+
+  <!-- SCRIPT -->
+  <div class="reveal">
+    <div class="section-label">Behind The Scenes</div>
+    <h2 class="section-heading">The Full <span class="lime">Script</span></h2>
+    <p>The complete script used to generate this video via Keyvello Pro. One correction applies to the "free forever" line.</p>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// Full Video Script</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>[0–3s] HOOK:
+"Stop making PowerPoints manually.
+This AI builds your entire presentation
+in under 60 seconds."
+
+[3–12s] WHAT IT IS:
+"It's called Gamma. You type what you want —
+a pitch deck, a product overview, a project brief —
+and it generates the whole thing. Slides, layout,
+images, structure. Done."
+
+[12–28s] HOW IT WORKS:
+"You give it a prompt. Gamma writes the content,
+designs the layout, finds the images.
+You can edit anything after — or just share it
+as a link straight from the tool.
+No download needed."
+
+[28–42s] WHAT YOU CAN DO WITH IT:
+"Export to PowerPoint, PDF, or Google Slides.
+Embed videos, charts, and live forms.
+Use the AI Agent to rewrite sections just by
+describing what you want.
+It's not a template tool — it's a design partner."
+
+[42–55s] THE KEY DETAIL — PRICING:
+"It's free to start — and I mean free forever,
+not free trial."
+⚠️ Correction: free plan has 400 one-time AI credits,
+   not unlimited. Credits do not refresh monthly.
+   Plus plan ($8/mo annual) is where unlimited AI lives.
+
+[55–65s] CTA:
+"70 million people already use this.
+If you're still building slides by hand, try Gamma.
+Link in bio. Follow @AIToolsDaily for more."
+⚠️ Handle should be @AIToolsDaily24</code>
+    </div>
+  </div>
+
+  <!-- RFTC -->
+  <div class="reveal">
+    <div class="section-label">The Framework</div>
+    <h2 class="section-heading">The RFTC <span class="lime">Model</span></h2>
+    <p>Same base RFTC model used across all 10 videos. This script was categorized as: <strong>Tool Review · Evergreen · All 3 platforms · High discovery potential.</strong></p>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// RFTC Base Model — AIToolsDaily24</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>ROLE:
+You are a new and up-and-coming content creator.
+
+TASK:
+You are to use the tools available to you to make a successful
+social media platform on Instagram, TikTok, YouTube, or any
+other video platform.
+
+FORMAT:
+Video shorts optimized for any video platform or platforms
+that allow short-form content.
+
+CONTEXT:
+You have a Keyvello Pro account, a trend analyzer to analyze
+popular trends, and any account can be created to upload these
+videos so long as they are free to create.</code>
+    </div>
+  </div>
+
+  <!-- PRODUCTION -->
+  <div class="reveal">
+    <div class="section-label">Production</div>
+    <h2 class="section-heading">Keyvello <span class="lime">Settings</span></h2>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// Keyvello Production Settings</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Template:      Tool Review / Evergreen
+Visual preset: Cinematic AI
+Voice:         Clear, direct
+Music:         Ambient / understated
+Captions:      Bold White · Middle alignment · Fast pop
+Quality:       Pro (1.5x tokens)
+Aspect ratio:  Portrait 9:16
+Duration:      60s target</code>
+    </div>
+  </div>
+
+  <!-- DATA STORY -->
+  <div class="reveal">
+    <div class="section-label">The Numbers</div>
+    <h2 class="section-heading">5 on YouTube, <span class="lime">127 on TikTok</span></h2>
+    <p>
+      Post 08 posted May 13, 2026. YouTube: <strong>5 views</strong>, 76 impressions, 0% CTR, 0.88 minutes total watch time. TikTok: <strong>127 views</strong>, 3.88 second average watch time, 1.5% full video completion, 0 new followers, drop-off at 0:02. Instagram: <strong>103 views</strong>, 98 accounts reached, 2 interactions (1 like, 1 comment), 100% non-followers. Total cross-platform: 235 views.
+    </p>
+    <p>
+      The platform split tells the story. YouTube served the video to 76 people and got 5 taps — 0% CTR. TikTok pushed it into 127 views through the For You feed (86.9%) with some search (13.1%). Instagram reached 98 accounts and got 103 views. TikTok did the heavy lifting, as it has for most of this series. YouTube Shorts continues to underperform — the 0% CTR on 76 impressions is a thumbnail and title conversion problem, not a distribution problem. The algorithm gave it a shot; the card didn't convert.
+    </p>
+    <p>
+      The TikTok audience skews 45–54 at 40%, consistent with post 07 (Copilot Cowork). US at 83.9%. Gender 66% male, 32% female. The same professional demographic that found Copilot Cowork is also finding this video — older, working professionals who make presentations as part of their job. That's the right audience for a Gamma pitch. The 3.88 second average watch time and drop at 0:02 suggest the hook — including that "Qaurterly Sals Report" misspelling in the first frame — didn't hold them. Most viewers left before the actual tool was shown.
+    </p>
+  </div>
+
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The Hook Frame Misspelling Probably Cost Views</div>
+    <p>The first frame viewers see contains "Qaurterly Sals Report" in large text. The average watch time is 3.88 seconds and most dropped at 0:02. That timing lines up with the hook frame being on screen. Whether the misspelling caused the drop or the hook just wasn't compelling enough is impossible to separate from the data alone — but a misspelled word in a video about AI making your work look professional is not a great first impression. The TikTok search queries are still processing per the analytics screenshot, so we don't know yet what terms brought the 13.1% search traffic in.</p>
+  </div>
+
+  <!-- FURTHER READING -->
+  <div class="reveal">
+    <div class="section-label">Further Reading</div>
+    <h2 class="section-heading">Sources Worth <span class="lime">Your Time</span></h2>
+    <ul class="try-list">
+      <li>
+        <div>
+          <strong>How We Built a $100M Business Differently — Gamma.app</strong> — <a href="https://gamma.app/insights/how-we-built-a-usd100m-business-differently" target="_blank">gamma.app</a><br>
+          <span style="font-size:14px;color:var(--muted);">Grant Lee's founder post from November 2025. Primary source for the $100M ARR milestone, $2.1B Series B valuation, 70 million user count, 400 million pieces of content created, and the company's profitability-first growth story. The context for why this tool is a legitimate business, not a beta experiment.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Gamma Surpasses $100M ARR, Raises at $2.1B Valuation — Business Wire / TechCrunch</strong> — <a href="https://techcrunch.com/2025/11/10/ai-powerpoint-killer-gamma-hits-2-1b-valuation-100m-arr-founder-says/" target="_blank">techcrunch.com</a><br>
+          <span style="font-size:14px;color:var(--muted);">Independent coverage of the November 2025 Series B announcement. Corroborates the $68M raise led by Andreessen Horowitz, 70 million users, $100M ARR, and the 50-person team scale. Also notes the $20M secondary component that gave early employees liquidity.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Gamma Review 2026: AI Presentation Maker Features &amp; Pricing — Max Productive</strong> — <a href="https://max-productive.ai/ai-tools/gamma/" target="_blank">max-productive.ai</a><br>
+          <span style="font-size:14px;color:var(--muted);">Comprehensive hands-on review covering pricing tiers (Free / Plus / Pro / Ultra), the 400-credit free plan structure, the Gamma Agent feature, export options, integrations, and limitations. Source for the "under 60 seconds" generation claim and the multi-model (20+ AI models) architecture.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Gamma App Review 2026 — Prezent.ai</strong> — <a href="https://www.prezent.ai/blog/gamma-app-review" target="_blank">prezent.ai</a><br>
+          <span style="font-size:14px;color:var(--muted);">Enterprise-focused review that documents the card-to-PowerPoint export limitation clearly — text can shift, spacing changes, and formatting often requires manual cleanup. Useful counter-balance to the "replaces PowerPoint entirely" framing. If your final destination is always a .pptx file, this review is worth reading before committing.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="07-copilot-cowork.html" class="series-nav-card prev">
+      <span class="nav-card-label">Previous</span>
+      <span class="nav-card-title">Copilot Cowork</span>
+    </a>
+    <a href="09-stop-using-photoshop.html" class="series-nav-card next">
+      <span class="nav-card-label">Next</span>
+      <span class="nav-card-title">Stop Using Photoshop</span>
+    </a>
+  </div>
+
+</article>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="platform-card reveal">
+    <div class="platform-card-header">
+      <div class="platform-card-title">// Performance Data</div>
+      <div class="platform-card-date">Posted May 13, 2026</div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-yt"></span>YouTube Shorts</div>
+      <div class="platform-stats">
+        <div><div class="stat-value">5</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value">0%</div><div class="stat-label-small">CTR</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:8px;padding-bottom:12px;font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:1px;">
+      76 impressions · 0.88 min total watch time · Posted May 13
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-tt"></span>TikTok</div>
+      <div class="platform-stats">
+        <div><div class="stat-value highlight">127</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value">3.88s</div><div class="stat-label-small">Avg Watch</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:8px;padding-bottom:12px;">
+      <div class="platform-stats">
+        <div><div class="stat-value">1.5%</div><div class="stat-label-small">Full Video</div></div>
+        <div><div class="stat-value">0</div><div class="stat-label-small">New Followers</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:4px;padding-bottom:12px;font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:1px;">
+      Drop-off at 0:02 · 86.9% For You · 13.1% Search · 45–54 leads at 40%
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-ig"></span>Instagram</div>
+      <div class="platform-stats">
+        <div><div class="stat-value">103</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value">2</div><div class="stat-label-small">Interactions</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:8px;padding-bottom:12px;font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:1px;">
+      98 accounts reached · 1 like · 1 comment · 100% non-followers
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-chart-title">// Views by platform</div>
+      <div class="bar-group">
+        <div class="bar-platform">YT</div>
+        <div class="bar-track"><div class="bar-fill yt" style="width:4%"></div></div>
+        <div class="bar-count">5</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-platform">TT</div>
+        <div class="bar-track"><div class="bar-fill tt" style="width:100%"></div></div>
+        <div class="bar-count">127</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-platform">IG</div>
+        <div class="bar-track"><div class="bar-fill ig" style="width:81%"></div></div>
+        <div class="bar-count">103</div>
+      </div>
+    </div>
+
+    <div class="virality-section">
+      <div class="virality-label">// Virality Factors</div>
+      <div class="virality-tags">
+        <span class="vtag">Evergreen tool</span>
+        <span class="vtag">70M users</span>
+        <span class="vtag">Search intent</span>
+        <span class="vtag">Free plan hook</span>
+        <span class="vtag">PowerPoint pain</span>
+        <span class="vtag">Creator workflow</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ryu-read reveal">
+    <div class="ryu-read-label">// Ryu's Read</div>
+    <p>235 total views. YouTube: 5. TikTok: 127. Instagram: 103. TikTok carried it again.<br><br>The 0% YouTube CTR on 76 impressions stings more now that I have the full picture — TikTok and Instagram both delivered, YouTube showed it to people and nobody clicked. Same tool, same video, completely different result by platform. The YouTube thumbnail/title combination just isn't converting for this series.<br><br>The hook frame misspelling ("Qaurterly Sals Report") is the thing I keep coming back to. Drop-off at 0:02 on TikTok. That's when that frame was on screen. Whether it's the misspelling or just a weak hook is hard to separate, but either way the first two seconds didn't hold people.<br><br>45–54 audience again at 40% on TikTok. Same demographic as post 07. These are the people making presentations at work — they're the right audience for Gamma. The problem is 3.88 second average watch time means most of them left before seeing what Gamma actually does.<br><br>Pricing correction is mine: I had Plus at $8 in the first draft. Actual is $9. Fixed from the screenshot.</p>
+  </div>
+
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// AI In This Video</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎬</span><span>Video generated by Keyvello Pro — Cinematic AI visual preset, bold white captions, middle alignment, 9:16 portrait, 60s target.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Hook frame shows "Qaurterly Sals Report" — two misspellings burned into the first frame viewers see. Keyvello image generation error.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>"Free forever" — free plan has no time limit but 400 AI credits are one-time, not a monthly refresh. Ongoing credits start at Plus ($9/month annual).</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Outro CTA frame shows a fake social profile labeled "GAMMA" with a "Follow" button — not Gamma's actual interface. No channel handle visible in the frame.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Visual bug: screen-to-laptop transition glitch creates a disconnected frame where content floats without device context.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>All document body text, table cells, and chart labels throughout are Keyvello-generated garbled placeholder text — unreadable in every frame.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Blog draft had incorrect pricing (Plus $8, Pro $15, Ultra $100). Corrected against actual gamma.app pricing page screenshot: Plus $9, Pro $18, Ultra $90.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">📝</span><span>Blog post drafted by Claude, fact-checked against gamma.app pricing page, Gamma's Series B announcement, and independent 2026 reviews. Edited by Ryu Vy.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Outro shows @AIToolsDaily — missing "24." Recurring Keyvello handle error across multiple videos in this series. Correct handle: @AIToolsDaily24.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">✅</span><span>All Gamma stats (70M users, $100M ARR, $2.1B valuation, 400M+ content pieces, 1M+ daily) sourced from Gamma's own November 2025 press release and founder post, corroborated by TechCrunch and Business Wire.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">📝</span><span>Blog post drafted by Claude, fact-checked against gamma.app pricing page, Gamma's Series B announcement, and independent 2026 reviews. Edited by Ryu Vy.</span></div>
+    </div>
+  </div>
+
+</aside>
+</div>
+
+<!-- SOCIAL SHARE + COMMENTS -->
+<section style="max-width:860px;margin:0 auto;padding:60px 48px 0;">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:48px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">// Share This Post</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+      <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+      <applause-button style="width:44px;height:44px;" url="https://aitoolsdaily24.netlify.app/08-stop-making-powerpoints.html"></applause-button>
+      <a id="share-x" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UCwW_X7a0cshoqT1u_AYo-rg" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@dj.bomasterflex" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#00F2EA"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/aitoolsdaily245/" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+  </div>
+  <div style="margin-bottom:80px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--lime);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;">// Comments</div>
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = window.location.href;
+        this.page.identifier = window.location.pathname;
+      };
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://aitoolsdaily24.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+      document.getElementById('share-x').href =
+        'https://twitter.com/intent/tweet?text=' +
+        encodeURIComponent(document.title) +
+        '&url=' + encodeURIComponent(window.location.href);
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" style="color:var(--lime)">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--lime)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">New AI breakdowns in your inbox. No noise. Just signal — from a human who actually uses this stuff.</p>
+    <div class="reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+</body>
+</html>
