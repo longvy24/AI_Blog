@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+  SEO META
+  ============================================================ -->
+<title>Vol 2 · 30 Renders, Zero Views — The Production Retrospective | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="Vol 2 of the AIToolsDaily24 series: 10 prompt-engineering lessons × 3 variations each = 30 renders, all built in HyperFrames + GSAP. Zero AI-hallucinated products, zero generated voice flubs, full control. Here's what changed from Vol 1, what was hard, and what's still to learn.">
+<meta property="og:title" content="Vol 2 · 30 Renders, Zero Views — Production Retrospective | AIToolsDaily24">
+<meta property="og:description" content="An honest production retrospective on Vol 2 of the prompt-engineering series.">
+<meta property="og:type" content="article">
+<!-- ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0A0C0A;
+    --surface:  #111810;
+    --surface2: #161A14;
+    --border:   #1E2A1A;
+    --lime:     #84E000;
+    --lime-dim: rgba(132,224,0,0.1);
+    --lime-glow:rgba(132,224,0,0.05);
+    --blue:     #38BDF8;
+    --red:      #EF4444;
+    --white:    #F2F5EE;
+    --muted:    #5A6A52;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,12,10,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
+  .nav-back:hover { color: var(--lime); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; background: var(--lime-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .lime { color: var(--lime); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--lime); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--bg); flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .divider { max-width: 860px; margin: 40px auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; }
+
+  .post-body { max-width: 860px; margin: 0 auto; padding: 0 48px 80px; }
+
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+
+  .section-heading { font-family: var(--display); font-size: clamp(32px, 4vw, 52px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .section-heading .lime { color: var(--lime); }
+
+  .post-body p { font-size: 17px; font-weight: 300; color: #C8D4C0; line-height: 1.8; margin-bottom: 24px; }
+  .post-body p strong { color: var(--white); font-weight: 500; }
+  .post-body p em { color: var(--lime); font-style: italic; }
+
+  .pull-quote { border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0; background: var(--lime-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 20px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+
+  /* Stat pill row */
+  .stat-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 32px; }
+  .stat-pill {
+    font-family: var(--mono); font-size: 12px; color: var(--white);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 8px 14px; letter-spacing: 1px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .stat-pill .num { font-family: var(--display); font-size: 22px; color: var(--lime); line-height: 1; letter-spacing: 1px; }
+
+  /* Variant matrix — 3 columns showing A/B/C */
+  .variant-matrix { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin: 32px 0; overflow: hidden; position: relative; }
+  .variant-matrix::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), var(--blue), var(--red)); }
+  .variant-matrix-header { padding: 18px 24px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; }
+  .variant-matrix-header::before { content: '// '; opacity: 0.5; }
+  .variant-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 720px) { .variant-grid { grid-template-columns: 1fr; } }
+  .variant-cell { padding: 22px 24px; border-right: 1px solid var(--border); }
+  .variant-cell:last-child { border-right: none; }
+  @media (max-width: 720px) { .variant-cell { border-right: none; border-bottom: 1px solid var(--border); } }
+  .variant-cell .vc-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .variant-cell.a .vc-tag { color: var(--lime); }
+  .variant-cell.b .vc-tag { color: var(--blue); }
+  .variant-cell.c .vc-tag { color: var(--red); }
+  .variant-cell .vc-name { font-family: var(--display); font-size: 22px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--white); margin-bottom: 10px; line-height: 1; }
+  .variant-cell .vc-desc { font-family: var(--body); font-size: 14px; color: #C8D4C0; line-height: 1.55; }
+
+  /* Topic ledger — 10 rows for the 10 videos */
+  .topic-ledger { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin: 32px 0; overflow: hidden; }
+  .topic-ledger-head { padding: 16px 22px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .topic-ledger-head::before { content: '// '; opacity: 0.5; }
+  .topic-row { display: grid; grid-template-columns: 50px 1fr 80px 90px; gap: 14px; padding: 13px 22px; border-top: 1px solid var(--border); align-items: center; font-size: 14px; }
+  @media (max-width: 720px) { .topic-row { grid-template-columns: 40px 1fr; row-gap: 4px; } .topic-row .scheme, .topic-row .runtime { grid-column: 2; font-size: 11px; color: var(--muted); } }
+  .topic-row .num { font-family: var(--mono); font-size: 12px; color: var(--lime); letter-spacing: 1.5px; }
+  .topic-row .title { color: var(--white); font-weight: 500; }
+  .topic-row .title em { color: #C8D4C0; font-style: italic; font-weight: 300; font-size: 13px; }
+  .topic-row .scheme { font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
+  .topic-row .scheme.lime { color: var(--lime); }
+  .topic-row .scheme.blue { color: var(--blue); }
+  .topic-row .scheme.red { color: var(--red); }
+  .topic-row .runtime { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; text-align: right; }
+
+  /* Try list reused from V1 retro */
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 16px; font-weight: 300; color: #C8D4C0;
+    line-height: 1.7; padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before {
+    content: '→'; color: var(--lime);
+    font-family: var(--mono); font-size: 14px;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .try-list li strong { color: var(--white); font-weight: 500; }
+  .try-list li em { color: var(--lime); font-style: italic; }
+
+  /* Stack callout */
+  .stack-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin: 32px 0; }
+  @media (max-width: 720px) { .stack-grid { grid-template-columns: 1fr; } }
+  .stack-cell { background: var(--bg); padding: 22px 24px; }
+  .stack-cell .sc-tag { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .stack-cell .sc-name { font-family: var(--display); font-size: 22px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--white); line-height: 1; margin-bottom: 8px; }
+  .stack-cell .sc-desc { font-family: var(--body); font-size: 13px; color: #C8D4C0; line-height: 1.6; }
+  .stack-cell .sc-desc em { color: var(--lime); font-style: italic; }
+
+  /* "Pending data" callout — for the section that will be filled when videos go live */
+  .pending-box {
+    background: var(--surface); border: 1px dashed rgba(132,224,0,0.35);
+    border-radius: 4px; padding: 28px 32px; margin: 32px 0;
+    position: relative;
+  }
+  .pending-box::before {
+    content: '// AWAITING PUBLISH WINDOW';
+    position: absolute; top: -10px; left: 24px;
+    background: var(--bg);
+    font-family: var(--mono); font-size: 10px; color: var(--lime);
+    letter-spacing: 2px; padding: 0 8px;
+  }
+  .pending-box p { font-size: 15px !important; margin-bottom: 12px !important; color: #C8D4C0 !important; }
+  .pending-box p:last-child { margin-bottom: 0 !important; }
+  .pending-box .ph-list { list-style: none; margin-top: 12px; }
+  .pending-box .ph-list li { font-family: var(--mono); font-size: 12px; color: var(--muted); padding: 6px 0; letter-spacing: 0.5px; }
+  .pending-box .ph-list li::before { content: '☐ '; color: var(--lime); }
+
+  /* Comparison block — Vol 1 vs Vol 2 */
+  .compare-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 32px 0; }
+  @media (max-width: 720px) { .compare-2col { grid-template-columns: 1fr; } }
+  .compare-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 22px 24px; border-top: 3px solid; }
+  .compare-card.vol1 { border-top-color: var(--muted); }
+  .compare-card.vol2 { border-top-color: var(--lime); }
+  .compare-card .cc-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .compare-card.vol1 .cc-tag { color: var(--muted); }
+  .compare-card.vol2 .cc-tag { color: var(--lime); }
+  .compare-card .cc-list { list-style: none; }
+  .compare-card .cc-list li { padding: 8px 0; font-size: 14px; color: #C8D4C0; line-height: 1.55; border-bottom: 1px dashed var(--border); }
+  .compare-card .cc-list li:last-child { border-bottom: none; }
+  .compare-card .cc-list li strong { color: var(--white); font-weight: 500; }
+
+  .takeaway-box {
+    background: var(--surface); border: 1px solid rgba(132,224,0,0.25);
+    border-radius: 4px; padding: 32px; margin: 48px 0;
+    position: relative; overflow: hidden;
+  }
+  .takeaway-box::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--lime), transparent);
+  }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+  .takeaway-box p em { color: var(--lime); font-style: italic; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; position: relative; z-index: 1; }
+  @media (max-width: 720px) { .series-nav { grid-template-columns: 1fr; } }
+  .series-nav-card { background: var(--surface); padding: 24px; text-decoration: none; color: inherit; transition: all 0.25s; border: 1px solid transparent; display: flex; flex-direction: column; gap: 8px; }
+  .series-nav-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .nav-card-icon { font-size: 28px; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--lime), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+
+  footer { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--border); }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .divider, .post-body { padding-left: 24px; padding-right: 24px; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">← Back to Series</a>
+</nav>
+
+<!-- POST HERO -->
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">VOL 2 RETRO</span>
+    <span class="post-series">AI Prompting · Series Retrospective</span>
+    <span class="post-date">June 2026</span>
+  </div>
+
+  <h1 class="post-title">
+    30 Renders.<br>
+    <span class="lime">Zero Views.</span>
+  </h1>
+
+  <p class="post-subtitle">
+    Volume 2 is built. Ten prompt-engineering lessons, three variations each, thirty renders in the can, ten blog posts live, and a fully overhauled production stack. <strong>Nothing has shipped to a platform yet</strong> — so this isn't the performance audit Vol 1 was. This is the production retrospective: what changed from the Keyvello days, what the new stack made possible, what was hard, and what we'll be measuring once the upload window opens.
+  </p>
+
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE PRODUCTION AUDIT</div>
+  <div class="divider-line"></div>
+</div>
+
+<article class="post-body">
+
+  <!-- SECTION 1: THE SETUP -->
+  <div class="reveal">
+    <div class="section-label">The Setup</div>
+    <h2 class="section-heading">Ten Videos. <span class="lime">Thirty Renders.</span></h2>
+    <p>
+      Vol 2 is a single connected series — ten lessons on prompt engineering, each one screenshot-able, each one paired with a full blog post, each one cycled across a fixed three-color palette (lime, blue, red, repeating). Topics run from <strong>context feeding</strong> through <strong>system prompts</strong>, <strong>temperature</strong>, <strong>formatting control</strong>, <strong>tree of thought</strong>, <strong>persona depth</strong>, <strong>prompt templates</strong>, <strong>multimodal prompting</strong>, and finally <strong>prompt triage</strong> as the closer.
+    </p>
+    <p>
+      The biggest production shift from Vol 1 is the variant policy: every brief gets <strong>three independent video builds</strong> — A (the original aesthetic, the foundation of the brand), B (an app-chrome reframe — vision.chat, persona.app, triage.app, etc.), and C (an illustrated diagram reframe with a paginated lesson-page worksheet feel). Same VO, same brief, three different visual stories. Each one feeds a different algorithm preference.
+    </p>
+
+    <div class="stat-row">
+      <span class="stat-pill"><span class="num">10</span> lessons shipped</span>
+      <span class="stat-pill"><span class="num">30</span> renders</span>
+      <span class="stat-pill"><span class="num">10</span> blog posts</span>
+      <span class="stat-pill"><span class="num">60</span> VOs (Kokoro · am_adam)</span>
+      <span class="stat-pill"><span class="num">0</span> AI hallucinations</span>
+      <span class="stat-pill"><span class="num">0</span> views (yet)</span>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote reveal">
+    <p>"Vol 1 was the audit. Vol 2 is the answer. Same craft, different cost — three renders per brief, every prompt diagnosable, every typo our own to fix."</p>
+  </div>
+
+  <!-- SECTION 2: VOL 1 vs VOL 2 COMPARISON -->
+  <div class="reveal">
+    <div class="section-label">What Changed</div>
+    <h2 class="section-heading">From Keyvello to <span class="lime">HyperFrames + GSAP</span></h2>
+    <p>
+      The first 10 videos were end-to-end Keyvello — AI script, AI voiceover, AI visuals, AI captions, AI assembly. It shipped fast and crashed visibly. Vol 2 swapped Keyvello for a deterministic stack: <strong>HyperFrames HTML compositions, GSAP timelines, Kokoro TTS, Tailwind v4 runtime styling, hand-written content</strong>. Every frame is reproducible. Every voiceover is on disk before render. Nothing hallucinates a product name.
+    </p>
+  </div>
+
+  <div class="compare-2col reveal">
+    <div class="compare-card vol1">
+      <div class="cc-tag">★ Vol 1 · May 2026</div>
+      <ul class="cc-list">
+        <li><strong>Pipeline:</strong> Keyvello end-to-end (script + VO + visuals + assembly)</li>
+        <li><strong>Cadence:</strong> 1 video per topic · ship-and-pray</li>
+        <li><strong>Review loop:</strong> none baked in</li>
+        <li><strong>Hallucinations:</strong> 30+ documented errors</li>
+        <li><strong>Examples:</strong> "Perplexity Computer" · "$29 Perplexity Pro" · "Qaurterly Sals Report"</li>
+        <li><strong>Audio:</strong> ElevenLabs (embedded) — mono defects, platform bleed</li>
+        <li><strong>Result:</strong> 4,407 views, 2 breakouts, 8 craters</li>
+      </ul>
+    </div>
+    <div class="compare-card vol2">
+      <div class="cc-tag">★ Vol 2 · June 2026</div>
+      <ul class="cc-list">
+        <li><strong>Pipeline:</strong> HyperFrames + GSAP + Tailwind + Kokoro + Whisper</li>
+        <li><strong>Cadence:</strong> 3 variants per topic (A original / B app-chrome / C illustrated)</li>
+        <li><strong>Review loop:</strong> lint + validate + inspect on every change</li>
+        <li><strong>Hallucinations:</strong> 0 — content is hand-written, VO is deterministic</li>
+        <li><strong>Examples:</strong> 4 fully-rendered templates per video, all hand-verified</li>
+        <li><strong>Audio:</strong> Kokoro am_adam, transcribed with Whisper for QA</li>
+        <li><strong>Result:</strong> 30 renders, all clean lint, awaiting publish window</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 3: THE 3-VARIANT PATTERN -->
+  <div class="reveal">
+    <div class="section-label">The Variant Pattern</div>
+    <h2 class="section-heading">Three Stories. <span class="lime">One Brief.</span></h2>
+    <p>
+      The Vol 1 audit said the algorithm rewards different things on different platforms — TikTok wants comments, Instagram wants saves, YouTube wants click-through. The Vol 2 answer: instead of one video three different ways across three captions, make <strong>three different video builds</strong> per brief, each visually distinct enough that the algorithm can't recognize them as the same content. Same VO under the hood, three different visual frames on top.
+    </p>
+  </div>
+
+  <div class="variant-matrix reveal">
+    <div class="variant-matrix-header">The Three Aesthetics</div>
+    <div class="variant-grid">
+      <div class="variant-cell a">
+        <div class="vc-tag">★ Variant A · Original</div>
+        <div class="vc-name">Stat Cards</div>
+        <div class="vc-desc">Dark digital dashboard — accent-color stat cards, hero text, comparison panels, library lists. The flagship aesthetic and the brand foundation. Strongest as a YouTube long-form fit.</div>
+      </div>
+      <div class="variant-cell b">
+        <div class="vc-tag">★ Variant B · App Chrome</div>
+        <div class="vc-name">Mock App</div>
+        <div class="vc-desc">Mac-style window mockup of a fictional app — prompts.app, persona.app, vision.chat, triage.app. Sidebar, titlebar, traffic lights, fake user pill. Feels like a product demo. Strong for TikTok's product-curiosity loop.</div>
+      </div>
+      <div class="variant-cell c">
+        <div class="vc-tag">★ Variant C · Illustrated</div>
+        <div class="vc-name">Lesson Page</div>
+        <div class="vc-desc">SVG-heavy worksheet — paginated header ("Lesson 18 · Page 1/5"), blueprint grid, hand-illustrated diagrams, paper-flip transitions. Reads as educational reference, screenshot-able. Strong for Instagram's save-heavy ranking.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: TOPIC LEDGER -->
+  <div class="reveal">
+    <div class="section-label">The Ledger</div>
+    <h2 class="section-heading">Every Lesson, <span class="lime">Cataloged</span></h2>
+    <p>
+      Ten videos, each with three renders, each with a blog post. Color scheme rotates lime → blue → red on a fixed pattern. Every render is 37 seconds, 1080×1920 vertical, 30 fps, H.264 in the 5–10 MB range. Each blog post sits at <code>/Go_Live/ai-prompting/&lt;NN-slug&gt;.html</code>.
+    </p>
+  </div>
+
+  <div class="topic-ledger reveal">
+    <div class="topic-ledger-head">
+      <span>Vol 2 · Topic Ledger</span>
+      <span>10 lessons · 30 renders · June 2026</span>
+    </div>
+    <div class="topic-row"><span class="num">V11</span><span class="title">Context Feeding <em>· paste the previous output back</em></span><span class="scheme lime">LIME</span><span class="runtime">37s × 3</span></div>
+    <div class="topic-row"><span class="num">V12</span><span class="title">System Prompts <em>· the hidden persona layer</em></span><span class="scheme blue">BLUE</span><span class="runtime">37s × 3</span></div>
+    <div class="topic-row"><span class="num">V13</span><span class="title">Zero-Shot vs. Few-Shot <em>· when examples beat instructions</em></span><span class="scheme red">RED</span><span class="runtime">37s × 3</span></div>
+    <div class="topic-row"><span class="num">V14</span><span class="title">Temperature &amp; Randomness <em>· the creativity dial</em></span><span class="scheme lime">LIME</span><span class="runtime">37s × 3</span></div>
+    <div class="topic-row"><span class="num">V15</span><span class="title">Output Formatting Control <em>· table, JSON, word count</em></span><span class="scheme blue">BLUE</span><span class="runtime">37s × 3</span></div>
+    <div class="topic-row"><span class="num">V16</span><span class="title">Tree of Thought <em>· branching reasoning beats linear CoT</em></span><span class="scheme red">RED</span><span class="runtime">37s × 3</span></div>
+    <div class="topic-row"><span class="num">V17</span><span class="title">Persona Depth <em>· five-layer biography</em></span><span class="scheme blue">BLUE</span><span class="runtime">37s × 3</span></div>
+    <div class="topic-row"><span class="num">V18</span><span class="title">Prompt Templates <em>· mad libs for prompts</em></span><span class="scheme lime">LIME</span><span class="runtime">37s × 3</span></div>
+    <div class="topic-row"><span class="num">V19</span><span class="title">Multimodal Prompting <em>· stop typing, show your screen</em></span><span class="scheme blue">BLUE</span><span class="runtime">37s × 3</span></div>
+    <div class="topic-row"><span class="num">V20</span><span class="title">Prompt Triage <em>· don't retry, diagnose (Vol 2 finale)</em></span><span class="scheme red">RED</span><span class="runtime">37s × 3</span></div>
+  </div>
+
+  <!-- SECTION 5: THE STACK -->
+  <div class="reveal">
+    <div class="section-label">The Stack</div>
+    <h2 class="section-heading">What Replaced <span class="lime">Keyvello</span></h2>
+    <p>
+      Six tools doing what one tool used to do badly. Each one is open source or free-tier. Each one is deterministic — same input, same output. The whole stack lives on disk, runs locally, and can render in parallel.
+    </p>
+    <p>
+      One honest caveat: <strong>the six tools below are free, but the loop that drives them isn't.</strong> Every video in Vol 2 was authored inside Claude Code on a <strong>Claude Max subscription</strong> — scene layout, GSAP timing, lint chasing, blog drafts, all of it. Realistic throughput is <em>roughly one video build per working session</em> before the token budget catches up, not a render farm churning out shorts in an afternoon. The render itself is fast; the human-plus-Claude pair authoring the composition is the rate-limited step.
+    </p>
+  </div>
+
+  <div class="stack-grid reveal">
+    <div class="stack-cell">
+      <div class="sc-tag">★ Composition</div>
+      <div class="sc-name">HyperFrames</div>
+      <div class="sc-desc">HTML + CSS + JS compositions that render to MP4. <em>npx hyperframes</em> for init, lint, inspect, preview, render. Apache 2.0, runs Chrome under the hood, 1080×1920 vertical at 30 fps.</div>
+    </div>
+    <div class="stack-cell">
+      <div class="sc-tag">★ Animation</div>
+      <div class="sc-name">GSAP</div>
+      <div class="sc-desc">Single paused timeline registered on <em>window.__timelines</em>, seeked by HyperFrames during render. Every fade, every stagger, every scale is in one place — easy to retime when the VO shifts.</div>
+    </div>
+    <div class="stack-cell">
+      <div class="sc-tag">★ Voiceover</div>
+      <div class="sc-name">Kokoro · am_adam</div>
+      <div class="sc-desc">Local TTS, 5 VO files per video at speed 1.0, ~19–22s total speech per render. Same voice across all 30 renders. <em>Zero ElevenLabs API calls.</em></div>
+    </div>
+    <div class="stack-cell">
+      <div class="sc-tag">★ Transcription</div>
+      <div class="sc-name">Whisper · small.en</div>
+      <div class="sc-desc">Used to audit VO text against intent — caught at least two miswordings before render. Also used for word-level timing if captions are ever added.</div>
+    </div>
+    <div class="stack-cell">
+      <div class="sc-tag">★ Styling</div>
+      <div class="sc-name">Tailwind v4 runtime</div>
+      <div class="sc-desc">Browser-runtime Tailwind, no build step. Custom CSS variables per scheme (lime / blue / red), shared across all three variants. Same composition, different palette.</div>
+    </div>
+    <div class="stack-cell">
+      <div class="sc-tag">★ Stock media</div>
+      <div class="sc-name">Pexels MCP</div>
+      <div class="sc-desc">Added late in Vol 2 — direct Pexels search and download from inside Claude Code via a free API key. <em>9 tools exposed, 25,000 requests/month.</em> Used for backdrop B-roll going forward.</div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: WHAT WORKED IN PRODUCTION -->
+  <div class="reveal">
+    <div class="section-label">What Worked</div>
+    <h2 class="section-heading">Production <span class="lime">Wins</span></h2>
+    <ul class="try-list">
+      <li><strong>The 5-scene skeleton.</strong> Every video locks the same structure: Hook (0–5.5s), Anatomy (5.5–13s), 3 Cases (13–20s), Principle (20–26s), CTA (25.5–37s). Once that frame is wired, the VO timing, scene transitions, and pacing memory rules (~2s VO gaps, 3.5s power2.in BGM fade) all just slot in. The first video took a week. The tenth took an afternoon.</li>
+      <li><strong>The color-scheme rotation as a brand signal.</strong> Lime → Blue → Red, cycling. Watchers who binge three in a row see distinct palettes but consistent typography, header style, and pacing. Same brand, different mood per video.</li>
+      <li><strong>The "fill the white space" iteration rule.</strong> Every scene gets reviewed for empty vertical space. The fix is never to shrink the existing content — it's to add value (AI output proof blocks, before/after live previews, starter-line reference grids, stats bands). By V18 this was the default. By V20 every empty-space audit was solved by adding a new content block.</li>
+      <li><strong>The A/B/C variant trio.</strong> Three independent renders per brief. The aesthetics are recognizable on sight: A = dashboard, B = mock app, C = lesson page. When the algorithm sorts these into different audiences, we'll know which aesthetic each platform's audience prefers — and we'll have data to dial it.</li>
+      <li><strong>Output blocks as the "show, don't tell" payoff.</strong> Every video that demonstrates a fix or template now closes the loop with a rendered AI output sample — italic monospace, accent-colored border-left, "↪ AI Output" label. It turns abstract advice into visual proof. Lifted directly from V19's multimodal pattern and back-ported to V18 and V20.</li>
+      <li><strong>Memory files persist preferences across sessions.</strong> Audio pacing defaults, variation policy, Pexels download dir, video output rollover rule — all live in <em>~/.claude/projects/.../memory/</em>. Future sessions load them automatically. No re-asking, no drift.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 7: WHAT WAS HARD -->
+  <div class="reveal">
+    <div class="section-label">What Was Hard</div>
+    <h2 class="section-heading">The Stuff That <span class="lime">Didn't Just Happen</span></h2>
+    <ul class="try-list">
+      <li><strong>Iteration cycles on C variants.</strong> V17C, V18C, and V20C each went through 3–4 rebuilds. V18C in particular was rebuilt as a paper-worksheet aesthetic, then ported back to dark digital after feedback that "it didn't match the other videos." The lesson: lock the aesthetic family early; iterate on content, not on the whole vibe.</li>
+      <li><strong>Layout overflows under GSAP transforms.</strong> Multiple times, the HyperFrames inspector flagged elements that were "in spec" at rest but overflowed during the GSAP fromTo's initial state (e.g., <em>x: -40</em> initial translate pushing a card outside its grid track). Fix: switch to y-based reveals where possible, or use <em>opacity</em> + <em>scale</em> as initial states instead of <em>x</em>.</li>
+      <li><strong>Contrast warnings on lime/blue stamps.</strong> The HyperFrames validator flags dark-text-on-bright-accent as a contrast failure on every render. That's the design intent (★ SAVE button, ⏱ 10s FIX stamp, ★ HOMEWORK badge) — but the warning count was 50+ per video by V20. Accepted as known false positives; documented in the per-video metadata so future audits don't re-flag them.</li>
+      <li><strong>VO drift between transcript and brief.</strong> Twice in Vol 2 the rendered VO didn't match the brief I'd written (e.g., V18B initially showed 8 templates but the VO said "four template categories"). Whisper transcription caught these — the discipline now is to transcribe every VO and visually diff against the brief before locking the composition.</li>
+      <li><strong>White-space audits.</strong> User feedback on V17, V18, V19, V20 all hit the same beat — "card 2/card 3 has too much empty space." The fix is the same content-add pattern every time (proof block, stats band, starter lines). The miss is not anticipating it. Vol 3 design rule: every scene must fill its full vertical budget at draft, not at iteration.</li>
+      <li><strong>The PDF cheatsheet URL change.</strong> Late in Vol 2 the user changed the public blog host from Netlify to a GitHub Pages URL. The PDF had to be patched in-place — overlay rectangles drawn over the old URL text, new URL drawn on top, link annotations injected. Worked, but it's the kind of asset patch that's easier to avoid by parameterizing the URL at build time.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 8: PERFORMANCE DATA PLACEHOLDER -->
+  <div class="reveal">
+    <div class="section-label">Performance Data</div>
+    <h2 class="section-heading">Awaiting <span class="lime">The Publish Window</span></h2>
+    <p>
+      None of these videos have been posted to YouTube, TikTok, or Instagram at the time of writing. The point of this section is to lock in the questions Vol 1 left unanswered, so when the platform data starts coming in we know what to look at.
+    </p>
+  </div>
+
+  <div class="pending-box reveal">
+    <p><strong>To be measured per platform once Vol 2 starts shipping:</strong></p>
+    <ul class="ph-list">
+      <li>Variant performance: A vs B vs C, per platform — does TikTok prefer the app-chrome mock? Does Instagram save more on illustrated worksheets?</li>
+      <li>Series binge rate: do viewers who hit V11 watch V12? Is series-completion a behavior that exists on Shorts?</li>
+      <li>Color scheme effect: do lime / blue / red videos perform differently? Is one scheme dramatically worse?</li>
+      <li>Hook second-0:01 retention vs Vol 1's 0:01 drop-off baseline</li>
+      <li>Save-to-view ratio on Instagram (the metric Vol 1 leaked badly on)</li>
+      <li>Comment volume on TikTok — did the "Which one would you steal first? 👇" pinned-comment pattern work?</li>
+      <li>Profile-visit → follow conversion (Vol 1 leaked at 91% — Instagram bio still needs to be rewritten before V11 posts)</li>
+      <li>Top-of-funnel: blog page-view per video upload (the cheatsheet PDF download as a leading indicator)</li>
+    </ul>
+    <p style="margin-top: 18px;">This page will be updated with the first 14 days of data once V11 ships — same format as the Vol 1 retrospective. The platforms ranked Vol 1's stronger topics out of order; we'll see if the same happens to Vol 2's stronger lessons.</p>
+  </div>
+
+  <!-- SECTION 9: WHAT VOL 3 SHOULD CHANGE -->
+  <div class="reveal">
+    <div class="section-label">The Playbook</div>
+    <h2 class="section-heading">Vol 3 — <span class="lime">Locked-In Changes</span></h2>
+    <p>
+      Some of this is pre-emptive (responding to predictable failure modes from Vol 2), some of it is structural (decisions the user has already made for the next 10). All of it is locked before Vol 3 work begins.
+    </p>
+    <ul class="try-list">
+      <li><strong>New output directory rule.</strong> Vol 3 renders land at <em>AI_BlogSite/&lt;PROJECT_NAME&gt;/&lt;NN-slug&gt;/&lt;NN-slug&gt;.mp4</em> — directly under <em>AI_BlogSite/</em>, not inside <em>Videos/</em>. Every 10 videos becomes a new folder named after the project. Persisted in memory.</li>
+      <li><strong>Pexels backdrops as the default for hook scenes.</strong> The Pexels MCP went live at the tail end of Vol 2. Vol 3 will use it from V21 onward — every Scene 1 gets a stylized, dimmed, blurred laptop / desk / hand B-roll layer behind the hero text. Tested visually with V19; downloaded to <em>AI_BlogSite/Assets/pexels/</em>.</li>
+      <li><strong>White-space budgets at draft.</strong> Every scene's vertical budget gets used at first draft. No more "ship and iterate when feedback hits 'too much empty space.'" Every scene has at least: hero, content row, payoff block, stats band.</li>
+      <li><strong>Lock the C-variant aesthetic family in advance.</strong> Vol 2's C variants drifted (paper worksheet, dark digital lesson page, illustrated blueprint). Vol 3 starts with one C-variant identity — "illustrated dark lesson page" — and doesn't deviate.</li>
+      <li><strong>Whisper-diff the VO against the brief before locking.</strong> Once the 5 VO files are generated, transcribe each, diff against the written brief, fix discrepancies before any visual work starts.</li>
+      <li><strong>Stage the publish window.</strong> Vol 2's full 30 renders will not ship in 30 consecutive days. The cadence rules from Vol 1's audit still apply: TikTok daily, Instagram 3–4×/wk, YouTube every 2–3 days. That's a ~5-week publish window for V11–V20. Vol 3 will be built on top while Vol 2 is rolling out.</li>
+      <li><strong>Instagram bio rewritten before V11 posts.</strong> Same flag from Vol 1 — 23 profile visits, 2 follows. Bio change is locked: name the niche, name the cadence, bake a follow CTA into the last 2s of every Reel.</li>
+      <li><strong>Cross-link from V01 and V07.</strong> Vol 1's two breakouts (Google Drive AI, Copilot Cowork) still pull residual impressions. Every V11+ Short gets a pinned comment on those two driving traffic into the new series.</li>
+    </ul>
+  </div>
+
+  <!-- TAKEAWAY -->
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The One Thing To Remember</div>
+    <p>
+      Vol 1 was 4,407 views and 30+ errors — a performance audit of a production loop that didn't have a review step. Vol 2 is 30 renders, zero hallucinations, and zero views — a production audit of a review loop that hasn't been pressure-tested by platforms yet. <em>The point of Vol 2 was to control the variables. The point of Vol 3 is to find out which ones actually mattered.</em>
+    </p>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="ai-tools.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div>
+      <div class="nav-card-icon">←</div>
+      <div class="nav-card-title">Vol 1 Retrospective</div>
+    </a>
+    <a href="../prompting-vol-2/21-context-feeding.html" class="series-nav-card next">
+      <div class="nav-card-label">Start The Series</div>
+      <div class="nav-card-icon">▶</div>
+      <div class="nav-card-title">V11 — Context Feeding</div>
+    </a>
+  </div>
+
+</article>
+
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--lime)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">
+      Vol 3 ships later this year — production retros, performance audits, and AI tool breakdowns in between. Get them in your inbox first.
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

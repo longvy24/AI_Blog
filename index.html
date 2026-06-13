@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIToolsDaily24 — By Ryu Vy</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0A0C0A;
+    --surface:  #111410;
+    --surface2: #161A14;
+    --border:   #1E2A1A;
+    --lime:     #84E000;
+    --lime-dim: rgba(132,224,0,0.12);
+    --lime-glow:rgba(132,224,0,0.06);
+    --white:    #F2F5EE;
+    --muted:    #5A6A52;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--body);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--lime);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--lime);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.5;
+    transition: all 0.25s ease;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,12,10,0.95), transparent);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--lime);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; gap: 32px; list-style: none; align-items: center;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--lime); }
+  /* Start Here / Meet Ryu — secondary emphasis (lime color + pulse dot) */
+  .nav-links a.nav-meet {
+    color: var(--lime);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-links a.nav-meet::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--lime);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  /* Cheatsheet nav-CTA — the lead-magnet link gets visual priority */
+  .nav-links a.nav-cta {
+    color: var(--lime);
+    border: 1px solid rgba(132,224,0,0.3);
+    padding: 8px 14px;
+    border-radius: 2px;
+    background: var(--lime-dim);
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .nav-links a.nav-cta::before {
+    content: '↓';
+    font-size: 12px;
+  }
+  .nav-links a.nav-cta:hover {
+    background: var(--lime);
+    color: var(--bg);
+    border-color: var(--lime);
+    transform: translateY(-1px);
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(132,224,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(132,224,0,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 60% 40%, black 20%, transparent 80%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(132,224,0,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-glow-2 {
+    position: absolute;
+    bottom: -10%; left: -5%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(132,224,0,0.05) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--lime);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  .hero-title {
+    font-family: var(--display);
+    font-size: clamp(72px, 10vw, 140px);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+    max-width: 900px;
+  }
+  .hero-title .lime { color: var(--lime); }
+  .hero-title .stroke {
+    -webkit-text-stroke: 1.5px var(--white);
+    color: transparent;
+  }
+
+  .hero-tagline {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 28px;
+    max-width: 480px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.6s;
+  }
+  .hero-tagline strong { color: var(--white); font-weight: 500; }
+
+  .hero-cta {
+    display: flex; gap: 16px; margin-top: 44px; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.8s;
+  }
+  .btn-primary {
+    background: var(--lime);
+    color: #0A0C0A;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border: none;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover {
+    background: #9FFF00;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(132,224,0,0.3);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--lime);
+    color: var(--lime);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    display: flex; gap: 48px; margin-top: 72px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 1s;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    max-width: 500px;
+  }
+  .stat-num {
+    font-family: var(--display);
+    font-size: 40px;
+    color: var(--lime);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* SERIES SECTION */
+  .section {
+    padding: 120px 48px;
+    position: relative;
+  }
+
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 64px;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .section-title .lime { color: var(--lime); }
+
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2px;
+  }
+
+  .series-card {
+    background: var(--surface);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .series-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--lime-dim) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .series-card:hover {
+    border-color: var(--lime);
+    transform: translateY(-4px);
+    z-index: 1;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--lime);
+  }
+  .series-card:hover::before { opacity: 1; }
+
+  .card-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+  .card-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
+    display: block;
+    line-height: 1;
+  }
+  .card-title {
+    font-family: var(--display);
+    font-size: 28px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .card-arrow {
+    position: absolute;
+    bottom: 24px; right: 24px;
+    font-size: 18px;
+    color: var(--lime);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.3s;
+  }
+  .series-card:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* RETROSPECTIVE SECTION */
+  .retro-section {
+    padding: 120px 48px;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+  .retro-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lime), transparent);
+  }
+  .retro-section .section-header { margin-bottom: 48px; }
+
+  .retro-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 48px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .retro-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lime), transparent);
+  }
+  .retro-card:hover {
+    border-color: var(--lime);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--lime);
+  }
+  .retro-card-inner {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 56px;
+    align-items: center;
+  }
+  .retro-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .retro-title {
+    font-family: var(--display);
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .retro-title .lime { color: var(--lime); }
+  .retro-desc {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 540px;
+  }
+  .retro-desc strong { color: var(--white); font-weight: 500; }
+  .retro-cta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--lime);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: gap 0.25s ease;
+  }
+  .retro-card:hover .retro-cta { gap: 16px; color: #9FFF00; }
+
+  .retro-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-left: 48px;
+    border-left: 1px solid var(--border);
+  }
+  .retro-stat .num {
+    font-family: var(--display);
+    font-size: 48px;
+    color: var(--lime);
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+  .retro-stat .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* SOCIAL SECTION */
+  .social-section {
+    padding: 120px 48px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .social-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lime), transparent);
+  }
+
+  .social-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .social-title {
+    font-family: var(--display);
+    font-size: clamp(48px, 6vw, 96px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+  .social-title .lime { color: var(--lime); }
+  .social-title .stroke {
+    -webkit-text-stroke: 1.5px var(--white);
+    color: transparent;
+  }
+
+  .social-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 56px;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .social-links {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  }
+  .social-btn {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 28px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--white);
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.25s;
+    background: var(--surface);
+  }
+  .social-btn:hover {
+    border-color: var(--lime);
+    color: var(--lime);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(132,224,0,0.15);
+  }
+  .social-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* EMAIL */
+  .email-section {
+    padding: 120px 48px;
+    position: relative;
+  }
+  .email-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .email-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .email-title {
+    font-family: var(--display);
+    font-size: clamp(40px, 5vw, 64px);
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .email-sub {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+  .email-form {
+    display: flex; gap: 0;
+    max-width: 480px; margin: 0 auto;
+  }
+  .email-input {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-right: none;
+    color: var(--white);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 16px 20px;
+    outline: none;
+    border-radius: 2px 0 0 2px;
+    transition: border-color 0.2s;
+  }
+  .email-input:focus { border-color: var(--lime); }
+  .email-input::placeholder { color: var(--muted); }
+  .email-submit {
+    background: var(--lime);
+    color: #0A0C0A;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 0 2px 2px 0;
+    cursor: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .email-submit:hover { background: #9FFF00; }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 48px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--lime);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .footer-alias {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MEET RYU section — the human-behind-the-tools moment */
+  .meet-section {
+    padding: 100px 48px;
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+  .meet-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lime), transparent);
+  }
+  .meet-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lime), transparent);
+  }
+  .meet-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .meet-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .meet-avatar-block {
+    text-align: center;
+  }
+  .meet-avatar {
+    width: 200px; height: 200px;
+    background: linear-gradient(135deg, var(--lime) 0%, #5BA000 100%);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display);
+    font-size: 110px;
+    color: var(--bg);
+    margin: 0 auto 24px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(132,224,0,0.2);
+  }
+  .meet-avatar::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 1px solid rgba(132,224,0,0.3);
+    border-radius: 50%;
+    animation: pulse 3s infinite;
+  }
+  .meet-badges {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .meet-badges span {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+  .meet-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .meet-eyebrow::before {
+    content: '//';
+    opacity: 0.5;
+  }
+  .meet-title {
+    font-family: var(--display);
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .meet-title .lime { color: var(--lime); }
+  .meet-bio {
+    font-size: 16px;
+    font-weight: 300;
+    color: #C8D4C0;
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 580px;
+  }
+  .meet-bio strong { color: var(--white); font-weight: 500; }
+  .meet-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+    max-width: 540px;
+  }
+  .meet-stat .num {
+    font-family: var(--display);
+    font-size: 36px;
+    color: var(--lime);
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+  .meet-stat .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .meet-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--lime);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .meet-cta .arrow { transition: transform 0.2s; }
+  .meet-cta:hover {
+    background: #9FFF00;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(132,224,0,0.3);
+  }
+  .meet-cta:hover .arrow { transform: translateX(4px); }
+
+  @media (max-width: 768px) {
+    .meet-section { padding: 80px 24px; }
+    .meet-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .meet-bio, .meet-stats-row { margin-left: auto; margin-right: auto; }
+    .meet-stats-row { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .meet-stat .num { font-size: 28px; }
+    .meet-avatar { width: 160px; height: 160px; font-size: 88px; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero, .section, .social-section, .email-section, .retro-section { padding: 80px 24px; }
+    .hero { padding-top: 100px; }
+    .hero-stats { gap: 32px; }
+    footer { padding: 32px 24px; }
+    .email-form { flex-direction: column; }
+    .email-input { border-right: 1px solid var(--border); border-bottom: none; border-radius: 2px 2px 0 0; }
+    .email-submit { border-radius: 0 0 2px 2px; }
+    .retro-card { padding: 32px 24px; }
+    .retro-card-inner { grid-template-columns: 1fr; gap: 32px; }
+    .retro-stats {
+      grid-template-columns: repeat(3, 1fr);
+      padding-left: 0;
+      border-left: none;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      gap: 16px;
+    }
+    .retro-stat .num { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">AIToolsDaily24</a>
+  <ul class="nav-links">
+    <li><a href="start-here.html" class="nav-meet">Meet Ryu</a></li>
+    <li><a href="#series">Series</a></li>
+    <li><a href="#retrospective">Retrospective</a></li>
+    <li><a href="#social">Follow</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+    <li><a href="cheatsheet.html" class="nav-cta">Free Cheatsheet</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-tag">AIToolsDaily24 · By Ryu Vy</div>
+
+  <h1 class="hero-title">
+    The AI<br>
+    <span class="lime">Arms Race</span><br>
+    Is <span class="stroke">On.</span>
+  </h1>
+
+  <p class="hero-tagline">
+    Don't get left behind. <strong>Ryu Vy</strong> breaks down AI tools, techniques, and strategies — so you can move faster than everyone else.
+  </p>
+
+  <div class="hero-cta">
+    <a href="https://www.youtube.com/channel/UCwW_X7a0cshoqT1u_AYo-rg" target="_blank" class="btn-primary">↓ Watch The Series</a>
+    <a href="cheatsheet.html" class="btn-secondary">Grab the Free Cheatsheet</a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">10</div>
+      <div class="stat-label">Techniques</div>
+    </div>
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-label">Platforms</div>
+    </div>
+    <div>
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Applications</div>
+    </div>
+  </div>
+</section>
+
+<!-- MEET RYU — the human behind the AI -->
+<section class="meet-section" id="meet">
+  <div class="meet-inner">
+    <div class="meet-grid">
+      <div class="meet-avatar-block reveal">
+        <div class="meet-avatar">R</div>
+        <div class="meet-badges">
+          <span>FULL-TIME PM</span>
+          <span>PART-TIME STUDENT</span>
+          <span>ACCIDENTAL CREATOR</span>
+        </div>
+      </div>
+      <div class="meet-content reveal">
+        <div class="meet-eyebrow">The Human Behind The Tools</div>
+        <h2 class="meet-title">Meet <span class="lime">Ryu Vy</span></h2>
+        <p class="meet-bio">
+          Full-time project manager at one of the largest EV distribution centers on the East Coast. Part-time student at Purdue Global. <strong>Accidental AI content creator.</strong> AIToolsDaily24 started after a Reddit post and a few weeks of AI-fixing Excel formulas at work. Now Ryu posts what he learns — including every error, every failed video, every correction.
+        </p>
+        <div class="meet-stats-row">
+          <div class="meet-stat"><div class="num">3+</div><div class="lbl">Years using AI</div></div>
+          <div class="meet-stat"><div class="num">2</div><div class="lbl">Degrees + 1 in progress</div></div>
+          <div class="meet-stat"><div class="num">100%</div><div class="lbl">Transparent</div></div>
+        </div>
+        <a href="start-here.html" class="meet-cta">Read The Full Story <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERIES -->
+<section class="section" id="series">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">// AIToolsDaily24 Series</div>
+      <h2 class="section-title">Watch &amp;<br><span class="lime">Read More</span></h2>
+    </div>
+  </div>
+
+  <div class="series-grid">
+    <a class="series-card reveal" href="ai-tools/01-google-drive-ai.html">
+      <div class="card-num">01 / 10</div>
+      <span class="card-icon">📁</span>
+      <div class="card-title">Google Drive AI</div>
+      <div class="card-desc">Google Drive can now read, search, and summarize every file you own — and most people have no idea.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="ai-tools/02-stop-using-google.html">
+      <div class="card-num">02 / 10</div>
+      <span class="card-icon">🔍</span>
+      <div class="card-title">Stop Using Google</div>
+      <div class="card-desc">This AI search tool gives direct, cited answers in seconds instead of ten blue links.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="ai-tools/03-ai-tools-replacing-jobs.html">
+      <div class="card-num">03 / 10</div>
+      <span class="card-icon">⚡</span>
+      <div class="card-title">3 AI Tools Replacing Jobs</div>
+      <div class="card-desc">These tools are replacing jobs right now — and most people don't even know they exist.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="ai-tools/04-built-business-60-min.html">
+      <div class="card-num">04 / 10</div>
+      <span class="card-icon">🚀</span>
+      <div class="card-title">Business in 60 Min</div>
+      <div class="card-desc">Brand, logo, website, and product — built with AI only in under an hour.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="ai-tools/05-openai-prism.html">
+      <div class="card-num">05 / 10</div>
+      <span class="card-icon">🤖</span>
+      <div class="card-title">OpenAI Prism</div>
+      <div class="card-desc">OpenAI's free AI collaboration tool built on GPT — and it's actually worth using.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="ai-tools/06-midjourney-v81.html">
+      <div class="card-num">06 / 10</div>
+      <span class="card-icon">🎨</span>
+      <div class="card-title">Midjourney V8.1</div>
+      <div class="card-desc">The image quality jumped to a different category. Here's what changed and why it matters.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="ai-tools/07-copilot-cowork.html">
+      <div class="card-num">07 / 10</div>
+      <span class="card-icon">💻</span>
+      <div class="card-title">Copilot Cowork</div>
+      <div class="card-desc">AI that edits Word, Excel and PowerPoint — inside the apps you already use every day.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="ai-tools/08-stop-making-powerpoints.html">
+      <div class="card-num">08 / 10</div>
+      <span class="card-icon">🛑</span>
+      <div class="card-title">Stop Making PowerPoints</div>
+      <div class="card-desc">Gamma AI builds entire decks from a prompt. Here's when to use it and when not to.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="ai-tools/09-stop-using-photoshop.html">
+      <div class="card-num">09 / 10</div>
+      <span class="card-icon">🎨</span>
+      <div class="card-title">Stop Using Photoshop</div>
+      <div class="card-desc">Background removal, generative fill, and upscaling — all in one click. No Photoshop needed.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="ai-tools/10-stop-taking-meeting-notes.html">
+      <div class="card-num">10 / 10</div>
+      <span class="card-icon">📝</span>
+      <div class="card-title">Stop Taking Meeting Notes</div>
+      <div class="card-desc">AI joins your calls, transcribes everything, and sends a summary before the meeting ends.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+  </div>
+</section>
+
+<!-- AI PROMPTING · VOL 1 -->
+<section class="section" id="ai-prompting-vol1">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">// AI Prompting · Vol 1</div>
+      <h2 class="section-title">Prompt<br><span class="lime">Engineering</span></h2>
+    </div>
+  </div>
+
+  <div class="series-grid">
+    <a class="series-card reveal" href="prompting-vol-1/11-role-based-prompting.html">
+      <div class="card-num">11 / 30</div>
+      <span class="card-icon">🎭</span>
+      <div class="card-title">Role-Based Prompting</div>
+      <div class="card-desc">Tell ChatGPT who it is before you ask. One role sentence transforms the entire answer.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="prompting-vol-1/12-few-shot-prompting.html">
+      <div class="card-num">12 / 30</div>
+      <span class="card-icon">📋</span>
+      <div class="card-title">Few-Shot Prompting</div>
+      <div class="card-desc">Show it three examples and it returns the exact format you want — every time.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="prompting-vol-1/13-chain-of-thought.html">
+      <div class="card-num">13 / 30</div>
+      <span class="card-icon">🧠</span>
+      <div class="card-title">Chain-of-Thought</div>
+      <div class="card-desc">Add "think step by step" and watch reasoning errors get cut in half.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="prompting-vol-1/14-iterative-refinement.html">
+      <div class="card-num">14 / 30</div>
+      <span class="card-icon">🔄</span>
+      <div class="card-title">Iterative Refinement</div>
+      <div class="card-desc">Bad output? Don't fix the answer — fix the prompt. The skill that ties the series together.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="prompting-vol-1/15-delimiters.html">
+      <div class="card-num">15 / 30</div>
+      <span class="card-icon">📦</span>
+      <div class="card-title">Delimiters</div>
+      <div class="card-desc">Wrap your data so ChatGPT never confuses your instructions with your content.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="prompting-vol-1/16-instructional-prompting.html">
+      <div class="card-num">16 / 30</div>
+      <span class="card-icon">✍️</span>
+      <div class="card-title">Instructional Prompting</div>
+      <div class="card-desc">Start every prompt with a verb. The simplest upgrade to instruction-following there is.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="prompting-vol-1/17-negative-constraints.html">
+      <div class="card-num">17 / 30</div>
+      <span class="card-icon">🚫</span>
+      <div class="card-title">Negative Constraints</div>
+      <div class="card-desc">Telling the AI what NOT to do is as powerful as telling it what to do.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="prompting-vol-1/18-prompt-chaining.html">
+      <div class="card-num">18 / 30</div>
+      <span class="card-icon">🔗</span>
+      <div class="card-title">Prompt Chaining</div>
+      <div class="card-desc">One giant prompt is chaos. Break the task into a chain of small steps instead.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="prompting-vol-1/19-rag.html">
+      <div class="card-num">19 / 30</div>
+      <span class="card-icon">📄</span>
+      <div class="card-title">RAG (Poor Man's)</div>
+      <div class="card-desc">Paste your source and tell it to answer only from that — no more made-up facts.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+    <a class="series-card reveal" href="prompting-vol-1/20-emotion-prompting.html">
+      <div class="card-num">20 / 30</div>
+      <span class="card-icon">🔥</span>
+      <div class="card-title">Emotion Prompting</div>
+      <div class="card-desc">Tell ChatGPT the stakes and the same model tries harder. The Vol 1 finale.</div>
+      <div class="card-arrow">↗</div>
+    </a>
+  </div>
+</section>
+
+<!-- AI PROMPTING · VOL 2 (COMING SOON) -->
+<section class="section" id="ai-prompting-vol2">
+  <style>
+    .series-card.locked { opacity: 0.5; cursor: default; pointer-events: none; }
+    .series-card.locked .card-arrow { color: var(--muted); }
+    .vol2-soon { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--lime); padding: 3px 10px; border-radius: 2px; margin-top: 14px; }
+  </style>
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">// AI Prompting · Vol 2 · Coming Soon</div>
+      <h2 class="section-title">Next<br><span class="lime">Ten Videos</span></h2>
+    </div>
+  </div>
+
+  <div class="series-grid">
+    <div class="series-card locked reveal">
+      <div class="card-num">21 / 30</div>
+      <span class="card-icon">📥</span>
+      <div class="card-title">Context Feeding</div>
+      <div class="card-desc">Give the model the background it needs before you ask — the Vol 2 opener.</div>
+      <span class="vol2-soon">In Production</span>
+    </div>
+    <div class="series-card locked reveal">
+      <div class="card-num">22 / 30</div>
+      <span class="card-icon">⚙️</span>
+      <div class="card-title">System Prompts</div>
+      <div class="card-desc">Set the rules once and they hold for the whole conversation.</div>
+      <span class="vol2-soon">In Production</span>
+    </div>
+    <div class="series-card locked reveal">
+      <div class="card-num">23 / 30</div>
+      <span class="card-icon">🎚️</span>
+      <div class="card-title">Zero-Shot vs Few-Shot</div>
+      <div class="card-desc">When to just ask, and when to show examples first.</div>
+      <span class="vol2-soon">In Production</span>
+    </div>
+    <div class="series-card locked reveal">
+      <div class="card-num">24 / 30</div>
+      <span class="card-icon">🌡️</span>
+      <div class="card-title">Temperature &amp; Randomness</div>
+      <div class="card-desc">The one setting that decides how predictable the answer is.</div>
+      <span class="vol2-soon">In Production</span>
+    </div>
+    <div class="series-card locked reveal">
+      <div class="card-num">25 / 30</div>
+      <span class="card-icon">📐</span>
+      <div class="card-title">Output Formatting</div>
+      <div class="card-desc">Ask for the exact shape — table, JSON, bullets — and get it back clean.</div>
+      <span class="vol2-soon">In Production</span>
+    </div>
+    <div class="series-card locked reveal">
+      <div class="card-num">26 / 30</div>
+      <span class="card-icon">🌳</span>
+      <div class="card-title">Tree of Thought</div>
+      <div class="card-desc">Make the model explore several paths before it commits to one.</div>
+      <span class="vol2-soon">In Production</span>
+    </div>
+    <div class="series-card locked reveal">
+      <div class="card-num">27 / 30</div>
+      <span class="card-icon">🎙️</span>
+      <div class="card-title">Persona Depth</div>
+      <div class="card-desc">Go past "act as an expert" to a persona that actually changes the answer.</div>
+      <span class="vol2-soon">In Production</span>
+    </div>
+    <div class="series-card locked reveal">
+      <div class="card-num">28 / 30</div>
+      <span class="card-icon">🧩</span>
+      <div class="card-title">Prompt Templates</div>
+      <div class="card-desc">Build a reusable skeleton once, fill the blanks forever.</div>
+      <span class="vol2-soon">In Production</span>
+    </div>
+    <div class="series-card locked reveal">
+      <div class="card-num">29 / 30</div>
+      <span class="card-icon">🖼️</span>
+      <div class="card-title">Multimodal Prompting</div>
+      <div class="card-desc">Prompt with images, not just text — and what changes when you do.</div>
+      <span class="vol2-soon">In Production</span>
+    </div>
+    <div class="series-card locked reveal">
+      <div class="card-num">30 / 30</div>
+      <span class="card-icon">🩺</span>
+      <div class="card-title">Prompt Triage</div>
+      <div class="card-desc">A bad answer is a diagnosis — here's how to fix any prompt fast. The finale.</div>
+      <span class="vol2-soon">In Production</span>
+    </div>
+  </div>
+</section>
+
+<!-- RETROSPECTIVE -->
+<section class="retro-section" id="retrospective">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-tag">// Behind The Numbers</div>
+      <h2 class="section-title">Series<br><span class="lime">Retrospective</span></h2>
+    </div>
+  </div>
+
+  <a class="retro-card reveal" href="retrospectives/prompting-vol-1.html">
+    <div class="retro-card-inner">
+      <div>
+        <div class="retro-meta">RETRO 02 · AI Prompting Vol 1 Audit · June 2026</div>
+        <div class="retro-title">Ten Videos.<br><span class="lime">One Lever.</span></div>
+        <div class="retro-desc">
+          <strong>Most of the run sat at zero followers — then the two sharpest-hook videos broke through.</strong> ~3,010 views, the controlled experiment that isolated the hook, and the two videos (V20 + V15) that finally converted — the full data audit of videos 11–20.
+        </div>
+        <div class="retro-cta">Read The Retrospective →</div>
+      </div>
+      <div class="retro-stats">
+        <div class="retro-stat"><div class="num">~3,010</div><div class="lbl">Total Views</div></div>
+        <div class="retro-stat"><div class="num">0 → 3</div><div class="lbl">New Followers</div></div>
+        <div class="retro-stat"><div class="num">12.09s</div><div class="lbl">Watch Record</div></div>
+      </div>
+    </div>
+  </a>
+
+  <a class="retro-card reveal" href="retrospectives/ai-tools.html">
+    <div class="retro-card-inner">
+      <div>
+        <div class="retro-meta">RETRO 01 · First-10 Series Audit · May 2026</div>
+        <div class="retro-title">The First<br><span class="lime">10 Videos</span></div>
+        <div class="retro-desc">
+          <strong>30+ documented errors. Two accidental breakouts. 4,407 views.</strong> The honest audit of every mistake from videos 01 to 10 — what AI got wrong, what I got wrong, and the new playbook for videos 11–20.
+        </div>
+        <div class="retro-cta">Read The Retrospective →</div>
+      </div>
+      <div class="retro-stats">
+        <div class="retro-stat"><div class="num">4,407</div><div class="lbl">Total Views</div></div>
+        <div class="retro-stat"><div class="num">30+</div><div class="lbl">Errors Logged</div></div>
+        <div class="retro-stat"><div class="num">2</div><div class="lbl">Breakouts</div></div>
+      </div>
+    </div>
+  </a>
+</section>
+
+<!-- SOCIAL -->
+<section class="social-section" id="social">
+  <div class="social-inner">
+    <div class="section-tag reveal" style="text-align:center">// Find Us</div>
+    <h2 class="social-title reveal">
+      Follow The<br>
+      <span class="lime">Journey</span>
+    </h2>
+    <p class="social-sub reveal">
+      New AI techniques, tools, and breakdowns — every day across all platforms.
+    </p>
+    <div class="social-links reveal">
+      <a href="https://www.youtube.com/channel/UCwW_X7a0cshoqT1u_AYo-rg" target="_blank" class="social-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        YouTube
+      </a>
+      <a href="https://www.tiktok.com/@dj.bomasterflex" target="_blank" class="social-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        TikTok
+      </a>
+      <a href="https://www.instagram.com/aitoolsdaily245/" target="_blank" class="social-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="email-section" id="newsletter">
+  <div class="email-inner">
+    <div class="email-label reveal">// Stay Ahead</div>
+    <h2 class="email-title reveal">Don't Get<br><span style="color:var(--lime)">Left Behind</span></h2>
+    <p class="email-sub reveal">
+      Get the latest AI tools, techniques, and breakdowns delivered straight to your inbox. No noise. Just signal.
+    </p>
+    <div class="beehiiv-embed reveal" style="max-width:480px;margin:0 auto;width:100%">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">AIToolsDaily24</div>
+  <div class="footer-alias">By Ryu Vy</div>
+  <div class="footer-copy">© 2026 · All rights reserved</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 5 + 'px';
+    cursor.style.top  = my - 5 + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx - 18) * 0.12;
+    ry += (my - ry - 18) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(2.5)';
+      ring.style.opacity = '0.2';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      ring.style.opacity = '0.5';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

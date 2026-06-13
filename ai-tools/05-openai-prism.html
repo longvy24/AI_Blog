@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenAI Prism: What It Actually Is and What the Title Got Wrong | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="OpenAI Prism is real — a free LaTeX workspace for scientific research launched January 2026. But the video called it a 'free AI work tool for teams,' which it isn't. Here's what it actually does and why this video had the best TikTok retention in the series.">
+<meta property="og:title" content="OpenAI Prism: What It Actually Is | AIToolsDaily24">
+<meta property="og:description" content="Prism is real. 'Free AI Work Tool for Teams' is not an accurate description. Here's the full breakdown with sourced specs and the best retention data in the series.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0D0F0D; --surface: #111810; --surface2: #161A14;
+    --border: #1E2A1A; --lime: #84E000;
+    --lime-dim: rgba(132,224,0,0.1); --lime-glow: rgba(132,224,0,0.05);
+    --white: #F2F5EE; --muted: #5A6A52;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(13,15,13,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-back:hover { color: var(--lime); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; background: var(--lime-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .lime { color: var(--lime); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--lime); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--bg); flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 340px; aspect-ratio: 9/16; }
+  .video-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; }
+
+  .content-with-sidebar { max-width: 1200px; margin: 0 auto; padding: 0 48px 80px; display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
+  .sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
+  .post-body-inner { min-width: 0; }
+  .post-body-inner p { font-size: 17px; font-weight: 300; color: #C8D4C0; line-height: 1.8; margin-bottom: 24px; }
+  .post-body-inner p strong { color: var(--white); font-weight: 500; }
+  .post-body-inner a { color: var(--lime); }
+
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading { font-family: var(--display); font-size: clamp(28px, 3vw, 44px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .section-heading .lime { color: var(--lime); }
+
+  .pull-quote { border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0; background: var(--lime-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 18px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+
+  .correction-box { background: rgba(255,80,50,0.06); border: 1px solid rgba(255,80,50,0.3); border-left: 3px solid #FF5032; border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; }
+  .correction-label { font-family: var(--mono); font-size: 10px; color: #FF5032; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .correction-box p { font-size: 15px !important; font-weight: 300 !important; color: #C8D4C0 !important; line-height: 1.7 !important; margin-bottom: 8px !important; }
+  .correction-box p:last-child { margin-bottom: 0 !important; }
+
+  .prompt-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; position: relative; }
+  .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7; }
+  .prompt-block code { font-family: var(--mono); font-size: 13px; color: var(--white); line-height: 1.7; display: block; white-space: pre-wrap; }
+  .prompt-copy { position: absolute; top: 16px; right: 16px; background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.2); color: var(--lime); font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+  .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; font-weight: 300; color: #C8D4C0; line-height: 1.7; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before { content: '→'; color: var(--lime); font-family: var(--mono); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+
+  .takeaway-box { background: var(--surface); border: 1px solid rgba(132,224,0,0.25); border-radius: 4px; padding: 32px; margin: 48px 0; position: relative; overflow: hidden; }
+  .takeaway-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 32px 0; }
+  .spec-item { background: var(--surface2); padding: 20px 24px; }
+  .spec-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .spec-value { font-family: var(--display); font-size: 28px; color: var(--white); line-height: 1; }
+  .spec-value.lime { color: var(--lime); }
+  .spec-sub { font-size: 13px; font-weight: 300; color: var(--muted); margin-top: 4px; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; }
+  .series-nav-card { background: var(--surface); padding: 24px; text-decoration: none; color: inherit; transition: all 0.25s; border: 1px solid transparent; display: flex; flex-direction: column; gap: 8px; }
+  .series-nav-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  /* SIDEBAR */
+  .platform-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+  .platform-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .platform-card-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .platform-card-title { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .platform-card-date { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .platform-row { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .platform-name { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .platform-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-yt { background: #FF0000; } .dot-tt { background: #00F2EA; } .dot-ig { background: #E1306C; }
+  .platform-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-value { font-family: var(--display); font-size: 22px; color: var(--white); line-height: 1; }
+  .stat-value.highlight { color: var(--lime); }
+  .stat-label-small { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+  .bar-chart { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .bar-chart-title { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .bar-group { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-group:last-child { margin-bottom: 0; }
+  .bar-platform { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; width: 22px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-fill.yt { background: #FF0000; } .bar-fill.tt { background: #00F2EA; } .bar-fill.ig { background: #E1306C; }
+  .bar-count { font-family: var(--mono); font-size: 9px; color: var(--white); width: 44px; flex-shrink: 0; }
+  .virality-section { padding: 14px 20px; border-top: 1px solid var(--border); }
+  .virality-label { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .virality-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .vtag { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 8px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.25); color: var(--lime); background: var(--lime-glow); }
+  .ryu-read { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 16px 20px; }
+  .ryu-read-label { font-family: var(--mono); font-size: 9px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .ryu-read p { font-size: 13px !important; color: #C8D4C0 !important; line-height: 1.65 !important; margin-bottom: 0 !important; font-weight: 300 !important; }
+  .ai-impact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .ai-impact-header { padding: 14px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .ai-impact-body { padding: 16px 20px; }
+  .ai-impact-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 12px; color: #C8D4C0; line-height: 1.5; font-weight: 300; }
+  .ai-impact-row:last-child { margin-bottom: 0; }
+  .ai-impact-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--lime), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+
+  footer { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--border); }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .content-with-sidebar { grid-template-columns: 1fr; padding: 0 24px 60px; }
+    .sidebar { position: static; }
+    .series-nav, .spec-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider { padding-left: 24px; padding-right: 24px; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html#series" class="nav-back">← Back to Series</a>
+</nav>
+
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">05 / 10</span>
+    <span class="post-series">AIToolsDaily24</span>
+    <span class="post-date">May 11, 2026</span>
+  </div>
+  <h1 class="post-title">
+    OpenAI<br>
+    <span class="lime">Prism</span><br>
+    The Truth
+  </h1>
+  <p class="post-subtitle">
+    Prism is real. "Free AI Work Tool for Teams" is not an accurate description. It's a LaTeX workspace for scientists — not a general productivity tool, and team support doesn't exist yet.
+  </p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/5_6CNoDbVH4"
+            allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="content-with-sidebar">
+<article class="post-body-inner">
+
+  <!-- NOTE ON SCRIPT -->
+  <div class="reveal">
+    <div class="section-label">A Note On This Post</div>
+    <h2 class="section-heading">The Script Card <span class="lime">Was Lost</span></h2>
+    <p>
+      The original script card for this video was not available when this post was written. The breakdown below is based on the video title, the TikTok hook frame ("BREAKING NOW OPENAI PRISM"), the analytics data, and sourced information about what OpenAI Prism actually is. Where the script is referenced, it's reconstructed from available evidence — not quoted from the original planning tool output.
+    </p>
+  </div>
+
+  <!-- CORRECTIONS -->
+  <div class="reveal">
+    <div class="section-label">Before The Breakdown</div>
+    <h2 class="section-heading">Two Things The <span class="lime">Title Got Wrong</span></h2>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 1 — Not a "Work Tool for Teams"</div>
+    <p><strong>What the title says:</strong> "OpenAI Prism: Free AI Work Tool for Teams"</p>
+    <p><strong>What Prism actually is:</strong> OpenAI Prism is a free, LaTeX-native workspace built specifically for <strong>scientific research and academic writing</strong>. It is not a general productivity or work tool. It combines document editing, LaTeX compilation, citation management, and GPT-5.2-assisted revision in a single cloud-based environment — designed for researchers producing long-form scientific papers, not for teams managing projects or work tasks.</p>
+    <p>Describing it as a "work tool for teams" significantly misrepresents who this is for. A marketing team, a startup, or an operations team would find very little practical use in a LaTeX editor built for academic publishing.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 2 — Team Support Doesn't Exist Yet</div>
+    <p><strong>What the title implies:</strong> Prism is available for teams.</p>
+    <p><strong>What's accurate:</strong> As of May 2026, Prism is available on the web to users with a personal ChatGPT account only. OpenAI has indicated that support for ChatGPT Business, Team, Enterprise, and Education plans will be added in future releases — but that support does not currently exist. The "for teams" framing in the title describes a future capability, not the current product.</p>
+    <p>The free claim is accurate — Prism is free for personal ChatGPT account holders. That part is right.</p>
+  </div>
+
+  <div class="pull-quote reveal">
+    <p>"Prism is real, genuinely useful, and free. But it's a LaTeX editor for scientists. Calling it a work tool for teams is like calling Overleaf a Slack alternative."</p>
+  </div>
+
+  <!-- WHAT PRISM ACTUALLY IS -->
+  <div class="reveal">
+    <div class="section-label">The Tool</div>
+    <h2 class="section-heading">What OpenAI Prism <span class="lime">Actually Does</span></h2>
+    <p>
+      OpenAI Prism launched January 27, 2026. It's a free, cloud-based LaTeX workspace with GPT-5.2 built directly into the authoring environment. The goal, per OpenAI, is to do for scientific research in 2026 what AI did for software development in 2025 — reduce friction in day-to-day research work.
+    </p>
+  </div>
+
+  <div class="spec-grid reveal">
+    <div class="spec-item">
+      <div class="spec-label">Launch Date</div>
+      <div class="spec-value lime">Jan 27</div>
+      <div class="spec-sub">2026 — available on web</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Price</div>
+      <div class="spec-value lime">Free</div>
+      <div class="spec-sub">Personal ChatGPT account required</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">AI Model</div>
+      <div class="spec-value">GPT-5.2</div>
+      <div class="spec-sub">Integrated directly into the editor</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Format</div>
+      <div class="spec-value">LaTeX</div>
+      <div class="spec-sub">Native — not a word processor</div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <p>
+      Prism combines three things in one interface: a LaTeX source editor, real-time PDF compilation (so you see the rendered output as you write), and inline AI assistance. Instead of switching to a separate chat window, you highlight text directly in the document and ask GPT-5.2 to revise, expand, simplify, or reformat it — and the AI proposes edits inline, which you can accept or reject line by line. The AI understands the structure of a scientific paper including equations, figures, citations, and overall argumentation, not just the prose.
+    </p>
+    <p>
+      Hands-on testing by ThesisAI found the inline editing workflow to be fast and effective for refining existing academic text. Rewriting a thesis statement, expanding an introduction, and generating BibTeX citations all worked well. The real-time PDF preview — which updates as you edit the LaTeX source — makes it easy to see how changes affect the final compiled document without switching windows. The key limitation identified in testing: <strong>Prism helps you improve what you've already written, but it doesn't guide you through what to write or generate a structured document from scratch.</strong> It's a refinement tool, not a generation tool.
+    </p>
+    <p>
+      Real-time collaboration is built in — the platform runs in the cloud at prism.openai.com, so there's no local LaTeX installation required. Co-authors can edit the same document simultaneously with changes and comments visible immediately, maintaining a single authoritative version with no messy version conflicts. Voice-based editing is supported. Prism can also assemble diagrams from online whiteboard drawings — a known pain point for researchers who previously had to rebuild figures in separate tools.
+    </p>
+    <p>
+      OpenAI built Prism by acquiring Cricet, a respected LaTeX system, and using it as the foundation for the AI-driven workspace. The positioning is similar to how Cursor or Windsurf work for software development — AI as a production assistant that fits the researcher's workflow, rather than forcing the researcher to bend to the tool's limitations. Per OpenAI's own framing, Prism is designed to accelerate the work of human scientists, not conduct research independently.
+    </p>
+  </div>
+
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// Who This Is Actually For</div>
+    <p>Academic researchers, PhD students, scientific authors, and institutions producing long-form technical papers in LaTeX. If you don't write LaTeX, Prism is not a tool for you in its current form. It won't generate a document from scratch or walk you through structure — it refines and improves what you've already written. For students needing end-to-end thesis generation, tools like ThesisAI are better suited. For researchers who already know LaTeX and want AI-powered refinement inside a collaborative cloud workspace, Prism is a genuine quality-of-life improvement.</p>
+  </div>
+
+  <!-- PRODUCTION ISSUES -->
+  <div class="reveal">
+    <div class="section-label">Production Issues</div>
+    <h2 class="section-heading">Two Problems With <span class="lime">This Video</span></h2>
+    <p>Beyond the framing errors, this video has two production-level issues worth documenting.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Production Issue 1 — Mono Audio, Single Speaker</div>
+    <p>The audio on this video is mono and only comes out of one speaker. This is a Keyvello generation defect — the video was produced using the same settings as every other video in the series, but the output audio is not stereo. The cause is not confirmed, but it's audible on headphones. Anyone watching with earbuds will hear the voiceover in one ear only. This was not caught before posting.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Production Issue 2 — Wrong Handle in Outro</div>
+    <p>The outro frame displays <strong>@AIToolsDaily</strong> — missing the "24" at the end. The correct TikTok handle is <strong>@dj.bomasterflex</strong> and the brand handle is <strong>@AIToolsDaily24</strong>. Keyvello generated the wrong handle in the outro. Anyone who tries to search @AIToolsDaily from this video won't find the channel.</p>
+  </div>
+
+  <!-- FRAME ANALYSIS -->
+  <div class="reveal">
+    <div class="section-label">Visual Analysis</div>
+    <h2 class="section-heading">What Each <span class="lime">Frame Shows</span></h2>
+    <p>All visuals are AI-generated by Keyvello. Several frames are more accurate to Prism's actual interface than in previous videos — the LaTeX editor and references panels are representative of what Prism actually looks like. One frame shows the correct URL.</p>
+  </div>
+
+  <div class="frame-grid reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Hook frame</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Branded launch card: <strong>"January 27, 2026 / OpenAI Prism."</strong> The date is accurate — January 27, 2026 is Prism's real launch date. One of the few frames in the series where the generated visual matches verifiable facts exactly.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Research network diagram</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Node network showing "Data Hub," "Team Alpha," "Sync Point," equations (E=mc²), and floating document cards. AI-generated concept illustration — not Prism's actual interface. The "Team Alpha" label reinforces the inaccurate "for teams" framing.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// "STILL SLOWED BY WORKFLOW"</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Monitor with a three-panel document interface surrounded by stacked notebooks and pens. Caption: <strong>"STILL SLOWED BY WORKFLOW."</strong> Accurately represents the fragmented multi-tool problem Prism is designed to solve — researchers juggling LaTeX editors, citation managers, PDF readers, and communication tools separately.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// LaTeX editor + References</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Monitor showing a LaTeX editor ("In this section, we analyze the data...") with a References panel (Smith, J. et al. 2023) and equation panels (E=mc², ∫f(x)dx=F(x)). Caption: <strong>"PAPER SECTION TODAY PULL."</strong> This is the most accurate visual representation of what Prism actually looks like — LaTeX source + live equation rendering + references, all in one view.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// prism.openai.com collaboration view</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Browser showing <strong>prism.openai.com</strong> (correct URL) with a four-panel collaboration interface: "Alice is editing," "Bob is viewing," "Charlie is commenting." Overlay: <strong>"Free for ChatGPT personal-account users."</strong> Both the URL and the free tier claim are accurate. This is the most factually correct frame in the video.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid #FF5032;">
+      <div style="font-family:var(--mono);font-size:10px;color:#FF5032;letter-spacing:2px;margin-bottom:8px;">// Outro — WRONG HANDLE</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Dark background with caption: <strong>"THEY GO MAINSTREAM"</strong> and the handle <strong>@AIToolsDaily</strong> — missing the "24." The correct brand handle is @AIToolsDaily24. Anyone who searches this handle from the outro won't find the channel. Keyvello generation error.</p>
+    </div>
+  </div>
+
+  <!-- DATA STORY -->
+  <div class="reveal">
+    <div class="section-label">The Numbers</div>
+    <h2 class="section-heading">The Best TikTok Retention <span class="lime">In The Series</span></h2>
+    <p>
+      This video has the best TikTok retention data in the series by a significant margin. 178 views, average watch time of <strong>7.32 seconds</strong> — more than double the previous best (4.47s on video 06). More importantly: <strong>1.7% of viewers watched the full video</strong> — the first time any video in the series has registered a non-zero full completion rate. Drop-off is still officially at 0:02, but the average watch time tells a different story from the cliff drops of earlier videos.
+    </p>
+    <p>
+      On YouTube, 30 views and 1 subscriber — lower absolute numbers but consistent with the channel's pattern. CTR was 0.76%, the lowest in the series, which suggests the thumbnail or title wasn't compelling in the YouTube browse context. On Instagram, 90 views and 2 interactions (1 like, 1 comment).
+    </p>
+    <p>
+      The TikTok audience for this video is the oldest in the series: 45–54 is the largest age group at 33%, followed by 35–44 at 27%. Only 3% aged 18–24. This is consistent with OpenAI Prism's actual target audience — researchers and professionals, not students or casual tech consumers. The "BREAKING NEWS" hook frame appears to have stopped a slightly different scroll profile than earlier videos.
+    </p>
+    <p>
+      The search queries are worth examining: "download prism free" (14.3%) and "use chatgpt for work" (14.3%) suggest viewers found the video while looking for free AI tools generally, not specifically for Prism. "Humanizador de ia 2026 gratis" (Spanish: "AI humanizer 2026 free") appearing at 14.3% indicates a Spanish-speaking audience searching for free AI tools landed on this video — not because of specific interest in Prism, but because the "free AI tool" framing matched their search intent. The video reached people looking for free AI tools, which it is — but not the type they were looking for.
+    </p>
+
+    <div class="takeaway-box">
+      <div class="takeaway-title">// Why The Retention Was Better</div>
+      <p>Two possible reasons the watch time improved. First, the "BREAKING NOW OPENAI PRISM" hook is a news-style format that may create more urgency than the countdown or FOMO formats used in earlier videos. Second, people who stayed were genuinely curious about what OpenAI Prism is — it's a relatively new and unfamiliar product name, which creates more reason to watch past the 2-second mark. Unfamiliarity can work as a retention mechanism when the name is credible (OpenAI) but the product is unknown.</p>
+    </div>
+  </div>
+
+  <!-- WHAT PRISM IS NOT -->
+  <div class="reveal">
+    <div class="section-label">Context</div>
+    <h2 class="section-heading">The Framing <span class="lime">Problem</span></h2>
+    <p>
+      The video title calls Prism a "Free AI Work Tool for Teams." The TikTok hook says "BREAKING NOW OPENAI PRISM." Both framings position it as a general productivity tool — something relevant to marketers, managers, entrepreneurs, and creators. The actual tool is a LaTeX editor for academic scientists.
+    </p>
+    <p>
+      This isn't the same category of error as hallucinating a product name ("Perplexity Computer") or getting a price wrong. Prism exists and is free. But the framing creates a mismatch between the audience the video attracts — people looking for free AI tools to use in their work — and the audience the tool is actually built for. Someone who watches this video and goes to try Prism will find a LaTeX editor and immediately leave.
+    </p>
+    <p>
+      The search query data confirms this: "use chatgpt for work" and "download prism free" are searches from people who want a general-purpose free AI tool. They're not researchers. They'll bounce from Prism within seconds of loading it — same 0:02 drop, different platform.
+    </p>
+    <p>
+      The more accurate framing would have been: "OpenAI just built a free research tool for scientists — and it might be the most useful thing they've launched this year." That's honest, still compelling, and would attract an audience that actually has a use for the tool.
+    </p>
+  </div>
+
+  <!-- SCRIPT (RECONSTRUCTED) -->
+  <div class="reveal">
+    <div class="section-label">Behind The Scenes</div>
+    <h2 class="section-heading">The Script <span class="lime">(Reconstructed)</span></h2>
+    <p>
+      The original script card was not available for this post. The script below is reconstructed from the video title, the hook frame visible in analytics, and the RFTC model's typical output pattern for a "breaking news" format video. It should not be treated as a verbatim record.
+    </p>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// Reconstructed Script — Not Original</div>
+      <code>[0–3s] HOOK — "BREAKING NOW OPENAI PRISM":
+"OpenAI just dropped something and most people are sleeping on it."
+
+[3–15s] THE REVEAL:
+"It's called Prism. It's free. And it changes how teams
+work with AI on documents, research, and collaboration."
+⚠️ Reconstructed — actual script card not available
+⚠️ "Teams" framing is inaccurate — no team plan exists yet
+⚠️ Prism is for scientific research, not general work
+
+[15–40s] WHAT IT DOES:
+[Description of Prism's features — likely covering free access,
+GPT-5.2 integration, collaboration, document editing]
+
+[40–55s] HOW TO START:
+"Go to openai.com, sign in with your ChatGPT account,
+and Prism is free to use right now."
+
+[55s+] CTA:
+[Standard follow/subscribe prompt]</code>
+    </div>
+  </div>
+
+  <!-- RFTC -->
+  <div class="reveal">
+    <div class="section-label">The Framework</div>
+    <h2 class="section-heading">The RFTC <span class="lime">Model</span></h2>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// RFTC Base Model — AIToolsDaily24</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>ROLE:
+You are a new and up-and-coming content creator.
+
+TASK:
+You are to use the tools available to you to make a successful
+social media platform on Instagram, TikTok, YouTube, or any
+other video platform.
+
+FORMAT:
+Video shorts optimized for any video platform or platforms
+that allow short-form content.
+
+CONTEXT:
+You have a Keyvello Pro account, a trend analyzer to analyze
+popular trends, and any account can be created to upload these
+videos so long as they are free to create.</code>
+    </div>
+  </div>
+
+  <!-- PRODUCTION -->
+  <div class="reveal">
+    <div class="section-label">Production</div>
+    <h2 class="section-heading">Keyvello <span class="lime">Settings</span></h2>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// Keyvello Production Settings</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Media type:    AI video
+Style preset:  Cinematic
+Quality:       Pro (1.5x tokens)
+Captions:      Bold White · Middle alignment
+Aspect ratio:  Portrait 9:16
+Duration:      60s target</code>
+    </div>
+  </div>
+
+  <!-- FURTHER READING -->
+  <div class="reveal">
+    <div class="section-label">Further Reading</div>
+    <h2 class="section-heading">Sources Worth <span class="lime">Your Time</span></h2>
+    <ul class="try-list">
+      <li>
+        <div>
+          <strong>OpenAI Launches Prism — InfoQ</strong> — <a href="https://www.infoq.com/news/2026/01/openai-prism/" target="_blank">infoq.com</a><br>
+          <span style="font-size:14px;color:var(--muted);">Technical breakdown of Prism as a LaTeX-native workspace — covers availability, future Business/Team/Enterprise plans, and how AI features are optional rather than forced into the workflow.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>OpenAI Prism: AI LaTeX Editor Review — ThesisAI</strong> — <a href="https://www.thesisai.io/blog/openai-prism-ai-latex-editor-review/" target="_blank">thesisai.io</a><br>
+          <span style="font-size:14px;color:var(--muted);">Hands-on testing of Prism across real academic writing tasks: rewriting a thesis statement, expanding an introduction, generating BibTeX citations. Key finding: Prism excels at refining existing text but doesn't generate structured documents from scratch. Worth reading to understand what the tool actually feels like to use.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>OpenAI Prism Review — Julian Goldie</strong> — <a href="https://juliangoldie.com/openai-prism-review/" target="_blank">juliangoldie.com</a><br>
+          <span style="font-size:14px;color:var(--muted);">Covers how Prism was built on OpenAI's acquisition of Cricet (a LaTeX system), the comparison with Google NotebookLM (NotebookLM helps you understand research; Prism helps you produce it), and why the real-time collaboration and single-document-version system matters for distributed research teams.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>OpenAI Prism — Official</strong> — <a href="https://openai.com/index/introducing-prism/" target="_blank">openai.com</a><br>
+          <span style="font-size:14px;color:var(--muted);">OpenAI's own announcement. Free, available at prism.openai.com with a personal ChatGPT account.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="04-built-business-60-min.html" class="series-nav-card prev">
+      <span class="nav-card-label">Previous</span>
+      <span class="nav-card-title">Built A Business In 60 Min</span>
+    </a>
+    <a href="06-midjourney-v81.html" class="series-nav-card next">
+      <span class="nav-card-label">Next</span>
+      <span class="nav-card-title">Midjourney V8.1</span>
+    </a>
+  </div>
+
+</article>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="platform-card reveal">
+    <div class="platform-card-header">
+      <div class="platform-card-title">// Performance Data</div>
+      <div class="platform-card-date">Posted May 11, 2026</div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-yt"></span>YouTube Shorts</div>
+      <div class="platform-stats">
+        <div><div class="stat-value highlight">30</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value">0.76%</div><div class="stat-label-small">CTR</div></div>
+      </div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-tt"></span>TikTok</div>
+      <div class="platform-stats">
+        <div><div class="stat-value">178</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value highlight">7.32s</div><div class="stat-label-small">Avg Watch</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:8px;padding-bottom:12px;">
+      <div class="platform-stats">
+        <div><div class="stat-value highlight">1.7%</div><div class="stat-label-small">Full Watch</div></div>
+        <div><div class="stat-value">0:02</div><div class="stat-label-small">Drop-off</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:4px;padding-bottom:12px;font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:1px;">
+      First video with non-zero full completion rate
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-ig"></span>Instagram</div>
+      <div class="platform-stats">
+        <div><div class="stat-value">90</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value">2</div><div class="stat-label-small">Interactions</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:8px;padding-bottom:12px;font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:1px;">
+      1 like · 1 comment · 0 saves · 0 shares
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-chart-title">// Views by platform</div>
+      <div class="bar-group">
+        <div class="bar-platform">YT</div>
+        <div class="bar-track"><div class="bar-fill yt" style="width:17%"></div></div>
+        <div class="bar-count">30</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-platform">TT</div>
+        <div class="bar-track"><div class="bar-fill tt" style="width:100%"></div></div>
+        <div class="bar-count">178</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-platform">IG</div>
+        <div class="bar-track"><div class="bar-fill ig" style="width:51%"></div></div>
+        <div class="bar-count">90</div>
+      </div>
+    </div>
+
+    <div class="virality-section">
+      <div class="virality-label">// Virality Factors</div>
+      <div class="virality-tags">
+        <span class="vtag">Breaking news hook</span>
+        <span class="vtag">Free tool</span>
+        <span class="vtag">OpenAI brand</span>
+        <span class="vtag">Older audience</span>
+        <span class="vtag">Best retention</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ryu-read reveal">
+    <div class="ryu-read-label">// Ryu's Read</div>
+    <p>7.32s average watch time and 1.7% full completion — both series bests. The "BREAKING NOW" hook with an unfamiliar but credible product name creates more reason to stay past 0:02 than the countdown or FOMO formats.<br><br>Three production problems in this video beyond the framing issue: mono audio coming out of one speaker only, the wrong channel handle in the outro (@AIToolsDaily vs @AIToolsDaily24), and the lost script card. The audio issue is the most damaging — anyone watching on headphones hears a broken mix.<br><br>The frames are actually some of the most accurate in the series. The LaTeX editor, equation panels, and prism.openai.com URL are all correctly represented. Keyvello got the visuals closer to right than in most other videos.</p>
+  </div>
+
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// AI In This Video</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎬</span><span>Video generated by Keyvello Pro. Several frames accurately represent Prism's interface — LaTeX editor, equations, references panel, correct URL (prism.openai.com).</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>"Free AI Work Tool for Teams" — Prism is a LaTeX workspace for scientists, not a general work tool. Team plan support does not yet exist.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Audio is mono and comes out of one speaker only. Keyvello generation defect — same settings as all other videos, different result. Not caught before posting.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Outro frame shows @AIToolsDaily instead of @AIToolsDaily24. Wrong handle — Keyvello generation error.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Script card was lost. Script referenced in this post is reconstructed from available evidence and clearly labeled as such.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">📝</span><span>Blog post drafted by Claude using sourced information from InfoQ, ThesisAI, and Julian Goldie reviews. Edited by Ryu Vy.</span></div>
+    </div>
+  </div>
+
+</aside>
+</div>
+
+<!-- SOCIAL SHARE + COMMENTS -->
+<section style="max-width:860px;margin:0 auto;padding:60px 48px 0;">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:48px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">// Share This Post</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+      <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+      <applause-button style="width:44px;height:44px;" url="https://aitoolsdaily24.netlify.app/05-openai-prism.html"></applause-button>
+      <a id="share-x" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UCwW_X7a0cshoqT1u_AYo-rg" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@dj.bomasterflex" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#00F2EA"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/aitoolsdaily245/" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+  </div>
+  <div style="margin-bottom:80px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--lime);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;">// Comments</div>
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = window.location.href;
+        this.page.identifier = window.location.pathname;
+      };
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://aitoolsdaily24.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+      document.getElementById('share-x').href =
+        'https://twitter.com/intent/tweet?text=' +
+        encodeURIComponent(document.title) +
+        '&url=' + encodeURIComponent(window.location.href);
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" style="color:var(--lime)">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--lime)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">New AI breakdowns in your inbox. No noise. Just signal — from a human who actually uses this stuff.</p>
+    <div class="reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+</body>
+</html>

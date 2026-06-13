@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copilot Cowork: What It Actually Does and What the Script Got Wrong | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="Copilot Cowork is real and launched April 22, 2026. The launch date in the script is wrong, the specific AI models named are unverified, and PowerPoint isn't fully live yet. Here's what Microsoft's own blog actually says — plus the series-best TikTok numbers.">
+<meta property="og:title" content="Copilot Cowork: What It Actually Does | AIToolsDaily24">
+<meta property="og:description" content="1,070 TikTok views. 11.34s average watch time. Series best on every metric. Here's the full breakdown with sourced facts and four corrections.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0D0F0D; --surface: #111810; --surface2: #161A14;
+    --border: #1E2A1A; --lime: #84E000;
+    --lime-dim: rgba(132,224,0,0.1); --lime-glow: rgba(132,224,0,0.05);
+    --white: #F2F5EE; --muted: #5A6A52;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(13,15,13,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-back:hover { color: var(--lime); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; background: var(--lime-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .lime { color: var(--lime); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--lime); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--bg); flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 340px; aspect-ratio: 9/16; }
+  .video-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; }
+
+  .content-with-sidebar { max-width: 1200px; margin: 0 auto; padding: 0 48px 80px; display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
+  .sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
+  .post-body-inner { min-width: 0; }
+  .post-body-inner p { font-size: 17px; font-weight: 300; color: #C8D4C0; line-height: 1.8; margin-bottom: 24px; }
+  .post-body-inner p strong { color: var(--white); font-weight: 500; }
+  .post-body-inner a { color: var(--lime); }
+
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading { font-family: var(--display); font-size: clamp(28px, 3vw, 44px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .section-heading .lime { color: var(--lime); }
+
+  .pull-quote { border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0; background: var(--lime-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 18px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+
+  .correction-box { background: rgba(255,80,50,0.06); border: 1px solid rgba(255,80,50,0.3); border-left: 3px solid #FF5032; border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; }
+  .correction-label { font-family: var(--mono); font-size: 10px; color: #FF5032; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .correction-box p { font-size: 15px !important; font-weight: 300 !important; color: #C8D4C0 !important; line-height: 1.7 !important; margin-bottom: 8px !important; }
+  .correction-box p:last-child { margin-bottom: 0 !important; }
+
+  .prompt-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; position: relative; }
+  .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7; }
+  .prompt-block code { font-family: var(--mono); font-size: 13px; color: var(--white); line-height: 1.7; display: block; white-space: pre-wrap; }
+  .prompt-copy { position: absolute; top: 16px; right: 16px; background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.2); color: var(--lime); font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+  .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; font-weight: 300; color: #C8D4C0; line-height: 1.7; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before { content: '→'; color: var(--lime); font-family: var(--mono); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+
+  .takeaway-box { background: var(--surface); border: 1px solid rgba(132,224,0,0.25); border-radius: 4px; padding: 32px; margin: 48px 0; position: relative; overflow: hidden; }
+  .takeaway-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 32px 0; }
+  .spec-item { background: var(--surface2); padding: 20px 24px; }
+  .spec-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .spec-value { font-family: var(--display); font-size: 28px; color: var(--white); line-height: 1; }
+  .spec-value.lime { color: var(--lime); }
+  .spec-sub { font-size: 13px; font-weight: 300; color: var(--muted); margin-top: 4px; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; }
+  .series-nav-card { background: var(--surface); padding: 24px; text-decoration: none; color: inherit; transition: all 0.25s; border: 1px solid transparent; display: flex; flex-direction: column; gap: 8px; }
+  .series-nav-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  /* SIDEBAR */
+  .platform-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+  .platform-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .platform-card-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .platform-card-title { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .platform-card-date { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .platform-row { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .platform-name { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .platform-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-yt { background: #FF0000; } .dot-tt { background: #00F2EA; } .dot-ig { background: #E1306C; }
+  .platform-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-value { font-family: var(--display); font-size: 22px; color: var(--white); line-height: 1; }
+  .stat-value.highlight { color: var(--lime); }
+  .stat-label-small { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+  .bar-chart { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .bar-chart-title { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .bar-group { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-group:last-child { margin-bottom: 0; }
+  .bar-platform { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; width: 22px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-fill.yt { background: #FF0000; } .bar-fill.tt { background: #00F2EA; } .bar-fill.ig { background: #E1306C; }
+  .bar-count { font-family: var(--mono); font-size: 9px; color: var(--white); width: 44px; flex-shrink: 0; }
+  .virality-section { padding: 14px 20px; border-top: 1px solid var(--border); }
+  .virality-label { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .virality-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .vtag { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 8px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.25); color: var(--lime); background: var(--lime-glow); }
+  .ryu-read { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 16px 20px; }
+  .ryu-read-label { font-family: var(--mono); font-size: 9px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .ryu-read p { font-size: 13px !important; color: #C8D4C0 !important; line-height: 1.65 !important; margin-bottom: 0 !important; font-weight: 300 !important; }
+  .ai-impact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .ai-impact-header { padding: 14px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .ai-impact-body { padding: 16px 20px; }
+  .ai-impact-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 12px; color: #C8D4C0; line-height: 1.5; font-weight: 300; }
+  .ai-impact-row:last-child { margin-bottom: 0; }
+  .ai-impact-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--lime), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+
+  footer { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--border); }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .content-with-sidebar { grid-template-columns: 1fr; padding: 0 24px 60px; }
+    .sidebar { position: static; }
+    .series-nav, .spec-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider { padding-left: 24px; padding-right: 24px; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html#series" class="nav-back">← Back to Series</a>
+</nav>
+
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">07 / 10</span>
+    <span class="post-series">AIToolsDaily24</span>
+    <span class="post-date">May 12, 2026</span>
+  </div>
+  <h1 class="post-title">
+    Copilot<br>
+    <span class="lime">Cowork</span><br>
+    The Breakdown
+  </h1>
+  <p class="post-subtitle">
+    The series-best video on every TikTok metric. The tool is real — but the launch date is wrong, the specific AI models named are unverified, and PowerPoint isn't fully live yet.
+  </p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/MHjLEnLLTuU"
+            allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="content-with-sidebar">
+<article class="post-body-inner">
+
+  <!-- CORRECTIONS -->
+  <div class="reveal">
+    <div class="section-label">Before The Breakdown</div>
+    <h2 class="section-heading">Four Things To <span class="lime">Correct Upfront</span></h2>
+    <p>
+      Copilot Cowork is real. The agentic capabilities in Word, Excel, and PowerPoint are genuinely significant. But the script contains one wrong date, one unverified technical claim, one overstatement about availability, and one wrong handle in the CTA.
+    </p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 1 — Wrong Launch Date</div>
+    <p><strong>What the script says:</strong> "Microsoft just dropped an AI that works inside Word, Excel and PowerPoint — and most people have no idea it launched this week." (Posted May 11/12. The Keyvello prompt also stated "Copilot Cowork launched May 1 2026.")</p>
+    <p><strong>What's accurate:</strong> Copilot Cowork reached General Availability on <strong>April 22, 2026</strong> — announced in the official Microsoft 365 Blog. That's approximately three weeks before this video posted. "Launched this week" is inaccurate. The script's own stated date (May 1) is also wrong — GA was April 22. The breaking-news framing doesn't match the actual timeline.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 2 — Specific AI Models Unverified</div>
+    <p><strong>What the script says:</strong> "It runs on Claude, GPT-5.4, and Microsoft's own models — picking the best one for each task."</p>
+    <p><strong>What's accurate:</strong> Microsoft's official communications confirm Copilot uses a multi-model approach — described as bringing "the best innovation from across the industry, tuned for work." However, Microsoft does not publicly name Claude or GPT-5.4 as specific models used inside Copilot Cowork. These specific model names are not sourced from Microsoft's official documentation. The multi-model concept is real; the specific model names are unverified.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 3 — PowerPoint Not Fully Live Yet</div>
+    <p><strong>What the script says:</strong> "Word Agent writes full documents from a brief. PowerPoint Agent turns bullet points into a complete deck."</p>
+    <p><strong>What's accurate:</strong> Per Microsoft's official April 22 announcement, the new agentic capabilities are <strong>generally available in Excel and Word</strong>. PowerPoint and Outlook are "starting to roll out over the coming months" — not fully live at the time this video posted. Framing PowerPoint as equally available is premature.</p>
+  </div>
+
+  <div class="correction-box reveal">
+    <div class="correction-label">// Correction 4 — Completely Wrong Channel In Outro</div>
+    <p><strong>What the video shows:</strong> The outro frame displays <strong>"@TechVisualsPro / Follow for more tech insights!"</strong></p>
+    <p><strong>What's accurate:</strong> @TechVisualsPro is not this channel. It's a completely different account and brand name — not @AIToolsDaily24, not @AIToolsDaily. Anyone who taps Follow from this video's outro is directed to an unrelated creator. Previous videos in this series had @AIToolsDaily (missing "24") — this is worse. This is a Keyvello generation error that created an entirely fabricated channel identity in the outro frame.</p>
+  </div>
+
+  <div class="pull-quote reveal">
+    <p>"The tool is real and the numbers are the best in the series. But the script launched something three weeks after it actually launched and named AI models Microsoft hasn't confirmed."</p>
+  </div>
+
+  <!-- WHAT COPILOT COWORK ACTUALLY IS -->
+  <div class="reveal">
+    <div class="section-label">The Tool</div>
+    <h2 class="section-heading">What Copilot Cowork <span class="lime">Actually Does</span></h2>
+    <p>
+      Microsoft Copilot Cowork — officially described as "agentic capabilities" in the Microsoft 365 Blog — reached General Availability on April 22, 2026 for Word and Excel, with PowerPoint and Outlook rolling out over the following months. This is the largest evolution of Copilot since its original launch: instead of a passive assistant that could only suggest, Copilot can now take multi-step, app-native actions directly inside your documents, worksheets, and presentations.
+    </p>
+  </div>
+
+  <div class="spec-grid reveal">
+    <div class="spec-item">
+      <div class="spec-label">GA Date</div>
+      <div class="spec-value lime">Apr 22</div>
+      <div class="spec-sub">2026 — Word and Excel first</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Excel Engagement</div>
+      <div class="spec-value lime">+67%</div>
+      <div class="spec-sub">During 30-day preview period</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">PowerPoint</div>
+      <div class="spec-value">Rolling</div>
+      <div class="spec-sub">Out over coming months — not fully live</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Access</div>
+      <div class="spec-value">M365</div>
+      <div class="spec-sub">Copilot subscribers + Personal/Family/Premium</div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <p>
+      The key shift per Microsoft's own framing: when Copilot first launched, the underlying AI models weren't capable enough to command applications directly. Over the past year, models improved significantly in instruction following, multi-step reasoning, and overall quality — making it possible for Copilot to now take direct action inside documents rather than just suggesting steps. Microsoft calls this "vibe working."
+    </p>
+    <p>
+      In <strong>Word</strong>, Copilot can draft, rewrite, restructure, and apply tone adjustments to a full document — going from a blank page to a polished draft with a single prompt. In <strong>Excel</strong>, it can explore data, build and explain analysis, create formulas, build tables, and generate visuals — moving from a question directly to a decision. During the 30-day preview period, Excel engagement grew 67%, retention grew 50%, and user satisfaction grew 65% according to Microsoft's own published figures.
+    </p>
+    <p>
+      The multi-model approach is real — Microsoft has explicitly committed to using "the best innovation from across the industry, tuned for work" rather than a single model. The system picks different models for different tasks. What Microsoft hasn't published is which specific third-party models are included. The script's naming of Claude and GPT-5.4 goes beyond what Microsoft has confirmed publicly.
+    </p>
+    <p>
+      Access requirements: available to Microsoft 365 Copilot subscribers, and also included in Microsoft 365 Personal, Family, and Premium plans. If you already have a qualifying Microsoft 365 subscription, the upgrade is automatic — you don't need to purchase anything additional. The script's claim to "open Word or Excel and look for the Copilot icon" is accurate for eligible subscribers.
+    </p>
+  </div>
+
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// What "Cowork" Actually Refers To</div>
+    <p>The "Cowork" name appears in Microsoft's own blog posts — it refers to Wave 3 of Copilot, internally described as working "alongside you" in Office apps to create, edit, and refine from start to finish. During the preview phase, Microsoft called these capabilities "Agent Mode." As they moved toward GA, the company clarified it's not a separate mode — it's core to how the next wave of Copilot works inside every document.</p>
+  </div>
+
+  <!-- DATA STORY -->
+  <div class="reveal">
+    <div class="section-label">The Numbers</div>
+    <h2 class="section-heading">Series Best On <span class="lime">Every Metric</span></h2>
+    <p>
+      This is the standout video of the series on TikTok. 1,070 views against a channel that had been averaging 100–200 views per video. Average watch time of <strong>11.34 seconds</strong> — up from 7.32s on the previous best. 23 likes, 2 comments, 3 shares, 15 saves — also all series bests. Drop-off at 0:01 rather than 0:02, but the average watch time is so high that a meaningful portion of viewers are clearly getting well past that mark. 1.6% full completion. 8 new followers.
+    </p>
+    <p>
+      The likes graph (Image 8) shows the most complex pattern in the series — not a single 0:00 spike but multiple waves across the first 15 seconds, suggesting the content was actually being watched rather than liked on the thumbnail alone. That's a different engagement pattern from every other video in the series.
+    </p>
+    <p>
+      The audience is the oldest and most professionally skewed in the series: 45–54 leads at 42%, with 55+ at 21%. Combined, that's 63% of viewers over 45. Gender split is 62% male, 36% female — the most balanced in the series. US at 87.8%. These are people who use Microsoft Office at work every day. Copilot Cowork landed in front of exactly the audience it's built for.
+    </p>
+    <p>
+      Search traffic at 9.7% with "copilot cowork" as a top query at 10.3% — people are specifically searching for this feature name. That's intent-driven traffic, not just algorithm distribution. The video reached searchers who already knew the product name and wanted more information.
+    </p>
+
+    <div class="takeaway-box">
+      <div class="takeaway-title">// Why This Video Performed</div>
+      <p>Three factors. First, Copilot is a product with 430 million Microsoft 365 users — the potential audience is enormous and the tool affects their daily workflow. Second, the breaking-news format matched the hook well even if the date was off — "Microsoft just pushed Copilot" is a compelling first frame for anyone who uses Office. Third, the 45–54 demographic dominates for a reason: these are the people who've been using Excel and Word for 20+ years and feel the most direct impact from an AI that can now do the actual work inside those apps.</p>
+    </div>
+  </div>
+
+  <!-- FRAME ANALYSIS -->
+  <div class="reveal">
+    <div class="section-label">Visual Analysis</div>
+    <h2 class="section-heading">What Each <span class="lime">Frame Shows</span></h2>
+    <p>All visuals are Keyvello-generated. Several frames represent the actual Copilot interface reasonably well. One frame contains a critical production error that points viewers to a completely different channel.</p>
+  </div>
+
+  <div class="frame-grid reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Hook — Word, Excel, PowerPoint open</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Laptop in an office setting showing Word, Excel, and PowerPoint open simultaneously with Copilot icons visible in each app. Representative of the multi-app pitch and visually accurate to how the Copilot icon appears in Microsoft 365 desktop apps.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Excel — Data input frame</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Excel spreadsheet with Month, Sales, and Growth % columns — the exact data structure the script describes. Copilot sidebar showing prompt: "Analyze this sales data and create a report with trends." Accurate representation of the Excel agent prompt interface. The data is AI-generated placeholder numbers.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Excel — Analysis output</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">"Sales Trend Monthly Growth" chart plus "Analysis complete" card showing Total Sales: $1.2M, Avg. Growth: 12%, Peak Month: Dec. Keyvello-generated illustration of what the output looks like. Not a real Copilot output, but accurately represents the kind of analysis Copilot Excel can produce — identifying trends and generating summary stats.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Word — Document output</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">"Document1 - Word" with title "Introduction to Productivity" and AI-generated garbled placeholder text. Caption: "OR EXCEL AND LOOK." The document content is nonsense text (Keyvello's image generator can't produce real legible paragraphs) but the Microsoft Word interface framing is accurate.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// PowerPoint — Agent output</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">"Presentation1 - PowerPoint" showing "Key Strategies" and "Conclusion" slides with bullet points (Time Management, Collaboration Tools, Visual Aids). Both slides have identical bullet points — a Keyvello generation artifact. Represents the PowerPoint Agent claim, but PowerPoint is still rolling out and not fully GA at time of posting.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:8px;">// Multi-model diagram</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Network diagram showing <strong>Claude</strong> at top, <strong>GPT-5.4</strong> in center, <strong>Microsoft models</strong> on both sides. A tooltip in the corner reads "Open Claude / Has access to this site." This diagram visually presents the unverified model claims as fact — Claude and GPT-5.4 shown as confirmed Copilot components. Microsoft has not named these models publicly.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px;border-left:3px solid #FF5032;grid-column:1/-1;">
+      <div style="font-family:var(--mono);font-size:10px;color:#FF5032;letter-spacing:2px;margin-bottom:8px;">// OUTRO — CRITICAL HANDLE ERROR</div>
+      <p style="font-size:13px;font-weight:300;color:#C8D4C0;line-height:1.6;margin:0;">Desktop showing Word and Copilot icons — with an overlay card reading <strong>"@TechVisualsPro / Follow for more tech insights!"</strong> This is not just the wrong handle — it's a completely different channel name and brand that does not belong to this creator. Anyone who follows @TechVisualsPro from this video is directed to a different account. Previous videos showed @AIToolsDaily (missing "24"); this one shows a completely unrelated handle. This is the most significant CTA error in the series.</p>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div class="reveal">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-heading">What It Actually <span class="lime">Costs</span></h2>
+    <p>The script says "If you already pay for Microsoft 365, open Word or Excel and look for the Copilot icon." This is mostly accurate but the pricing picture is more layered than a simple yes/no. From the actual Microsoft pricing page:</p>
+  </div>
+
+  <div class="spec-grid reveal" style="grid-template-columns:1fr 1fr 1fr;">
+    <div class="spec-item">
+      <div class="spec-label">M365 Personal</div>
+      <div class="spec-value">$99.99</div>
+      <div class="spec-sub">/year · Includes Word, Excel, PPT + Copilot in apps</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">M365 Family</div>
+      <div class="spec-value">$129.99</div>
+      <div class="spec-sub">/year · Up to 6 people</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">M365 Premium</div>
+      <div class="spec-value">$199.99</div>
+      <div class="spec-sub">/year · Includes AI agents for complex tasks</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Copilot Business</div>
+      <div class="spec-value lime">$18</div>
+      <div class="spec-sub">/user/month · Limited time (was $21) · Requires M365 plan</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Copilot Enterprise</div>
+      <div class="spec-value">$30</div>
+      <div class="spec-sub">/user/month · Paid yearly · Requires M365 plan</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Copilot Chat</div>
+      <div class="spec-value lime">Free</div>
+      <div class="spec-sub">Included with eligible M365 subscriptions</div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <p>The script's claim that existing Microsoft 365 subscribers can access Copilot Cowork by opening Word or Excel is broadly accurate for Personal and Family plan holders — those plans include Copilot in the desktop apps. For the full enterprise-grade agentic capabilities, the $18–$30/month Copilot add-on may be required on top of the base subscription. The script doesn't distinguish between these tiers, which matters for anyone in an organization context.</p>
+  </div>
+
+  <!-- SCRIPT -->
+  <div class="reveal">
+    <div class="section-label">Behind The Scenes</div>
+    <h2 class="section-heading">The Full <span class="lime">Script</span></h2>
+    <p>The complete script from the Week 2 Production Studio document. Corrections apply to the flagged lines.</p>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// Full Video Script</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>[0–3s] HOOK:
+"Microsoft just dropped an AI that works inside Word,
+Excel and PowerPoint — and most people have no idea
+it launched this week."
+⚠️ "This week" is inaccurate — GA was April 22, 2026
+   (~3 weeks before this video posted May 11/12)
+
+[3–10s] WHAT IT IS:
+"It's called Copilot Cowork. AI agents are now built
+directly into your Microsoft 365 apps — not as a sidebar,
+but as a full agent inside the tool."
+
+[10–25s] EXCEL AGENT:
+"In Excel — you talk to your spreadsheet. Type: 'Find
+the top 5 products by revenue this quarter and show me
+the trend.' It builds the analysis. No formulas. No pivot
+tables. Just an answer."
+
+[25–38s] WORD + POWERPOINT:
+"Word Agent writes full documents from a brief.
+PowerPoint Agent turns bullet points into a complete deck
+— slides, design, speaker notes. Three hours of work in
+three minutes."
+⚠️ PowerPoint rolling out over coming months — not fully GA
+⚠️ "Three hours in three minutes" — scripted, unverified
+
+[38–52s] THE KEY DETAIL:
+"It runs on Claude, GPT-5.4, and Microsoft's own models
+— picking the best one for each task. This isn't one AI.
+It's a fleet of them working inside your existing apps."
+⚠️ Claude and GPT-5.4 not confirmed by Microsoft publicly
+
+[52–65s] HOW TO ACCESS + CTA:
+"If you already pay for Microsoft 365, open Word or
+Excel and look for the Copilot icon — it should be live
+today. Follow @AIToolsDaily — I find these the day they
+drop so you don't have to."
+⚠️ Handle should be @AIToolsDaily24</code>
+    </div>
+  </div>
+
+  <!-- RFTC -->
+  <div class="reveal">
+    <div class="section-label">The Framework</div>
+    <h2 class="section-heading">The RFTC <span class="lime">Model</span></h2>
+    <p>Same base RFTC model as all 10 videos. This script was tagged in the planning tool as: <strong>Breaking / Trend-reactive · 60–65s · All 3 platforms · 🔥 TRENDING.</strong></p>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// RFTC Base Model — AIToolsDaily24</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>ROLE:
+You are a new and up-and-coming content creator.
+
+TASK:
+You are to use the tools available to you to make a successful
+social media platform on Instagram, TikTok, YouTube, or any
+other video platform.
+
+FORMAT:
+Video shorts optimized for any video platform or platforms
+that allow short-form content.
+
+CONTEXT:
+You have a Keyvello Pro account, a trend analyzer to analyze
+popular trends, and any account can be created to upload these
+videos so long as they are free to create.</code>
+    </div>
+  </div>
+
+  <!-- PRODUCTION -->
+  <div class="reveal">
+    <div class="section-label">Production</div>
+    <h2 class="section-heading">Keyvello <span class="lime">Settings</span></h2>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// Keyvello Production Settings</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Template:      Breaking News / Trend-reactive
+Visual preset: Cinematic AI
+Voice:         Fast, urgent
+Music:         Energetic
+Captions:      Bold White · Fast pop
+Quality:       Pro (1.5x tokens)
+Aspect ratio:  Portrait 9:16
+Duration:      60–65s target
+Thumbnail:     "Microsoft Just Launched THIS" — red urgent style</code>
+    </div>
+    <p>The production note in the planning doc specified: "POST TIKTOK FIRST — trend content needs to be live within 24hrs." That instinct is right even if the launch date in the script was three weeks off — Copilot is still actively being discovered and the search traffic confirms it.</p>
+  </div>
+
+  <!-- FURTHER READING -->
+  <div class="reveal">
+    <div class="section-label">Further Reading</div>
+    <h2 class="section-heading">Sources Worth <span class="lime">Your Time</span></h2>
+    <ul class="try-list">
+      <li>
+        <div>
+          <strong>Copilot's Agentic Capabilities in Word, Excel, and PowerPoint Are Generally Available — Microsoft 365 Blog</strong> — <a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/04/22/copilots-agentic-capabilities-in-word-excel-and-powerpoint-are-generally-available/" target="_blank">microsoft.com</a><br>
+          <span style="font-size:14px;color:var(--muted);">The official GA announcement from April 22, 2026. Primary source for the actual launch date, what Word and Excel agents do, preview engagement figures (Excel +67%), and the PowerPoint/Outlook rollout timeline.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Powering Frontier Transformation with Copilot and Agents — Microsoft 365 Blog</strong> — <a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/03/09/powering-frontier-transformation-with-copilot-and-agents/" target="_blank">microsoft.com</a><br>
+          <span style="font-size:14px;color:var(--muted);">March 2026 announcement describing Wave 3 of Copilot — the foundation for what became Copilot Cowork. Explains the multi-model approach, the "Cowork" naming, and how every change inside Office apps is transparent, reviewable, and reversible.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Microsoft 365 Copilot Pricing — Microsoft</strong> — <a href="https://www.microsoft.com/en-us/microsoft-365-copilot/pricing" target="_blank">microsoft.com</a><br>
+          <span style="font-size:14px;color:var(--muted);">Official pricing page. Personal: $99.99/year. Family: $129.99/year. Copilot Business add-on: $18/user/month (limited time, was $21). Copilot Enterprise: $30/user/month. Copilot Chat included with eligible subscriptions. The tiers matter — Personal/Family include Copilot in apps; full agentic enterprise features may require the separate Copilot add-on.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Microsoft Copilot Can Now Do Actual Work Inside Your Word, Excel, and PowerPoint Files — Digital Trends</strong> — <a href="https://www.digitaltrends.com/computing/microsoft-copilot-can-now-do-actual-work-inside-your-word-excel-and-powerpoint-files/" target="_blank">digitaltrends.com</a><br>
+          <span style="font-size:14px;color:var(--muted);">Independent coverage of the GA release — covers Agent Mode becoming the default experience, Microsoft's "vibe working" framing, and the context of how Copilot evolved from passive assistant to active agent as underlying models improved.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="06-midjourney-v81.html" class="series-nav-card prev">
+      <span class="nav-card-label">Previous</span>
+      <span class="nav-card-title">Midjourney V8.1</span>
+    </a>
+    <a href="08-stop-making-powerpoints.html" class="series-nav-card next">
+      <span class="nav-card-label">Next</span>
+      <span class="nav-card-title">Stop Making PowerPoints</span>
+    </a>
+  </div>
+
+</article>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="platform-card reveal">
+    <div class="platform-card-header">
+      <div class="platform-card-title">// Performance Data</div>
+      <div class="platform-card-date">Posted May 12, 2026</div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-yt"></span>YouTube Shorts</div>
+      <div class="platform-stats">
+        <div><div class="stat-value">23</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value">2.7%</div><div class="stat-label-small">CTR</div></div>
+      </div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-tt"></span>TikTok</div>
+      <div class="platform-stats">
+        <div><div class="stat-value highlight">1,070</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value highlight">11.34s</div><div class="stat-label-small">Avg Watch</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:8px;padding-bottom:12px;">
+      <div class="platform-stats">
+        <div><div class="stat-value highlight">23</div><div class="stat-label-small">Likes</div></div>
+        <div><div class="stat-value highlight">15</div><div class="stat-label-small">Saves</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:4px;padding-bottom:12px;font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:1px;">
+      2 comments · 3 shares · 8 new followers · 1.6% full video
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-ig"></span>Instagram</div>
+      <div class="platform-stats">
+        <div><div class="stat-value">106</div><div class="stat-label-small">Views</div></div>
+        <div><div class="stat-value">2</div><div class="stat-label-small">Interactions</div></div>
+      </div>
+    </div>
+    <div class="platform-row" style="padding-top:8px;padding-bottom:12px;font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:1px;">
+      87 accounts reached · 1 like · 1 comment
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-chart-title">// Views by platform</div>
+      <div class="bar-group">
+        <div class="bar-platform">YT</div>
+        <div class="bar-track"><div class="bar-fill yt" style="width:2%"></div></div>
+        <div class="bar-count">23</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-platform">TT</div>
+        <div class="bar-track"><div class="bar-fill tt" style="width:100%"></div></div>
+        <div class="bar-count">1,070</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-platform">IG</div>
+        <div class="bar-track"><div class="bar-fill ig" style="width:10%"></div></div>
+        <div class="bar-count">106</div>
+      </div>
+    </div>
+
+    <div class="virality-section">
+      <div class="virality-label">// Virality Factors</div>
+      <div class="virality-tags">
+        <span class="vtag">Breaking news</span>
+        <span class="vtag">Microsoft brand</span>
+        <span class="vtag">Office users</span>
+        <span class="vtag">Search-driven</span>
+        <span class="vtag">45–54 audience</span>
+        <span class="vtag">Series best</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ryu-read reveal">
+    <div class="ryu-read-label">// Ryu's Read</div>
+    <p>1,070 TikTok views. 11.34s average watch time. 23 likes. 15 saves. Every metric in the series. The 45–54 audience finding this video makes complete sense — these are Office power users who've been waiting for AI that actually does work inside their apps, not just suggests it.<br><br>Four corrections documented. The worst one is the outro: Keyvello generated "@TechVisualsPro / Follow for more tech insights!" — a completely different account that doesn't belong to this channel. Every viewer who followed from that frame went somewhere else. Previous videos had @AIToolsDaily (missing "24"); this one pointed to an unrelated creator entirely.<br><br>The lesson on the numbers side: Microsoft brand + a tool affecting people's daily workflow + the right audience = genuine engagement. The search queries show people were already looking for "copilot cowork." The video just needed to be there.</p>
+  </div>
+
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// AI In This Video</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎬</span><span>Video generated by Keyvello Pro — Breaking News template, Cinematic visual preset, fast urgent voice, energetic music, bold white captions.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>"Launched this week" — GA was April 22, 2026, ~3 weeks before posting. Script's own stated date (May 1) also wrong.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Claude and GPT-5.4 shown in a network diagram as confirmed Copilot components. Microsoft has not named these models publicly. Unverified claim presented as visual fact.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>PowerPoint Agent presented as fully live — rolling out over coming months, not GA at time of posting.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Outro shows "@TechVisualsPro / Follow for more tech insights!" — a completely different account. Not @AIToolsDaily24, not @AIToolsDaily. Keyvello generated an unrelated channel identity.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">📝</span><span>Blog post drafted by Claude, fact-checked against Microsoft 365 Blog official announcements and pricing pages, edited by Ryu Vy.</span></div>
+    </div>
+  </div>
+
+</aside>
+</div>
+
+<!-- SOCIAL SHARE + COMMENTS -->
+<section style="max-width:860px;margin:0 auto;padding:60px 48px 0;">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:48px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">// Share This Post</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+      <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+      <applause-button style="width:44px;height:44px;" url="https://aitoolsdaily24.netlify.app/07-copilot-cowork.html"></applause-button>
+      <a id="share-x" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UCwW_X7a0cshoqT1u_AYo-rg" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@dj.bomasterflex" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#00F2EA"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/aitoolsdaily245/" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+  </div>
+  <div style="margin-bottom:80px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--lime);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;">// Comments</div>
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = window.location.href;
+        this.page.identifier = window.location.pathname;
+      };
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://aitoolsdaily24.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+      document.getElementById('share-x').href =
+        'https://twitter.com/intent/tweet?text=' +
+        encodeURIComponent(document.title) +
+        '&url=' + encodeURIComponent(window.location.href);
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" style="color:var(--lime)">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--lime)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">New AI breakdowns in your inbox. No noise. Just signal — from a human who actually uses this stuff.</p>
+    <div class="reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Can Claude Read Your Google Drive? — What the Video Got Wrong | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="The video title said 'Google Drive AI' — but it was actually about Claude. Here's the correction, the real setup, and what 1,001 views in a week told me about AI content.">
+<meta property="og:title" content="Can Claude Read Your Google Drive? | AIToolsDaily24">
+<meta property="og:description" content="What the video got wrong, what it was actually about, and the full breakdown of Claude's Google Drive connector.">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0A0C0A;
+    --surface:  #111810;
+    --surface2: #161A14;
+    --border:   #1E2A1A;
+    --lime:     #84E000;
+    --lime-dim: rgba(132,224,0,0.1);
+    --lime-glow:rgba(132,224,0,0.05);
+    --white:    #F2F5EE;
+    --muted:    #5A6A52;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--body);
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,12,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--lime);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .nav-back {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-back:hover { color: var(--lime); }
+
+  /* HERO */
+  .post-hero {
+    padding: 140px 48px 60px;
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .post-meta {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .post-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: var(--lime-dim);
+    padding: 4px 12px;
+    border-radius: 2px;
+    border: 1px solid rgba(132,224,0,0.2);
+  }
+  .post-series {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .post-date {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-left: auto;
+  }
+
+  .post-title {
+    font-family: var(--display);
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.93;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .post-title .lime { color: var(--lime); }
+
+  .post-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 600px;
+    margin-bottom: 32px;
+  }
+
+  .post-byline {
+    display: flex; align-items: center; gap: 12px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .byline-avatar {
+    width: 36px; height: 36px;
+    background: var(--lime);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display);
+    font-size: 16px;
+    color: var(--bg);
+    flex-shrink: 0;
+  }
+  .byline-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+  .byline-role {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* VIDEO EMBED */
+  .video-section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 48px 60px;
+  }
+  .video-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .video-wrapper {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    /* For YouTube Shorts — portrait ratio */
+    max-width: 340px;
+    aspect-ratio: 9/16;
+  }
+  .video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+  /* Placeholder shown before video is embedded */
+  .video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: var(--surface);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-align: center;
+    padding: 24px;
+    min-height: 400px;
+  }
+  .video-placeholder-icon { font-size: 40px; }
+
+  /* DIVIDER */
+  .divider {
+    max-width: 860px;
+    margin: 0 auto 60px;
+    padding: 0 48px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+  }
+
+  /* ARTICLE BODY */
+  .post-body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+  }
+
+  /* Section headers */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before {
+    content: '//';
+    opacity: 0.5;
+  }
+
+  .section-heading {
+    font-family: var(--display);
+    font-size: clamp(32px, 4vw, 52px);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 0.95;
+    margin-bottom: 24px;
+  }
+  .section-heading .lime { color: var(--lime); }
+
+  /* Body text */
+  .post-body p {
+    font-size: 17px;
+    font-weight: 300;
+    color: #C8D4C0;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .post-body p strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+  .post-body p em {
+    color: var(--lime);
+    font-style: italic;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    border-left: 3px solid var(--lime);
+    padding: 20px 28px;
+    margin: 40px 0;
+    background: var(--lime-glow);
+    border-radius: 0 4px 4px 0;
+  }
+  .pull-quote p {
+    font-size: 20px !important;
+    font-weight: 400 !important;
+    color: var(--white) !important;
+    font-style: italic;
+    margin: 0 !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Code/prompt block */
+  .prompt-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--lime);
+    border-radius: 0 4px 4px 0;
+    padding: 24px 28px;
+    margin: 32px 0;
+    position: relative;
+  }
+  .prompt-block-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--lime);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+  .prompt-block code {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--white);
+    line-height: 1.7;
+    display: block;
+    white-space: pre-wrap;
+  }
+  .prompt-copy {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: var(--lime-dim);
+    border: 1px solid rgba(132,224,0,0.2);
+    color: var(--lime);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .prompt-copy:hover {
+    background: var(--lime);
+    color: var(--bg);
+  }
+
+  /* Try it list */
+  .try-list {
+    list-style: none;
+    margin: 24px 0 32px;
+  }
+  .try-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #C8D4C0;
+    line-height: 1.7;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before {
+    content: '→';
+    color: var(--lime);
+    font-family: var(--mono);
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Key takeaway box */
+  .takeaway-box {
+    background: var(--surface);
+    border: 1px solid rgba(132,224,0,0.25);
+    border-radius: 4px;
+    padding: 32px;
+    margin: 48px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .takeaway-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lime), transparent);
+  }
+  .takeaway-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .takeaway-box p {
+    font-size: 16px !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Series nav */
+  .series-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 60px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .series-nav-card {
+    background: var(--surface);
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s;
+    border: 1px solid transparent;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .series-nav-card:hover {
+    border-color: var(--lime);
+    transform: translateY(-2px);
+  }
+  .nav-card-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .nav-card-title {
+    font-family: var(--display);
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .nav-card-icon { font-size: 28px; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  /* NEWSLETTER CTA */
+  .newsletter-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 80px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .newsletter-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lime), transparent);
+  }
+  .newsletter-inner {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .newsletter-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .newsletter-title {
+    font-family: var(--display);
+    font-size: clamp(36px, 4vw, 56px);
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .newsletter-sub {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+  .beehiiv-embed-wrapper {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--lime);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider, .post-body { padding-left: 24px; padding-right: 24px; }
+    .series-nav { grid-template-columns: 1fr; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+
+  /* ============================================================
+     SIDEBAR LAYOUT
+     ============================================================ */
+  .content-with-sidebar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .post-body-inner {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .post-body-inner p {
+    font-size: 17px;
+    font-weight: 300;
+    color: #C8D4C0;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .post-body-inner p strong { color: var(--white); font-weight: 500; }
+  .post-body-inner p em { color: var(--lime); font-style: italic; }
+  .post-body-inner .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .post-body-inner .section-label::before { content: '//'; opacity: 0.5; }
+  .post-body-inner .section-heading {
+    font-family: var(--display);
+    font-size: clamp(28px, 3vw, 44px);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 0.95;
+    margin-bottom: 24px;
+  }
+  .post-body-inner .section-heading .lime { color: var(--lime); }
+  .post-body-inner .pull-quote {
+    border-left: 3px solid var(--lime);
+    padding: 20px 28px;
+    margin: 40px 0;
+    background: var(--lime-glow);
+    border-radius: 0 4px 4px 0;
+  }
+  .post-body-inner .pull-quote p {
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    color: var(--white) !important;
+    font-style: italic;
+    margin: 0 !important;
+    line-height: 1.6 !important;
+  }
+  .post-body-inner .prompt-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--lime);
+    border-radius: 0 4px 4px 0;
+    padding: 24px 28px;
+    margin: 32px 0;
+    position: relative;
+  }
+  .post-body-inner .prompt-block-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--lime);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.7;
+  }
+  .post-body-inner .prompt-block code {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--white);
+    line-height: 1.7;
+    display: block;
+    white-space: pre-wrap;
+  }
+  .post-body-inner .try-list { list-style: none; margin: 24px 0 32px; }
+  .post-body-inner .try-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #C8D4C0;
+    line-height: 1.7;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .post-body-inner .try-list li:last-child { border-bottom: none; }
+  .post-body-inner .try-list li::before {
+    content: '→';
+    color: var(--lime);
+    font-family: var(--mono);
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .post-body-inner .takeaway-box {
+    background: var(--surface);
+    border: 1px solid rgba(132,224,0,0.25);
+    border-radius: 4px;
+    padding: 32px;
+    margin: 48px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .post-body-inner .takeaway-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lime), transparent);
+  }
+  .post-body-inner .takeaway-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .post-body-inner .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+  .post-body-inner .series-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 60px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .post-body-inner .prompt-copy {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: var(--lime-dim);
+    border: 1px solid rgba(132,224,0,0.2);
+    color: var(--lime);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .post-body-inner .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  @media (max-width: 900px) {
+    .content-with-sidebar {
+      grid-template-columns: 1fr;
+      padding: 0 24px 60px;
+    }
+    .sidebar { position: static; }
+    .post-body-inner .series-nav { grid-template-columns: 1fr; }
+  }
+  /* ============================================================
+     SIDEBAR LAYOUT
+     ============================================================ */
+  .content-with-sidebar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* Platform comparison card */
+  .platform-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  .platform-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lime), transparent);
+  }
+  .platform-card-header {
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .platform-card-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .platform-card-date {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* Platform rows */
+  .platform-row {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .platform-row:last-of-type { border-bottom: none; }
+  .platform-name {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .platform-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-yt { background: #FF0000; }
+  .dot-tt { background: #00F2EA; }
+  .dot-ig { background: #E1306C; }
+
+  .platform-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .stat-item { }
+  .stat-value {
+    font-family: var(--display);
+    font-size: 22px;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+  .stat-value.highlight { color: var(--lime); }
+  .stat-label-small {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* Bar chart */
+  .bar-chart {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .bar-chart-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .bar-group {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 8px;
+  }
+  .bar-group:last-child { margin-bottom: 0; }
+  .bar-platform {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    width: 22px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+  .bar-fill.yt { background: #FF0000; }
+  .bar-fill.tt { background: #00F2EA; }
+  .bar-fill.ig { background: #E1306C; }
+  .bar-count {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    width: 44px;
+    flex-shrink: 0;
+  }
+
+  /* Virality tag */
+  .virality-section {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .virality-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .virality-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .vtag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 2px;
+    border: 1px solid rgba(132,224,0,0.25);
+    color: var(--lime);
+    background: var(--lime-glow);
+  }
+
+  /* Ryu's read */
+  .ryu-read {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--lime);
+    border-radius: 0 4px 4px 0;
+    padding: 16px 20px;
+  }
+  .ryu-read-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--lime);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .ryu-read p {
+    font-size: 13px !important;
+    color: #C8D4C0 !important;
+    line-height: 1.65 !important;
+    margin-bottom: 0 !important;
+    font-weight: 300 !important;
+  }
+
+  /* AI Impact card */
+  .ai-impact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .ai-impact-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .ai-impact-body {
+    padding: 16px 20px;
+  }
+  .ai-impact-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: #C8D4C0;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .ai-impact-row:last-child { margin-bottom: 0; }
+  .ai-impact-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Override post-body for sidebar layout */
+  .post-body-inner {
+    min-width: 0;
+  }
+  .post-body-inner p {
+    font-size: 17px;
+    font-weight: 300;
+    color: #C8D4C0;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .post-body-inner p strong { color: var(--white); font-weight: 500; }
+  .post-body-inner p em { color: var(--lime); font-style: italic; }
+  .post-body-inner .section-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .post-body-inner .section-label::before { content: '//'; opacity: 0.5; }
+  .post-body-inner .section-heading { font-family: var(--display); font-size: clamp(28px, 3vw, 44px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .post-body-inner .section-heading .lime { color: var(--lime); }
+  .post-body-inner .pull-quote { border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0; background: var(--lime-glow); border-radius: 0 4px 4px 0; }
+  .post-body-inner .pull-quote p { font-size: 18px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+  .post-body-inner .prompt-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; position: relative; }
+  .post-body-inner .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7; }
+  .post-body-inner .prompt-block code { font-family: var(--mono); font-size: 13px; color: var(--white); line-height: 1.7; display: block; white-space: pre-wrap; }
+  .post-body-inner .try-list { list-style: none; margin: 24px 0 32px; }
+  .post-body-inner .try-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; font-weight: 300; color: #C8D4C0; line-height: 1.7; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .post-body-inner .try-list li:last-child { border-bottom: none; }
+  .post-body-inner .try-list li::before { content: '→'; color: var(--lime); font-family: var(--mono); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+  .post-body-inner .takeaway-box { background: var(--surface); border: 1px solid rgba(132,224,0,0.25); border-radius: 4px; padding: 32px; margin: 48px 0; position: relative; overflow: hidden; }
+  .post-body-inner .takeaway-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .post-body-inner .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .post-body-inner .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+  .post-body-inner .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; position: relative; z-index: 1; }
+  .post-body-inner .prompt-copy { position: absolute; top: 16px; right: 16px; background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.2); color: var(--lime); font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+  .post-body-inner .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  @media (max-width: 900px) {
+    .content-with-sidebar {
+      grid-template-columns: 1fr;
+      padding: 0 24px 60px;
+    }
+    .sidebar { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html#series" class="nav-back">← Back to Series</a>
+</nav>
+
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">01 / 10</span>
+    <span class="post-series">AIToolsDaily24</span>
+    <span class="post-date">May 3, 2026</span>
+  </div>
+  <h1 class="post-title">
+    Can Claude<br>
+    <span class="lime">Read Your</span><br>
+    Google Drive?
+  </h1>
+  <p class="post-subtitle">
+    The video title said "Google Drive AI" — but that's not quite right. Here's the correction, what the video was actually about, and a full breakdown of how Claude's Google Drive connector actually works.
+  </p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/q3BtK0ip2r8"
+            allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="content-with-sidebar">
+
+<article class="post-body-inner">
+
+  <!-- CORRECTION -->
+  <div class="reveal">
+    <div class="section-label">Let's Clear This Up First</div>
+    <h2 class="section-heading">The Title Was <span class="lime">Wrong</span></h2>
+    <p>
+      I need to own something before we get into the breakdown. The video title says <strong>"Google Drive AI: Read All Your Files Instantly"</strong> — as if Google built a new AI directly into Drive. That's misleading, and it's a mistake I didn't catch until after the video was already posted.
+    </p>
+    <p>
+      Here's the irony: <strong>the script actually got it right.</strong> The Keyvello prompt I wrote correctly identifies the tool as "Claude with Google Drive connected through MCP — Model Context Protocol." The script even explains it accurately: "It's basically a bridge that lets AI actually read and act on your files. You connect it once in Claude settings, and then you just ask questions."
+    </p>
+    <p>
+      The mistake was the <strong>title</strong> — "Google Drive AI" — which Keyvello generated as the video title and which I approved without thinking about what it implied. "Google Drive AI" sounds like a native Google product. It's not. What the video describes is Claude connecting to Drive via MCP. Those are very different things. Google did build their own AI into Drive — that's Google Gemini, and it's a separate product entirely.
+    </p>
+    <p>
+      The visuals are also entirely AI-generated animations — not real screen recordings of Claude or an actual Drive. The files shown (Q3_Report.pdf, Marketing_Plan.docx, Budget_2024.xlsx) are placeholder names, and the text visible in the document panels is complete gibberish. This is how Keyvello works: it generates illustrative visuals that demonstrate a concept, not actual demonstrations of the tool. I'll go into more detail on what each frame actually shows further down this post.
+    </p>
+  </div>
+
+  <div class="pull-quote reveal">
+    <p>"The video title said Google Drive AI. It should have said Claude + Google Drive. Here's what that actually means."</p>
+  </div>
+
+  <!-- WHAT IT ACTUALLY IS -->
+  <div class="reveal">
+    <div class="section-label">What It's Actually About</div>
+    <h2 class="section-heading">Claude + Google Drive: <span class="lime">How It Works</span></h2>
+    <p>
+      Claude has a Google Workspace connector that lets it search and read files directly from your Google Drive inside the chat interface. <a href="https://support.claude.com/en/articles/10166901-use-google-workspace-connectors" target="_blank" style="color:var(--lime)">Per Anthropic's documentation</a>, you can search and retrieve Google Docs, read Sheets, Slides, PDFs, images, and MS Office files, look up file metadata, and even save Claude-generated files back to your Drive.
+    </p>
+    <p>
+      The connector is available for <strong>all users on Claude and Claude Desktop</strong> — not just paid plans. To use it, click the plus sign in the chat interface, select "Add from Google Drive," and either search your recent documents or paste a file URL. Claude accesses and processes the document to inform its response. You can add multiple files to a single chat.
+    </p>
+    <p>
+      One important limitation worth knowing upfront: <strong>Claude extracts text content only.</strong> Images embedded in documents, comments, and suggestions are not processed. If your key information lives in charts, screenshots, or margin notes, Claude won't see those. For text-heavy documents — reports, briefs, notes, contracts — it works well.
+    </p>
+  </div>
+
+  <!-- PROMPT BLOCK -->
+  <div class="prompt-block reveal">
+    <div class="prompt-block-label">// How To Set It Up</div>
+    <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+    <code>1. Open claude.ai in your browser
+2. Click the + (plus) icon below the chat input
+3. Select "Add from Google Drive"
+4. Search for a document or paste its URL
+5. Ask Claude anything about the file
+
+Example prompts to try:
+— "Summarize the key points in this document"
+— "What action items are mentioned here?"
+— "Find anything related to budget or costs"
+— "Compare this doc to [add second file]"</code>
+  </div>
+
+  <!-- PRODUCTION SETTINGS -->
+  <div class="reveal">
+    <div class="section-label">Behind The Scenes</div>
+    <h2 class="section-heading">Keyvello <span class="lime">Settings Used</span></h2>
+    <p>
+      For transparency, here are the exact Keyvello settings I used to generate this video. All 10 videos in the first series were made with these same settings.
+    </p>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// Keyvello Production Settings</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Media type:    AI video
+Style preset:  Cinematic
+Quality:       Pro (1.5x tokens)
+Captions:      Bold White · Middle alignment
+Aspect ratio:  Portrait 9:16
+Duration:      60s (~15 images generated)</code>
+    </div>
+    <p>
+      And here is the full script I submitted as the Keyvello prompt for this video:
+    </p>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// Full Video Script (Keyvello Input)</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>[0–3s] HOOK — disbelief tone:
+"Did you know you can literally talk to your entire Google Drive using AI — and it just answers you?"
+
+[3–8s] EXPAND:
+"Like, you can ask it: 'What did I write in that proposal from February?' And it finds it. In seconds."
+
+[8–22s] HOW IT WORKS:
+"This is Claude with Google Drive connected through MCP — Model Context Protocol. It's basically a bridge that lets AI actually read and act on your files. You connect it once in Claude settings, and then you just... ask questions."
+
+[22–32s] USE CASES:
+"Find old documents. Summarize meeting notes. Pull data from spreadsheets. Draft a reply based on a past email thread. All with one prompt."
+
+[32–40s] CLOSE:
+"This is free with a Claude Pro account. And it's genuinely the most useful thing I've set up this year."
+
+[40–44s] CTA:
+"Follow — I post one AI tip like this every day."</code>
+    </div>
+    <p>
+      Notice the script correctly identifies the tool as <strong>Claude connected via MCP</strong>. The mistake was in the title I approved for the video — "Google Drive AI" — not in the underlying content. The script also says "free with a Claude Pro account" which is worth noting: the Google Drive connector is actually available to <em>all</em> Claude users including the free tier, per Anthropic's documentation. That's another small inaccuracy in the generated script that I didn't catch.
+    </p>
+  </div>
+
+  <!-- RFTC MODEL -->
+  <div class="reveal">
+    <div class="section-label">The Framework Behind It</div>
+    <h2 class="section-heading">The RFTC <span class="lime">Model</span></h2>
+    <p>
+      Every video in this series starts with the same base framework — a prompt structure I built called the <strong>RFTC model</strong> (Role, Format, Task, Context). This prompt gets fed to <strong>Claude</strong>, not Keyvello. Claude takes the RFTC input and generates the content strategy, scripts, and production briefs. Those outputs are then what gets pasted into Keyvello to generate the actual video.
+    </p>
+    <p>
+      It's a two-step process: <strong>RFTC → Claude → script → Keyvello → video.</strong> The RFTC model is the starting gun. Here's the exact base I used for all 10 videos in this first series:
+    </p>
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// RFTC Base Model — AIToolsDaily24</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>ROLE:
+You are a new and up-and-coming content creator.
+
+TASK:
+You are to use the tools available to you to make a successful social media platform on Instagram, TikTok, YouTube, or any other video platform.
+
+FORMAT:
+Video shorts optimized for any video platform or platforms that allow short-form content.
+
+CONTEXT:
+You have a Keyvello Pro account, a trend analyzer to analyze popular trends, and any account can be created to upload these videos so long as they are free to create.</code>
+    </div>
+    <p>
+      This RFTC model is the base layer. The specific video topic, hook, script, and timing are then built on top of it — either manually or with Claude's help — and the full result gets pasted into Keyvello as the generation prompt. The same RFTC structure also powers the trend analyzer queries and the thumbnail generator. It's the consistent foundation that keeps every piece of content pointed at the same goal.
+    </p>
+    <p>
+      The reason this matters: without a defined role and context, Claude's output tends to be generic. The RFTC model gives Claude a specific persona, a goal, a format requirement, and real constraints to work within. The result is a focused content strategy and ready-to-use scripts — not a vague list of suggestions. Those scripts then go straight into Keyvello as the generation prompt.
+    </p>
+  </div>
+
+  <!-- WHAT THE RFTC GAVE ME -->
+  <div class="reveal">
+    <div class="section-label">The Output</div>
+    <h2 class="section-heading">What That First <span class="lime">Prompt Gave Me</span></h2>
+    <p>
+      When I fed the RFTC model into Claude for the first time, it didn't just give me a script. It gave me an entire channel strategy. This is Claude's output — not a Keyvello output. This became the blueprint for everything you're watching on this channel.
+    </p>
+    <p>
+      The scripts Claude produced from that RFTC prompt were then used as the Keyvello generation prompts — one Claude output feeds the next tool in the chain. The full response included a <strong>Tech & AI Faceless Short-Form Playbook</strong> with:
+    </p>
+    <ul class="try-list">
+      <li><strong>Channel Vitals</strong> — target video length 45–75s, posting frequency 5x/week, hook window 0–3 seconds, niche angle: "AI tools that make your life 10x easier"</li>
+      <li><strong>Platform Strategy</strong> — TikTok as the fast virality engine (post trend-reactive content within 48hrs), YouTube Shorts for long-term SEO compounding, Instagram Reels as the evergreen brand builder</li>
+      <li><strong>Top 5 Video Formats</strong> proven viral in tech/AI — Top-N countdown, Mistake-calling, Experiment/story, Quick how-to, FOMO/secret reveal</li>
+      <li><strong>Weekly Posting Calendar</strong> — Mon/Wed/Fri/Sat new videos, Tue repurpose, Thu batch day, Sun plan week</li>
+      <li><strong>Growth Roadmap</strong> — Weeks 1–4 volume and testing, Months 2–3 double down on winners, Months 4–6 monetize (YouTube Partner Program at 500 subs + 3K watch hours, TikTok Creator Rewards at 10K)</li>
+      <li><strong>5 ready-to-use video scripts</strong> — including Script 05 which became this video</li>
+    </ul>
+    <p>
+      Script 05 from that Claude output — the "Did you know AI can now do THIS?" curiosity format — is the exact prompt I then pasted into Keyvello to generate this video. Claude wrote the script. Keyvello turned the script into the video. One RFTC prompt gave me a complete content operation before I'd recorded a single second of footage.
+    </p>
+    <div class="honest-box" style="background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--lime);border-radius:0 4px 4px 0;padding:24px 28px;margin:32px 0;">
+      <p style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">// Why This Is The Point Of The Blog</p>
+      <p style="font-size:15px;font-weight:300;color:#C8D4C0;line-height:1.8;margin-bottom:12px;">There are thousands of videos about using AI to make content. Almost none of them show you the actual prompt that started it, the actual output it returned, or the actual decisions made between the AI's suggestion and the final video. That gap is what this blog is here to fill.</p>
+      <p style="font-size:15px;font-weight:300;color:#C8D4C0;line-height:1.8;margin:0;">The RFTC prompt above is the actual starting point. The playbook screenshot is the actual output. The Keyvello settings are the actual production configuration. Nothing has been cleaned up or made to look smarter in hindsight.</p>
+    </div>
+  </div>
+
+  <!-- GEMINI VS CLAUDE -->
+  <div class="reveal">
+    <div class="section-label">Worth Knowing</div>
+    <h2 class="section-heading">Gemini vs Claude: <span class="lime">Not The Same Thing</span></h2>
+    <p>
+      Since the video title caused confusion, it's worth addressing this directly. Google Workspace does have its own built-in AI — <strong>Google Gemini</strong> — which is integrated natively into Docs, Sheets, Drive, and Gmail. If you have a Google Workspace account, you may already have access to it.
+    </p>
+    <p>
+      The Claude Google Drive connector is different. It's not built into Drive — it's Claude reaching into your Drive from the Claude interface. You're working in Claude, and Claude is pulling your files in as context. The advantage is that you get Claude's reasoning applied to your documents. The tradeoff is that it requires a Claude subscription and a separate authentication step.
+    </p>
+    <p>
+      Both tools are worth knowing about. They're not competing for the same use case — Gemini lives inside Google's ecosystem, Claude brings its own reasoning layer to your files from outside it.
+    </p>
+  </div>
+
+  <!-- WHAT MOST PEOPLE GET WRONG -->
+  <div class="reveal">
+    <div class="section-label">Common Mistake</div>
+    <h2 class="section-heading">What I Got <span class="lime">Wrong</span> Making This</h2>
+    <p>
+      Beyond the title issue, there's a bigger lesson here about AI-generated content: <strong>the AI writes what sounds plausible, not necessarily what's precise.</strong> "Google Drive AI" sounds like a real product name. It's close enough to true that I didn't flag it on first watch. But close enough isn't good enough when people are going to act on the information.
+    </p>
+    <p>
+      The TikTok version of this video also had an issue I didn't catch until after posting — I accidentally added platform audio from TikTok while uploading, which plays over the video's original audio. It's jarring and makes the video harder to watch. Despite that, the TikTok version had 298 views as of May 13, 2026 — but TikTok's analytics showed most viewers dropped off at the 0:01 mark, right where the accidental audio hits. The video got distribution because the topic had demand. It lost retention because the execution was broken. Both things are true at the same time.
+    </p>
+    <p>
+      Both of these mistakes — the title and the audio — are things I'm building into my review process going forward. Every video gets a closer read before it goes up.
+    </p>
+  </div>
+
+  <!-- VISUAL ANALYSIS -->
+  <div class="reveal">
+    <div class="section-label">Visual Analysis</div>
+    <h2 class="section-heading">What The Video <span class="lime">Actually Shows</span></h2>
+    <p>
+      I want to be fully transparent about what you're looking at in this video — because it matters for how you interpret what AI-generated content actually is.
+    </p>
+    <p>
+      <strong>None of the visuals in this video are real.</strong> Every frame is a Keyvello-generated animation designed to illustrate the concept. Here's what each section actually shows:
+    </p>
+    <p>
+      <strong>Frame 1</strong> — A split screen showing a Claude-style dark interface on the left with placeholder chat bubbles, and a generic Google Drive file browser on the right with made-up filenames (Q3_Report.pdf, Marketing_Plan.docx, Budget_2024.xlsx). These are not real files from a real Drive.
+    </p>
+    <p>
+      <strong>Frame 2</strong> — A generic cloud storage UI with an "Archive" folder and document icons. The text visible inside the documents is complete gibberish — placeholder content that looks like real text from a distance but is meaningless on closer inspection. Lines like "Me te tor con aill deun" are AI-generated filler, not real meeting notes.
+    </p>
+    <p>
+      <strong>Frame 3</strong> — A generic email thread UI labeled "Re: Q3 Strategy Discussion" with fabricated email content. Again, the text is nonsense designed to visually suggest a real email thread. The caption says "Google Workspace connectivity is included" — which is technically true for Claude, but nothing in the frame demonstrates it.
+    </p>
+    <p>
+      <strong>Frame 4</strong> — A generic cloud storage illustration with speech bubbles. No Claude interface, no Drive interface, just stock-style AI animation.
+    </p>
+    <div class="honest-box" style="background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--lime);border-radius:0 4px 4px 0;padding:24px 28px;margin:32px 0;">
+      <p style="font-family:var(--mono);font-size:10px;color:var(--lime);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;">// Why This Matters</p>
+      <p style="font-size:15px;font-weight:300;color:#C8D4C0;line-height:1.8;margin:0;">This is one of the core limitations of AI-generated video content right now. Keyvello creates visually convincing animations that demonstrate a concept — but they're not screencasts, they're not real interfaces, and the text inside them is fabricated. A viewer watching at normal speed would likely assume they're seeing a real demo. They're not. The real Claude + Google Drive connector looks different, works differently, and requires actual authentication steps. That's what this blog post is here to show you.</p>
+    </div>
+  </div>
+
+  <!-- TRY IT -->
+  <div class="reveal">
+    <div class="section-label">Try It</div>
+    <h2 class="section-heading">What To Try <span class="lime">First</span></h2>
+    <ul class="try-list">
+      <li>Open a long document you've been meaning to read — ask Claude to summarize the key decisions or action items</li>
+      <li>Upload a PDF report and ask Claude to pull out the most important numbers or conclusions</li>
+      <li>Add two related documents and ask Claude to compare them or find contradictions</li>
+      <li>Ask Claude to find anything in a document related to a specific topic — it searches the full text, not just the filename</li>
+    </ul>
+  </div>
+
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The One Thing To Remember</div>
+    <p>
+      The Claude Google Drive connector is real, it works, and it's available right now. The video title was wrong — it's Claude connecting to Drive, not a native Google feature. If you want to try it: open Claude, click the plus sign, connect your Drive, and point it at any document. The connector is available to all Claude users including the free tier.
+    </p>
+  </div>
+
+  <div class="series-nav reveal">
+    <a href="#" class="series-nav-card prev">
+      <div class="nav-card-label">← Previous</div>
+      <div class="nav-card-icon">←</div>
+      <div class="nav-card-title">Start of Series</div>
+    </a>
+    <a href="02-stop-using-google.html" class="series-nav-card next">
+      <div class="nav-card-label">Next Up →</div>
+      <div class="nav-card-icon">🔍</div>
+      <div class="nav-card-title">Stop Using Google</div>
+    </a>
+  </div>
+
+</article>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="platform-card reveal">
+    <div class="platform-card-header">
+      <span class="platform-card-title">// Platform Data</span>
+      <span class="platform-card-date">// UPDATED AS OF MAY 3–13, 2026</span>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-yt"></span>YouTube</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value highlight">1,002</div><div class="stat-label-small">Views</div></div>
+        <div class="stat-item"><div class="stat-value">6.6s</div><div class="stat-label-small">Avg Watch</div></div>
+        <div class="stat-item"><div class="stat-value">95</div><div class="stat-label-small">Impressions</div></div>
+        <div class="stat-item"><div class="stat-value">2.11%</div><div class="stat-label-small">CTR</div></div>
+      </div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-tt"></span>TikTok</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value highlight">298</div><div class="stat-label-small">Views</div></div>
+        <div class="stat-item"><div class="stat-value">4.94s</div><div class="stat-label-small">Avg Watch</div></div>
+        <div class="stat-item"><div class="stat-value">91.1%</div><div class="stat-label-small">FYP</div></div>
+        <div class="stat-item"><div class="stat-value">9</div><div class="stat-label-small">Saves</div></div>
+      </div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-ig"></span>Instagram</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value highlight">131</div><div class="stat-label-small">Views</div></div>
+        <div class="stat-item"><div class="stat-value">—</div><div class="stat-label-small">Avg Watch</div></div>
+        <div class="stat-item"><div class="stat-value">—</div><div class="stat-label-small">Reach</div></div>
+        <div class="stat-item"><div class="stat-value">0</div><div class="stat-label-small">Shares</div></div>
+      </div>
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-chart-title">Views by Platform</div>
+      <div class="bar-group">
+        <span class="bar-platform">YT</span>
+        <div class="bar-track"><div class="bar-fill yt" style="width:100%"></div></div>
+        <span class="bar-count">1,002</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">TT</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:30%"></div></div>
+        <span class="bar-count">298</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">IG</span>
+        <div class="bar-track"><div class="bar-fill ig" style="width:13%"></div></div>
+        <span class="bar-count">131</span>
+      </div>
+    </div>
+
+    <div class="virality-section">
+      <div class="virality-label">Virality Factors</div>
+      <div class="virality-tags">
+        <span class="vtag">Topic Demand</span>
+        <span class="vtag">Free Tool Hook</span>
+        <span class="vtag">Discovery Algorithm</span>
+        <span class="vtag">Evergreen Content</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ryu-read reveal">
+    <div class="ryu-read-label">// Ryu's Read On The Data</div>
+    <p>YouTube hit 1,002 views — the algorithm pushed hard on May 3–4 (893 views in two days) then dropped off fast. TikTok tells a more honest story: 298 views, but most viewers dropped off at <strong>0:01</strong>. TikTok's own analytics flagged it — "most viewers stopped watching at 0:01." That's the accidental platform audio killing retention at the very first second. The fact that it still got 298 views and 3 new followers despite that is almost entirely the algorithm pushing it to the right audience (91.1% For You). The topic had demand. The execution failed. Instagram at 131 views likely never got an algorithmic push on day one. The takeaway: topic selection drives initial distribution, but execution determines whether people stay.</p>
+  </div>
+
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// AI In This Video</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎬</span><span>Video generated entirely by Keyvello using an RFTC-structured prompt. The visuals are AI-generated demonstrations, not real screen recordings.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚠️</span><span>Title "Google Drive AI" was AI-generated copy that I didn't closely review before posting — resulted in misleading framing that this blog post corrects.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">📝</span><span>This blog post was drafted by Claude, fact-checked against Anthropic's official documentation, and edited by Ryu Vy to include corrections and real context.</span></div>
+    </div>
+  </div>
+
+</aside>
+
+</div>
+
+
+<!-- SOCIAL SHARE + COMMENTS -->
+<section style="max-width:860px;margin:0 auto;padding:60px 48px 0;">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:48px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">// Share This Post</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+      <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+      <applause-button style="width:44px;height:44px;" url="https://aitoolsdaily24.netlify.app/01-google-drive-ai.html"></applause-button>
+      <a id="share-x" href="#" target="_blank" title="Share on X" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UCwW_X7a0cshoqT1u_AYo-rg" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@dj.bomasterflex" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#00F2EA"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/aitoolsdaily245/" target="_blank" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--surface);border:1px solid var(--border);border-radius:2px;text-decoration:none;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+  </div>
+  <div style="margin-bottom:80px;">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--lime);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;">// Comments</div>
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = window.location.href;
+        this.page.identifier = window.location.pathname;
+      };
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://aitoolsdaily24.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+      document.getElementById('share-x').href =
+        'https://twitter.com/intent/tweet?text=' +
+        encodeURIComponent(document.title) +
+        '&url=' + encodeURIComponent(window.location.href);
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" style="color:var(--lime)">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--lime)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">New AI breakdowns in your inbox. No noise. Just signal — from a human who actually uses this stuff.</p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Copy prompt button
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+</body>
+</html>

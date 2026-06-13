@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Free AI Prompt Engineering Cheatsheet — 10 Techniques That Actually Work | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+
+<meta name="description" content="Free PDF cheatsheet. 10 prompt engineering techniques that actually work — role prompting, few-shot, chain-of-thought, and more. No email required to download.">
+<meta property="og:title" content="Free AI Prompt Engineering Cheatsheet — 10 Techniques">
+<meta property="og:description" content="10 prompting techniques that actually work. 14 pages. Free PDF. No email required.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aitoolsdaily24.netlify.app/cheatsheet.html">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0A0C0A;
+    --surface:  #111410;
+    --surface2: #161A14;
+    --border:   #1E2A1A;
+    --lime:     #84E000;
+    --lime-dim: rgba(132,224,0,0.12);
+    --lime-glow:rgba(132,224,0,0.06);
+    --white:    #F2F5EE;
+    --muted:    #5A6A52;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.6; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,12,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-back:hover { color: var(--lime); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 48px 80px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(132,224,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(132,224,0,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 80%);
+  }
+  .hero-glow {
+    position: absolute;
+    top: -10%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(132,224,0,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--lime);
+    border-radius: 50%;
+  }
+  .hero-title {
+    font-family: var(--display);
+    font-size: clamp(56px, 8vw, 112px);
+    line-height: 0.92;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-title .lime { color: var(--lime); }
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto 44px;
+    line-height: 1.7;
+  }
+  .hero-sub strong { color: var(--white); font-weight: 500; }
+
+  /* DOWNLOAD CTA */
+  .download-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--lime);
+    color: #0A0C0A;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 22px 48px;
+    border: none;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 8px 32px rgba(132,224,0,0.18);
+  }
+  .download-cta:hover {
+    background: #9FFF00;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(132,224,0,0.35);
+  }
+  .download-cta .arrow {
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .download-cta:hover .arrow { transform: translateX(4px); }
+  .download-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+  .download-meta .dot { color: var(--lime); margin: 0 8px; }
+
+  /* SECTION layout */
+  .section {
+    padding: 100px 48px;
+    position: relative;
+  }
+  .section-bg-surface { background: var(--surface); }
+  .section-bg-surface::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lime), transparent);
+  }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 56px; }
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .section-title .lime { color: var(--lime); }
+  .section-sub {
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-top: 16px;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* WHAT'S INSIDE — grid of 10 */
+  .techniques-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  @media (max-width: 720px) { .techniques-grid { grid-template-columns: 1fr; } }
+  .tech-row {
+    background: var(--bg);
+    padding: 22px 24px;
+    display: flex; align-items: flex-start; gap: 16px;
+    transition: background 0.2s;
+  }
+  .tech-row:hover { background: var(--surface); }
+  .tech-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 4px;
+    min-width: 24px;
+  }
+  .tech-content { flex: 1; min-width: 0; }
+  .tech-name {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .tech-desc {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* SOCIAL PROOF / DETAILS row */
+  .details-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 48px;
+  }
+  @media (max-width: 720px) { .details-row { grid-template-columns: repeat(2, 1fr); } }
+  .detail {
+    background: var(--bg);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .detail .num {
+    font-family: var(--display);
+    font-size: 44px;
+    color: var(--lime);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .detail .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* SECONDARY DOWNLOAD (mid-page) */
+  .secondary-download {
+    text-align: center;
+    margin-top: 56px;
+  }
+  .secondary-download .btn-outline {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent;
+    color: var(--lime);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border: 1px solid var(--lime);
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .secondary-download .btn-outline:hover {
+    background: var(--lime);
+    color: var(--bg);
+    transform: translateY(-2px);
+  }
+
+  /* SIGNUP — clearly optional, after value */
+  .signup-section { background: var(--surface); }
+  .signup-card {
+    max-width: 640px;
+    margin: 0 auto;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--lime);
+    border-radius: 0 4px 4px 0;
+    padding: 48px;
+    text-align: center;
+  }
+  .signup-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--lime);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .signup-title {
+    font-family: var(--display);
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .signup-title .lime { color: var(--lime); }
+  .signup-sub {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .signup-sub strong { color: var(--white); font-weight: 500; }
+  .signup-form-wrap {
+    max-width: 440px;
+    margin: 0 auto;
+  }
+  .signup-note {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+
+  /* AUTHOR / CREDIT block */
+  .credit-section { background: var(--bg); padding-bottom: 60px; }
+  .credit-card {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 32px 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .credit-avatar {
+    width: 48px; height: 48px;
+    background: var(--lime);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display);
+    font-size: 20px;
+    color: var(--bg);
+    flex-shrink: 0;
+  }
+  .credit-text { flex: 1; min-width: 200px; }
+  .credit-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .credit-bio {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .credit-links {
+    display: flex; gap: 16px;
+    flex-wrap: wrap;
+  }
+  .credit-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .credit-links a:hover { color: var(--lime); }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 48px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .hero { padding: 120px 24px 60px; }
+    .section { padding: 80px 24px; }
+    .signup-card { padding: 32px 24px; }
+    .credit-card { padding: 24px; }
+    footer { padding: 24px; }
+    .download-cta { padding: 18px 32px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="index.html" class="nav-back">← Back to Series</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-inner">
+    <div class="hero-tag">FREE · NO EMAIL REQUIRED</div>
+
+    <h1 class="hero-title">
+      The AI Prompt<br>
+      <span class="lime">Cheatsheet</span>
+    </h1>
+
+    <p class="hero-sub">
+      <strong>10 techniques that actually work.</strong> One screenshot-able page each. Built for people who use ChatGPT, Claude, and Gemini for real work — not for prompt-engineering theory.
+    </p>
+
+    <!-- ============================================================
+         PRIMARY CTA — direct PDF download, no email gate
+         The href is RELATIVE — assumes ai-prompt-cheatsheet.pdf
+         sits next to this file in your Netlify site root.
+         ============================================================ -->
+    <a href="ai-prompt-cheatsheet.pdf" class="download-cta" target="_blank" rel="noopener">
+      Download the PDF <span class="arrow">↓</span>
+    </a>
+
+    <div class="download-meta">
+      14 pages <span class="dot">·</span> ~26 kb <span class="dot">·</span> No signup required
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section class="section section-bg-surface" id="inside">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">// WHAT'S INSIDE</div>
+      <h2 class="section-title">All Ten <span class="lime">Techniques</span></h2>
+      <p class="section-sub">
+        Each technique gets its own page: what it does, the exact prompt template, an input/output example, when to reach for it, and one pro tip.
+      </p>
+    </div>
+
+    <div class="techniques-grid reveal">
+      <div class="tech-row">
+        <div class="tech-num">01</div>
+        <div class="tech-content">
+          <div class="tech-name">Role-Based Prompting</div>
+          <div class="tech-desc">Tell the model who to be before you tell it what to do. Single highest-leverage one-line change.</div>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-num">02</div>
+        <div class="tech-content">
+          <div class="tech-name">Few-Shot Prompting</div>
+          <div class="tech-desc">Show 2–3 examples first. The model pattern-matches your format almost exactly.</div>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-num">03</div>
+        <div class="tech-content">
+          <div class="tech-name">Chain-of-Thought</div>
+          <div class="tech-desc">Three words that make AI reason instead of guess. Cuts errors on math and logic in half.</div>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-num">04</div>
+        <div class="tech-content">
+          <div class="tech-name">Iterative Refinement</div>
+          <div class="tech-desc">Stop editing AI output. Edit your prompt instead. Four rounds beats one shot every time.</div>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-num">05</div>
+        <div class="tech-content">
+          <div class="tech-name">Delimiters</div>
+          <div class="tech-desc">Wrap pasted content in triple quotes. The model stops confusing your instructions with your data.</div>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-num">06</div>
+        <div class="tech-content">
+          <div class="tech-name">Instructional Prompting</div>
+          <div class="tech-desc">Start every prompt with a verb. Summarize, Analyze, Write. Models follow commands, not hints.</div>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-num">07</div>
+        <div class="tech-content">
+          <div class="tech-name">Negative Constraints</div>
+          <div class="tech-desc">Tell AI what NOT to do. Removes preambles, jargon, and recap fluff in one line.</div>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-num">08</div>
+        <div class="tech-content">
+          <div class="tech-name">Prompt Chaining</div>
+          <div class="tech-desc">Break complex tasks into sequential prompts. Quality compounds instead of degrading.</div>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-num">09</div>
+        <div class="tech-content">
+          <div class="tech-name">Retrieval Augmentation (RAG)</div>
+          <div class="tech-desc">Paste your source. Tell the model to use only that. Hallucinations stop.</div>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-num">10</div>
+        <div class="tech-content">
+          <div class="tech-name">Emotion Prompting</div>
+          <div class="tech-desc">Add stakes to your prompt. Real research shows it changes output depth.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Details / stats row -->
+    <div class="details-row reveal">
+      <div class="detail">
+        <div class="num">10</div>
+        <div class="lbl">Techniques</div>
+      </div>
+      <div class="detail">
+        <div class="num">14</div>
+        <div class="lbl">Pages</div>
+      </div>
+      <div class="detail">
+        <div class="num">$0</div>
+        <div class="lbl">Cost</div>
+      </div>
+      <div class="detail">
+        <div class="num">0</div>
+        <div class="lbl">Email Gate</div>
+      </div>
+    </div>
+
+    <!-- Secondary download in case they scrolled past the first one -->
+    <div class="secondary-download reveal">
+      <a href="ai-prompt-cheatsheet.pdf" class="btn-outline" target="_blank" rel="noopener">
+        Grab the PDF →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- OPTIONAL SIGNUP — clearly framed as ongoing content, not as the gate -->
+<section class="section signup-section">
+  <div class="section-inner">
+    <div class="signup-card reveal">
+      <div class="signup-eyebrow">// IF YOU WANT MORE</div>
+      <h2 class="signup-title">A New Technique<br><span class="lime">Every Tuesday.</span></h2>
+      <p class="signup-sub">
+        The cheatsheet is the foundation. The newsletter is where new techniques, AI tool breakdowns, and weekly creator retrospectives go out. <strong>No spam. Easy unsubscribe.</strong> Only sign up if you actually want more.
+      </p>
+
+      <!-- ============================================================
+           BEEHIIV FORM EMBED
+           Using your existing form ID. If you want signups from this page
+           to be tagged separately, create a NEW form in Beehiiv:
+             Grow → Subscribe Forms → + Create → Inline
+           Then replace the data-beehiiv-form value below with the new ID.
+           ============================================================ -->
+      <div class="signup-form-wrap">
+        <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+      </div>
+
+      <div class="signup-note">Free forever · Unsubscribe anytime</div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDIT / ATTRIBUTION -->
+<section class="credit-section">
+  <div class="credit-card reveal">
+    <div class="credit-avatar">R</div>
+    <div class="credit-text">
+      <div class="credit-name">Made by Ryu Vy</div>
+      <div class="credit-bio">
+        Part of the <a href="index.html#series" style="color:var(--lime);text-decoration:none;">AIToolsDaily24</a> series — AI tools, techniques, and strategies for people who actually do the work. Share the cheatsheet freely.
+      </div>
+    </div>
+    <div class="credit-links">
+      <a href="https://www.youtube.com/channel/UCwW_X7a0cshoqT1u_AYo-rg" target="_blank">YouTube</a>
+      <a href="https://www.tiktok.com/@dj.bomasterflex" target="_blank">TikTok</a>
+      <a href="https://www.instagram.com/aitoolsdaily245/" target="_blank">Instagram</a>
+      <a href="retrospectives/ai-tools.html">Retrospective</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

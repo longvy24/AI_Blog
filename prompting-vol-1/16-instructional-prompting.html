@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Instructional Prompting — Start Every ChatGPT Prompt With A Verb | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="Start every ChatGPT prompt with a verb — Summarize, Write, Analyze, Compare, List. LLMs are built to follow commands, not interpret hints. V16 of the AI Prompting Vol 1 series — the most universal hack in the playbook, queued #4/#6/#1 because the brief predicted it's the most save-worthy.">
+<meta property="og:title" content="Instructional Prompting — Start Every ChatGPT Prompt With A Verb">
+<meta property="og:description" content="V16 of the AI Prompting series — the five action verbs pros start every prompt with, and the early-queue bet riding on the most universal concept in the series.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0A0C0A; --surface: #111810; --surface2: #161A14; --border: #1E2A1A;
+    --lime: #84E000; --lime-dim: rgba(132,224,0,0.1); --lime-glow: rgba(132,224,0,0.05);
+    --white: #F2F5EE; --muted: #5A6A52;
+    --mono: 'IBM Plex Mono', monospace; --display: 'Bebas Neue', sans-serif; --body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,12,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
+  .nav-back:hover { color: var(--lime); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; background: var(--lime-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .lime { color: var(--lime); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--lime); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--bg); flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-wrap { max-width: 540px; margin: 30px auto 0; aspect-ratio: 9/16; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid var(--border); }
+  .video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .divider { max-width: 1240px; margin: 40px auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; }
+
+  .content-with-sidebar { max-width: 1240px; margin: 0 auto; padding: 0 48px 80px; display: grid; grid-template-columns: 1fr 320px; gap: 56px; align-items: start; }
+  @media (max-width: 980px) { .content-with-sidebar { grid-template-columns: 1fr; gap: 40px; } }
+  .post-body-inner { min-width: 0; }
+  .post-sidebar { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 20px; }
+  @media (max-width: 980px) { .post-sidebar { position: static; } }
+
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading { font-family: var(--display); font-size: clamp(32px, 4vw, 52px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .section-heading .lime { color: var(--lime); }
+
+  .post-body-inner p { font-size: 17px; font-weight: 300; color: #C8D4C0; line-height: 1.8; margin-bottom: 24px; }
+  .post-body-inner p strong { color: var(--white); font-weight: 500; }
+  .post-body-inner p em { color: var(--lime); font-style: italic; }
+  .post-body-inner > div.reveal { margin-bottom: 56px; }
+
+  .pull-quote { border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0; background: var(--lime-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 20px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+  .pull-quote .cite { display: block; margin-top: 14px; font-size: 11px; font-style: normal; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; font-family: var(--mono); }
+
+  .honest-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; }
+  .honest-box .hb-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .honest-box p { font-size: 15px !important; margin-bottom: 14px !important; color: #C8D4C0 !important; line-height: 1.7 !important; }
+  .honest-box p:last-child { margin-bottom: 0 !important; }
+
+  .prompt-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 20px 22px; margin: 20px 0 32px; position: relative; }
+  .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .prompt-block code { font-family: var(--mono); font-size: 13px; color: var(--white); line-height: 1.8; display: block; white-space: pre-wrap; word-wrap: break-word; }
+  .prompt-copy { position: absolute; top: 14px; right: 14px; background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.3); color: var(--lime); font-family: var(--mono); font-size: 10px; padding: 4px 10px; border-radius: 2px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s; }
+  .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  .try-list { list-style: none; padding: 0; margin: 16px 0 32px; }
+  .try-list li { padding: 14px 0; border-bottom: 1px dashed var(--border); font-size: 16px; font-weight: 300; color: #C8D4C0; line-height: 1.7; display: flex; gap: 14px; align-items: flex-start; }
+  .try-list li::before { content: '→'; color: var(--lime); font-family: var(--mono); flex-shrink: 0; font-size: 16px; line-height: 1.6; }
+  .try-list li strong { color: var(--white); font-weight: 500; }
+  .try-list li:last-child { border-bottom: none; }
+
+  .frame-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 18px 22px; margin: 16px 0; }
+  .frame-block .fb-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .frame-block p { font-size: 15px !important; margin-bottom: 0 !important; color: #C8D4C0 !important; line-height: 1.7 !important; }
+
+  .platform-card-body { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin: 20px 0; overflow: hidden; position: relative; }
+  .platform-card-body::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .pcb-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .pcb-head .pcb-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .pcb-head .pcb-dot.yt { background: #ff0033; box-shadow: 0 0 8px rgba(255,0,51,0.4); }
+  .pcb-head .pcb-dot.tt { background: #25f4ee; box-shadow: 0 0 8px rgba(37,244,238,0.4); }
+  .pcb-head .pcb-dot.ig { background: #dd2a7b; box-shadow: 0 0 8px rgba(221,42,123,0.4); }
+  .pcb-head .pcb-name { font-family: var(--mono); font-size: 12px; color: var(--white); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+  .pcb-head .pcb-window { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-left: auto; }
+  .pcb-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 22px; padding: 20px; }
+  @media (max-width: 720px) { .pcb-stats { grid-template-columns: 1fr; gap: 14px; } }
+  .pcb-stats .sc .value { font-family: var(--display); font-size: 30px; line-height: 1; letter-spacing: 0.5px; color: var(--white); margin-bottom: 4px; }
+  .pcb-stats .sc .value.primary { color: var(--lime); }
+  .pcb-stats .sc .value.muted { color: var(--muted); }
+  .pcb-stats .sc .label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+  .pcb-note { padding: 14px 20px; background: rgba(0,0,0,0.20); border-top: 1px solid var(--border); font-family: var(--mono); font-size: 11px; color: #C8D4C0; line-height: 1.6; letter-spacing: 0.3px; }
+  .pcb-note strong { color: var(--lime); font-weight: 600; }
+
+  .cta-section { background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); border: 1px solid var(--border); border-radius: 6px; padding: 36px 32px; margin: 48px 0 0; text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--lime), transparent); }
+  .cta-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .cta-title { font-family: var(--display); font-size: 36px; line-height: 1.1; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
+  .cta-subtitle { font-size: 15px; color: var(--muted); margin-bottom: 24px; }
+  .cta-form { display: flex; gap: 8px; max-width: 420px; margin: 0 auto; }
+  .cta-form input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 12px 16px; color: var(--white); font-family: var(--body); font-size: 14px; }
+  .cta-form button { background: var(--lime); color: var(--bg); border: none; border-radius: 4px; padding: 12px 22px; font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: transform 0.2s; }
+  .cta-form button:hover { transform: translateY(-1px); }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 48px; }
+  @media (max-width: 600px) { .series-nav { grid-template-columns: 1fr; } }
+  .series-nav-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+  .series-nav-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+  .sn-dir { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .sn-title { font-family: var(--display); font-size: 18px; color: var(--white); letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.1; }
+  .series-nav-card.next { text-align: right; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  footer { padding: 40px 48px; border-top: 1px solid var(--border); text-align: center; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+
+  /* SIDEBAR */
+  .platform-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+  .platform-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .platform-card-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .platform-card-title { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .platform-card-date { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .platform-row { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .platform-row:last-of-type { border-bottom: none; }
+  .platform-name { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .platform-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-yt { background: #FF0000; } .dot-tt { background: #00F2EA; } .dot-ig { background: #E1306C; }
+  .platform-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-value { font-family: var(--display); font-size: 22px; color: var(--white); line-height: 1; letter-spacing: 0.5px; }
+  .stat-value.highlight { color: var(--lime); }
+  .stat-label-small { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+  .bar-chart { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .bar-chart-title { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .bar-group { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-group:last-child { margin-bottom: 0; }
+  .bar-platform { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; width: 22px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+  .bar-fill.yt { background: #FF0000; } .bar-fill.tt { background: #00F2EA; } .bar-fill.ig { background: #E1306C; }
+  .bar-count { font-family: var(--mono); font-size: 9px; color: var(--white); letter-spacing: 0.5px; width: 44px; flex-shrink: 0; }
+  .virality-section { padding: 14px 20px; border-top: 1px solid var(--border); }
+  .virality-label { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .virality-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .vtag { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 8px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.25); color: var(--lime); background: var(--lime-glow); }
+  .ryu-read { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 16px 20px; }
+  .ryu-read-label { font-family: var(--mono); font-size: 9px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .ryu-read p { font-size: 13px !important; color: #C8D4C0 !important; line-height: 1.65 !important; margin-bottom: 0 !important; font-weight: 300 !important; }
+  .ai-impact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .ai-impact-header { padding: 14px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .ai-impact-body { padding: 16px 20px; }
+  .ai-impact-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 12px; color: #C8D4C0; line-height: 1.5; font-weight: 300; }
+  .ai-impact-row:last-child { margin-bottom: 0; }
+  .ai-impact-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">← Back to index</a>
+</nav>
+
+<div class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">16 / 30</span>
+    <span class="post-series">AI Prompting · Vol 1</span>
+    <span class="post-date">Published · TT 2026-05-30 · IG live · YT live (retitled)</span>
+  </div>
+  <h1 class="post-title">Start Every Prompt <span class="lime">With A Verb.</span></h1>
+  <p class="post-subtitle">Instructional Prompting · V16. Five verbs — <code style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-size:0.85em;color:var(--lime);">Summarize</code> <code style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-size:0.85em;color:var(--lime);">Write</code> <code style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-size:0.85em;color:var(--lime);">Analyze</code> <code style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-size:0.85em;color:var(--lime);">Compare</code> <code style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-size:0.85em;color:var(--lime);">List</code> — that turn "help me with my email" into output you can actually use. The most universal hack in the series, and the only one the brief queued <em>first</em>.</p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AI Tools · Daily</div>
+    </div>
+  </div>
+
+  <div class="video-wrap reveal">
+    <video controls poster="../../Videos/AI_Prompt_Engineering_Vol1/06-instructional-prompting.png">
+      <source src="../../Videos/AI_Prompt_Engineering_Vol1/06-instructional-prompting.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-icon">▸ ▸ ▸</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="content-with-sidebar">
+
+<div class="post-body-inner">
+
+  <!-- §1 -->
+  <div class="reveal">
+    <div class="section-label">The Frustration</div>
+    <h2 class="section-heading">"Help Me With My Email" <span class="lime">Gets You Trash</span></h2>
+    <p>
+      You type <em>"help me with my email"</em> and ChatGPT hands back something generic — a vague rewrite, a question asking what you want, or a wall of options you didn't ask for. You rephrase. Still mushy. The instinct is to blame the model, but the model did exactly what you told it to: nothing specific, because you gave it nothing specific to do. <em>"Help"</em> isn't a task. It's a vibe.
+    </p>
+    <p>
+      The fix is the smallest verbal change in the entire toolkit, and it's the one that changes the most: <strong>start the prompt with a command verb.</strong> Not <em>"help me with my email"</em> — <em>"Write a three-sentence follow-up email with a professional tone and a clear call-to-action."</em> Same intent, completely different result. Large language models are instruction-followers by design. Give them an instruction and they execute; give them a hint and they guess. This is instructional prompting, and it's the most universal habit in prompt engineering because it costs one word and works on literally every prompt you'll ever write.
+    </p>
+  </div>
+
+  <!-- §2 -->
+  <div class="reveal">
+    <div class="section-label">Why This Video Exists</div>
+    <h2 class="section-heading">The Only One <span class="lime">The Brief Queued First</span></h2>
+    <p>
+      Every video this series has covered so far was queued deep — V14 dead last, V15 second-to-last. V16 is the opposite. It was scheduled <strong>position #4 on YouTube, position #6 on TikTok, and position #1 (first) on Instagram</strong>. It's the only video in the Vol that the brief put at the very front of any platform's queue. The reason, quoted verbatim from the publishing-strategy section:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// V16's Queue Position · From PromptEngineeringSeries.md</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>YouTube Shorts — V16 at position #4:
+  "The One Word Pro Prompters Start Every ChatGPT
+   Prompt With — insider/secret framing."
+
+TikTok — V16 at position #6:
+  "One word at the start of your prompt changes
+   everything — simple, universal, one-word reply
+   comment-bait."
+
+Instagram Reels — V16 at position #1 (FIRST):
+  "One word at the start of your prompt changes
+   everything — most save-worthy: short, universal,
+   'five verbs to remember' lands as a save."</code>
+    </div>
+
+    <p>
+      The Instagram rationale is the bet that matters. The brief called V16 <em>"the most save-worthy"</em> video in the Vol and put it first on the platform where saves are the success metric. That makes V16 the direct test of the question V14 and V15 left dangling: <strong>has the channel ever made a video people actually save?</strong> V14's "save-worthy 4-step list" hypothesis collapsed to 1 TikTok save and 0 Instagram saves. The brief's theory is that V14 failed not because lists don't save, but because a meta-<em>workflow</em> doesn't save — and that a five-verb <em>tactic</em> ("Summarize, Write, Analyze, Compare, List") is the genuinely save-worthy shape. V16 is where that theory gets its cleanest test.
+    </p>
+    <p>
+      There's a second reason V16 is interesting, and it comes straight from V14's retention data. V14's TikTok hook lost most viewers at the <strong>0:02 mark</strong> — the title earned the click, but the slow open squandered it. V16's hook is built the opposite way: <em>"Help me with my email. Gets you trash."</em> That's a complete contrast — problem and verdict — delivered in the first two seconds, before the retention cliff that killed V14. If the 0:02 drop-off is really about hook speed (not topic), V16's fast contrast open should hold the room dramatically better than V14's did. The completion rate is the number to watch.
+    </p>
+
+    <p>
+      Three specific bets V16 is testing:
+    </p>
+    <ul class="try-list">
+      <li><strong>V16 produces the channel's first real save rate.</strong> The brief's headline claim is that the five-verb list is the most save-worthy content the series has produced. If V16's save rate clears the 4-video V11-V14 baseline of ~1.75% — ideally beating V12's 2.7% peak — the "tactics save, workflows don't" theory holds. If V16 <em>also</em> fails to save despite being queued first and explicitly built for it, the save problem isn't about content at all; it's structural, and the CTA needs a redesign.</li>
+      <li><strong>The 2-second contrast hook survives the 0:02 cliff.</strong> V14 lost the room at 0:02 with a slow open. V16 front-loads the entire problem-and-payoff into the first two seconds. If V16's completion rate clears V14's 0.8% — ideally well past 1% — hook speed was the lever all along, and every future video should open on a 2-second contrast. If completion stays flat, the 0:02 drop-off is a platform-wide reality the channel can't out-edit.</li>
+      <li><strong>Early-queue position lifts raw views.</strong> V16 is the first video queued near the front (#4 YT, #6 TT, #1 IG). If views land above the buried-queue baselines V14 and V15 produced, queue position is confirmed as the dominant view lever — and the brief's sequencing strategy was correct. The Instagram number is the cleanest read: queued #1, V16 should clear the ~75-view band V14 (queued #10) fell through.</li>
+    </ul>
+  </div>
+
+  <!-- §3 -->
+  <div class="reveal">
+    <div class="section-label">The Fix</div>
+    <h2 class="section-heading">Five Verbs. <span class="lime">Start Here.</span></h2>
+    <p>
+      An instruction prompt starts with a verb that names the task. GeeksforGeeks defines the technique as <em>"providing clear, specific and structured natural language instructions to a generative AI model... to guide them in performing complex tasks accurately and efficiently"</em> — and the simplest way to do that is to lead with the command. These five verbs cover the overwhelming majority of everyday prompts, and each one steers the model toward a completely different output shape:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// The 5 Starter Verbs · Same Topic, Different Verb, Different Output</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Topic: a research paper you pasted in.
+
+SUMMARIZE → condense it
+  "Summarize this paper in 100 words."
+  → tight overview, key findings only.
+
+WRITE → produce something new from it
+  "Write a LinkedIn post based on this paper's conclusion."
+  → original content in your voice.
+
+ANALYZE → break it down / find structure
+  "Analyze the methodology and flag any weaknesses."
+  → critical evaluation, not a recap.
+
+COMPARE → set two things against each other
+  "Compare this paper's findings to the prior consensus."
+  → side-by-side, differences surfaced.
+
+LIST → enumerate into a scannable format
+  "List the five main takeaways as bullet points."
+  → structured, save-able, skimmable.</code>
+    </div>
+
+    <p>
+      The point of the demo isn't the five verbs specifically — it's that <strong>the verb is the task</strong>. Same pasted paper, five different commands, five genuinely different and useful outputs. Learn Prompting frames the underlying capability precisely: instruction prompting <em>"aims to allow models to work with new, previously unseen tasks by understanding and executing instructions expressed in natural language, without requiring task-specific training data."</em> You don't show the model examples of what you want. You tell it.
+    </p>
+
+    <p>
+      The most common upgrade is to stack a verb with constraints — GeeksforGeeks' canonical examples all do this: <em>"Summarize the article in 100 words,"</em> <em>"List five pros and cons of electric vehicles in a table format,"</em> <em>"Write a 500-word blog post explaining how AI is transforming healthcare, focusing on diagnostics and patient care."</em> The verb sets the task; the constraints (length, format, focus) sharpen it. But the verb comes first, and a bare verb already beats a vague hint every time.
+    </p>
+
+    <div class="pull-quote">
+      <p>"Verb equals task. Be direct. AI responds to commands. Start every prompt with a verb. That's the whole hack."</p>
+      <span class="cite">— V16 VO, 0:17 – 0:29</span>
+    </div>
+  </div>
+
+  <!-- §4 -->
+  <div class="reveal">
+    <div class="section-label">Why It Works</div>
+    <h2 class="section-heading">The Model Was <span class="lime">Built To Obey Verbs</span></h2>
+    <p>
+      Modern LLMs aren't just text predictors — they're <em>instruction-tuned</em>. After pretraining, they're fine-tuned on millions of (instruction → ideal response) pairs, which is precisely why they respond so sharply to a clear command and so vaguely to a hint. When you start with a verb, you're speaking the exact dialect the model was optimized to follow. GeeksforGeeks puts the capability plainly: instruction prompting <em>"leverages the model's pretrained knowledge and language understanding to generalize to new, unseen tasks based solely on the instructions provided."</em> No examples required. Just the command.
+    </p>
+    <p>
+      GeeksforGeeks catalogs five concrete reasons the technique carries so much weight:
+    </p>
+    <ul class="try-list">
+      <li><strong>Flexibility &amp; scalability</strong> — <em>"Instruction prompting allows AI to adapt quickly to new tasks without retraining or large labeled datasets, making it highly scalable across domains and applications."</em></li>
+      <li><strong>Precision &amp; control</strong> — <em>"Well-crafted instructions help reduce ambiguity, leading to more accurate and relevant outputs."</em> This is the whole game: a verb removes the ambiguity that "help me" leaves wide open.</li>
+      <li><strong>Accessibility</strong> — <em>"Users without technical or programming expertise can interact effectively with AI by simply providing clear instructions in natural language."</em> No syntax to learn — just say what you want done.</li>
+      <li><strong>Cost efficiency</strong> — <em>"Reduces the need for expensive custom model training or data labeling by focusing on prompt design rather than model modification."</em></li>
+      <li><strong>Iterative improvement</strong> — <em>"Instructions can be refined iteratively to improve output quality and mitigate errors."</em> Start with a verb, then sharpen it with constraints — exactly the workflow V14 documented.</li>
+    </ul>
+    <p>
+      The reason a verb beats a hint is mechanical, not stylistic. <em>"Help me with my email"</em> forces the model to first <em>infer the task</em> (rewrite? draft? reply? proofread?) and then perform it — and it usually infers conservatively, handing back something safe and generic. <em>"Write a three-sentence reply declining the meeting"</em> skips the inference step entirely. The task is named; the model goes straight to execution. You've removed a guess, and removing guesses is the entire job of a good prompt.
+    </p>
+
+    <div class="pull-quote">
+      <p>"Instruction prompting... involves providing clear, specific and structured natural language instructions to a generative AI model... to guide them in performing complex tasks accurately and efficiently."</p>
+      <span class="cite">— GeeksforGeeks · Instruction Prompting · 2025</span>
+    </div>
+  </div>
+
+  <!-- §5 -->
+  <div class="reveal">
+    <div class="section-label">The Catch</div>
+    <h2 class="section-heading">A Verb Isn't <span class="lime">A Whole Instruction</span></h2>
+    <p>
+      The most common failure is treating the verb as the finish line instead of the starting line. <em>"Write an email"</em> is better than <em>"help me with my email,"</em> but it's still under-specified — the model still has to guess the tone, length, recipient, and goal. The verb removes the <em>task</em> ambiguity; constraints remove the <em>shape</em> ambiguity. GeeksforGeeks lists five components of an effective instruction, and the verb is only the first: <em>clear task definition, contextual information, output format specification, tone and style, and length and detail.</em> Lead with the verb, then add as many of the other four as the task needs.
+    </p>
+    <p>
+      Second catch: <strong>vague verbs are still vague</strong>. Not all verbs name a task with the same precision. <em>"Improve this"</em> and <em>"fix this"</em> are barely better than "help" — they don't tell the model <em>what</em> better looks like. The five workhorse verbs (Summarize, Write, Analyze, Compare, List) work because each implies a specific output shape. Reach for the verb that constrains, not the one that gestures.
+    </p>
+    <p>
+      Third catch — and this one is a genuine warning, not a style note: <strong>be careful what you instruct the model to do with sensitive data</strong>. Instruction prompting is powerful enough to do things like strip personal information from text, but Learn Prompting flags the risk directly: <em>"Allowing AI to remove PII from text is a promising approach, but it should be used with extraordinary caution as it may make mistakes,"</em> and <em>"you are sending PII to a third party (e.g. OpenAI if you are using ChatGPT), and these services may record and use your prompts for their own needs."</em> A clear instruction will be followed faithfully — including when following it sends private data somewhere you didn't intend.
+    </p>
+    <p>
+      Fourth catch: <strong>the model extrapolates from your instruction, sometimes further than you meant</strong>. Learn Prompting's PII example notes the model <em>"knows to replace `Cheap Dealz` with `[DEALERSHIP]` and `Jimmy Smith` with `[SALESPERSON]`, even though we did not explicitly tell it to do so."</em> That generalization is usually a feature — but on a task where you need exact, bounded behavior, an instruction that's too open invites the model to improvise. Tighten the instruction until the room to improvise matches the room you actually want.
+    </p>
+  </div>
+
+  <!-- §6 -->
+  <div class="reveal">
+    <div class="section-label">Real Use Cases</div>
+    <h2 class="section-heading">Where A Verb <span class="lime">Earns Its Keystroke</span></h2>
+    <p>
+      The five verbs map onto the everyday tasks people actually use ChatGPT for. GeeksforGeeks catalogs the application domains — content creation, data processing, education, business automation, creative work — and Learn Prompting supplies the canonical worked examples. Here's where each verb does its best work:
+    </p>
+    <ul class="try-list">
+      <li><strong>Summarize → research, email triage, meeting notes</strong> — the highest-frequency verb. <em>"Summarize this thread in three bullet points"</em> turns a 40-message email chain into something you can act on in ten seconds. GeeksforGeeks' canonical form stacks a constraint: <em>"Summarize the article in 100 words."</em></li>
+      <li><strong>Write → drafting anything from scratch</strong> — emails, posts, outlines, replies. The verb that most rewards added constraints: <em>"Write a 500-word blog post explaining how AI is transforming healthcare, focusing on diagnostics and patient care"</em> (GeeksforGeeks) gives the model task + length + topic + focus in one line.</li>
+      <li><strong>Analyze → evaluation and critique</strong> — when you want judgment, not a recap. Learn Prompting's essay-evaluation example is the template: <em>"Read the following excerpt... provide feedback based on grammar, clarity, coherence, argument quality, and use of evidence. Provide a score from 1-10 for each attribute, along with reasoning."</em> The verb plus criteria plus a scoring scale produces structured, defensible output.</li>
+      <li><strong>Compare → decisions</strong> — anytime you're choosing between options. <em>"Compare these two job offers across salary, growth, and commute"</em> forces a side-by-side instead of two separate descriptions. The verb does the structuring for you.</li>
+      <li><strong>List → anything you want to scan or save</strong> — the most save-worthy output shape, which is exactly why the brief bet on this video for Instagram. GeeksforGeeks' form even specifies the container: <em>"List five pros and cons of electric vehicles in a table format."</em> Verb + count + format = a screenshot-able answer.</li>
+    </ul>
+    <p>
+      A subtler use case worth its own mention: <strong>data transformation</strong>. Learn Prompting's name-parsing example shows instruction prompting handling format conversion with zero examples — given <em>"we need it in this format '[Last name], [First name]'... convert the following name: John Smith,"</em> the model returns <em>"Smith, John."</em> The instruction <em>is</em> the program. No code, no examples — just a clearly stated transformation.
+    </p>
+  </div>
+
+  <!-- §7 -->
+  <div class="reveal">
+    <div class="section-label">Behind The Scenes</div>
+    <h2 class="section-heading">Production <span class="lime">Stack Used</span></h2>
+    <p>
+      V16 runs on the same stack as V11–V15: <strong>HeyGen HyperFrames + Claude Code Max</strong> orchestrating GSAP timelines over Tailwind-styled HTML, Kokoro generating the VO, Whisper transcribing it back for QA. V16's runtime is 36.02s — the shortest in the series so far, two seconds tighter than V14. The pacing is deliberately fast: the brief called for <em>"high energy, fast cuts, each action verb lands like a punch,"</em> and the short runtime is the production expression of that.
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// HyperFrames Production Settings · V16</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Composition framework: HeyGen HyperFrames 0.6.20
+Orchestrator:          Claude Code Max (token-budgeted)
+Animation library:     GSAP 3.14.2 (paused timeline, seek-driven)
+Styling runtime:       Tailwind v4.2.4 (browser, no build step)
+Voice synthesis:       Kokoro · voice="am_adam" · speed 1.0
+Audio QA:              Whisper · model="small.en"
+Background music:      Infraction · "Never Leave" · volume 0.15
+Composition size:      1080 × 1920 (vertical 9:16)
+Frame rate:            30 fps · ~1080 frames per render
+Output format:         H.264 MP4 · "high" quality preset
+Runtime:               36.02s (shortest in the series · -2s vs V14)</code>
+    </div>
+
+    <p>
+      And here is the actual VO — captured by running Whisper transcription on the rendered MP4, exactly what the audience hears:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// VO Script (Whisper transcript of rendered V16 · 35.6s total · 63 words)</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>[00.270 – 02.170] Hook:
+"Help me with my email. Gets you trash."
+
+[02.260 – 09.620] The five verbs:
+"Action verbs change everything. Five verbs that work.
+Summarize, write, analyze, compare, list."
+
+[09.620 – 17.600] The demo:
+"Each tells the AI exactly what to do. Same topic.
+Different verbs. Three completely different and useful
+outputs."
+
+[17.600 – 24.160] The principle:
+"Verb equals task. Be direct. AI responds to commands."
+
+[24.160 – 35.640] CTA:
+"Start every prompt with a verb. That's the whole hack.
+Save this. Follow for more."</code>
+    </div>
+
+    <div class="honest-box reveal">
+      <div class="hb-label">// Why This Section Exists</div>
+      <p>
+        The settings above are real. The transcript above is real — generated by running Whisper on the rendered MP4, not copied from the planning brief. Nothing has been cleaned up or made to look smarter in hindsight. The stack is mostly free to set up: <strong>HyperFrames, GSAP, Tailwind, Kokoro, Whisper, and the agent skills are all open source or free-tier.</strong> There is no add-on license to buy.
+      </p>
+      <p>
+        The honest catch: <strong>the part that drives the workflow isn't free.</strong> V16 was authored inside Claude Code with a <strong>Claude Max subscription</strong>, and every iteration — scene layout, GSAP timing, VO QA, blog draft, sidebar real-data updates — burns tokens against that plan's budget. Realistic throughput is <em>roughly one video build per working session</em>.
+      </p>
+    </div>
+  </div>
+
+  <!-- §8 -->
+  <div class="reveal">
+    <div class="section-label">Visual Analysis</div>
+    <h2 class="section-heading">What V16 <span class="lime">Actually Shows</span></h2>
+    <p>
+      Scene-by-scene with timestamps from the Whisper transcript. Five VO beats across 35.64s of runtime — the fastest-cut video in the series, with the entire hook delivered in under two seconds.
+    </p>
+
+    <div class="frame-block">
+      <div class="fb-label">// 00.270 – 02.170 s · Hook</div>
+      <p>VO: <em>"Help me with my email. Gets you trash."</em> This is the most important beat in the video, and the most deliberate. <strong>It's a complete contrast — setup and payoff — landed in under two seconds.</strong> V14's data is the reason it's built this way: V14's TikTok retention panel reported that most viewers stopped at 0:02, after a hook that took nearly four seconds to deliver anything concrete. V16 front-loads the whole problem-and-verdict before that cliff arrives. <em>"Help me with my email"</em> is the relatable mistake every viewer has made; <em>"Gets you trash"</em> is the verdict that makes them want the fix. <strong>And it worked: V16's TikTok completion came in at 1.2% — the first time the series ever cleared 1%, up from V14's 0.8% (see §8.5).</strong> The fast contrast open is the fix for the 0:02 cliff, proven.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 02.260 – 09.620 s · The Five Verbs</div>
+      <p>VO: <em>"Action verbs change everything. Five verbs that work. Summarize, write, analyze, compare, list."</em> Seven seconds, and the save-bait of the entire video. <em>"Five verbs that work"</em> primes a list, and a five-item list is the single most screenshot-able shape in short-form — which is exactly why the brief queued this video first on Instagram. The five verbs are spoken as a clean enumerated run so a viewer can pause-and-screenshot on the frame where all five are on screen. This is the beat the whole save-rate bet rides on.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 09.620 – 17.600 s · The Demo</div>
+      <p>VO: <em>"Each tells the AI exactly what to do. Same topic. Different verbs. Three completely different and useful outputs."</em> Eight seconds proving the claim. <em>"Same topic, different verbs"</em> is the controlled experiment that makes the lesson land — it isolates the verb as the only variable, so the viewer sees that the <em>verb itself</em> is doing the steering. <em>"Three completely different and useful outputs"</em> closes the loop: not just different, but all useful, which forecloses the objection that you have to pick the one right verb.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 17.600 – 24.160 s · The Principle</div>
+      <p>VO: <em>"Verb equals task. Be direct. AI responds to commands."</em> Six seconds, three staccato declaratives. <em>"Verb equals task"</em> is the four-word compression of the entire technique — the line a viewer can repeat to a coworker. <em>"AI responds to commands"</em> supplies the <em>why</em> in four more words: it tells the viewer the mechanism (the model is built to obey), which is what turns a tip into an understood principle they'll actually keep using.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 24.160 – 35.640 s · CTA</div>
+      <p>VO: <em>"Start every prompt with a verb. That's the whole hack. Save this. Follow for more."</em> Eleven seconds. <em>"Start every prompt with a verb"</em> restates the single action in the imperative — and notice it mirrors the YouTube title (<em>"The One Word Pro Prompters Start Every ChatGPT Prompt With"</em>), giving the title-to-CTA symmetry that V15 lacked. <em>"That's the whole hack"</em> is the reassurance that there's nothing else to learn — a low-effort promise that earns the save. Then the explicit <em>"Save this"</em> ask, on the most save-worthy content the series has produced. Every structural choice in this video points at the save metric.</p>
+    </div>
+  </div>
+
+  <!-- §8.5 -->
+  <div class="reveal">
+    <div class="section-label">Real Platform Data</div>
+    <h2 class="section-heading">What V16 <span class="lime">Actually Did</span></h2>
+    <p>
+      V16 is now published on all three platforms. And the data splits cleanly: <strong>it won on the two platforms it was built for and stayed dead on the one it wasn't.</strong> Instagram broke out — 123 views and the channel's first real engagement ever, 10 total interactions where the prior five videos managed <em>one</em> cumulative comment. TikTok completion hit 1.2%, the first time the series ever cleared 1%. But YouTube produced just 5 views on 32 impressions at <strong>0% CTR</strong> — even after the title was changed to <em>"The Easiest Way to Get Better ChatGPT Responses."</em> The 2-second hook worked, the early queue worked, the save-worthy-list bet landed — on Instagram. YouTube is now unambiguously the channel's problem platform.
+    </p>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot ig"></span>
+        <span class="pcb-name">Instagram Reels · V16 Actual</span>
+        <span class="pcb-window">First-window · queue #1</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value primary">123</div><div class="label">Views <span style="color:var(--muted);">vs ~75 baseline · vs V14's 27 · +355%</span></div></div>
+        <div class="sc"><div class="value">110</div><div class="label">Accounts Reached <span style="color:var(--muted);">vs ~63 baseline · +75%</span></div></div>
+        <div class="sc"><div class="value primary">10</div><div class="label">Total Interactions <span style="color:var(--muted);">vs 1 cumulative across V11-V14</span></div></div>
+        <div class="sc"><div class="value primary">2.44%</div><div class="label">Save Rate <span style="color:var(--muted);">3 saves / 123 · first to clear 1.75%</span></div></div>
+        <div class="sc"><div class="value">3 · 2 · 3</div><div class="label">Likes · Comments · Saves <span style="color:var(--muted);">+ 2 shares = 10</span></div></div>
+        <div class="sc"><div class="value muted">0</div><div class="label">New Followers <span style="color:var(--muted);">still 0 cumulative</span></div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>This is the breakout the brief predicted.</strong> Queue #1 delivered 123 views — 4.5× V14's queue-#10 collapse (27) and well past the ~75 band, confirming queue position as the dominant IG view lever. But the views aren't even the story: <em>V16 produced 10 interactions in one post, when V11 through V14 produced a single comment between them.</em> 3 likes, 2 comments, 3 saves, 2 shares. The save rate (2.44%) is the first to clear the 1.75% baseline since the slide began. The five-verb list <em>is</em> the save-worthy shape — the brief was right, and it was right specifically on Instagram.
+      </div>
+    </div>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot tt"></span>
+        <span class="pcb-name">TikTok · V16 Actual</span>
+        <span class="pcb-window">7-day window · posted 5/30/2026</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value primary">169</div><div class="label">Views <span style="color:var(--muted);">vs ~162 baseline · 2nd-highest in series</span></div></div>
+        <div class="sc"><div class="value">3.99s</div><div class="label">Avg Watch <span style="color:var(--muted);">vs 4.38s baseline · −0.39s</span></div></div>
+        <div class="sc"><div class="value primary">1.2%</div><div class="label">Full Watch <span style="color:var(--muted);">vs V14's 0.8% · first to clear 1%</span></div></div>
+        <div class="sc"><div class="value muted">0.59%</div><div class="label">Save Rate <span style="color:var(--muted);">1 save / 169 · below 1.75% baseline</span></div></div>
+        <div class="sc"><div class="value">97%</div><div class="label">From For You <span style="color:var(--muted);">"gptPrompt word" = 100% of search</span></div></div>
+        <div class="sc"><div class="value muted">0</div><div class="label">New Followers <span style="color:var(--muted);">2 likes · 0 comments · 0 shares</span></div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>The hook bet won: 1.2% completion is the highest the series has produced</strong> — the first time it's ever cleared 1%, against V14's 0.8% and V13's 0.7%. The 2-second contrast open held the room where V14's slow open lost it at 0:02. Note the trade-off: average watch time actually <em>dropped</em> to 3.99s (from the 4.38s baseline), which means the distribution sharpened — more viewers either bounce instantly or watch the whole thing, fewer linger in the middle. Views (169) beat the average too. But TikTok saves stayed low (1) — the save breakout happened on Instagram, not here, which says save behavior is platform-specific, not just content-specific.
+      </div>
+    </div>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot tt"></span>
+        <span class="pcb-name">TikTok · V16 Search + Demographics</span>
+        <span class="pcb-window">7-day window</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value primary">100%</div><div class="label">"gptPrompt word" <span style="color:var(--muted);">the only search query driving traffic</span></div></div>
+        <div class="sc"><div class="value">87% / 13%</div><div class="label">Male / Female</div></div>
+        <div class="sc"><div class="value">86.9%</div><div class="label">United States <span style="color:var(--muted);">+ Puerto Rico 1.8%</span></div></div>
+        <div class="sc"><div class="value">92%</div><div class="label">Aged 35+ <span style="color:var(--muted);">45-54: 35% · 35-44: 30% · 55+: 27%</span></div></div>
+        <div class="sc"><div class="value">71% / 29%</div><div class="label">New / Returning <span style="color:var(--muted);">29% returning — highest yet</span></div></div>
+        <div class="sc"><div class="value">97%</div><div class="label">Non-Followers</div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>The older-skew finding from V14 just got confirmed.</strong> V16's TikTok audience is 92% aged 35+ (V14 was 93%) and 87% male — the same demographic, two videos running. The single search query, <em>"gptPrompt word,"</em> is pure prompt-engineering intent. And the returning-viewer share jumped to 29% (V14 was 18%) — the first sign the channel is building a repeat audience even while new followers stay at zero. The people who find this content are 35-54, male, US-based, and searching for exactly this. That's a niche, and the channel has found it.
+      </div>
+    </div>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot yt"></span>
+        <span class="pcb-name">YouTube Shorts · V16 Actual</span>
+        <span class="pcb-window">28-day window · retitled</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value muted">5</div><div class="label">Views <span style="color:var(--muted);">vs ~46 baseline · −89%</span></div></div>
+        <div class="sc"><div class="value">32</div><div class="label">Impressions <span style="color:var(--muted);">vs ~125 baseline · −74%</span></div></div>
+        <div class="sc"><div class="value muted">0.00%</div><div class="label">CTR <span style="color:var(--muted);">vs 0.31% baseline · vs V14's 0.88%</span></div></div>
+        <div class="sc"><div class="value">~10s</div><div class="label">Avg Watch <span style="color:var(--muted);">50.8s total / 5 · ~28% of 36s</span></div></div>
+        <div class="sc"><div class="value muted">0</div><div class="label">New Subs <span style="color:var(--muted);">still 0 cumulative</span></div></div>
+        <div class="sc"><div class="value muted">retitled</div><div class="label">"Easiest Way To Get Better ChatGPT Responses"</div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>YouTube is the one platform V16 couldn't move — and the title is the prime suspect.</strong> The planned title (<em>"The One Word Pro Prompters Start Every ChatGPT Prompt With,"</em> a curiosity-gap insider frame) was swapped to a generic <em>"The Easiest Way to Get Better ChatGPT Responses,"</em> and the result was <em>0% CTR on 32 impressions</em> — nobody clicked the thumbnail at all. The 5 views came in through other surfaces. Compare V14: same channel, same audience, but the specific <em>"Stop Editing ChatGPT's Answers — Edit Your Prompts Instead"</em> title earned 0.88% CTR. The contrast is the lesson: <strong>on YouTube, a generic "easiest way" title is invisible; a specific, contrarian one gets clicked.</strong> The retitle was the wrong direction — it traded a curiosity gap for a commodity promise. V17+ on YouTube should hold the line on specific, pattern-driven titles.
+      </div>
+    </div>
+
+    <div class="honest-box reveal">
+      <div class="hb-label">// What V16 Actually Proved</div>
+      <p>
+        Three bets, and the best scorecard the series has posted:
+      </p>
+      <p>
+        <strong>(1) The save-worthy-list bet WON — on Instagram.</strong> V16 produced the channel's first real engagement: 10 interactions (3 likes, 2 comments, 3 saves, 2 shares) where V11-V14 had managed one comment, total. The IG save rate (2.44%) is the first to clear the 1.75% baseline since the slide began. The catch: TikTok saves stayed low (1 in 169, 0.59%). So the conclusion is sharper than the bet — the five-verb list <em>is</em> save-worthy, but saving is platform-specific. Instagram is where lists get saved; TikTok is where they get watched.
+      </p>
+      <p>
+        <strong>(2) The 2-second hook bet WON, cleanly.</strong> TikTok completion hit 1.2% — the first time the series has ever cleared 1%, and a 50% lift over V14's 0.8%. V14's data located the problem at 0:02; V16's fast contrast open is the fix, proven. Every future video should open on a sub-2-second contrast. One nuance: average watch time fell to 3.99s, so the fast hook polarizes — it earns full watches by losing the lukewarm middle. That's the right trade for the algorithm, which rewards completion over dwell.
+      </p>
+      <p>
+        <strong>(3) The early-queue bet WON — except on YouTube.</strong> Queue #1 on Instagram delivered 123 views — 4.5× V14's queue-#10 result (27) — confirming queue position as the dominant view lever. TikTok views (169) also beat the ~162 average. But YouTube, queued #4, still produced just 5 views on 32 impressions. So queue position lifts views <em>where the platform is willing to serve the video at all</em>; on YouTube, the title gates everything before the queue even matters.
+      </p>
+      <p>
+        <strong>(4) The YouTube retitle BACKFIRED.</strong> V16's planned YouTube title was a curiosity-gap insider frame; it got swapped to the generic <em>"The Easiest Way to Get Better ChatGPT Responses,"</em> and CTR went to <em>0%</em> — nobody clicked the thumbnail across 32 impressions. Set that against V14's 0.88% CTR from the specific <em>"Stop Editing ChatGPT's Answers — Edit Your Prompts Instead."</em> The lesson is now well-evidenced across two videos: <strong>on YouTube, specific and contrarian titles get clicked; generic "easiest way / best way" titles are invisible.</strong> The retitle traded a curiosity gap for a commodity promise, and the algorithm punished it. V17-V20 should hold the line on specific, pattern-driven titles and stop retitling toward generic.
+      </p>
+      <p>
+        <strong>The streak that won't break: still 0 new followers — now six videos deep.</strong> But V16 changes what that means. Until now, zero followers came with near-zero engagement, so the two looked like the same problem. V16 proves they're not: the channel can now earn likes, comments, saves, and shares — real engagement — and <em>still</em> convert zero of it into follows. The follower problem isn't an interest problem anymore. It's a conversion problem, and it lives in whatever happens in the final two seconds between "that was useful" and "follow." That's the next thing to redesign.
+      </p>
+    </div>
+  </div>
+
+  <!-- §9 -->
+  <div class="reveal">
+    <div class="section-label">Common Mistake</div>
+    <h2 class="section-heading">Stopping <span class="lime">At The Verb</span></h2>
+    <p>
+      The most common mis-application is treating the verb as the whole prompt. <em>"Write an email"</em> is genuinely better than <em>"help me with my email"</em> — but it's still leaving most of the model's accuracy on the table. The verb names the task; it doesn't name the <em>shape</em>. GeeksforGeeks' best-practice list leads with the fix: <em>"Be specific and unambiguous — avoid vague instructions; precision helps the model understand the task better."</em> Lead with the verb, then add the recipient, tone, length, and goal. The verb is the on-ramp, not the destination.
+    </p>
+    <p>
+      The second mistake is <strong>reaching for a gesturing verb instead of a commanding one</strong>. <em>"Improve this,"</em> <em>"fix this,"</em> <em>"make this better"</em> are verbs, but they don't name an output shape — the model still has to guess what "better" means. The workhorse five (Summarize, Write, Analyze, Compare, List) work precisely because each one implies a concrete result. If your verb could mean five different things, it's barely better than "help."
+    </p>
+    <p>
+      The third mistake is <strong>forgetting that a faithfully-followed instruction can do something you didn't intend</strong>. This is the flip side of the technique's power. Learn Prompting's caution is worth repeating: when you instruct a model to process sensitive text, <em>"you are sending PII to a third party... and these services may record and use your prompts for their own needs."</em> The model will obey a clear command exactly — including a command that sends private data somewhere it shouldn't go. Specificity cuts both ways.
+    </p>
+  </div>
+
+  <!-- TAKEAWAY -->
+  <div class="reveal">
+    <div class="honest-box">
+      <div class="hb-label">// Takeaway</div>
+      <p>
+        Start every prompt with a verb. <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--lime);font-family:var(--mono);font-size:0.9em;">Summarize</code>, <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--lime);font-family:var(--mono);font-size:0.9em;">Write</code>, <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--lime);font-family:var(--mono);font-size:0.9em;">Analyze</code>, <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--lime);font-family:var(--mono);font-size:0.9em;">Compare</code>, <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--lime);font-family:var(--mono);font-size:0.9em;">List</code> — each one names a task the model was built to execute. <em>"Help me with X"</em> makes the model guess; a verb makes it act. That's the whole hack.
+      </p>
+      <p>
+        Then sharpen: verb first, then length, format, tone, and focus. The verb gets you 80% of the way from "trash" to "useful" in a single word; the constraints close the rest. It's the cheapest, most universal upgrade in the entire prompt-engineering toolkit — it costs nothing and applies to every prompt you'll ever write.
+      </p>
+    </div>
+  </div>
+
+  <!-- SOURCES · DATA -->
+  <div class="reveal">
+    <div class="section-label">Sources · Performance Data</div>
+    <h2 class="section-heading">Where The <span class="lime">Numbers Came From</span></h2>
+    <ul class="try-list">
+      <li><strong>V11 + V12 + V13 + V14 analytics</strong> — TikTok screenshots and YouTube Studio CSVs pulled 6/6 – 6/8/2026 across each video's measurement window. Instagram Reels screenshots from the same window. V14 specifically: TT 48-hour (incl. the "stopped at 0:02" retention panel), YT 28-day, IG first-day. The 4-video averages in §8.5 are computed directly from these exports.</li>
+      <li><strong>V16 platform analytics</strong> — TikTok 7-day screenshots (169 views · 1.2% full-watch · search + demographics) and Instagram Reels first-window screenshots (123 views · 10 interactions) pulled 6/12/2026. YouTube Studio CSV export for the window 5/15 – 6/12/2026 (5 views · 32 impressions · 0% CTR), under the retitled name <em>"The Easiest Way to Get Better ChatGPT Responses"</em> (changed from the planned <em>"The One Word Pro Prompters Start Every ChatGPT Prompt With"</em>). All V16 §8.5 figures are computed directly from these exports.</li>
+      <li><strong>V16 Whisper transcript</strong> — generated 2026-06-08 by running <code>npx hyperframes transcribe</code> with the <code>small.en</code> model against <code>Videos/AI_Prompt_Engineering_Vol1/06-instructional-prompting.mp4</code>. Transcript output stored at <code>/tmp/v16-whisper/transcript.json</code>. 63 words across 35.64s; 100% word-similarity with the §7 VO Script block and §8 Visual Analysis timestamps.</li>
+      <li><strong>V16 queue position rationale</strong> — direct quotes from the publishing-strategy section of <code>Prompt Files/PromptEngineeringSeries.md</code>. V16 was scheduled position #4 on YouTube ("insider/secret framing"), position #6 on TikTok ("simple, universal, one-word reply comment-bait"), and position #1 (first) on Instagram ("most save-worthy: short, universal, 'five verbs to remember' lands as a save").</li>
+      <li><strong>HyperFrames composition + VO script</strong> — exact configuration archived in the production drive. Same stack used across V11-V20 (Vol 1) and V21-V30 (Vol 2). HeyGen HyperFrames CLI is open source at <a href="https://hyperframes.heygen.com/" target="_blank" rel="noopener" style="color:var(--lime);">hyperframes.heygen.com</a>.</li>
+    </ul>
+  </div>
+
+  <!-- SOURCES · EXTERNAL -->
+  <div class="reveal">
+    <div class="section-label">Sources · External References</div>
+    <h2 class="section-heading">Where The <span class="lime">Technique Was Verified</span></h2>
+    <p>
+      The instruction-tuning mechanism, the five benefits, the five-component framework, the best-practice rules, and every direct quote in §3, §4, §5, and §6 were cross-checked against two published references. Each is cited inline where it's quoted.
+    </p>
+    <ul class="try-list">
+      <li><strong>GeeksforGeeks — "Instruction Prompting"</strong> · last updated July 23, 2025. The primary reference. Source for the formal definition cited in §3 and §4 (<em>"providing clear, specific and structured natural language instructions to a generative AI model... to guide them in performing complex tasks accurately and efficiently"</em>), the five benefits (flexibility/scalability, precision/control, accessibility, cost efficiency, iterative improvement) cited in §4, the five components of an effective instruction cited in §5, the best-practice list ("Be specific and unambiguous") cited in §9, and the canonical constraint-stacked examples ("Summarize the article in 100 words," "List five pros and cons... in a table format") cited in §3 and §6. <a href="https://www.geeksforgeeks.org/artificial-intelligence/instruction-prompting/" target="_blank" rel="noopener" style="color:var(--lime);">geeksforgeeks.org/artificial-intelligence/instruction-prompting</a></li>
+      <li><strong>Learn Prompting — "Instruction Prompting"</strong> by Sander Schulhoff · last updated March 6, 2025. Source for the generalization framing cited in §3 (<em>"aims to allow models to work with new, previously unseen tasks... without requiring task-specific training data"</em>), the three worked examples (name parsing, PII removal, essay evaluation) cited in §6, and — critically — the PII-caution quotes cited in §5 and §9 (<em>"used with extraordinary caution... you are sending PII to a third party"</em>). Schulhoff created the first online prompt-engineering guide and co-authored "The Prompt Report," a 76-page survey of 1,500+ papers. <a href="https://learnprompting.org/docs/basics/instructions" target="_blank" rel="noopener" style="color:var(--lime);">learnprompting.org/docs/basics/instructions</a></li>
+    </ul>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav">
+    <a href="15-delimiters.html" class="series-nav-card">
+      <div class="sn-dir">← Previous</div>
+      <div class="sn-title">V15 · Delimiters</div>
+    </a>
+    <a href="17-negative-constraints.html" class="series-nav-card next">
+      <div class="sn-dir">Next Up →</div>
+      <div class="sn-title">V17 · Negative Constraints</div>
+    </a>
+  </div>
+
+  <div class="cta-section reveal">
+    <div class="cta-label">// Get the next one</div>
+    <h3 class="cta-title">More Prompt Engineering, <span style="color:var(--lime)">Every Week</span></h3>
+    <p class="cta-subtitle">Vol 1 of the AI Prompting series. Honest data, real production settings, no hype.</p>
+    <form class="cta-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+      <input type="email" placeholder="your@email.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+</div>
+
+<!-- SIDEBAR -->
+<aside class="post-sidebar">
+
+  <!-- ① PLATFORM DATA · V11-V14 Benchmark (the bar V15 has to clear) -->
+  <div class="platform-card reveal">
+    <div class="platform-card-header">
+      <span class="platform-card-title">// Platform Data · V16 Actual</span>
+      <span class="platform-card-date">// IG live · TT 5/30 · YT retitled</span>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-ig"></span>Instagram · V16</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value highlight">123</div><div class="stat-label-small">Views (+355%)</div></div>
+        <div class="stat-item"><div class="stat-value">110</div><div class="stat-label-small">Reached</div></div>
+        <div class="stat-item"><div class="stat-value highlight">10</div><div class="stat-label-small">Interactions</div></div>
+        <div class="stat-item"><div class="stat-value highlight">2.44%</div><div class="stat-label-small">Save Rate</div></div>
+      </div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-tt"></span>TikTok · V16</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value highlight">169</div><div class="stat-label-small">Views</div></div>
+        <div class="stat-item"><div class="stat-value">3.99s</div><div class="stat-label-small">Avg Watch</div></div>
+        <div class="stat-item"><div class="stat-value highlight">1.2%</div><div class="stat-label-small">Full Watch</div></div>
+        <div class="stat-item"><div class="stat-value muted">0.59%</div><div class="stat-label-small">Save Rate</div></div>
+      </div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-yt"></span>YouTube · V16</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value muted">5</div><div class="stat-label-small">Views (−89%)</div></div>
+        <div class="stat-item"><div class="stat-value muted">32</div><div class="stat-label-small">Impressions</div></div>
+        <div class="stat-item"><div class="stat-value muted">0%</div><div class="stat-label-small">CTR (retitled)</div></div>
+        <div class="stat-item"><div class="stat-value muted">0</div><div class="stat-label-small">Subs</div></div>
+      </div>
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-chart-title">Save Rate · V11 → V16 (IG breakout)</div>
+      <div class="bar-group">
+        <span class="bar-platform">V11</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:78%"></div></div>
+        <span class="bar-count">2.1%</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">V12</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:100%"></div></div>
+        <span class="bar-count">2.7%</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">V13</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:53%"></div></div>
+        <span class="bar-count">1.42%</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">V14</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:29%; opacity:0.5"></div></div>
+        <span class="bar-count">0.78%</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">V16 IG</span>
+        <div class="bar-track"><div class="bar-fill ig" style="width:90%"></div></div>
+        <span class="bar-count">2.44%</span>
+      </div>
+    </div>
+
+    <div class="virality-section">
+      <div class="virality-label">V16 Bet Outcomes</div>
+      <div class="virality-tags">
+        <span class="vtag" style="border-color: rgba(132,224,0,0.4);">✓ IG Save Breakout</span>
+        <span class="vtag" style="border-color: rgba(132,224,0,0.4);">✓ Hook Cleared 1%</span>
+        <span class="vtag" style="border-color: rgba(132,224,0,0.4);">✓ Queue #1 → 123</span>
+        <span class="vtag" style="opacity: 0.5;">✗ Still 0 Followers</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② RYU'S READ -->
+  <div class="ryu-read reveal">
+    <div class="ryu-read-label">// Ryu's Read On The Data</div>
+    <p>This is the first time I'm writing this section as a win — on two of three platforms. V16 was the cleanest experiment the series has run (early queue, save-built, fast hook), and it landed every bet on Instagram and TikTok. YouTube stayed dead (5 views, 0% CTR even after a retitle) — but that's a title problem, not a content one, and the data section breaks it down. <strong>Instagram is the breakout I'd stopped expecting.</strong> 123 views at queue #1 (V14 got 27 at queue #10), and — the number that actually matters — <em>10 interactions in a single post</em> when the entire prior run had produced one comment. 3 likes, 2 comments, 3 saves, 2 shares. The five-verb list got saved exactly where the brief said it would.</p>
+    <p><strong>The hook bet won too.</strong> TikTok completion hit 1.2% — the first time the series ever cleared 1%, up from V14's 0.8%. V14's data told me the problem was at 0:02; V16's two-second contrast open is the proof of the fix. The wrinkle: average watch time actually fell (3.99s vs 4.38s). The fast hook doesn't make everyone watch longer — it splits the room into "watched it all" and "gone instantly," and kills the lukewarm middle. For an algorithm that rewards completion, that's the right trade.</p>
+    <p><strong>And the one that still won't move: zero new followers, six videos deep.</strong> But V16 changes what that means. Before, no followers came with no engagement — same problem wearing two hats. Now the channel earns likes, comments, saves, shares… and converts none of it to a follow. That's not an interest problem anymore. It's a conversion problem, and it lives in the last two seconds — the gap between "that was useful" and actually tapping follow. That's the next thing I redesign.</p>
+  </div>
+
+  <!-- ③ SOURCES CITED -->
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// Sources Cited</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row" style="flex-direction: column; gap: 4px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+          <span class="ai-impact-icon">📘</span>
+          <span><strong>GeeksforGeeks</strong> · Instruction Prompting · Jul 2025<br><span style="color:var(--muted);">formal definition · 5 benefits · 5 components · best-practice list · canonical examples</span></span>
+        </div>
+      </div>
+      <div class="ai-impact-row" style="flex-direction: column; gap: 4px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+          <span class="ai-impact-icon">📗</span>
+          <span><strong>Learn Prompting</strong> · Sander Schulhoff · Mar 2025<br><span style="color:var(--muted);">generalization framing · name-parse / PII / essay examples · PII caution</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ AI IN THIS VIDEO -->
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// AI In This Video</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎬</span><span>Video composed deterministically with <strong>HeyGen HyperFrames</strong> — HTML + CSS + GSAP. No AI-generated visuals at render time. Every frame is hand-authored and reproducible.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎙️</span><span>Voiceover by <strong>Kokoro (am_adam)</strong>, transcribed back with <strong>Whisper small.en</strong> for QA against the VO script.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">📝</span><span>Blog drafted inside <strong>Claude Code Max</strong>, with VO script and §8 Visual Analysis pulled <strong>directly from the Whisper transcript of the rendered MP4</strong>. Edited by <strong>Ryu Vy</strong>.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎯</span><span>VO Script block matches the actual rendered audio at 100% word similarity. Smell test passes.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚡</span><span>Meta note: every prompt example in this post starts with a verb — Summarize, Write, Analyze, Compare, List — so the post practices the technique it documents.</span></div>
+    </div>
+  </div>
+
+</aside>
+
+</div>
+
+<footer>© 2026 AIToolsDaily24 · One tip a day, no hype.</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(() => btn.textContent = original, 1500);
+    });
+  }
+</script>
+
+</body>
+</html>
