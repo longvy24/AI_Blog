@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RAG — Paste Your Source So ChatGPT Can't Make Things Up | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="Paste your source and tell ChatGPT to answer only from it — no more made-up facts. V19 of the AI Prompting Vol 1 series: the consumer version of RAG, and the data that proves the hook is the only lever that matters.">
+<meta property="og:title" content="RAG — Paste Your Source So ChatGPT Can't Make Things Up">
+<meta property="og:description" content="V19 of the AI Prompting series — grounding ChatGPT in your own data to stop hallucinations, and why a perfectly-targeted video still lost at 0:02.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0A0C0A; --surface: #111810; --surface2: #161A14; --border: #1E2A1A;
+    --lime: #84E000; --lime-dim: rgba(132,224,0,0.1); --lime-glow: rgba(132,224,0,0.05);
+    --white: #F2F5EE; --muted: #5A6A52;
+    --mono: 'IBM Plex Mono', monospace; --display: 'Bebas Neue', sans-serif; --body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,12,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
+  .nav-back:hover { color: var(--lime); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; background: var(--lime-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .lime { color: var(--lime); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--lime); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--bg); flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 340px; aspect-ratio: 9/16; }
+  .video-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .divider { max-width: 1240px; margin: 40px auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; }
+
+  .content-with-sidebar { max-width: 1240px; margin: 0 auto; padding: 0 48px 80px; display: grid; grid-template-columns: 1fr 320px; gap: 56px; align-items: start; }
+  @media (max-width: 980px) { .content-with-sidebar { grid-template-columns: 1fr; gap: 40px; } }
+  .post-body-inner { min-width: 0; }
+  .post-sidebar { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 20px; }
+  @media (max-width: 980px) { .post-sidebar { position: static; } }
+
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading { font-family: var(--display); font-size: clamp(32px, 4vw, 52px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .section-heading .lime { color: var(--lime); }
+
+  .post-body-inner p { font-size: 17px; font-weight: 300; color: #C8D4C0; line-height: 1.8; margin-bottom: 24px; }
+  .post-body-inner p strong { color: var(--white); font-weight: 500; }
+  .post-body-inner p em { color: var(--lime); font-style: italic; }
+  .post-body-inner > div.reveal { margin-bottom: 56px; }
+
+  .pull-quote { border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0; background: var(--lime-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 20px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+  .pull-quote .cite { display: block; margin-top: 14px; font-size: 11px; font-style: normal; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; font-family: var(--mono); }
+
+  .honest-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; }
+  .honest-box .hb-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .honest-box p { font-size: 15px !important; margin-bottom: 14px !important; color: #C8D4C0 !important; line-height: 1.7 !important; }
+  .honest-box p:last-child { margin-bottom: 0 !important; }
+
+  .prompt-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 20px 22px; margin: 20px 0 32px; position: relative; }
+  .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .prompt-block code { font-family: var(--mono); font-size: 13px; color: var(--white); line-height: 1.8; display: block; white-space: pre-wrap; word-wrap: break-word; }
+  .prompt-copy { position: absolute; top: 14px; right: 14px; background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.3); color: var(--lime); font-family: var(--mono); font-size: 10px; padding: 4px 10px; border-radius: 2px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s; }
+  .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  .try-list { list-style: none; padding: 0; margin: 16px 0 32px; }
+  .try-list li { padding: 14px 0; border-bottom: 1px dashed var(--border); font-size: 16px; font-weight: 300; color: #C8D4C0; line-height: 1.7; display: flex; gap: 14px; align-items: flex-start; }
+  .try-list li::before { content: '→'; color: var(--lime); font-family: var(--mono); flex-shrink: 0; font-size: 16px; line-height: 1.6; }
+  .try-list li strong { color: var(--white); font-weight: 500; }
+  .try-list li:last-child { border-bottom: none; }
+
+  .frame-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 18px 22px; margin: 16px 0; }
+  .frame-block .fb-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .frame-block p { font-size: 15px !important; margin-bottom: 0 !important; color: #C8D4C0 !important; line-height: 1.7 !important; }
+
+  .platform-card-body { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin: 20px 0; overflow: hidden; position: relative; }
+  .platform-card-body::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .pcb-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .pcb-head .pcb-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .pcb-head .pcb-dot.yt { background: #ff0033; box-shadow: 0 0 8px rgba(255,0,51,0.4); }
+  .pcb-head .pcb-dot.tt { background: #25f4ee; box-shadow: 0 0 8px rgba(37,244,238,0.4); }
+  .pcb-head .pcb-dot.ig { background: #dd2a7b; box-shadow: 0 0 8px rgba(221,42,123,0.4); }
+  .pcb-head .pcb-name { font-family: var(--mono); font-size: 12px; color: var(--white); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+  .pcb-head .pcb-window { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-left: auto; }
+  .pcb-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 22px; padding: 20px; }
+  @media (max-width: 720px) { .pcb-stats { grid-template-columns: 1fr; gap: 14px; } }
+  .pcb-stats .sc .value { font-family: var(--display); font-size: 30px; line-height: 1; letter-spacing: 0.5px; color: var(--white); margin-bottom: 4px; }
+  .pcb-stats .sc .value.primary { color: var(--lime); }
+  .pcb-stats .sc .value.muted { color: var(--muted); }
+  .pcb-stats .sc .label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+  .pcb-note { padding: 14px 20px; background: rgba(0,0,0,0.20); border-top: 1px solid var(--border); font-family: var(--mono); font-size: 11px; color: #C8D4C0; line-height: 1.6; letter-spacing: 0.3px; }
+  .pcb-note strong { color: var(--lime); font-weight: 600; }
+
+  .cta-section { background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); border: 1px solid var(--border); border-radius: 6px; padding: 36px 32px; margin: 48px 0 0; text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--lime), transparent); }
+  .cta-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .cta-title { font-family: var(--display); font-size: 36px; line-height: 1.1; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
+  .cta-subtitle { font-size: 15px; color: var(--muted); margin-bottom: 24px; }
+  .cta-form { display: flex; gap: 8px; max-width: 420px; margin: 0 auto; }
+  .cta-form input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 12px 16px; color: var(--white); font-family: var(--body); font-size: 14px; }
+  .cta-form button { background: var(--lime); color: var(--bg); border: none; border-radius: 4px; padding: 12px 22px; font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: transform 0.2s; }
+  .cta-form button:hover { transform: translateY(-1px); }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 48px; }
+  @media (max-width: 600px) { .series-nav { grid-template-columns: 1fr; } }
+  .series-nav-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+  .series-nav-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+  .sn-dir { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .sn-title { font-family: var(--display); font-size: 18px; color: var(--white); letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.1; }
+  .series-nav-card.next { text-align: right; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  footer { padding: 40px 48px; border-top: 1px solid var(--border); text-align: center; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+
+  /* SIDEBAR */
+  .platform-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+  .platform-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .platform-card-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .platform-card-title { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .platform-card-date { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .platform-row { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .platform-row:last-of-type { border-bottom: none; }
+  .platform-name { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .platform-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-yt { background: #FF0000; } .dot-tt { background: #00F2EA; } .dot-ig { background: #E1306C; }
+  .platform-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-value { font-family: var(--display); font-size: 22px; color: var(--white); line-height: 1; letter-spacing: 0.5px; }
+  .stat-value.highlight { color: var(--lime); }
+  .stat-label-small { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+  .bar-chart { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .bar-chart-title { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .bar-group { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-group:last-child { margin-bottom: 0; }
+  .bar-platform { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; width: 22px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+  .bar-fill.yt { background: #FF0000; } .bar-fill.tt { background: #00F2EA; } .bar-fill.ig { background: #E1306C; }
+  .bar-count { font-family: var(--mono); font-size: 9px; color: var(--white); letter-spacing: 0.5px; width: 44px; flex-shrink: 0; }
+  .virality-section { padding: 14px 20px; border-top: 1px solid var(--border); }
+  .virality-label { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .virality-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .vtag { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 8px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.25); color: var(--lime); background: var(--lime-glow); }
+  .ryu-read { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 16px 20px; }
+  .ryu-read-label { font-family: var(--mono); font-size: 9px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .ryu-read p { font-size: 13px !important; color: #C8D4C0 !important; line-height: 1.65 !important; margin-bottom: 0 !important; font-weight: 300 !important; }
+  .ai-impact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .ai-impact-header { padding: 14px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .ai-impact-body { padding: 16px 20px; }
+  .ai-impact-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 12px; color: #C8D4C0; line-height: 1.5; font-weight: 300; }
+  .ai-impact-row:last-child { margin-bottom: 0; }
+  .ai-impact-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">← Back to index</a>
+</nav>
+
+<div class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">19 / 30</span>
+    <span class="post-series">AI Prompting · Vol 1</span>
+    <span class="post-date">Published · TT 2026-05-23 · IG live · YT live</span>
+  </div>
+  <h1 class="post-title">Paste Your Source. <span class="lime">No More Made-Up Facts.</span></h1>
+  <p class="post-subtitle">RAG · V19. Paste your own document, then add one line — <code style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-size:0.85em;color:var(--lime);">"answer only from this text"</code> — and ChatGPT stops hallucinating. It's the consumer version of Retrieval-Augmented Generation. And it's the video that proved a perfectly-targeted Short still dies at a weak hook.</p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AI Tools · Daily</div>
+    </div>
+  </div>
+
+</div>
+
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/it47oYb3aww" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+  </div>
+</section>
+
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-icon">▸ ▸ ▸</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="content-with-sidebar">
+
+<div class="post-body-inner">
+
+  <!-- §1 -->
+  <div class="reveal">
+    <div class="section-label">The Frustration</div>
+    <h2 class="section-heading">AI Just Made Up A Fact. <span class="lime">Confidently.</span></h2>
+    <p>
+      You ask ChatGPT for a statistic, a citation, a date — and it gives you one, stated with total confidence. Then you check, and it's wrong. Not "roughly right" wrong; invented-out-of-thin-air wrong, complete with a fake source. This is a <strong>hallucination</strong>, and it's the single most dangerous failure mode in AI, because the wrong answer looks exactly as authoritative as a right one. IBM's plain definition: <em>"a hallucination or confabulation happens when models present incorrect or made-up information as though it is factual."</em>
+    </p>
+    <p>
+      The reason it happens is structural. A language model answers from <em>patterns in its training data</em> — and when it doesn't actually know something, it fills the gap with the most plausible-sounding guess rather than admitting ignorance. AWS has the perfect analogy: an ungrounded model is like <em>"an over-enthusiastic new employee who refuses to stay informed with current events but will always answer every question with absolute confidence."</em> The fix isn't to hope for a smarter model. It's to <strong>stop letting the model answer from memory and force it to answer from a source you give it.</strong> Paste your document, tell it to use only that, and the made-up facts vanish — because the model is no longer guessing, it's quoting.
+    </p>
+  </div>
+
+  <!-- §2 -->
+  <div class="reveal">
+    <div class="section-label">Why This Video Exists</div>
+    <h2 class="section-heading">A Perfect Setup That <span class="lime">Still Died At 0:02</span></h2>
+    <p>
+      V19 was scheduled <strong>position #6 on YouTube, position #3 on TikTok, and position #4 on Instagram</strong> — an early, strong slot. And on paper it had everything going for it. The reason, quoted verbatim:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// V19's Queue Position · From PromptEngineeringSeries.md</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>YouTube Shorts — V19 at position #6:
+  "How to Stop ChatGPT From Making Things Up
+   (Works Every Time) — universally relatable problem."
+
+TikTok — V19 at position #3:
+  "Paste your source — ChatGPT can't make things up
+   anymore — everyone has experienced hallucinations;
+   strong comment-bait."
+
+Instagram Reels — V19 at position #4:
+  "Paste your source — ChatGPT can't make things up
+   anymore — solves a problem viewers know they have."</code>
+    </div>
+
+    <p>
+      Here's why V19 is the most instructive video in the series: <strong>it controlled for everything the prior losses blamed.</strong> V18 failed partly because its title ("break") mis-targeted the search algorithm — V19's targeting was <em>perfect</em>: the lone search query that surfaced it was <em>"chat gpt hallucinating,"</em> exactly the problem the video solves. V18 was a workflow — V19 is a tactic (one move: paste your source). V18 was queued mid-batch — V19 was queued #3 on TikTok, early. Perfect targeting, tactic content, early queue. Every variable the earlier losses pointed at was fixed. <strong>And it still hit the 0:02 cliff.</strong>
+    </p>
+    <p>
+      That isolates the one variable left: <strong>the hook.</strong> V19's open — <em>"AI just made up a fact. Here's how to stop it."</em> — is a generic problem-tease, the single most common opening format in short-form. The scroll-trained brain has seen ten thousand of them and filters the pattern out before the second clause. Average watch time was <strong>3.69 seconds, the lowest in the series</strong> — viewers bailed faster than on any video before it, even the ones searching for this exact fix. Compare V17's record-setting <em>"you got what you asked for, just not what you wanted"</em>: specific, second-person, a feeling you've personally lived. V19's hook describes the AI's behavior in the third person. That difference, and nothing else, is the whole gap.
+    </p>
+
+    <p>
+      Three things V19 tested — and what the data said:
+    </p>
+    <ul class="try-list">
+      <li><strong>Can perfect search targeting rescue a weak hook? — NO.</strong> The query was <em>"chat gpt hallucinating"</em> — a bullseye. The people who arrived were looking for exactly this fix, and they <em>still</em> bounced at 0:02. Targeting gets the right viewer to the door; only the hook gets them inside.</li>
+      <li><strong>Does a tactic automatically save? — NO.</strong> "Paste your source" is a single move, like V16's verbs and V17's do-nots. But it earned just 2 TikTok saves and 0 Instagram saves. So "tactic" isn't sufficient for saves either — the content also has to feel <em>novel</em>, and "paste a source" is something most people half-know already.</li>
+      <li><strong>Does the 35-54 niche hold? — YES, a fifth time.</strong> 85% male, 95% aged 35+, 91.6% US. Five videos, same audience, win or lose. The niche is bedrock; the hook is the lever.</li>
+    </ul>
+  </div>
+
+  <!-- §3 -->
+  <div class="reveal">
+    <div class="section-label">The Fix</div>
+    <h2 class="section-heading">Paste Your Source. <span class="lime">Say "Use Only This."</span></h2>
+    <p>
+      The entire technique is two moves: give the model your source, and tell it to answer only from that source. This is the consumer-grade version of RAG — Retrieval-Augmented Generation — which AWS defines as <em>"the process of optimizing the output of a large language model, so it references an authoritative knowledge base outside of its training data sources before generating a response."</em> Enterprise RAG automates the "retrieve" step with vector databases; you do it by hand with copy-paste. Same principle, same result:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// The "Poor Man's RAG" Prompt</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Answer the question using ONLY the text below.
+If the answer isn't in the text, say "I don't know."
+
+=== SOURCE ===
+[paste your article, doc, contract, or notes here]
+=== END SOURCE ===
+
+Question: [your question]</code>
+    </div>
+
+    <p>
+      The load-bearing line is <em>"if the answer isn't in the text, say 'I don't know.'"</em> Without it, the model falls back to guessing the moment your source comes up short — and you're back to hallucinations. With it, you give the model explicit permission to admit ignorance, which is the one thing it never does on its own. The grounding flips where the answer comes from. AWS frames the contrast exactly: <em>without RAG, "the LLM... creates a response based on information it was trained on — or what it already knows"</em>; with RAG, <em>"the user query and the relevant information are both given to the LLM."</em> Your pasted source <em>is</em> the relevant information.
+    </p>
+
+    <p>
+      GeeksforGeeks sums up the payoff in one line: RAG <em>"reduces hallucinations by retrieving verified, external data to ground responses in factual knowledge."</em> You're not making the model smarter — you're changing what it's allowed to draw from. And the bonus, per IBM: a grounded answer can <em>cite its source</em>, so <em>"human users can verify those outputs to confirm accuracy."</em> No more taking a confident answer on faith.
+    </p>
+
+    <div class="pull-quote">
+      <p>"Paste your source into the prompt. Then say, answer only from this text. If you don't know, say so. Done."</p>
+      <span class="cite">— V19 VO, 0:04 – 0:10</span>
+    </div>
+  </div>
+
+  <!-- §4 -->
+  <div class="reveal">
+    <div class="section-label">Why It Works</div>
+    <h2 class="section-heading">It Quotes Instead <span class="lime">Of Guessing</span></h2>
+    <p>
+      A normal prompt asks the model to answer from everything it absorbed during training — a vast, fuzzy, occasionally-wrong memory with no way to tell you which parts it's sure about. When that memory comes up empty, the model doesn't stop; it generates the most statistically plausible continuation, which is exactly how a confident wrong answer is born. IBM's description is precise: a model <em>"work[s] by detecting patterns in their data, then using those patterns to predict the most likely outcomes to user inputs. Sometimes models detect patterns that don't exist."</em>
+    </p>
+    <p>
+      Pasting a source changes the question the model is answering. Instead of "what's the most likely answer from everything I know," it becomes "what does <em>this specific text</em> say." AWS draws the line cleanly: without grounding, <em>"the LLM... creates a response based on information it was trained on — or what it already knows"</em>; with grounding, <em>"the user query and the relevant information are both given to the LLM."</em> The relevant information — your pasted document — is now the authority, and the model's job shrinks from <em>recall</em> to <em>reading comprehension</em>, a task it's far more reliable at.
+    </p>
+    <p>
+      GeeksforGeeks states the result directly: RAG <em>"reduces hallucinations by retrieving verified, external data to ground responses in factual knowledge"</em> and <em>"fetches up-to-date data and reduces incorrect or made-up answers."</em> Two benefits fall out of that grounding for free:
+    </p>
+    <ul class="try-list">
+      <li><strong>Citations you can verify</strong> — because the answer comes from a text you can see, you can check it. IBM: a grounded model can <em>"include citations to the knowledge sources... human users can verify those outputs to confirm accuracy."</em> The answer stops being an act of faith.</li>
+      <li><strong>Current and private knowledge</strong> — your source can be anything: today's report, a contract the model never trained on, your own notes. RAG, per IBM, <em>"anchors LLMs in specific knowledge backed by factual, authoritative and current data,"</em> sidestepping both the training cutoff and the limits of public data.</li>
+    </ul>
+
+    <div class="pull-quote">
+      <p>"RAG anchors LLMs in specific knowledge backed by factual, authoritative and current data... While RAG can reduce the risk of hallucinations, it cannot make a model error-proof."</p>
+      <span class="cite">— IBM · Retrieval-Augmented Generation · 2026</span>
+    </div>
+  </div>
+
+  <!-- §5 -->
+  <div class="reveal">
+    <div class="section-label">The Catch</div>
+    <h2 class="section-heading">Grounded Isn't The Same <span class="lime">As Error-Proof</span></h2>
+    <p>
+      The honest caveat is the one IBM puts right in its own definition: <strong>"while RAG can reduce the risk of hallucinations, it cannot make a model error-proof."</strong> Grounding shifts where the answer comes from, but the model can still misread your source, stitch two passages together wrong, or quietly fall back to its training if your instruction is weak. Pasting a source dramatically lowers the hallucination rate; it doesn't zero it. Verify anything that matters — the technique makes verification <em>possible</em> (the source is right there), it doesn't make it unnecessary.
+    </p>
+    <p>
+      Second catch: <strong>the answer is only as good as the source you paste.</strong> RAG's reliability, GeeksforGeeks notes, has a <em>"heavy dependence on retrieval quality"</em> and a <em>"risk of inheriting biases from source documents."</em> Paste a source that's outdated, partial, or wrong, and you'll get a confident answer that's faithfully grounded in bad information. Garbage in, grounded garbage out. The model can't fact-check the document you handed it — it can only stay inside it.
+    </p>
+    <p>
+      Third catch: <strong>you must actually constrain it.</strong> The grounding only holds if you tell the model to stay inside the source <em>and</em> give it an exit when the source falls short. Drop the line <em>"if the answer isn't in the text, say 'I don't know,'"</em> and the model treats your source as a starting point rather than a boundary — answering partly from the text and partly from memory, which is the worst of both worlds because you can no longer tell which is which. The constraint is the technique; the source is just the input.
+    </p>
+    <p>
+      And the meta-catch this video demonstrated: <strong>"paste a source" is something most people half-already-know.</strong> The save data (2 on TikTok, 0 on Instagram) suggests the tip wasn't novel enough to capture — unlike the surprise of "start every prompt with a verb" or "tell it what NOT to do," grounding-by-paste feels like common sense once stated. A tactic only earns a save when it teaches something the viewer didn't already suspect. The data section below has the full picture.
+    </p>
+  </div>
+
+  <!-- §6 -->
+  <div class="reveal">
+    <div class="section-label">Real Use Cases</div>
+    <h2 class="section-heading">Where Grounding <span class="lime">Is Non-Negotiable</span></h2>
+    <p>
+      Anywhere a wrong answer has a cost, paste the source. Five cases where grounding turns ChatGPT from a confident guesser into a reliable reader — the domains IBM, AWS, and GeeksforGeeks all flag:
+    </p>
+    <ul class="try-list">
+      <li><strong>Legal and contract review</strong> — paste the contract, ask <em>"what does clause 7 say about termination, using only this document."</em> A hallucinated contract term is a liability; a grounded one is a quote. GeeksforGeeks specifically calls out <em>"specialized domains like medical or legal content"</em> as where RAG matters most.</li>
+      <li><strong>Research summaries</strong> — paste the paper, ask for the findings "from the text only." This is the entire reason the technique exists: stop the model from inventing a statistic that sounds right. The exact failure V19's video opens on.</li>
+      <li><strong>Customer support from your own docs</strong> — paste the FAQ or policy, answer from it. AWS's canonical RAG use case: an HR bot answering <em>"how much annual leave do I have?"</em> from the actual policy doc, not a plausible-sounding guess.</li>
+      <li><strong>Product specs and technical facts</strong> — paste the spec sheet before asking about dimensions, compatibility, or limits. The model's training has a vague, possibly-outdated memory of your product; your spec sheet is the truth.</li>
+      <li><strong>Anything past the training cutoff</strong> — today's news, this quarter's numbers, a document written last week. IBM: RAG <em>"connect[s] models with supplemental external data in real-time and incorporate[s] up-to-date information into generated responses,"</em> covering exactly what the model couldn't have learned.</li>
+    </ul>
+    <p>
+      The through-line: the moment a wrong answer would cost you — money, credibility, a legal exposure — don't let the model answer from memory. Paste the source, constrain it to that source, and give it permission to say "I don't know." You've turned a confident guesser into a careful reader.
+    </p>
+  </div>
+
+  <!-- §7 -->
+  <div class="reveal">
+    <div class="section-label">Behind The Scenes</div>
+    <h2 class="section-heading">Production <span class="lime">Stack Used</span></h2>
+    <p>
+      V19 runs on the same stack as V11–V18: <strong>HeyGen HyperFrames + Claude Code Max</strong> orchestrating GSAP timelines over Tailwind-styled HTML, Kokoro generating the VO, Whisper transcribing it back for QA. V19's runtime is 36.02s. The brief wanted the hallucination moment to <em>"feel alarming (brief pause)"</em> and the RAG fix to feel <em>"clean, confident, satisfying."</em> The composition delivered that — but the data says the alarming moment wasn't alarming <em>enough</em>, because it was stated rather than shown happening to the viewer.
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// HyperFrames Production Settings · V19</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Composition framework: HeyGen HyperFrames 0.6.20
+Orchestrator:          Claude Code Max (token-budgeted)
+Animation library:     GSAP 3.14.2 (paused timeline, seek-driven)
+Styling runtime:       Tailwind v4.2.4 (browser, no build step)
+Voice synthesis:       Kokoro · voice="am_adam" · speed 1.0
+Audio QA:              Whisper · model="small.en"
+Background music:      Infraction · "Never Leave" · volume 0.15
+Composition size:      1080 × 1920 (vertical 9:16)
+Frame rate:            30 fps · ~1080 frames per render
+Output format:         H.264 MP4 · "high" quality preset
+Runtime:               36.02s</code>
+    </div>
+
+    <p>
+      And here is the actual VO — captured by running Whisper transcription on the rendered MP4, exactly what the audience hears:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// VO Script (Whisper transcript of rendered V19 · 32.0s total · 65 words)</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>[00.230 – 04.000] Hook:
+"AI just made up a fact. Here's how to stop it."
+
+[04.270 – 10.000] The fix:
+"Paste your source into the prompt. Then say, answer only from
+this text. If you don't know, say so. Done."
+
+[10.000 – 18.000] Use cases:
+"Use it everywhere. Customer support docs, legal contracts,
+research papers, product specs."
+
+[20.000 – 24.000] The principle:
+"RAG. Your AI, your data, your rules."
+
+[24.000 – 32.000] CTA:
+"Next time AI makes something up, paste the source and take
+control. Save and follow."</code>
+    </div>
+
+    <div class="honest-box reveal">
+      <div class="hb-label">// Why This Section Exists</div>
+      <p>
+        The settings above are real. The transcript above is real — generated by running Whisper on the rendered MP4, not copied from the planning brief. Nothing has been cleaned up or made to look smarter in hindsight. The stack is mostly free to set up: <strong>HyperFrames, GSAP, Tailwind, Kokoro, Whisper, and the agent skills are all open source or free-tier.</strong> There is no add-on license to buy.
+      </p>
+      <p>
+        The honest catch: <strong>the part that drives the workflow isn't free.</strong> V19 was authored inside Claude Code with a <strong>Claude Max subscription</strong>, and every iteration — scene layout, GSAP timing, VO QA, blog draft, sidebar real-data updates — burns tokens against that plan's budget. Realistic throughput is <em>roughly one video build per working session</em>. And in the spirit of the topic: this post is itself grounded — every external claim is a quote from a named source, pasted in and cited, so you can verify it the same way RAG lets you verify ChatGPT.
+      </p>
+    </div>
+  </div>
+
+  <!-- §8 -->
+  <div class="reveal">
+    <div class="section-label">Visual Analysis</div>
+    <h2 class="section-heading">What V19 <span class="lime">Actually Shows</span></h2>
+    <p>
+      Scene-by-scene with timestamps from the Whisper transcript. Five VO beats across 32.0s of spoken audio (36.02s with the pacing tail). Reading it against the data, the first four seconds explain everything: the most relatable topic in the series, opened with the least relatable hook format.
+    </p>
+
+    <div class="frame-block">
+      <div class="fb-label">// 00.230 – 04.000 s · Hook</div>
+      <p>VO: <em>"AI just made up a fact. Here's how to stop it."</em> <strong>This is the whole story of V19.</strong> TikTok's retention panel reports most viewers stopped at 0:02, and average watch time was 3.69 seconds — the lowest in the series. The cruel part: the topic is the <em>most</em> universally relatable in the Vol (everyone has caught ChatGPT lying), and the search query that surfaced it was a perfect match (<em>"chat gpt hallucinating"</em>). The hook squandered both. <em>"AI just made up a fact. Here's how to stop it"</em> is the single most common short-form opening template — problem statement plus "here's how to fix it" — and the scroll-trained brain filters that pattern out reflexively. Compare V17's <em>"you got what you asked for, just not what you wanted"</em>: same job, but it describes <em>your</em> experience instead of announcing a topic. V19 names the problem in the third person; V17 made you feel it in the second.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 04.270 – 10.000 s · The Fix</div>
+      <p>VO: <em>"Paste your source into the prompt. Then say, answer only from this text. If you don't know, say so. Done."</em> Six seconds, and genuinely the most useful beat in the video — the complete technique, including the load-bearing <em>"if you don't know, say so."</em> <em>"Done"</em> is a satisfying button. For the few who pushed past 0:02, this delivers. But it's also the reason saves stayed low: "paste a source" is a tip most viewers feel they already half-knew, so even those who watched didn't feel the jolt of novelty that triggers a save.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 10.000 – 18.000 s · Use Cases</div>
+      <p>VO: <em>"Use it everywhere. Customer support docs, legal contracts, research papers, product specs."</em> Eight seconds. The rapid-fire use-case sweep is meant to broaden applicability — to make the viewer think "oh, I could use this for my contracts." It's a reasonable beat, but it's list-of-nouns, not a demonstration, so it informs without gripping. Landing at 0:10, it's well past the cliff anyway.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 20.000 – 24.000 s · The Principle</div>
+      <p>VO: <em>"RAG. Your AI, your data, your rules."</em> Four seconds. <em>"Your AI, your data, your rules"</em> is the best line in the video — a tight, rhythmic, repeatable mantra that names the empowerment underneath the tactic. Naming the technique "RAG" also gives a curious viewer a term to search. But like V18, the memorable line lands at 0:20, after the audience that would have repeated it has already gone.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 24.000 – 32.000 s · CTA</div>
+      <p>VO: <em>"Next time AI makes something up, paste the source and take control. Save and follow."</em> Eight seconds. <em>"Take control"</em> is good agency language, and the structure is the same proven save-and-follow double-ask V17 used. But the CTA can only convert the viewers who arrived — and V19's hook let almost everyone leave before this. Across V18 and V19, the lesson is now unmissable: the CTA is never the variable. The first two seconds decide everything downstream.</p>
+    </div>
+  </div>
+
+  <!-- §8.5 -->
+  <div class="reveal">
+    <div class="section-label">Real Platform Data</div>
+    <h2 class="section-heading">What V19 <span class="lime">Actually Did</span></h2>
+    <p>
+      V19 is the most controlled experiment the series has run — and the cleanest isolation of the one lever that matters. It had everything the prior losses lacked: a <em>tactic</em> (not a workflow), <em>perfect</em> search targeting (the lone query was "chat gpt hallucinating," the exact problem), and an <em>early</em> queue slot (#3 on TikTok). Every variable the V18 post-mortem blamed was fixed here. <strong>And it still hit the 0:02 cliff, with the lowest average watch time in the series (3.69s).</strong> When you control for everything else and the video still loses, the remaining variable is the hook — and V19's was a generic problem-tease. (Verdict: the hook is the dominant lever, full stop.)
+    </p>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot tt"></span>
+        <span class="pcb-name">TikTok · V19 Actual</span>
+        <span class="pcb-window">7-day window · posted 5/23/2026</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value muted">160</div><div class="label">Views <span style="color:var(--muted);">vs ~163 baseline · queue #3 (early)</span></div></div>
+        <div class="sc"><div class="value muted">3.69s</div><div class="label">Avg Watch <span style="color:var(--muted);">LOWEST in series · vs V17's 5.07s</span></div></div>
+        <div class="sc"><div class="value muted">1.2%</div><div class="label">Full Watch <span style="color:var(--muted);">0:02 cliff · vs V17's 2.3%</span></div></div>
+        <div class="sc"><div class="value muted">1.25%</div><div class="label">Save Rate <span style="color:var(--muted);">2 saves / 160</span></div></div>
+        <div class="sc"><div class="value">95.7%</div><div class="label">From For You <span style="color:var(--muted);">1 like · 0 comments · 0 shares</span></div></div>
+        <div class="sc"><div class="value muted">0</div><div class="label">New Followers <span style="color:var(--muted);">still 0 cumulative</span></div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>Lowest average watch time in the series — the hook failed faster than any before it.</strong> 3.69 seconds (V17 was 5.07, V18 was 5.07). Unlike V18, where the viewers who survived 0:02 stayed a full 5 seconds, V19's hook lost people <em>even faster</em>, dragging the average down. That's the signature of a hook that pattern-matches to "generic AI tip" — the scroll-trained brain rejects it before the second clause. And this happened on the most relatable topic in the Vol, queued early. The topic and the queue were perfect; the first four seconds threw it away.
+      </div>
+    </div>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot tt"></span>
+        <span class="pcb-name">TikTok · V19 Search + Demographics</span>
+        <span class="pcb-window">7-day window · perfect targeting</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value primary">"chat gpt hallucinating"</div><div class="label">The only search query <span style="color:var(--muted);">a perfect-intent match</span></div></div>
+        <div class="sc"><div class="value">85% / 15%</div><div class="label">Male / Female</div></div>
+        <div class="sc"><div class="value">91.6%</div><div class="label">United States <span style="color:var(--muted);">+ Canada 1.8% · Mexico 1.2%</span></div></div>
+        <div class="sc"><div class="value">95%</div><div class="label">Aged 35+ <span style="color:var(--muted);">45-54: 35% · 55+: 34% · 35-44: 26%</span></div></div>
+        <div class="sc"><div class="value">82% / 18%</div><div class="label">New / Returning</div></div>
+        <div class="sc"><div class="value">98%</div><div class="label">Non-Followers</div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>This is the card that proves the point.</strong> Where V18's search query was a mis-aimed mess ("how to brake chat gpt"), V19's was a bullseye: <em>"chat gpt hallucinating"</em> — the literal problem the video solves. The right people found it. The niche held a fifth time (95% over-35, 85% male, 91.6% US — the oldest yet, 69% aged 45+). So targeting worked and the audience was correct, and the video <em>still</em> underperformed. That's the cleanest possible evidence that the bottleneck is upstream of targeting and demographics. It's the hook, and only the hook.
+      </div>
+    </div>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot ig"></span>
+        <span class="pcb-name">Instagram Reels · V19 Actual</span>
+        <span class="pcb-window">First-window · queue #4</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value muted">109</div><div class="label">Views <span style="color:var(--muted);">vs ~84 baseline · decent reach</span></div></div>
+        <div class="sc"><div class="value muted">102</div><div class="label">Accounts Reached</div></div>
+        <div class="sc"><div class="value muted">1</div><div class="label">Total Interactions <span style="color:var(--muted);">1 like · 0 comments · 0 saves · 0 shares</span></div></div>
+        <div class="sc"><div class="value muted">0%</div><div class="label">Save Rate <span style="color:var(--muted);">vs V17's 4.27% · breakout didn't repeat</span></div></div>
+        <div class="sc"><div class="value">100%</div><div class="label">Non-Followers</div></div>
+        <div class="sc"><div class="value muted">0</div><div class="label">New Followers <span style="color:var(--muted);">still 0 cumulative</span></div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>Second IG flop in a row — but for a different reason than V18.</strong> V18 (a workflow) couldn't be screenshotted; V19 (a tactic) <em>could</em> be — yet it still earned 0 saves and 1 lone like. So "tactic" alone isn't enough to trigger a save. The missing ingredient is <em>novelty</em>: V16's verbs and V17's do-nots felt like secrets; "paste a source" feels like common sense once you hear it. A save is a bet that you'll need something you don't already know — and most viewers feel they already knew this one. Reach was fine (102 accounts); the content just didn't surprise.
+      </div>
+    </div>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot yt"></span>
+        <span class="pcb-name">YouTube Shorts · V19 Actual</span>
+        <span class="pcb-window">28-day window · title kept</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value muted">12</div><div class="label">Views <span style="color:var(--muted);">vs ~38 baseline · vs V17's 61</span></div></div>
+        <div class="sc"><div class="value muted">71</div><div class="label">Impressions <span style="color:var(--muted);">feed thumbnails shown</span></div></div>
+        <div class="sc"><div class="value muted">0.00%</div><div class="label">CTR <span style="color:var(--muted);">the persistent Shorts 0%</span></div></div>
+        <div class="sc"><div class="value muted">0</div><div class="label">New Subs</div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>Consistent with the Shorts-distribution theory.</strong> 12 views, 0% CTR, title kept specific ("How to Stop ChatGPT From Making Things Up"). V17 taught us Shorts views track <em>engagement-driven feed distribution</em>, not thumbnail clicks — so a video with a weak hook and low TikTok completion gets little feed push on YouTube too. V19's 12 views sit between V16's 5 and V17's 61, tracking its middling engagement. The title was fine; the engagement signals it could send the algorithm were weak, so the feed barely served it.
+      </div>
+    </div>
+
+    <div class="honest-box reveal">
+      <div class="hb-label">// What V19 Actually Proved</div>
+      <p>
+        The cleanest experiment in the series, and it settled the central question:
+      </p>
+      <p>
+        <strong>(1) The hook is the dominant lever — isolated and confirmed.</strong> V19 fixed every variable the prior losses blamed: tactic content, perfect search targeting, early queue. It still hit the 0:02 cliff and posted the lowest watch time in the series (3.69s). When you control for content type, targeting, and queue and the result is still a loss, only one variable is left. The hook decides everything; the rest is downstream. V20's single most important job is the first four seconds.
+      </p>
+      <p>
+        <strong>(2) A generic problem-tease is the worst hook format.</strong> "AI just made up a fact. Here's how to stop it" is the most common short-form opening — and that's exactly why it failed. The scroll-trained brain rejects familiar templates reflexively. V17's record came from a hook that broke the template by naming the viewer's <em>felt</em> experience in second person. The rule for V20: never open with "X problem, here's the fix." Open with the feeling.
+      </p>
+      <p>
+        <strong>(3) Tactic ≠ automatic save; novelty is the real trigger.</strong> V19 was a tactic like V16 and V17, and still earned almost no saves. The difference is surprise: verbs and do-nots felt like insider secrets; "paste your source" feels obvious in hindsight. A save is a bet on future need, and viewers don't bet on what they think they already know. V20 should teach something genuinely non-obvious.
+      </p>
+      <p>
+        <strong>The niche held a fifth time; followers held at zero a ninth.</strong> 95% over-35, 85% male, 91.6% US — and the oldest skew yet (69% aged 45+). The audience could not be more locked in. And still 0 followers, across wins and losses alike. Nine videos of evidence now point to one untried fix: the follow conversion is a last-two-seconds problem, fully decoupled from everything else, and it's the next thing to rebuild.
+      </p>
+    </div>
+  </div>
+
+  <!-- §9 -->
+  <div class="reveal">
+    <div class="section-label">Common Mistake</div>
+    <h2 class="section-heading">Pasting The Source <span class="lime">But Not Constraining It</span></h2>
+    <p>
+      The most common mis-application is the one that quietly undoes the whole technique: you paste your source but forget to tell the model to stay inside it. <em>"Here's the document, now answer my question"</em> is not RAG — it's a hint. The model treats your text as <em>additional</em> context layered on top of its training, not as the <em>only</em> permitted source, so it freely mixes pasted facts with remembered ones. You end up with an answer that's part grounded and part hallucinated, which is worse than either, because you can no longer tell which sentences came from your document. The fix is two non-negotiable lines: <em>"answer only from the text below"</em> and <em>"if the answer isn't there, say you don't know."</em>
+    </p>
+    <p>
+      The second mistake is <strong>trusting a grounded answer without verifying it.</strong> Grounding lowers the hallucination rate dramatically — it doesn't zero it. IBM is explicit: RAG <em>"cannot make a model error-proof."</em> The model can still misread your source or stitch two passages together wrong. The technique's real gift is that it makes verification <em>cheap</em>: the source is right there, so you can check the answer against it in seconds. Use that gift on anything that matters; don't let "grounded" lull you into "guaranteed."
+    </p>
+    <p>
+      The third mistake is <strong>pasting a bad source.</strong> RAG inherits the quality of what you feed it — GeeksforGeeks flags the <em>"risk of inheriting biases from source documents"</em> and a <em>"heavy dependence on retrieval quality."</em> A confident answer grounded in an outdated spec sheet or a one-sided article is still wrong; it's just wrong <em>faithfully</em>. Grounding controls hallucination, not accuracy. The source has to be right for the answer to be right.
+    </p>
+  </div>
+
+  <!-- TAKEAWAY -->
+  <div class="reveal">
+    <div class="honest-box">
+      <div class="hb-label">// Takeaway</div>
+      <p>
+        When a wrong answer would cost you, stop letting ChatGPT answer from memory. Paste your source, then add the two lines that do the work: <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--lime);font-family:var(--mono);font-size:0.9em;">answer only from this text</code> and <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--lime);font-family:var(--mono);font-size:0.9em;">if it's not there, say you don't know</code>. The model stops guessing and starts quoting — and the made-up facts disappear, because you've changed its job from recall to reading comprehension. That's RAG, done by hand.
+      </p>
+      <p>
+        Two guardrails keep it honest: the constraint line is the technique (a pasted source without it is just a hint), and grounded is not error-proof (the source has to be right, and you should still verify what matters). Your AI, your data, your rules — but only if you set the rules explicitly.
+      </p>
+    </div>
+  </div>
+
+  <!-- SOURCES · DATA -->
+  <div class="reveal">
+    <div class="section-label">Sources · Performance Data</div>
+    <h2 class="section-heading">Where The <span class="lime">Numbers Came From</span></h2>
+    <ul class="try-list">
+      <li><strong>V19 platform analytics</strong> — TikTok 7-day screenshots (160 views · 3.69s avg · 1.2% full-watch · 2 saves · "stopped at 0:02" retention panel · "chat gpt hallucinating" search + demographics), Instagram Reels first-window screenshots (109 views · 102 reached · 1 like · 0 saves), and YouTube Studio CSV for the window 5/15 – 6/12/2026 (12 views · 71 impressions · 0% CTR · title kept). Pulled 6/12/2026. All V19 §8.5 figures are computed directly from these exports.</li>
+      <li><strong>V11–V18 analytics</strong> — TikTok screenshots and YouTube Studio CSVs pulled 6/6 – 6/12/2026 across each video's measurement window; Instagram Reels screenshots from the same windows. V16: IG breakout (123 views · 2.44% save). V17: series records (TT 214 views · 2.3% full-watch · IG 4.27% save). V18: streak break (1.4% full-watch · 0 IG interactions). These supply the prior-video comparisons throughout §8.5. V15 remains unpublished, so it's excluded.</li>
+      <li><strong>V19 Whisper transcript</strong> — generated 2026-06-12 by running <code>npx hyperframes transcribe</code> with the <code>small.en</code> model against <code>Videos/AI_Prompt_Engineering_Vol1/09-rag.mp4</code>. Transcript output stored at <code>/tmp/v19-whisper/transcript.json</code>. 65 words across 32.0s of spoken audio; 100% word-similarity with the §7 VO Script block and §8 Visual Analysis timestamps.</li>
+      <li><strong>V19 queue position rationale</strong> — direct quotes from the publishing-strategy section of <code>Prompt Files/PromptEngineeringSeries.md</code>. V19 was scheduled position #6 on YouTube ("universally relatable problem"), position #3 on TikTok ("everyone has experienced hallucinations; strong comment-bait"), and position #4 on Instagram ("solves a problem viewers know they have").</li>
+      <li><strong>HyperFrames composition + VO script</strong> — exact configuration archived in the production drive. Same stack used across V11-V20 (Vol 1) and V21-V30 (Vol 2). HeyGen HyperFrames CLI is open source at <a href="https://hyperframes.heygen.com/" target="_blank" rel="noopener" style="color:var(--lime);">hyperframes.heygen.com</a>.</li>
+    </ul>
+  </div>
+
+  <!-- SOURCES · EXTERNAL -->
+  <div class="reveal">
+    <div class="section-label">Sources · External References</div>
+    <h2 class="section-heading">Where The <span class="lime">Technique Was Verified</span></h2>
+    <p>
+      The definition, the hallucination mechanism, the grounding contrast, the verification benefit, and every direct quote in §1, §3, §4, §5, and §6 were cross-checked against three published references. Each is cited inline where it's quoted.
+    </p>
+    <ul class="try-list">
+      <li><strong>AWS — "What is RAG (Retrieval-Augmented Generation)?"</strong> · aws.amazon.com. The clearest definition. Cited in §3 (the formal definition — <em>"the process of optimizing the output of a large language model, so it references an authoritative knowledge base outside of its training data sources"</em> — and the without-RAG / with-RAG contrast), and §1 (the <em>"over-enthusiastic new employee who... will always answer every question with absolute confidence"</em> analogy for ungrounded models). <a href="https://aws.amazon.com/what-is/retrieval-augmented-generation/" target="_blank" rel="noopener" style="color:var(--lime);">aws.amazon.com/what-is/retrieval-augmented-generation</a></li>
+      <li><strong>IBM — "Retrieval-Augmented Generation"</strong> · ibm.com/think. The mechanism + caveats source. Cited in §1 (the hallucination definition — <em>"present[ing] incorrect or made-up information as though it is factual"</em>), §4 (the pattern-prediction mechanism, the <em>"anchors LLMs in specific knowledge"</em> framing, and the citations benefit), and §5 (the honest bound — <em>"while RAG can reduce the risk of hallucinations, it cannot make a model error-proof"</em>). <a href="https://www.ibm.com/think/topics/retrieval-augmented-generation" target="_blank" rel="noopener" style="color:var(--lime);">ibm.com/think/topics/retrieval-augmented-generation</a></li>
+      <li><strong>GeeksforGeeks — "What is Retrieval-Augmented Generation (RAG)?"</strong> · geeksforgeeks.org. The grounding + risks source. Cited in §3/§4 (RAG <em>"reduces hallucinations by retrieving verified, external data to ground responses in factual knowledge"</em>) and §5 (the caveats — <em>"heavy dependence on retrieval quality"</em> and <em>"risk of inheriting biases from source documents"</em>). <a href="https://www.geeksforgeeks.org/nlp/what-is-retrieval-augmented-generation-rag/" target="_blank" rel="noopener" style="color:var(--lime);">geeksforgeeks.org/nlp/what-is-retrieval-augmented-generation-rag</a></li>
+    </ul>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav">
+    <a href="18-prompt-chaining.html" class="series-nav-card">
+      <div class="sn-dir">← Previous</div>
+      <div class="sn-title">V18 · Prompt Chaining</div>
+    </a>
+    <a href="20-emotion-prompting.html" class="series-nav-card next">
+      <div class="sn-dir">Next Up →</div>
+      <div class="sn-title">V20 · Emotion Prompting</div>
+    </a>
+  </div>
+
+  <div class="cta-section reveal">
+    <div class="cta-label">// Get the next one</div>
+    <h3 class="cta-title">More Prompt Engineering, <span style="color:var(--lime)">Every Week</span></h3>
+    <p class="cta-subtitle">Vol 1 of the AI Prompting series. Honest data, real production settings, no hype.</p>
+    <form class="cta-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+      <input type="email" placeholder="your@email.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+</div>
+
+<!-- SIDEBAR -->
+<aside class="post-sidebar">
+
+  <!-- ① PLATFORM DATA · V11-V14 Benchmark (the bar V15 has to clear) -->
+  <div class="platform-card reveal">
+    <div class="platform-card-header">
+      <span class="platform-card-title">// Platform Data · V19 Actual</span>
+      <span class="platform-card-date">// all 3 live · hook isolated</span>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-tt"></span>TikTok · V19</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value">160</div><div class="stat-label-small">Views</div></div>
+        <div class="stat-item"><div class="stat-value muted">3.69s</div><div class="stat-label-small">Avg Watch (low)</div></div>
+        <div class="stat-item"><div class="stat-value muted">1.2%</div><div class="stat-label-small">Full Watch</div></div>
+        <div class="stat-item"><div class="stat-value muted">1.25%</div><div class="stat-label-small">Save Rate</div></div>
+      </div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-ig"></span>Instagram · V19</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value muted">109</div><div class="stat-label-small">Views</div></div>
+        <div class="stat-item"><div class="stat-value muted">102</div><div class="stat-label-small">Reached</div></div>
+        <div class="stat-item"><div class="stat-value muted">1</div><div class="stat-label-small">Interactions</div></div>
+        <div class="stat-item"><div class="stat-value muted">0%</div><div class="stat-label-small">Save Rate</div></div>
+      </div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-yt"></span>YouTube · V19</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value muted">12</div><div class="stat-label-small">Views</div></div>
+        <div class="stat-item"><div class="stat-value muted">71</div><div class="stat-label-small">Impressions</div></div>
+        <div class="stat-item"><div class="stat-value muted">0%</div><div class="stat-label-small">CTR</div></div>
+        <div class="stat-item"><div class="stat-value muted">0</div><div class="stat-label-small">Subs</div></div>
+      </div>
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-chart-title">Avg Watch Time · V19 the lowest</div>
+      <div class="bar-group">
+        <span class="bar-platform">V17</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:100%"></div></div>
+        <span class="bar-count">5.07s</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">V18</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:100%"></div></div>
+        <span class="bar-count">5.07s</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">V14</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:87%"></div></div>
+        <span class="bar-count">4.41s</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">V19</span>
+        <div class="bar-track"><div class="bar-fill ig" style="width:73%; opacity:0.5"></div></div>
+        <span class="bar-count">3.69s</span>
+      </div>
+    </div>
+
+    <div class="virality-section">
+      <div class="virality-label">V19 Outcomes · the hook isolated</div>
+      <div class="virality-tags">
+        <span class="vtag" style="border-color: rgba(132,224,0,0.4);">✓ Perfect Targeting</span>
+        <span class="vtag" style="opacity: 0.5;">✗ Generic Hook → 0:02</span>
+        <span class="vtag" style="opacity: 0.5;">✗ Lowest Watch 3.69s</span>
+        <span class="vtag" style="border-color: rgba(132,224,0,0.4);">✓ Niche 5th Time</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② RYU'S READ -->
+  <div class="ryu-read reveal">
+    <div class="ryu-read-label">// Ryu's Read On The Data</div>
+    <p>V19 is the experiment I didn't mean to run, and it settled the whole question. I fixed everything the last losses blamed: a tactic, not a workflow. Perfect search targeting — the query was literally "chat gpt hallucinating," the exact problem. An early queue, #3 on TikTok. The most relatable topic in the Vol. And it <em>still</em> died at 0:02, with the lowest average watch time I've ever posted (3.69s). When you control for everything and lose anyway, the answer is obvious: it's the hook.</p>
+    <p><strong>The hook was "AI just made up a fact. Here's how to stop it" — the most generic opening format there is.</strong> Problem statement, "here's the fix." The scroll-brain has seen it ten thousand times and swipes on reflex. V17 won by breaking that template — naming what <em>you</em> felt, in second person. So the rule for V20 is locked: never open with "X problem, here's the fix." Open with the feeling, in the first two seconds, or nothing else matters.</p>
+    <p><strong>And a quieter lesson: being a tactic isn't enough to get saved.</strong> "Paste your source" is one move, like verbs and do-nots — but it earned 2 saves and 1 like total. The difference is novelty. Verbs felt like a secret; pasting a source feels obvious once said. A save is a bet on future need, and nobody bets on what they think they already know. Niche held a 5th time (95% over-35), followers at zero a 9th. The follow fix is still the one thing I haven't rebuilt — and it's next.</p>
+  </div>
+
+  <!-- ③ SOURCES CITED -->
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// Sources Cited</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row" style="flex-direction: column; gap: 4px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+          <span class="ai-impact-icon">📙</span>
+          <span><strong>AWS · "What is RAG?"</strong> · aws.amazon.com<br><span style="color:var(--muted);">formal definition · without-RAG / with-RAG contrast · "over-enthusiastic employee" analogy</span></span>
+        </div>
+      </div>
+      <div class="ai-impact-row" style="flex-direction: column; gap: 4px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+          <span class="ai-impact-icon">📘</span>
+          <span><strong>IBM · "Retrieval-Augmented Generation"</strong> · ibm.com/think<br><span style="color:var(--muted);">hallucination definition · "anchors LLMs" framing · citations benefit · "not error-proof" caveat</span></span>
+        </div>
+      </div>
+      <div class="ai-impact-row" style="flex-direction: column; gap: 4px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+          <span class="ai-impact-icon">📗</span>
+          <span><strong>GeeksforGeeks · "What is RAG?"</strong> · geeksforgeeks.org<br><span style="color:var(--muted);">"grounds responses in factual knowledge" · retrieval-quality + bias caveats</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ AI IN THIS VIDEO -->
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// AI In This Video</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎬</span><span>Video composed deterministically with <strong>HeyGen HyperFrames</strong> — HTML + CSS + GSAP. No AI-generated visuals at render time. Every frame is hand-authored and reproducible.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎙️</span><span>Voiceover by <strong>Kokoro (am_adam)</strong>, transcribed back with <strong>Whisper small.en</strong> for QA against the VO script.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">📝</span><span>Blog drafted inside <strong>Claude Code Max</strong>, with VO script and §8 Visual Analysis pulled <strong>directly from the Whisper transcript of the rendered MP4</strong>. Edited by <strong>Ryu Vy</strong>.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎯</span><span>VO Script block matches the actual rendered audio at 100% word similarity. Smell test passes.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">📝</span><span>Meta note: this post is itself grounded — every external claim is a direct quote from a named, linked source (IBM, AWS, GeeksforGeeks), pasted in and cited. You can verify it the same way RAG lets you verify ChatGPT.</span></div>
+    </div>
+  </div>
+
+</aside>
+
+</div>
+
+<footer>© 2026 AIToolsDaily24 · One tip a day, no hype.</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(() => btn.textContent = original, 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

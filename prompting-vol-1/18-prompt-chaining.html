@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Prompt Chaining — Break Your ChatGPT Task Into Steps | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="One massive prompt = chaos. Break complex tasks into a chain — each prompt's output feeds the next. V18 of the AI Prompting Vol 1 series — and the video that broke the channel's winning streak, with the data to explain exactly why.">
+<meta property="og:title" content="Prompt Chaining — Break Your ChatGPT Task Into Steps">
+<meta property="og:description" content="V18 of the AI Prompting series — the pro workflow for complex tasks, and the published data showing why a workflow video underperformed two tactic videos in a row.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0A0C0A; --surface: #111810; --surface2: #161A14; --border: #1E2A1A;
+    --lime: #84E000; --lime-dim: rgba(132,224,0,0.1); --lime-glow: rgba(132,224,0,0.05);
+    --white: #F2F5EE; --muted: #5A6A52;
+    --mono: 'IBM Plex Mono', monospace; --display: 'Bebas Neue', sans-serif; --body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,12,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
+  .nav-back:hover { color: var(--lime); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; background: var(--lime-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .lime { color: var(--lime); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--lime); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--bg); flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 340px; aspect-ratio: 9/16; }
+  .video-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .divider { max-width: 1240px; margin: 40px auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; }
+
+  .content-with-sidebar { max-width: 1240px; margin: 0 auto; padding: 0 48px 80px; display: grid; grid-template-columns: 1fr 320px; gap: 56px; align-items: start; }
+  @media (max-width: 980px) { .content-with-sidebar { grid-template-columns: 1fr; gap: 40px; } }
+  .post-body-inner { min-width: 0; }
+  .post-sidebar { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 20px; }
+  @media (max-width: 980px) { .post-sidebar { position: static; } }
+
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading { font-family: var(--display); font-size: clamp(32px, 4vw, 52px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .section-heading .lime { color: var(--lime); }
+
+  .post-body-inner p { font-size: 17px; font-weight: 300; color: #C8D4C0; line-height: 1.8; margin-bottom: 24px; }
+  .post-body-inner p strong { color: var(--white); font-weight: 500; }
+  .post-body-inner p em { color: var(--lime); font-style: italic; }
+  .post-body-inner > div.reveal { margin-bottom: 56px; }
+
+  .pull-quote { border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0; background: var(--lime-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 20px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+  .pull-quote .cite { display: block; margin-top: 14px; font-size: 11px; font-style: normal; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; font-family: var(--mono); }
+
+  .honest-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; }
+  .honest-box .hb-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .honest-box p { font-size: 15px !important; margin-bottom: 14px !important; color: #C8D4C0 !important; line-height: 1.7 !important; }
+  .honest-box p:last-child { margin-bottom: 0 !important; }
+
+  .prompt-block { background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 20px 22px; margin: 20px 0 32px; position: relative; }
+  .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .prompt-block code { font-family: var(--mono); font-size: 13px; color: var(--white); line-height: 1.8; display: block; white-space: pre-wrap; word-wrap: break-word; }
+  .prompt-copy { position: absolute; top: 14px; right: 14px; background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.3); color: var(--lime); font-family: var(--mono); font-size: 10px; padding: 4px 10px; border-radius: 2px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s; }
+  .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  .try-list { list-style: none; padding: 0; margin: 16px 0 32px; }
+  .try-list li { padding: 14px 0; border-bottom: 1px dashed var(--border); font-size: 16px; font-weight: 300; color: #C8D4C0; line-height: 1.7; display: flex; gap: 14px; align-items: flex-start; }
+  .try-list li::before { content: '→'; color: var(--lime); font-family: var(--mono); flex-shrink: 0; font-size: 16px; line-height: 1.6; }
+  .try-list li strong { color: var(--white); font-weight: 500; }
+  .try-list li:last-child { border-bottom: none; }
+
+  .frame-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 18px 22px; margin: 16px 0; }
+  .frame-block .fb-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .frame-block p { font-size: 15px !important; margin-bottom: 0 !important; color: #C8D4C0 !important; line-height: 1.7 !important; }
+
+  .platform-card-body { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin: 20px 0; overflow: hidden; position: relative; }
+  .platform-card-body::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .pcb-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .pcb-head .pcb-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .pcb-head .pcb-dot.yt { background: #ff0033; box-shadow: 0 0 8px rgba(255,0,51,0.4); }
+  .pcb-head .pcb-dot.tt { background: #25f4ee; box-shadow: 0 0 8px rgba(37,244,238,0.4); }
+  .pcb-head .pcb-dot.ig { background: #dd2a7b; box-shadow: 0 0 8px rgba(221,42,123,0.4); }
+  .pcb-head .pcb-name { font-family: var(--mono); font-size: 12px; color: var(--white); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+  .pcb-head .pcb-window { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-left: auto; }
+  .pcb-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 22px; padding: 20px; }
+  @media (max-width: 720px) { .pcb-stats { grid-template-columns: 1fr; gap: 14px; } }
+  .pcb-stats .sc .value { font-family: var(--display); font-size: 30px; line-height: 1; letter-spacing: 0.5px; color: var(--white); margin-bottom: 4px; }
+  .pcb-stats .sc .value.primary { color: var(--lime); }
+  .pcb-stats .sc .value.muted { color: var(--muted); }
+  .pcb-stats .sc .label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+  .pcb-note { padding: 14px 20px; background: rgba(0,0,0,0.20); border-top: 1px solid var(--border); font-family: var(--mono); font-size: 11px; color: #C8D4C0; line-height: 1.6; letter-spacing: 0.3px; }
+  .pcb-note strong { color: var(--lime); font-weight: 600; }
+
+  .cta-section { background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%); border: 1px solid var(--border); border-radius: 6px; padding: 36px 32px; margin: 48px 0 0; text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--lime), transparent); }
+  .cta-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+  .cta-title { font-family: var(--display); font-size: 36px; line-height: 1.1; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
+  .cta-subtitle { font-size: 15px; color: var(--muted); margin-bottom: 24px; }
+  .cta-form { display: flex; gap: 8px; max-width: 420px; margin: 0 auto; }
+  .cta-form input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 12px 16px; color: var(--white); font-family: var(--body); font-size: 14px; }
+  .cta-form button { background: var(--lime); color: var(--bg); border: none; border-radius: 4px; padding: 12px 22px; font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: transform 0.2s; }
+  .cta-form button:hover { transform: translateY(-1px); }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 48px; }
+  @media (max-width: 600px) { .series-nav { grid-template-columns: 1fr; } }
+  .series-nav-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+  .series-nav-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+  .sn-dir { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .sn-title { font-family: var(--display); font-size: 18px; color: var(--white); letter-spacing: 0.5px; text-transform: uppercase; line-height: 1.1; }
+  .series-nav-card.next { text-align: right; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  footer { padding: 40px 48px; border-top: 1px solid var(--border); text-align: center; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+
+  /* SIDEBAR */
+  .platform-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+  .platform-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .platform-card-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .platform-card-title { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .platform-card-date { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .platform-row { padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .platform-row:last-of-type { border-bottom: none; }
+  .platform-name { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .platform-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .dot-yt { background: #FF0000; } .dot-tt { background: #00F2EA; } .dot-ig { background: #E1306C; }
+  .platform-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat-value { font-family: var(--display); font-size: 22px; color: var(--white); line-height: 1; letter-spacing: 0.5px; }
+  .stat-value.highlight { color: var(--lime); }
+  .stat-label-small { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+  .bar-chart { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .bar-chart-title { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .bar-group { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .bar-group:last-child { margin-bottom: 0; }
+  .bar-platform { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 1px; width: 22px; flex-shrink: 0; text-align: right; }
+  .bar-track { flex: 1; height: 6px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+  .bar-fill.yt { background: #FF0000; } .bar-fill.tt { background: #00F2EA; } .bar-fill.ig { background: #E1306C; }
+  .bar-count { font-family: var(--mono); font-size: 9px; color: var(--white); letter-spacing: 0.5px; width: 44px; flex-shrink: 0; }
+  .virality-section { padding: 14px 20px; border-top: 1px solid var(--border); }
+  .virality-label { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .virality-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .vtag { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 8px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.25); color: var(--lime); background: var(--lime-glow); }
+  .ryu-read { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 16px 20px; }
+  .ryu-read-label { font-family: var(--mono); font-size: 9px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .ryu-read p { font-size: 13px !important; color: #C8D4C0 !important; line-height: 1.65 !important; margin-bottom: 0 !important; font-weight: 300 !important; }
+  .ai-impact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .ai-impact-header { padding: 14px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; }
+  .ai-impact-body { padding: 16px 20px; }
+  .ai-impact-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 12px; color: #C8D4C0; line-height: 1.5; font-weight: 300; }
+  .ai-impact-row:last-child { margin-bottom: 0; }
+  .ai-impact-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">← Back to index</a>
+</nav>
+
+<div class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">18 / 30</span>
+    <span class="post-series">AI Prompting · Vol 1</span>
+    <span class="post-date">Published · TT 2026-06-02 · IG live · YT live</span>
+  </div>
+  <h1 class="post-title">One Big Prompt = Chaos. <span class="lime">Chain It Instead.</span></h1>
+  <p class="post-subtitle">Prompt Chaining · V18. Break a complex task into a sequence — <code style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-size:0.85em;color:var(--lime);">outline</code> → <code style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-size:0.85em;color:var(--lime);">expand</code> → <code style="background:var(--surface2);padding:2px 6px;border-radius:3px;font-size:0.85em;color:var(--lime);">intro</code> — where each prompt's output feeds the next. The workflow pros use for anything longer than a paragraph, and the video that broke the channel's win streak.</p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AI Tools · Daily</div>
+    </div>
+  </div>
+
+</div>
+
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/-XCQ4uOpiZE" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+  </div>
+</section>
+
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-icon">▸ ▸ ▸</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="content-with-sidebar">
+
+<div class="post-body-inner">
+
+  <!-- §1 -->
+  <div class="reveal">
+    <div class="section-label">The Frustration</div>
+    <h2 class="section-heading">One Massive Prompt. <span class="lime">One Massive Mess.</span></h2>
+    <p>
+      You have a real task — write a blog post, draft a report, build a launch plan — so you write one giant prompt that asks for the whole thing at once. <em>"Write a 1,500-word blog post about X with an outline, a hook, five sections, examples, and a conclusion in my voice."</em> What comes back is technically complete and uniformly mediocre: a generic outline buried inside generic prose, sections that don't build on each other, a hook that doesn't match the body. The model tried to do six things in one pass and did all of them at 60%.
+    </p>
+    <p>
+      The problem isn't the model — it's that you asked it to hold the entire task in working memory and execute every part simultaneously. <strong>The fix is to stop one-shotting and start chaining.</strong> Break the task into a sequence of small prompts where each one does a single job and feeds the next: first get an outline, then expand each section using that outline, then write the intro using the finished body as context. Each step is simple, each step is checkable, and the final output is dramatically better than anything one prompt produces. This is prompt chaining, and it's the workflow real AI users reach for the moment a task is longer than a paragraph.
+    </p>
+  </div>
+
+  <!-- §2 -->
+  <div class="reveal">
+    <div class="section-label">Why This Video Exists</div>
+    <h2 class="section-heading">The Video That <span class="lime">Broke The Win Streak</span></h2>
+    <p>
+      V18 was scheduled <strong>position #3 on YouTube, position #7 on TikTok, and position #8 on Instagram</strong>. The brief flagged it from the start as a <em>workflow</em> concept — and workflow concepts, the strategy doc warned, land <em>"better mid-batch when the audience trusts you."</em> The reason, quoted verbatim:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// V18's Queue Position · From PromptEngineeringSeries.md</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>YouTube Shorts — V18 at position #3:
+  "I Asked ChatGPT to Write a Blog Post — It Was
+   Terrible. Then I Did This. — story hook,
+   longest title is fine on Shorts."
+
+TikTok — V18 at position #7:
+  "Break your ChatGPT task into steps — here's why
+   it works — slightly longer concept; lands better
+   once the algorithm trusts you."
+
+Instagram Reels — V18 at position #8:
+  "Break your ChatGPT task into steps — workflow
+   content — better mid-batch when audience trusts you."</code>
+    </div>
+
+    <p>
+      That word — <em>workflow</em> — is the whole story of V18, and the data proved the brief's caution right. Look at the pattern the series has built: the two videos that broke out (V16 "start with a verb," V17 "tell it what not to do") are <strong>tactics</strong> — single moves you apply in one prompt. The two that hit the 0:02 retention cliff (V14 "iterative refinement," and now V18 "prompt chaining") are <strong>workflows</strong> — multi-step processes. Tactics get saved and watched; workflows get scrolled past. V18 is the cleanest confirmation yet, because it followed V17's record directly and reversed almost every gain.
+    </p>
+    <p>
+      There's a second, sharper lesson buried in V18's search data — a title-targeting failure. The TikTok title <em>"Break your ChatGPT task into steps"</em> used the word "break," and the search queries that surfaced it were <em>"how to brake chat gpt," "how to pose a click bot," "how to do the bipper prompt chatgpt"</em> — people looking to <em>break</em> (jailbreak) ChatGPT or build bots, not decompose a task. The word pulled the wrong intent, those viewers bounced at 0:02, and the precise prompt-engineering searches that fed V16 and V17 never showed up. One ambiguous word in the title mis-aimed the whole video.
+    </p>
+
+    <p>
+      Three things V18 tested — and what the data said:
+    </p>
+    <ul class="try-list">
+      <li><strong>Does the IG save breakout repeat? — NO.</strong> V16 and V17 both broke Instagram open (2.44% and 4.27% save rates). V18 produced <em>zero</em> interactions on Instagram — no likes, no comments, no saves. The breakout is real for tactics but does not transfer to workflow content. The formula has a content-type boundary.</li>
+      <li><strong>Does completion hold? — NO, the 0:02 cliff returned.</strong> V17's resonant hook drove a record 2.3% completion. V18's dry, instructional open (<em>"One massive prompt. Chaos."</em>) sent most viewers away at 0:02, dropping completion to 1.4%. This confirms the V17 finding from the other side: resonance holds the room, instruction loses it.</li>
+      <li><strong>Does the 35-54 niche hold? — YES, a fourth time.</strong> 92% male, 94% aged 35+, 86% US. The audience is locked in regardless of which video lands. The niche is not the variable; the content type and the hook are.</li>
+    </ul>
+  </div>
+
+  <!-- §3 -->
+  <div class="reveal">
+    <div class="section-label">The Fix</div>
+    <h2 class="section-heading">Outline → Expand → Intro. <span class="lime">Each Feeds The Next.</span></h2>
+    <p>
+      Prompt chaining means splitting a task into a sequence of prompts where <strong>the output of one becomes the input of the next.</strong> The Prompt Engineering Guide defines it cleanly: <em>"a task is split into subtasks with the idea to create a chain of prompt operations."</em> Here's the canonical chain for writing a blog post — three prompts, run in order, each building on the last:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// The 3-Prompt Chain · Blog Post Example</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Prompt 1 — Outline:
+  "Create a 5-section outline for a blog post about [topic].
+   Just the section headers and one line each."
+  → You get a clean skeleton. Fix it before moving on.
+
+Prompt 2 — Expand:
+  "Using this outline: [paste outline], write section 2 in
+   full. ~200 words, my voice, concrete examples."
+  → Repeat per section. Each one is focused, not rushed.
+
+Prompt 3 — Intro:
+  "Here is the finished post: [paste body]. Write a
+   2-sentence intro that matches its actual content."
+  → The intro fits because the body already exists.</code>
+    </div>
+
+    <p>
+      The key move is in Prompt 3: you write the intro <em>last</em>, using the finished body as context, so it actually matches what the post says — instead of the one-shot version where the intro promises things the body never delivers. That's the chaining principle in miniature: <em>the output of one step becomes the input of the next.</em> IBM's reference describes the same mechanic as the core of the technique — <em>"converting a complex prompt into a series of simple prompts can help break down a complex task into smaller sub-tasks... reduce the risk of errors or misunderstandings."</em>
+    </p>
+
+    <p>
+      Chaining isn't only for writing. IBM's worked example is a translation pipeline: take Spanish text you can't read, <em>translate it to English, extract the facts as bullet points, then translate the facts back to Spanish</em> — three simple prompts that together do what one tangled prompt would botch. Any task with distinct stages (research → draft → edit, or extract → analyze → format) is a chain waiting to be split.
+    </p>
+
+    <div class="pull-quote">
+      <p>"Each prompt builds on the previous. The output of one becomes the input of the next. Clean. Sequential. Reliable."</p>
+      <span class="cite">— V18 VO, 0:15 – 0:23</span>
+    </div>
+  </div>
+
+  <!-- §4 -->
+  <div class="reveal">
+    <div class="section-label">Why It Works</div>
+    <h2 class="section-heading">One Job Per Prompt <span class="lime">Beats Six At Once</span></h2>
+    <p>
+      A single prompt that asks for six things forces the model to balance six competing objectives in one pass — and it satisfices, doing each one just well enough. A chain gives the model one objective at a time, so it can do that one thing properly before moving on. The Prompt Engineering Guide names the payoff directly: chaining <em>"helps to boost the transparency of your LLM application, increases controllability, and reliability."</em> You're not getting a smarter model; you're giving it an easier problem at each step.
+    </p>
+    <p>
+      IBM's reference catalogs three concrete advantages, and each maps to a frustration you've felt with one-shot prompts:
+    </p>
+    <ul class="try-list">
+      <li><strong>Consistency</strong> — <em>"By requiring the model to follow a series of prompts, prompt chaining helps maintain consistency in the text generation."</em> Each step inherits the last step's output, so tone and structure carry through instead of drifting.</li>
+      <li><strong>Enhanced control</strong> — <em>"Prompt chaining provides greater control over the text generation, allowing users to specify the desired output with precision."</em> You inspect and fix the outline <em>before</em> any prose gets written on top of a bad skeleton.</li>
+      <li><strong>Reduced error rate</strong> — <em>"By breaking down the input into smaller, manageable prompts, the model can better understand the user's intentions and generate more accurate and relevant responses."</em> Fewer objectives per prompt means fewer ways to get it wrong.</li>
+    </ul>
+    <p>
+      The most underrated benefit is debugging. When a one-shot prompt produces a bad result, you have no idea which part failed — you just rewrite the whole thing and hope. With a chain, the failure is localized: if the post is weak, you can see whether the <em>outline</em> was wrong or the <em>expansion</em> was wrong, and fix only that step. The Prompt Engineering Guide makes this explicit: <em>"you can debug problems with model responses much more easily, and you can analyze and improve performance in the different stages that need improvement."</em> A chain isn't just higher-quality output — it's an inspectable process.
+    </p>
+
+    <div class="pull-quote">
+      <p>"Converting a complex prompt into a series of simple prompts can help break down a complex task into smaller sub-tasks... reduce the risk of errors or misunderstandings."</p>
+      <span class="cite">— IBM · Prompt Chaining · 2026</span>
+    </div>
+  </div>
+
+  <!-- §5 -->
+  <div class="reveal">
+    <div class="section-label">The Catch</div>
+    <h2 class="section-heading">A Chain Costs Time — <span class="lime">And Errors Compound</span></h2>
+    <p>
+      The honest tradeoff: chaining is slower. One prompt is one round-trip; a three-step chain is three, plus the copy-paste of each output into the next prompt. For a quick question, that overhead isn't worth it — you'd spend more time orchestrating the chain than you'd save on quality. <strong>Chaining earns its cost only on tasks complex enough that a one-shot prompt genuinely fails.</strong> A two-line email doesn't need a chain; a 1,500-word post with a specific structure does. Match the technique to the task size.
+    </p>
+    <p>
+      Second catch, and the bigger one: <strong>errors propagate down the chain.</strong> Because each step's output is the next step's input, a mistake in step one doesn't stay in step one — it becomes the foundation everything else is built on. A weak outline produces weak sections, and the intro written on top of them inherits the weakness. This is the flip side of the debugging benefit: the chain is inspectable, but only if you actually inspect it. <em>Check the output of each step before feeding it forward.</em> The whole reliability gain depends on catching a bad outline at step one rather than discovering it three prompts later.
+    </p>
+    <p>
+      Third catch: <strong>context can get lost between steps.</strong> Each prompt in a manual chain is somewhat independent — the model doesn't automatically remember step one when you run step three unless you paste the relevant output back in. Forget to carry the outline into the expansion prompt and the model improvises, defeating the point. The fix is the discipline the VO names: <em>"the output of one becomes the input of the next."</em> Every step must explicitly receive what it needs from the steps before it.
+    </p>
+    <p>
+      And the meta-catch this very video demonstrated: <strong>chaining is a workflow, and workflows are a hard sell in short form.</strong> A multi-step process can't be screenshotted into a single save-able card the way a five-verb list or a three-"do not" rule can. That's not a knock on the technique — it's the best technique here for real complex work — it's a note that <em>teaching</em> it in 38 seconds is structurally harder than teaching a one-move tactic. The data section below shows exactly how much harder.
+    </p>
+  </div>
+
+  <!-- §6 -->
+  <div class="reveal">
+    <div class="section-label">Real Use Cases</div>
+    <h2 class="section-heading">Where A Chain <span class="lime">Beats A One-Shot</span></h2>
+    <p>
+      Any task with distinct stages is a chain waiting to be split. Five that reward it immediately — drawn from the patterns IBM and the Prompt Engineering Guide document:
+    </p>
+    <ul class="try-list">
+      <li><strong>Long-form writing</strong> — the canonical case. Outline → expand each section → write the intro from the finished body → rewrite for tone. Four simple prompts beat one giant one because the intro finally matches the post and the sections don't repeat each other.</li>
+      <li><strong>Translation + extraction pipelines</strong> — IBM's worked example: take Spanish text, <em>"translate it into English. Find all the statistics and facts used in this text and list them as bullet points. Translate them again into Spanish."</em> Three clean steps do what one tangled multilingual prompt would botch.</li>
+      <li><strong>Document Q&A</strong> — the Prompt Engineering Guide's two-prompt chain: first <em>extract the relevant quotes</em> from a long document for a given question, then <em>compose the answer using only those quotes</em>. Separating "find the evidence" from "write the answer" produces grounded responses instead of confident hallucinations.</li>
+      <li><strong>Research → synthesis</strong> — step one gathers and lists sources or points; step two organizes them into a structure; step three writes the synthesis. Keeping gathering separate from writing stops the model from inventing facts to fit a narrative it started too early.</li>
+      <li><strong>Code: plan → implement → review</strong> — ask for an approach and file structure first, confirm it, then implement, then run a separate "review this for bugs and edge cases" pass. Each stage is a focused prompt, and the review step catches what the implementation step was too busy to notice.</li>
+    </ul>
+    <p>
+      The through-line: if you can describe a task as <em>"first do A, then use A to do B,"</em> it's a chain. The moment you catch yourself writing a prompt with the word "and" three times — <em>"outline it and expand it and write an intro and fix the tone"</em> — that's four prompts pretending to be one, and splitting them will beat the one-shot every time.
+    </p>
+  </div>
+
+  <!-- §7 -->
+  <div class="reveal">
+    <div class="section-label">Behind The Scenes</div>
+    <h2 class="section-heading">Production <span class="lime">Stack Used</span></h2>
+    <p>
+      V18 runs on the same stack as V11–V17: <strong>HeyGen HyperFrames + Claude Code Max</strong> orchestrating GSAP timelines over Tailwind-styled HTML, Kokoro generating the VO, Whisper transcribing it back for QA. V18's runtime is 38.02s. The brief asked for a <em>"methodical and clear"</em> feel with <em>"numbered step animations"</em> and a <em>"clean, satisfying progression"</em> — so the composition leans on a chain graphic (boxes connected by arrows) rather than the fast cuts of the tactic videos. That production choice is, in hindsight, part of why it underperformed: a methodical progression is the right way to <em>teach</em> chaining and the wrong way to <em>stop a scroll</em>.
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// HyperFrames Production Settings · V18</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Composition framework: HeyGen HyperFrames 0.6.20
+Orchestrator:          Claude Code Max (token-budgeted)
+Animation library:     GSAP 3.14.2 (paused timeline, seek-driven)
+Styling runtime:       Tailwind v4.2.4 (browser, no build step)
+Voice synthesis:       Kokoro · voice="am_adam" · speed 1.0
+Audio QA:              Whisper · model="small.en"
+Background music:      Infraction · "Never Leave" · volume 0.15
+Composition size:      1080 × 1920 (vertical 9:16)
+Frame rate:            30 fps · ~1140 frames per render
+Output format:         H.264 MP4 · "high" quality preset
+Runtime:               38.02s (the workflow concept needs the room)</code>
+    </div>
+
+    <p>
+      And here is the actual VO — captured by running Whisper transcription on the rendered MP4, exactly what the audience hears:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// VO Script (Whisper transcript of rendered V18 · 34.0s total · 79 words)</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>[00.270 – 04.000] Hook:
+"One massive prompt. Chaos. Break it into a chain instead."
+
+[04.270 – 15.000] The 3-step demo:
+"Writing a blog post in three chain prompts. Step one, get an
+outline. Step two, expand each section. Step three, write the
+intro using the outline."
+
+[15.000 – 23.000] The principle:
+"Each prompt builds on the previous. The output of one becomes
+the input of the next. Clean. Sequential. Reliable."
+
+[23.270 – 28.990] The payoff:
+"Complex task plus prompt chaining equals better quality.
+Every time."
+
+[29.270 – 34.000] CTA:
+"Your next big AI project, break it into steps.
+Save this. Follow for more."</code>
+    </div>
+
+    <div class="honest-box reveal">
+      <div class="hb-label">// Why This Section Exists</div>
+      <p>
+        The settings above are real. The transcript above is real — generated by running Whisper on the rendered MP4, not copied from the planning brief. Nothing has been cleaned up or made to look smarter in hindsight. The stack is mostly free to set up: <strong>HyperFrames, GSAP, Tailwind, Kokoro, Whisper, and the agent skills are all open source or free-tier.</strong> There is no add-on license to buy.
+      </p>
+      <p>
+        The honest catch: <strong>the part that drives the workflow isn't free.</strong> V18 was authored inside Claude Code with a <strong>Claude Max subscription</strong>, and every iteration — scene layout, GSAP timing, VO QA, blog draft, sidebar real-data updates — burns tokens against that plan's budget. Realistic throughput is <em>roughly one video build per working session</em>. And in the spirit of the topic: this blog post was itself written as a chain — outline the sections, draft each from the transcript and sources, then fold in the platform data as a final pass.
+      </p>
+    </div>
+  </div>
+
+  <!-- §8 -->
+  <div class="reveal">
+    <div class="section-label">Visual Analysis</div>
+    <h2 class="section-heading">What V17 <span class="lime">Actually Shows</span></h2>
+    <p>
+      Scene-by-scene with timestamps from the Whisper transcript. Five VO beats across 34.0s of spoken audio (38.02s with the pacing tail). Reading it back against the data, the structure explains the underperformance: it's a methodical teaching sequence, not a scroll-stopper.
+    </p>
+
+    <div class="frame-block">
+      <div class="fb-label">// 00.270 – 04.000 s · Hook</div>
+      <p>VO: <em>"One massive prompt. Chaos. Break it into a chain instead."</em> <strong>This is where V18 lost.</strong> TikTok's retention panel reports most viewers stopped at 0:02 — the same cliff V14 hit and the one V16 and V17 cleared. The contrast with V17 is the whole lesson: V17's open named a <em>feeling</em> (<em>"you got what you asked for, just not what you wanted"</em>) and held a record 2.3% completion; V18's open names a <em>concept</em> (<em>"one massive prompt, chaos"</em>) and completion fell to 1.4%. "Chaos" is abstract; it doesn't put the viewer inside a frustration they've lived. Resonance beats instruction at the hook, and V18 is the counter-example that proves it.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 04.270 – 15.000 s · The 3-Step Demo</div>
+      <p>VO: <em>"Writing a blog post in three chain prompts. Step one, get an outline. Step two, expand each section. Step three, write the intro using the outline."</em> Eleven seconds — the longest beat in the video, and the structural problem in miniature. A three-step sequence can't be screenshotted into one save-able card the way V16's five verbs or V17's three "do nots" could. The viewer would have to capture three separate frames to keep the method, which nobody does mid-scroll. The content is genuinely useful; the <em>format</em> resists the save.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 15.000 – 23.000 s · The Principle</div>
+      <p>VO: <em>"Each prompt builds on the previous. The output of one becomes the input of the next. Clean. Sequential. Reliable."</em> Eight seconds. <em>"The output of one becomes the input of the next"</em> is the genuinely memorable line — the one-sentence definition of chaining that a viewer could repeat. The staccato <em>"clean, sequential, reliable"</em> echoes V17's compression pattern. But it arrives at 0:15, long after the 0:02 cliff already took most of the audience. The best line in the video is buried past the point where most people left.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 23.270 – 28.990 s · The Payoff</div>
+      <p>VO: <em>"Complex task plus prompt chaining equals better quality. Every time."</em> Six seconds. <em>"Every time"</em> is the confidence close — a promise of reliability that's true for the technique but reads as a generic claim to anyone who didn't watch the demo. For the small fraction still watching at 0:23, it lands; for the scroll-past majority, it was never reached.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// 29.270 – 34.000 s · CTA</div>
+      <p>VO: <em>"Your next big AI project, break it into steps. Save this. Follow for more."</em> Five seconds. The CTA is structurally identical to V17's record-setting one — single action, explicit save-and-follow double-ask. Same ask, very different result: V17's CTA sat on a resonant hook and a save-able list and converted; V18's sits on a workflow most viewers never finished. The CTA wasn't the variable. The hook and the content type were.</p>
+    </div>
+  </div>
+
+  <!-- §8.5 -->
+  <div class="reveal">
+    <div class="section-label">Real Platform Data</div>
+    <h2 class="section-heading">What V18 <span class="lime">Actually Did</span></h2>
+    <p>
+      V18 broke the win streak — and it's the most instructive result the series has produced, because it confirms two theories by being the counter-example to both. After V17's records, V18 reversed almost every gain: the <strong>0:02 retention cliff returned</strong>, completion dropped to 1.4%, and the Instagram save breakout that V16 and V17 established <strong>did not repeat — zero interactions.</strong> The cause is structural, not bad luck: V18 is a <em>workflow</em> (a multi-step process), where V16 and V17 were <em>tactics</em> (single moves). Tactics get saved; workflows get scrolled. (YouTube data for V18 is still pending.)
+    </p>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot ig"></span>
+        <span class="pcb-name">Instagram Reels · V18 Actual</span>
+        <span class="pcb-window">First-window · queue #8</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value muted">81</div><div class="label">Views <span style="color:var(--muted);">vs ~84 baseline · below V16/V17</span></div></div>
+        <div class="sc"><div class="value muted">71</div><div class="label">Accounts Reached</div></div>
+        <div class="sc"><div class="value muted">0</div><div class="label">Total Interactions <span style="color:var(--muted);">0 likes · 0 comments · 0 saves · 0 shares</span></div></div>
+        <div class="sc"><div class="value muted">0%</div><div class="label">Save Rate <span style="color:var(--muted);">vs V17's 4.27% · breakout did NOT repeat</span></div></div>
+        <div class="sc"><div class="value">100%</div><div class="label">Non-Followers</div></div>
+        <div class="sc"><div class="value muted">0</div><div class="label">New Followers <span style="color:var(--muted);">still 0 cumulative</span></div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>The breakout has a content-type boundary.</strong> V16 and V17 made it look like the IG formula was solved — counter-intuitive list, warm queue, saves follow. V18 says: only for tactics. A three-step workflow at queue #8 produced <em>zero</em> interactions, back to the pre-V16 baseline. The reason a tactic saves and a workflow doesn't is concrete: a five-verb list or three "do nots" fit on one screenshot, so the save captures the whole technique. A three-prompt chain needs three frames to keep — so even viewers who valued it had nothing single-frame to save. The format, not the topic, killed the saves.
+      </div>
+    </div>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot tt"></span>
+        <span class="pcb-name">TikTok · V18 Actual</span>
+        <span class="pcb-window">7-day window · posted 6/2/2026</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value muted">145</div><div class="label">Views <span style="color:var(--muted);">vs ~163 baseline · vs V17's 214</span></div></div>
+        <div class="sc"><div class="value">5.07s</div><div class="label">Avg Watch <span style="color:var(--muted);">held steady — the few who stayed, stayed</span></div></div>
+        <div class="sc"><div class="value muted">1.4%</div><div class="label">Full Watch <span style="color:var(--muted);">vs V17's 2.3% · 0:02 cliff returned</span></div></div>
+        <div class="sc"><div class="value muted">1.38%</div><div class="label">Save Rate <span style="color:var(--muted);">2 saves / 145 · vs V17's 2.34%</span></div></div>
+        <div class="sc"><div class="value">90.4%</div><div class="label">From For You <span style="color:var(--muted);">2 likes · 0 comments · 0 shares</span></div></div>
+        <div class="sc"><div class="value muted">0</div><div class="label">New Followers <span style="color:var(--muted);">still 0 cumulative</span></div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>The 0:02 cliff is back, and it confirms the resonance rule from the other side.</strong> TikTok's retention panel reports most viewers stopped at 0:02 — exactly what V14 saw and what V16/V17 escaped. The difference is the hook: V17 named a <em>feeling</em> and held a record 2.3%; V18 names a <em>concept</em> (<em>"one massive prompt, chaos"</em>) and fell to 1.4%. One telling detail: average watch time stayed at 5.07s, the same as V17. So the viewers who pushed past 0:02 watched just as long — the video isn't worse, its <em>opening</em> just failed to earn the chance. Saves cratered to 2 (1.38%) because most of the audience left before the method.
+      </div>
+    </div>
+
+    <div class="platform-card-body">
+      <div class="pcb-head">
+        <span class="pcb-dot tt"></span>
+        <span class="pcb-name">TikTok · V18 Search + Demographics</span>
+        <span class="pcb-window">7-day window · the "break" problem</span>
+      </div>
+      <div class="pcb-stats">
+        <div class="sc"><div class="value muted">"how to brake chat gpt"</div><div class="label">Top search <span style="color:var(--muted);">+ "how to pose a click bot" · "bipper prompt"</span></div></div>
+        <div class="sc"><div class="value">92% / 8%</div><div class="label">Male / Female <span style="color:var(--muted);">most male-skewed yet</span></div></div>
+        <div class="sc"><div class="value">86%</div><div class="label">United States <span style="color:var(--muted);">+ Mexico 2.8%</span></div></div>
+        <div class="sc"><div class="value">94%</div><div class="label">Aged 35+ <span style="color:var(--muted);">35-44: 37% · 45-54: 36% · 55+: 21%</span></div></div>
+        <div class="sc"><div class="value">83% / 17%</div><div class="label">New / Returning</div></div>
+        <div class="sc"><div class="value">98%</div><div class="label">Non-Followers</div></div>
+      </div>
+      <div class="pcb-note">
+        <strong>The niche held (4th time), but the title mis-aimed the video.</strong> Demographics are textbook: 94% over-35, 92% male, 86% US — the same audience as V14/V16/V17. But the search queries are the diagnosis: <em>"how to brake chat gpt," "how to pose a click bot," "how to do the bipper prompt chatgpt"</em> — people trying to <em>break</em> (jailbreak) ChatGPT or build bots, not decompose a task. The word "break" in the title pulled jailbreak intent, those viewers bounced instantly, and the precise prompt-engineering searches that fed V16 ("gptPrompt word") and V17 ("how to remove the spaces") never materialized. A single ambiguous word mis-targeted the whole video.
+      </div>
+    </div>
+
+    <div class="honest-box reveal">
+      <div class="hb-label">// What V18 Actually Proved</div>
+      <p>
+        A loss, but the most diagnostic one yet — it confirmed two theories by breaking them:
+      </p>
+      <p>
+        <strong>(1) The save formula has a hard boundary: tactics, not workflows.</strong> V16 (verbs) and V17 (do-nots) made the IG breakout look like a solved formula. V18 (chaining) produced zero IG interactions and just 2 TikTok saves. The dividing line is screenshot-ability: a tactic fits on one save-able frame; a multi-step workflow doesn't. This isn't a knock on chaining — it's the best technique in the series for real complex work — it means <em>workflow concepts need a different short-form treatment</em> (or a carousel/long-form home) than single-move tactics. V14 (also a workflow) said the same thing; V18 confirms it.
+      </p>
+      <p>
+        <strong>(2) The resonance rule held from the other side.</strong> V17 proved a resonant hook beats the 0:02 cliff. V18 is the control: a dry, conceptual open (<em>"one massive prompt, chaos"</em>) let the cliff return and completion fell to 1.4%. The pair is now conclusive — <em>the hook's job is to name a felt frustration, not state a concept.</em> "Chaos" is a label; "you got what you asked for, just not what you wanted" is a feeling. V19-V20 hooks must lead with the feeling.
+      </p>
+      <p>
+        <strong>(3) One ambiguous word can mis-aim a whole video.</strong> "Break your ChatGPT task into steps" got surfaced to people searching how to <em>break</em> ChatGPT. The title and the search algorithm disagreed about what "break" meant, and the wrong audience arrived and left. Titles for this niche need words that can only mean the prompt-engineering thing — V19-V20 should pre-check titles against likely search intent the way V14/V16/V17's precise framings naturally did.
+      </p>
+      <p>
+        <strong>The niche held a fourth time; followers held at zero an eighth time.</strong> 94% over-35, 92% male, 86% US — the audience is bedrock now, win or lose. And still 0 new followers. V18 adds nothing new to the follower diagnosis except to harden it: even a <em>weaker</em> video draws the same loyal-demographic non-followers who don't convert. The follow problem is independent of video quality. It's a last-two-seconds problem, and it's the one structural fix the channel hasn't tried yet.
+      </p>
+    </div>
+  </div>
+
+  <!-- §9 -->
+  <div class="reveal">
+    <div class="section-label">Common Mistake</div>
+    <h2 class="section-heading">Chaining A Task <span class="lime">That Didn't Need It</span></h2>
+    <p>
+      The most common mis-application is over-engineering: building a three-prompt chain for a task one good prompt would have handled. Chaining has real overhead — multiple round-trips, copy-pasting each output into the next prompt, checking each step — and that cost only pays off when a one-shot genuinely fails. A two-line email, a quick summary, a single factual question: these don't need a chain, and wrapping them in one just makes you slower. <strong>Match the technique to the task size.</strong> If you can't honestly say a single prompt produced a bad result, you don't have a chaining problem yet.
+    </p>
+    <p>
+      The second mistake is the silent killer: <strong>feeding a step forward without checking it.</strong> Because each output becomes the next input, an unverified bad outline becomes the foundation for everything after it — and you won't notice until the finished post is wrong three prompts later. The entire reliability benefit of chaining depends on inspecting each step <em>before</em> it propagates. People skip that check to save time and then wonder why the chain produced garbage; the answer is they let a garbage step in at the top.
+    </p>
+    <p>
+      The third mistake is dropping context between links. Each prompt is somewhat independent, so if step three doesn't <em>receive</em> the outline from step one — pasted in explicitly — the model improvises and the chain breaks. The discipline is the VO's own line: <em>"the output of one becomes the input of the next."</em> Carry the relevant output forward at every link, or the chain is just three disconnected prompts wearing a trench coat.
+    </p>
+  </div>
+
+  <!-- TAKEAWAY -->
+  <div class="reveal">
+    <div class="honest-box">
+      <div class="hb-label">// Takeaway</div>
+      <p>
+        For any task longer than a paragraph, stop one-shotting and chain it: <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--lime);font-family:var(--mono);font-size:0.9em;">outline</code> → <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--lime);font-family:var(--mono);font-size:0.9em;">expand each section</code> → <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;color:var(--lime);font-family:var(--mono);font-size:0.9em;">write the intro from the finished body</code>. Each prompt does one job, each output feeds the next, and the final result beats anything a giant prompt produces — because you gave the model an easier problem at every step and could fix a bad step before it spread.
+      </p>
+      <p>
+        The rule of thumb: if your prompt contains the word "and" three times, it's a chain pretending to be one prompt — split it. Check each step's output before feeding it forward, and only reach for a chain when a single prompt has genuinely failed. One job per prompt beats six at once, every time.
+      </p>
+    </div>
+  </div>
+
+  <!-- SOURCES · DATA -->
+  <div class="reveal">
+    <div class="section-label">Sources · Performance Data</div>
+    <h2 class="section-heading">Where The <span class="lime">Numbers Came From</span></h2>
+    <ul class="try-list">
+      <li><strong>V18 platform analytics</strong> — TikTok 7-day screenshots (145 views · 5.07s avg · 1.4% full-watch · 2 saves · "stopped at 0:02" retention panel · search queries + demographics) and Instagram Reels first-window screenshots (81 views · 71 reached · 0 interactions). Pulled 6/12/2026. YouTube data for V18 was not yet available at publish. All V18 §8.5 figures are computed directly from these exports.</li>
+      <li><strong>V11–V17 analytics</strong> — TikTok screenshots and YouTube Studio CSVs pulled 6/6 – 6/12/2026 across each video's measurement window; Instagram Reels screenshots from the same windows. V16: IG breakout (123 views · 2.44% save). V17: series records (TT 214 views · 2.3% full-watch · IG 4.27% save). These supply the prior-video comparisons throughout §8.5. V15 remains unpublished, so it's excluded.</li>
+      <li><strong>V18 Whisper transcript</strong> — generated 2026-06-12 by running <code>npx hyperframes transcribe</code> with the <code>small.en</code> model against <code>Videos/AI_Prompt_Engineering_Vol1/08-prompt-chaining.mp4</code>. Transcript output stored at <code>/tmp/v18-whisper/transcript.json</code>. 79 words across 34.0s of spoken audio; 100% word-similarity with the §7 VO Script block and §8 Visual Analysis timestamps.</li>
+      <li><strong>V18 queue position rationale</strong> — direct quotes from the publishing-strategy section of <code>Prompt Files/PromptEngineeringSeries.md</code>. V18 was scheduled position #3 on YouTube ("story hook, longest title is fine on Shorts"), position #7 on TikTok ("slightly longer concept; lands better once the algorithm trusts you"), and position #8 on Instagram ("workflow content — better mid-batch when audience trusts you").</li>
+      <li><strong>HyperFrames composition + VO script</strong> — exact configuration archived in the production drive. Same stack used across V11-V20 (Vol 1) and V21-V30 (Vol 2). HeyGen HyperFrames CLI is open source at <a href="https://hyperframes.heygen.com/" target="_blank" rel="noopener" style="color:var(--lime);">hyperframes.heygen.com</a>.</li>
+    </ul>
+  </div>
+
+  <!-- SOURCES · EXTERNAL -->
+  <div class="reveal">
+    <div class="section-label">Sources · External References</div>
+    <h2 class="section-heading">Where The <span class="lime">Technique Was Verified</span></h2>
+    <p>
+      The definition, the mechanism (output of one becomes input of the next), the three advantages, the debugging benefit, and every direct quote in §3, §4, and §6 were cross-checked against two published references. Each is cited inline where it's quoted.
+    </p>
+    <ul class="try-list">
+      <li><strong>IBM — "Prompt Chaining"</strong> · ibm.com/think, 2026. The comprehensive reference. Cited in §3 (the core mechanic — <em>"converting a complex prompt into a series of simple prompts can help break down a complex task into smaller sub-tasks... reduce the risk of errors or misunderstandings"</em> — and the Spanish translation-pipeline example), §4 (the three advantages: consistency, enhanced control, and reduced error rate, each quoted), and §6 (the translation use case). <a href="https://www.ibm.com/think/topics/prompt-chaining" target="_blank" rel="noopener" style="color:var(--lime);">ibm.com/think/topics/prompt-chaining</a></li>
+      <li><strong>Prompt Engineering Guide — "Prompt Chaining"</strong> · promptingguide.ai. The mechanism + practitioner source. Cited in §3 (the definition: <em>"a task is split into subtasks with the idea to create a chain of prompt operations"</em>), §4 (the transparency/controllability/reliability framing and the debugging benefit — <em>"you can debug problems with model responses much more easily"</em>), and §6 (the document-Q&A chain: extract relevant quotes, then compose the answer from those quotes). <a href="https://www.promptingguide.ai/techniques/prompt_chaining" target="_blank" rel="noopener" style="color:var(--lime);">promptingguide.ai/techniques/prompt_chaining</a></li>
+    </ul>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav">
+    <a href="17-negative-constraints.html" class="series-nav-card">
+      <div class="sn-dir">← Previous</div>
+      <div class="sn-title">V17 · Negative Constraints</div>
+    </a>
+    <a href="19-rag.html" class="series-nav-card next">
+      <div class="sn-dir">Next Up →</div>
+      <div class="sn-title">V19 · RAG</div>
+    </a>
+  </div>
+
+  <div class="cta-section reveal">
+    <div class="cta-label">// Get the next one</div>
+    <h3 class="cta-title">More Prompt Engineering, <span style="color:var(--lime)">Every Week</span></h3>
+    <p class="cta-subtitle">Vol 1 of the AI Prompting series. Honest data, real production settings, no hype.</p>
+    <form class="cta-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+      <input type="email" placeholder="your@email.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+</div>
+
+<!-- SIDEBAR -->
+<aside class="post-sidebar">
+
+  <!-- ① PLATFORM DATA · V11-V14 Benchmark (the bar V15 has to clear) -->
+  <div class="platform-card reveal">
+    <div class="platform-card-header">
+      <span class="platform-card-title">// Platform Data · V18 Actual</span>
+      <span class="platform-card-date">// TT + IG live · YT pending · streak broke</span>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-ig"></span>Instagram · V18</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value muted">81</div><div class="stat-label-small">Views</div></div>
+        <div class="stat-item"><div class="stat-value muted">0%</div><div class="stat-label-small">Save Rate</div></div>
+        <div class="stat-item"><div class="stat-value muted">0</div><div class="stat-label-small">Interactions</div></div>
+        <div class="stat-item"><div class="stat-value muted">0</div><div class="stat-label-small">Followers</div></div>
+      </div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-tt"></span>TikTok · V18</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value">145</div><div class="stat-label-small">Views</div></div>
+        <div class="stat-item"><div class="stat-value">5.07s</div><div class="stat-label-small">Avg Watch</div></div>
+        <div class="stat-item"><div class="stat-value muted">1.4%</div><div class="stat-label-small">Full Watch</div></div>
+        <div class="stat-item"><div class="stat-value muted">1.38%</div><div class="stat-label-small">Save Rate</div></div>
+      </div>
+    </div>
+
+    <div class="platform-row">
+      <div class="platform-name"><span class="platform-dot dot-yt"></span>YouTube · pending</div>
+      <div class="platform-stats">
+        <div class="stat-item"><div class="stat-value muted">—</div><div class="stat-label-small">Views</div></div>
+        <div class="stat-item"><div class="stat-value muted">—</div><div class="stat-label-small">Impressions</div></div>
+        <div class="stat-item"><div class="stat-value muted">—</div><div class="stat-label-small">CTR</div></div>
+        <div class="stat-item"><div class="stat-value muted">—</div><div class="stat-label-small">Subs</div></div>
+      </div>
+    </div>
+
+    <div class="bar-chart">
+      <div class="bar-chart-title">TikTok Completion · the streak + the break</div>
+      <div class="bar-group">
+        <span class="bar-platform">V14</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:35%"></div></div>
+        <span class="bar-count">0.8%</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">V16</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:52%"></div></div>
+        <span class="bar-count">1.2%</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">V17</span>
+        <div class="bar-track"><div class="bar-fill tt" style="width:100%"></div></div>
+        <span class="bar-count">2.3%</span>
+      </div>
+      <div class="bar-group">
+        <span class="bar-platform">V18</span>
+        <div class="bar-track"><div class="bar-fill ig" style="width:61%; opacity:0.5"></div></div>
+        <span class="bar-count">1.4%</span>
+      </div>
+    </div>
+
+    <div class="virality-section">
+      <div class="virality-label">V18 Outcomes · workflow penalty</div>
+      <div class="virality-tags">
+        <span class="vtag" style="opacity: 0.5;">✗ IG Breakout Didn't Repeat</span>
+        <span class="vtag" style="opacity: 0.5;">✗ 0:02 Cliff Returned</span>
+        <span class="vtag" style="border-color: rgba(132,224,0,0.4);">✓ Niche 4th Time</span>
+        <span class="vtag" style="opacity: 0.5;">✗ "Break" Mis-Targeted</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② RYU'S READ -->
+  <div class="ryu-read reveal">
+    <div class="ryu-read-label">// Ryu's Read On The Data</div>
+    <p>This one stung, but it's the most useful loss I've had. After V17's records I thought I'd cracked it — counter-intuitive list, resonant hook, saves follow. V18 said: only for tactics. A workflow (prompt chaining is multi-step) hit the 0:02 cliff again, completion fell to 1.4%, and Instagram gave me <em>zero</em> interactions. The breakout has a boundary, and V18 found it.</p>
+    <p><strong>The good news is it confirmed two theories by being the counter-example.</strong> V17's resonant hook held the room; V18's conceptual hook ("one massive prompt, chaos") didn't — so the rule is real: name a feeling, not a concept. And the save formula is real but bounded: a list fits on one screenshot, a chain doesn't, so workflows can't be saved the way tactics can. That's not a content-quality problem, it's a format problem — chaining might belong in a carousel or a longer video, not a 38-second Short.</p>
+    <p><strong>And one cheap lesson: the word "break" wrecked the targeting.</strong> Search surfaced me to people who wanted to <em>break</em> (jailbreak) ChatGPT, not break a task into steps. They bounced instantly. I have to pre-check titles against what people actually search. The niche held a 4th time (94% over-35, 92% male), and followers held at zero an 8th time — even a weak video draws the same loyal non-followers who won't convert. The follow fix is the last-two-seconds problem, and it's still the only thing I haven't rebuilt.</p>
+  </div>
+
+  <!-- ③ SOURCES CITED -->
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// Sources Cited</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row" style="flex-direction: column; gap: 4px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+          <span class="ai-impact-icon">📘</span>
+          <span><strong>IBM · "Prompt Chaining"</strong> · ibm.com/think · 2026<br><span style="color:var(--muted);">definition · 3 advantages (consistency, control, reduced error) · Spanish pipeline example</span></span>
+        </div>
+      </div>
+      <div class="ai-impact-row" style="flex-direction: column; gap: 4px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+          <span class="ai-impact-icon">📗</span>
+          <span><strong>Prompt Engineering Guide</strong> · promptingguide.ai<br><span style="color:var(--muted);">"chain of prompt operations" · transparency/controllability/reliability · debugging · doc-QA example</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ AI IN THIS VIDEO -->
+  <div class="ai-impact-card reveal">
+    <div class="ai-impact-header">// AI In This Video</div>
+    <div class="ai-impact-body">
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎬</span><span>Video composed deterministically with <strong>HeyGen HyperFrames</strong> — HTML + CSS + GSAP. No AI-generated visuals at render time. Every frame is hand-authored and reproducible.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎙️</span><span>Voiceover by <strong>Kokoro (am_adam)</strong>, transcribed back with <strong>Whisper small.en</strong> for QA against the VO script.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">📝</span><span>Blog drafted inside <strong>Claude Code Max</strong>, with VO script and §8 Visual Analysis pulled <strong>directly from the Whisper transcript of the rendered MP4</strong>. Edited by <strong>Ryu Vy</strong>.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">🎯</span><span>VO Script block matches the actual rendered audio at 100% word similarity. Smell test passes.</span></div>
+      <div class="ai-impact-row"><span class="ai-impact-icon">⚡</span><span>Meta note: this post was written as a chain — outline the sections, draft each from the transcript and sources, then fold in the platform data last. The technique it documents is the technique that built it.</span></div>
+    </div>
+  </div>
+
+</aside>
+
+</div>
+
+<footer>© 2026 AIToolsDaily24 · One tip a day, no hype.</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(() => btn.textContent = original, 1500);
+    });
+  }
+</script>
+
+</body>
+</html>
