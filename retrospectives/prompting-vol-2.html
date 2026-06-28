@@ -7,10 +7,10 @@
 <!-- ============================================================
   SEO META
   ============================================================ -->
-<title>Vol 2 · 30 Renders, Zero Views — The Production Retrospective | AIToolsDaily24</title>
+<title>Vol 2 · 30 Renders, Now Live — The Production Retrospective | AIToolsDaily24</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
 <meta name="description" content="Vol 2 of the AIToolsDaily24 series: 10 prompt-engineering lessons × 3 variations each = 30 renders, all built in HyperFrames + GSAP. Zero AI-hallucinated products, zero generated voice flubs, full control. Here's what changed from Vol 1, what was hard, and what's still to learn.">
-<meta property="og:title" content="Vol 2 · 30 Renders, Zero Views — Production Retrospective | AIToolsDaily24">
+<meta property="og:title" content="Vol 2 · 30 Renders, Now Live — Production Retrospective | AIToolsDaily24">
 <meta property="og:description" content="An honest production retrospective on Vol 2 of the prompt-engineering series.">
 <meta property="og:type" content="article">
 <!-- ============================================================ -->
@@ -164,7 +164,7 @@
     position: relative;
   }
   .pending-box::before {
-    content: '// AWAITING PUBLISH WINDOW';
+    content: '// WHAT THE NUMBERS SAY';
     position: absolute; top: -10px; left: 24px;
     background: var(--bg);
     font-family: var(--mono); font-size: 10px; color: var(--lime);
@@ -255,11 +255,11 @@
 
   <h1 class="post-title">
     30 Renders.<br>
-    <span class="lime">Zero Views.</span>
+    <span class="lime">Now Climbing.</span>
   </h1>
 
   <p class="post-subtitle">
-    Volume 2 is built. Ten prompt-engineering lessons, three variations each, thirty renders in the can, ten blog posts live, and a fully overhauled production stack. <strong>Nothing has shipped to a platform yet</strong> — so this isn't the performance audit Vol 1 was. This is the production retrospective: what changed from the Keyvello days, what the new stack made possible, what was hard, and what we'll be measuring once the upload window opens.
+    Volume 2 is built and shipping. Ten prompt-engineering lessons, three variations each, thirty renders, ten posts, and a fully overhauled production stack — and unlike when this page first went up, the videos aren't sitting in a folder anymore. <strong>All ten are live on YouTube, Vol 2 is already 69% of the channel's recent views, and one lesson just became the most-watched video ever.</strong> This is the production retrospective — what changed from the Keyvello days, what the new stack made possible, what was hard — now with the first real cross-platform numbers attached.
   </p>
 
   <div class="post-byline">
@@ -296,13 +296,13 @@
       <span class="stat-pill"><span class="num">10</span> blog posts</span>
       <span class="stat-pill"><span class="num">60</span> VOs (Kokoro · am_adam)</span>
       <span class="stat-pill"><span class="num">0</span> AI hallucinations</span>
-      <span class="stat-pill"><span class="num">0</span> views (yet)</span>
+      <span class="stat-pill"><span class="num">~11.6K</span> cross-platform views</span>
     </div>
   </div>
 
   <!-- PULL QUOTE -->
   <div class="pull-quote reveal">
-    <p>"Vol 1 was the audit. Vol 2 is the answer. Same craft, different cost — three renders per brief, every prompt diagnosable, every typo our own to fix."</p>
+    <p>"One script. Three completely different videos. One per platform. The same words in the viewer's ears every time — an entirely different thing on the screen, each build matched to what that platform's algorithm actually rewards."</p>
   </div>
 
   <!-- SECTION 2: VOL 1 vs VOL 2 COMPARISON -->
@@ -310,13 +310,13 @@
     <div class="section-label">What Changed</div>
     <h2 class="section-heading">From Keyvello to <span class="lime">HyperFrames + GSAP</span></h2>
     <p>
-      The first 10 videos were end-to-end Keyvello — AI script, AI voiceover, AI visuals, AI captions, AI assembly. It shipped fast and crashed visibly. Vol 2 swapped Keyvello for a deterministic stack: <strong>HyperFrames HTML compositions, GSAP timelines, Kokoro TTS, Tailwind v4 runtime styling, hand-written content</strong>. Every frame is reproducible. Every voiceover is on disk before render. Nothing hallucinates a product name.
+      The first 10 videos were end-to-end Keyvello — AI script, AI voiceover, AI visuals, AI captions, AI assembly. It shipped fast and crashed visibly. The entire prompting series — Vol 1 and Vol 2 alike — swapped Keyvello for a deterministic stack: <strong>HyperFrames HTML compositions, GSAP timelines, Kokoro TTS, Tailwind v4 runtime styling, hand-written content</strong>. Every frame is reproducible. Every voiceover is on disk before render. Nothing hallucinates a product name.
     </p>
   </div>
 
   <div class="compare-2col reveal">
     <div class="compare-card vol1">
-      <div class="cc-tag">★ Vol 1 · May 2026</div>
+      <div class="cc-tag">★ The First 10 · Keyvello era</div>
       <ul class="cc-list">
         <li><strong>Pipeline:</strong> Keyvello end-to-end (script + VO + visuals + assembly)</li>
         <li><strong>Cadence:</strong> 1 video per topic · ship-and-pray</li>
@@ -328,7 +328,7 @@
       </ul>
     </div>
     <div class="compare-card vol2">
-      <div class="cc-tag">★ Vol 2 · June 2026</div>
+      <div class="cc-tag">★ Prompting series · HyperFrames era</div>
       <ul class="cc-list">
         <li><strong>Pipeline:</strong> HyperFrames + GSAP + Tailwind + Kokoro + Whisper</li>
         <li><strong>Cadence:</strong> 3 variants per topic (A original / B app-chrome / C illustrated)</li>
@@ -336,7 +336,7 @@
         <li><strong>Hallucinations:</strong> 0 — content is hand-written, VO is deterministic</li>
         <li><strong>Examples:</strong> 4 fully-rendered templates per video, all hand-verified</li>
         <li><strong>Audio:</strong> Kokoro am_adam, transcribed with Whisper for QA</li>
-        <li><strong>Result:</strong> 30 renders, all clean lint, awaiting publish window</li>
+        <li><strong>Result:</strong> Vol 1 shipped — 3 followers, hook thesis proven. Vol 2 now live — 69% of recent YouTube views, the channel's #1 video, first subscriber.</li>
       </ul>
     </div>
   </div>
@@ -346,12 +346,15 @@
     <div class="section-label">The Variant Pattern</div>
     <h2 class="section-heading">Three Stories. <span class="lime">One Brief.</span></h2>
     <p>
-      The Vol 1 audit said the algorithm rewards different things on different platforms — TikTok wants comments, Instagram wants saves, YouTube wants click-through. The Vol 2 answer: instead of one video three different ways across three captions, make <strong>three different video builds</strong> per brief, each visually distinct enough that the algorithm can't recognize them as the same content. Same VO under the hood, three different visual frames on top.
+      Here is the production model that defines Vol 2 — and it's the single biggest bet of the volume: <strong>the script never changes, but the video changes completely.</strong> Each lesson gets one Kokoro voiceover, written and recorded once. That one script is then built into <strong>three entirely different videos</strong> — not the same video recolored, but three distinct visual worlds with their own layouts, motion, on-screen language, and titles. Same words in the viewer's ears; a completely different thing on the screen.
+    </p>
+    <p>
+      And they don't all post to the same place. <strong>Each platform gets its own version.</strong> The dashboard build, the mock-app build, and the illustrated-worksheet build are distributed <em>one per platform</em> — so TikTok, Instagram, and YouTube are each running a visually different video of the <em>identical</em> script, each matched to what that platform's algorithm rewards. The feed can't flag them as duplicates, and every audience gets the aesthetic it responds to. The proof is already in the data below: the same System Prompts lesson shows up as <em>"ChatGPT Keeps Forgetting What You Said"</em> on YouTube and the app-chrome <em>"Configure ChatGPT Once"</em> on Instagram — one script, two completely different videos, two platforms. Vol 1 proved the platforms want different things; this is the answer in one line: <strong>one script, three videos, three platforms.</strong>
     </p>
   </div>
 
   <div class="variant-matrix reveal">
-    <div class="variant-matrix-header">The Three Aesthetics</div>
+    <div class="variant-matrix-header">The Three Aesthetics · One Per Platform</div>
     <div class="variant-grid">
       <div class="variant-cell a">
         <div class="vc-tag">★ Variant A · Original</div>
@@ -470,28 +473,61 @@
     </ul>
   </div>
 
-  <!-- SECTION 8: PERFORMANCE DATA PLACEHOLDER -->
+  <!-- SECTION 8: REAL CROSS-PLATFORM DATA -->
   <div class="reveal">
     <div class="section-label">Performance Data</div>
-    <h2 class="section-heading">Awaiting <span class="lime">The Publish Window</span></h2>
+    <h2 class="section-heading">The First Numbers <span class="lime">Are In</span></h2>
     <p>
-      None of these videos have been posted to YouTube, TikTok, or Instagram at the time of writing. The point of this section is to lock in the questions Vol 1 left unanswered, so when the platform data starts coming in we know what to look at.
+      This section used to read "awaiting the publish window." It isn't waiting anymore. Vol 2 is shipping — <strong>all ten lessons are live on YouTube</strong>, the strongest are climbing on every platform, and one Vol 2 video just became the channel's most-watched ever. Here's the cross-platform account snapshot, pulled straight from the TikTok, Instagram, and YouTube exports. Keep the production model in mind reading these three columns: each platform is running its <em>own</em> visual build of the same scripts, so this isn't one set of videos measured three times — it's three different cuts of one series, each tailored to its feed.
     </p>
+
+    <div class="stat-row">
+      <span class="stat-pill"><span class="num">~11.6K</span> cross-platform views</span>
+      <span class="stat-pill"><span class="num">144</span> top video ever — Zero-Shot lesson</span>
+      <span class="stat-pill"><span class="num">69%</span> of YT views are Vol 2</span>
+      <span class="stat-pill"><span class="num">1</span> first YouTube sub ever</span>
+    </div>
+  </div>
+
+  <div class="reveal" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:32px 0;">
+    <div class="compare-card" style="border-top-color:#38BDF8;">
+      <div class="cc-tag" style="color:#38BDF8;">★ TikTok · last 90 days</div>
+      <ul class="cc-list">
+        <li><strong>8,544</strong> video views</li>
+        <li><strong>137</strong> likes · 15 comments · 14 shares</li>
+        <li><strong>46</strong> profile views</li>
+        <li>Last 28 days alone: <strong>4,337</strong> — reach is accelerating</li>
+      </ul>
+    </div>
+    <div class="compare-card" style="border-top-color:#EF4444;">
+      <div class="cc-tag" style="color:#EF4444;">★ Instagram · last 90 days</div>
+      <ul class="cc-list">
+        <li><strong>2,526</strong> views · <strong>2,207</strong> accounts reached</li>
+        <li><strong>55</strong> interactions · 31 accounts engaged</li>
+        <li><strong>36</strong> profile visits · <strong>4</strong> followers</li>
+        <li>Top reels are Vol 2: System Prompts (167), Temperature (135)</li>
+      </ul>
+    </div>
+    <div class="compare-card" style="border-top-color:var(--lime);">
+      <div class="cc-tag" style="color:var(--lime);">★ YouTube · 5/30–6/27</div>
+      <ul class="cc-list">
+        <li><strong>514</strong> views · 1,925 impressions · <strong>0.88%</strong> CTR</li>
+        <li><strong>Vol 2 = 354 (69%)</strong> · Vol 1 = 125 · older ≈ 35</li>
+        <li><strong>1 subscriber</strong> — the channel's first ever</li>
+        <li>#1: "I Tested Two Prompt Styles" — <strong>144</strong> (vs Vol 1's 112 high)</li>
+      </ul>
+    </div>
   </div>
 
   <div class="pending-box reveal">
-    <p><strong>To be measured per platform once Vol 2 starts shipping:</strong></p>
+    <p><strong>What the early numbers already say:</strong></p>
     <ul class="ph-list">
-      <li>Variant performance: A vs B vs C, per platform — does TikTok prefer the app-chrome mock? Does Instagram save more on illustrated worksheets?</li>
-      <li>Series binge rate: do viewers who hit V11 watch V12? Is series-completion a behavior that exists on Shorts?</li>
-      <li>Color scheme effect: do lime / blue / red videos perform differently? Is one scheme dramatically worse?</li>
-      <li>Hook second-0:01 retention vs Vol 1's 0:01 drop-off baseline</li>
-      <li>Save-to-view ratio on Instagram (the metric Vol 1 leaked badly on)</li>
-      <li>Comment volume on TikTok — did the "Which one would you steal first? 👇" pinned-comment pattern work?</li>
-      <li>Profile-visit → follow conversion (Vol 1 leaked at 91% — Instagram bio still needs to be rewritten before V11 posts)</li>
-      <li>Top-of-funnel: blog page-view per video upload (the cheatsheet PDF download as a leading indicator)</li>
+      <li><strong>Vol 2 is carrying the channel on YouTube.</strong> 69% of recent views and the all-time #1 video, with all ten lessons live. The "experiment / I-tested-this" hook (the Zero-Shot lesson, <em>"I Tested Two ChatGPT Prompt Styles — One Clearly Wins"</em>) is the strongest YouTube format the channel has run.</li>
+      <li><strong>YouTube CTR is no longer zero.</strong> Vol 1 sat at a structural 0% Shorts CTR; Vol 2's window shows <strong>0.88% on 1,925 impressions</strong> — the feed is finally clicking, and it produced the first subscriber.</li>
+      <li><strong>TikTok is the volume engine.</strong> 8,544 views in 90 days, and the most recent 28 (4,337) are running ahead of the prior 62 combined — reach is compounding as Vol 2 rolls out.</li>
+      <li><strong>Instagram is still discovery-only.</strong> 100% of views come from non-followers and the account holds just 4 followers. Reach is healthy (2,207 accounts), but the profile-visit → follow conversion (36 visits, ~0 attributed follows) is the exact leak Vol 1 flagged. The bio + last-two-seconds follow CTA remains the open fix.</li>
     </ul>
-    <p style="margin-top: 18px;">This page will be updated with the first 14 days of data once V11 ships — same format as the Vol 1 retrospective. The platforms ranked Vol 1's stronger topics out of order; we'll see if the same happens to Vol 2's stronger lessons.</p>
+    <p style="margin-top: 18px;">Windows differ by platform — TikTok and Instagram are 90-day account insights, YouTube is the 5/30–6/27 export — so the ~11.6K combined figure is a floor, not a clean same-window total. Per-video A/B/C variant splits and Instagram save-rate breakdowns come next as the exports deepen.</p>
   </div>
 
   <!-- SECTION 9: WHAT VOL 3 SHOULD CHANGE -->
@@ -517,13 +553,13 @@
   <div class="takeaway-box reveal">
     <div class="takeaway-title">// The One Thing To Remember</div>
     <p>
-      Vol 1 was 4,407 views and 30+ errors — a performance audit of a production loop that didn't have a review step. Vol 2 is 30 renders, zero hallucinations, and zero views — a production audit of a review loop that hasn't been pressure-tested by platforms yet. <em>The point of Vol 2 was to control the variables. The point of Vol 3 is to find out which ones actually mattered.</em>
+      The First 10 (Keyvello) shipped 4,407 views with 30+ errors — a production loop with no review step. The prompting series fixed the loop: Vol 1 proved the craft (3 followers, the hook thesis), and Vol 2 is now proving it scales — all ten lessons live, the channel's most-watched video ever, its first subscriber, and ~11.6K views climbing across platforms. <em>The point of Vol 2 was to control the variables. The early numbers say the one that mattered most — a sharp, specific hook — is already paying off.</em>
     </p>
   </div>
 
   <!-- SERIES NAV -->
   <div class="series-nav reveal">
-    <a href="ai-tools.html" class="series-nav-card prev">
+    <a href="prompting-vol-1.html" class="series-nav-card prev">
       <div class="nav-card-label">Previous</div>
       <div class="nav-card-icon">←</div>
       <div class="nav-card-title">Vol 1 Retrospective</div>
@@ -531,7 +567,7 @@
     <a href="../prompting-vol-2/21-context-feeding.html" class="series-nav-card next">
       <div class="nav-card-label">Start The Series</div>
       <div class="nav-card-icon">▶</div>
-      <div class="nav-card-title">V11 — Context Feeding</div>
+      <div class="nav-card-title">V21 — Context Feeding</div>
     </a>
   </div>
 
