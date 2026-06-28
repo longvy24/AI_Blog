@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+  SEO META
+  ============================================================ -->
+<title>Stop Typing the Same ChatGPT Prompt — Build It Once, Use It Forever | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="You're typing the same kind of prompt 50 times a week. Build it once with brackets — cold email, social caption, research summary, meeting agenda — fill the blanks, ship in 10 seconds. The 4 templates pack inside.">
+<meta property="og:title" content="Stop Typing the Same ChatGPT Prompt — Build It Once, Use It Forever | AIToolsDaily24">
+<meta property="og:description" content="The full breakdown of prompt templates — by Ryu Vy.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0A0C0A;
+    --surface:  #111810;
+    --surface2: #161A14;
+    --border:   #1E2A1A;
+    --lime:     #84E000;
+    --lime-soft:#c4ec77;
+    --lime-dim: rgba(132,224,0,0.1);
+    --lime-glow:rgba(132,224,0,0.05);
+    --white:    #F2F5EE;
+    --muted:    #5A6A52;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,12,10,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+  }
+  .nav-back {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase;
+    transition: color 0.2s; display: flex; align-items: center; gap: 8px;
+  }
+  .nav-back:hover { color: var(--lime); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num {
+    font-family: var(--mono); font-size: 11px; color: var(--lime);
+    letter-spacing: 3px; text-transform: uppercase;
+    background: var(--lime-dim); padding: 4px 12px;
+    border-radius: 2px; border: 1px solid rgba(132,224,0,0.2);
+  }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+
+  .post-title {
+    font-family: var(--display);
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.93; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .post-title .accent { color: var(--lime); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar {
+    width: 36px; height: 36px; background: var(--lime); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 16px; color: var(--bg);
+    flex-shrink: 0;
+  }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper {
+    position: relative; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden;
+    max-width: 340px; aspect-ratio: 9/16;
+  }
+  .video-wrapper iframe, .video-wrapper video {
+    width: 100%; height: 100%; border: none; display: block; background: #000;
+  }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; }
+
+  .post-body { max-width: 860px; margin: 0 auto; padding: 0 48px 80px; }
+  .section-label {
+    font-family: var(--mono); font-size: 11px; color: var(--lime);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading {
+    font-family: var(--display);
+    font-size: clamp(32px, 4vw, 52px);
+    text-transform: uppercase; letter-spacing: 1px; line-height: 0.95;
+    margin-bottom: 24px;
+  }
+  .section-heading .accent { color: var(--lime); }
+
+  .post-body p { font-size: 17px; font-weight: 300; color: #C5CFDC; line-height: 1.8; margin-bottom: 24px; }
+  .post-body p strong { color: var(--white); font-weight: 500; }
+  .post-body p em { color: var(--lime); font-style: italic; }
+
+  .pull-quote {
+    border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0;
+    background: var(--lime-glow); border-radius: 0 4px 4px 0;
+  }
+  .pull-quote p {
+    font-size: 20px !important; font-weight: 400 !important;
+    color: var(--white) !important; font-style: italic;
+    margin: 0 !important; line-height: 1.6 !important;
+  }
+
+  .prompt-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0;
+    padding: 24px 28px; margin: 32px 0; position: relative;
+  }
+  .prompt-block-label {
+    font-family: var(--mono); font-size: 10px; color: var(--lime);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+    opacity: 0.7;
+  }
+  .prompt-block code {
+    font-family: var(--mono); font-size: 14px; color: var(--white);
+    line-height: 1.7; display: block; white-space: pre-wrap;
+  }
+  .prompt-block code .blank {
+    background: rgba(132,224,0,0.18);
+    color: var(--lime-soft);
+    padding: 0 6px; border-radius: 3px;
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--lime);
+  }
+  .prompt-copy {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.2);
+    color: var(--lime);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s;
+  }
+  .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  /* 4-variable cards */
+  .var-grid { margin: 32px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .var-row {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left-width: 4px; border-left-color: var(--lime);
+    border-radius: 4px; padding: 18px 22px;
+  }
+  .var-row .vr-num {
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--lime-soft); margin-bottom: 6px;
+  }
+  .var-row .vr-title { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .var-row .vr-body { font-size: 14px; color: #C5CFDC; line-height: 1.6; }
+  .var-row .vr-body strong { color: var(--white); font-weight: 600; }
+  .var-row .vr-body em { color: var(--lime); font-style: italic; }
+
+  /* Template molds */
+  .template-grid { margin: 32px 0; display: flex; flex-direction: column; gap: 14px; }
+  .template-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 4px solid var(--lime); border-radius: 4px;
+    padding: 20px 24px;
+  }
+  .template-card .tc-tag {
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 8px;
+  }
+  .template-card .tc-name {
+    font-size: 20px; font-weight: 700; color: var(--white);
+    margin-bottom: 10px;
+  }
+  .template-card .tc-when {
+    font-style: italic; color: #C5CFDC; font-size: 14px; line-height: 1.5;
+    border-left: 2px solid rgba(132,224,0,0.30); padding-left: 12px;
+    margin-bottom: 12px;
+  }
+  .template-card .tc-prompt {
+    font-family: var(--mono); font-size: 13px; color: #C5CFDC; line-height: 1.65;
+    background: rgba(10,12,10,0.6); padding: 12px 14px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .template-card .tc-prompt .em {
+    background: rgba(132,224,0,0.18);
+    color: var(--lime-soft);
+    padding: 0 5px; border-radius: 2px;
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--lime);
+  }
+  .template-card .tc-output {
+    font-family: var(--mono); font-size: 12px; color: var(--white);
+    background: rgba(10,12,10,0.4);
+    border-left: 2px solid var(--lime);
+    padding: 10px 14px;
+    border-radius: 0 4px 4px 0;
+    font-style: italic;
+  }
+  .template-card .tc-output::before {
+    content: '↪ AI OUTPUT: ';
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--lime);
+    font-style: normal;
+  }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 16px; font-weight: 300; color: #C5CFDC;
+    line-height: 1.7; padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before {
+    content: '→'; color: var(--lime);
+    font-family: var(--mono); font-size: 14px;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  .takeaway-box {
+    background: var(--surface); border: 1px solid rgba(132,224,0,0.25);
+    border-radius: 4px; padding: 32px; margin: 48px 0;
+    position: relative; overflow: hidden;
+  }
+  .takeaway-box::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--lime), transparent);
+  }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; position: relative; z-index: 1; }
+  .series-nav-card {
+    background: var(--surface); padding: 24px;
+    text-decoration: none; color: inherit;
+    transition: all 0.25s; border: 1px solid transparent;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .series-nav-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .nav-card-icon { font-size: 28px; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  .newsletter-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 80px 48px; position: relative; overflow: hidden;
+  }
+  .newsletter-section::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lime), transparent);
+  }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+
+  footer {
+    padding: 32px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider, .post-body { padding-left: 24px; padding-right: 24px; }
+    .var-grid { grid-template-columns: 1fr; }
+    .series-nav { grid-template-columns: 1fr; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html#series" class="nav-back">← Back to Series</a>
+</nav>
+
+<!-- POST HERO -->
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">28 / 30</span>
+    <span class="post-series">AI Prompting · Vol 2</span>
+    <span class="post-date">May 2026</span>
+  </div>
+
+  <h1 class="post-title">
+    Build Once.<br>
+    <span class="accent">Fill Forever.</span>
+  </h1>
+
+  <p class="post-subtitle">
+    You're typing the same kind of prompt 50 times a week — cold emails, social captions, research summaries, meeting agendas — and rebuilding it from scratch each time. The fix is the oldest writing trick in the book: mad libs. Build a template with brackets, fill the blanks in 10 seconds, ship it. Four templates inside you can steal today.
+  </p>
+
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<!-- VIDEO EMBED -->
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <!-- ============================================================
+         When the YouTube Short is published, replace the <video> below with:
+         <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+         ============================================================ -->
+    <video
+      src="../../Videos/AI_Prompt_Engineering_Vol2/18-prompt-templates/18-prompt-templates.mp4"
+      poster="../../Videos/AI_Prompt_Engineering_Vol1/01-role-prompting.png"
+      controls
+      playsinline
+      preload="metadata">
+    </video>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ARTICLE BODY -->
+<article class="post-body">
+
+  <!-- SECTION 1: WHY you're re-typing prompts -->
+  <div class="reveal">
+    <div class="section-label">Why You Keep Re-Typing the Same Prompt</div>
+    <h2 class="section-heading">You're Already Using <span class="accent">Templates</span></h2>
+    <p>
+      Look at your last 50 ChatGPT messages and you'll see the same prompts in slightly different shapes. <em>"Write a cold email to a SaaS founder about onboarding."</em> Three days later: <em>"Write a cold email to a designer about portfolio reviews."</em> Same prompt. Different inputs. You typed all the connective tissue twice — and you'll type it again next week.
+    </p>
+    <p>
+      The cost of typing-from-scratch isn't the seconds — it's the cognitive load. Every time you rebuild the same prompt, you make small judgment calls about structure, tone, and what to ask for. Those calls drift. Sometimes you forget to ask for a CTA. Sometimes the length blows out. The output quality varies because the input varies, even though you're trying to do the same thing.
+    </p>
+    <p>
+      A template fixes the structure once and lets you swap only the inputs. It's the difference between writing a contract from a blank page and filling in a contract template. The legal language doesn't change. <strong>The variables do.</strong>
+    </p>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote reveal">
+    <p>"Prompts aren't paragraphs. They're mad libs. Build the structure once, fill the blanks forever."</p>
+  </div>
+
+  <!-- SECTION 2: ANATOMY OF A TEMPLATE -->
+  <div class="reveal">
+    <div class="section-label">The Anatomy of a Template</div>
+    <h2 class="section-heading">Four Brackets. <span class="accent">That's the Whole Trick.</span></h2>
+    <p>
+      Every reusable prompt has the same four variables. Different jobs use different combinations, but if you anchor on these four you can template almost anything you write to ChatGPT. Each bracket is a slot you fill with a real value in 2 seconds.
+    </p>
+  </div>
+
+  <div class="var-grid reveal">
+    <div class="var-row">
+      <div class="vr-num">★ 01 · TOPIC — WHAT</div>
+      <div class="vr-title">What's the subject?</div>
+      <div class="vr-body"><strong>The thing you're writing about.</strong> The more specific, the better the output. Examples: <em>launch demo · Q3 plan · onboarding cuts · pricing change.</em></div>
+    </div>
+    <div class="var-row">
+      <div class="vr-num">★ 02 · TONE — HOW</div>
+      <div class="vr-title">How should it sound?</div>
+      <div class="vr-body"><strong>The voice the model adopts.</strong> Different tones produce wildly different first sentences. Examples: <em>direct · warm · witty · skeptical · contrarian.</em></div>
+    </div>
+    <div class="var-row">
+      <div class="vr-num">★ 03 · AUDIENCE — FOR WHOM</div>
+      <div class="vr-title">Who is going to read this?</div>
+      <div class="vr-body"><strong>Shapes the vocabulary and the assumptions.</strong> An email to SaaS founders is the opposite of an email to your mom. Examples: <em>SaaS founders · senior PMs · enterprise buyers · my team.</em></div>
+    </div>
+    <div class="var-row">
+      <div class="vr-num">★ 04 · FORMAT — IN WHAT SHAPE</div>
+      <div class="vr-title">What's the output container?</div>
+      <div class="vr-body"><strong>Locks the structure.</strong> Same content reads differently as an email vs a tweet vs a memo. Examples: <em>email · tweet · LinkedIn post · 1-page memo · agenda.</em></div>
+    </div>
+  </div>
+
+  <!-- THE UNIVERSAL TEMPLATE -->
+  <div class="prompt-block reveal">
+    <div class="prompt-block-label">// The Universal Template</div>
+    <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+    <code>Write a <span class="blank">[FORMAT]</span> about <span class="blank">[TOPIC]</span>
+in a <span class="blank">[TONE]</span> tone
+for <span class="blank">[AUDIENCE]</span>.</code>
+  </div>
+
+  <p>
+    That's it. The four-bracket version covers maybe 60% of what most people prompt every week. Fill in the brackets and you have a complete instruction. Save this somewhere — Notes, a Raycast snippet, a TextExpander shortcut, a saved prompt in ChatGPT itself — and you'll stop typing the connective tissue forever.
+  </p>
+
+  <!-- SECTION 3: FOUR TEMPLATES TO STEAL -->
+  <div class="reveal">
+    <div class="section-label">Four Templates To Steal</div>
+    <h2 class="section-heading">Built, Tested, <span class="accent">Paste Them.</span></h2>
+    <p>
+      Four templates I keep saved as shortcuts. Each one is built for a specific job — outreach, social, research, meetings — and each one bakes in the structure so you don't have to think about it. Fill the brackets and ship in under 15 seconds.
+    </p>
+  </div>
+
+  <div class="template-grid reveal">
+    <div class="template-card">
+      <div class="tc-tag">★ 01 · COLD EMAIL · USE FOR OUTREACH</div>
+      <div class="tc-name">The Cold Email Mold</div>
+      <div class="tc-when">When: cold outbound, warm follow-ups, intro asks, partnership pings — anywhere a generic "hope this finds you well" email won't cut it.</div>
+      <div class="tc-prompt">"Write a cold email to a <span class="em">[persona]</span> decision-maker about <span class="em">[topic]</span>. Structure: one-sentence hook using <span class="em">[insight]</span> → 2-sentence value prop → single clear CTA. Direct, no fluff. Max 90 words."</div>
+      <div class="tc-output">"Hey [Name] — saw you just closed Series A. Most teams lose ~40% of activations to onboarding friction. We fix it in 14 days, fixed price. 15-min look?"</div>
+    </div>
+
+    <div class="template-card">
+      <div class="tc-tag">★ 02 · SOCIAL CAPTION · USE FOR LINKEDIN/X/IG</div>
+      <div class="tc-name">The Social Hook Mold</div>
+      <div class="tc-when">When: you're posting to LinkedIn, X, IG, or TikTok and need an opener that doesn't sound like every other "thrilled to announce" post on the timeline.</div>
+      <div class="tc-prompt">"Write a <span class="em">[platform]</span> caption about <span class="em">[topic]</span>. Hook style: <span class="em">[hook type]</span> (question / bold claim / stat). 2-3 punchy sentences. End w/ <span class="em">[CTA]</span>. Match native platform tone. Hashtags."</div>
+      <div class="tc-output">"73% of SaaS companies undercharge by 2-3x. We tested 50 pricing pages last quarter. The ones that won? They all did one thing different. ↓ #SaaS #Pricing"</div>
+    </div>
+
+    <div class="template-card">
+      <div class="tc-tag">★ 03 · RESEARCH SUMMARY · USE FOR LONG SOURCES</div>
+      <div class="tc-name">The Research Brief Mold</div>
+      <div class="tc-when">When: you've got a 40-page report, an hour-long transcript, or a dense PDF, and you need it filtered for your specific angle in under 5 minutes.</div>
+      <div class="tc-prompt">"Summarize this source: <span class="em">[source]</span>. Deliver exactly 3 numbered takeaways written from my angle: <span class="em">[my angle]</span>. Each with a direct quote under 20w. End with one open question."</div>
+      <div class="tc-output">"1. Self-serve wins on speed: 'Activation in &lt;10 min beats sales-led every time.' 2. Power users drive 80% of revenue. 3. Pricing pages are the highest-leverage page. Open Q: Does this hold for $50K+ ACV?"</div>
+    </div>
+
+    <div class="template-card">
+      <div class="tc-tag">★ 04 · MEETING AGENDA · USE FOR 1:1S, SYNCS, RETROS</div>
+      <div class="tc-name">The Meeting Agenda Mold</div>
+      <div class="tc-when">When: a meeting goes on the calendar and you don't want it to drift — kills the "what are we even doing here" moment in the first 30 seconds.</div>
+      <div class="tc-prompt">"Create an agenda for a <span class="em">[meeting type]</span> with <span class="em">[attendees]</span>. Desired outcome: <span class="em">[outcome]</span>. Max 5 items: title · owner · time block · decision or artifact produced. Flag out-of-scope."</div>
+      <div class="tc-output">"1. Recap H1 misses (CEO · 10min · decision: kill or pivot) 2. Top 3 H2 bets (CPO · 20min · artifact: 1-pager) 3. Resourcing (CFO · 10min · decision) · Out-of-scope: hiring."</div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: WHY IT WORKS -->
+  <div class="reveal">
+    <div class="section-label">Why It Works</div>
+    <h2 class="section-heading">Specificity in the Brackets <span class="accent">Beats Adjectives</span></h2>
+    <p>
+      Templates work because they force you to be specific where it matters and skip where it doesn't. <em>"Write a punchy, engaging, professional email"</em> is three adjectives the model averages out into nothing. <em>"Write a cold email to a Series A CTO about onboarding cuts, max 90 words"</em> gives the model four specific things to lock onto. The brackets are where the work happens. The connective tissue is where the laziness should happen.
+    </p>
+    <p>
+      The other thing templates buy you: <strong>consistent quality across drafts.</strong> When you type from scratch, your prompt drifts based on your mood, the time of day, how much coffee you've had. A template removes the variance. You ship the same structural-quality prompt every time, which means the model ships the same structural-quality output every time. Output reliability comes from input reliability.
+    </p>
+  </div>
+
+  <!-- TRY THESE -->
+  <div class="reveal">
+    <div class="section-label">Build Your Own</div>
+    <h2 class="section-heading">Four-Bracket <span class="accent">Checklist</span></h2>
+    <ul class="try-list">
+      <li><strong>Pick a job you do weekly</strong> — outreach, social, summaries, agendas, code reviews, anything you re-type more than 3x</li>
+      <li><strong>Write the prompt once, in full</strong>, the way you'd say it on your best day — direct, specific, with structure</li>
+      <li><strong>Wrap the variables in brackets</strong> — anything that changes between uses becomes <em>[bracket]</em>. Anything that stays becomes the template's spine</li>
+      <li><strong>Save it as a snippet</strong> — Raycast, TextExpander, Notes, or directly inside ChatGPT's saved prompts. The trigger should be 3 keystrokes or fewer</li>
+      <li><strong>Use it 5 times this week</strong> — edit the bracket values, not the structure. After 5 real uses, refine the spine; never refine on theory</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: COMMON MISTAKE -->
+  <div class="reveal">
+    <div class="section-label">Common Mistake</div>
+    <h2 class="section-heading">Don't Over-Engineer <span class="accent">the Spine</span></h2>
+    <p>
+      The most common failure mode is treating the template like a control panel — adding bracket #5 for "word count," bracket #6 for "reading level," bracket #7 for "must include statistic." Every extra bracket is a slot you have to fill, which means another decision every time you use the template, which means you stop using the template. <strong>The whole point is to remove decisions, not add them.</strong>
+    </p>
+    <p>
+      The other failure mode: writing the template once and never touching it again. Templates should evolve. After 10 real uses you'll notice the structure that drops the ball — maybe the CTA is always weak, maybe you keep editing the same line out. Update the spine. The template is a living thing, not a stone tablet. Refine on data, not vibes.
+    </p>
+  </div>
+
+  <!-- TAKEAWAY BOX -->
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The One Thing To Remember</div>
+    <p>
+      Stop typing prompts from scratch. <em>Build the mold once. Fill it forever.</em> Four brackets — Topic, Tone, Audience, Format — cover most of what you write to ChatGPT every week. Steal the four templates above (Cold Email, Social Hook, Research Brief, Meeting Agenda), save them as snippets, and ship in 10 seconds instead of two minutes. Your prompts will get more consistent. Your output will get sharper. And you'll never type "Hey, hope this finds you well" again.
+    </p>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="27-persona-depth.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div>
+      <div class="nav-card-icon">←</div>
+      <div class="nav-card-title">Persona Depth</div>
+    </a>
+    <a href="29-multimodal-prompting.html" class="series-nav-card next">
+      <div class="nav-card-label">Next Up</div>
+      <div class="nav-card-icon">👁</div>
+      <div class="nav-card-title">Multimodal Prompting</div>
+    </a>
+  </div>
+
+</article>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--lime)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">
+      New AI breakdowns in your inbox. No noise. Just signal — from a human who actually uses this stuff.
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

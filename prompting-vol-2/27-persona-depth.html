@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+  SEO META
+  ============================================================ -->
+<title>"Act as an Expert" Is Weak — The 5-Layer Persona Upgrade | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEQxMTE3IiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjMzhCREY4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="Giving ChatGPT a job title is the floor, not the ceiling. The 5-layer persona upgrade — Role, Context, Experience, Style, Constraints — turns generic AI output into expert output.">
+<meta property="og:title" content="'Act as an Expert' Is Weak — The 5-Layer Persona Upgrade | AIToolsDaily24">
+<meta property="og:description" content="The full breakdown of persona depth prompting — by Ryu Vy.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0D1117;
+    --surface:  #141A22;
+    --surface2: #181F29;
+    --border:   #1F2A38;
+    --blue:     #38BDF8;
+    --blue-soft:#7dd3fc;
+    --blue-dim: rgba(56,189,248,0.1);
+    --blue-glow:rgba(56,189,248,0.05);
+    --white:    #EEF2F8;
+    --muted:    #5A6A7E;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(13,17,23,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    color: var(--blue); letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+  }
+  .nav-back {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase;
+    transition: color 0.2s; display: flex; align-items: center; gap: 8px;
+  }
+  .nav-back:hover { color: var(--blue); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num {
+    font-family: var(--mono); font-size: 11px; color: var(--blue);
+    letter-spacing: 3px; text-transform: uppercase;
+    background: var(--blue-dim); padding: 4px 12px;
+    border-radius: 2px; border: 1px solid rgba(56,189,248,0.2);
+  }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+
+  .post-title {
+    font-family: var(--display);
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.93; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .post-title .accent { color: var(--blue); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar {
+    width: 36px; height: 36px; background: var(--blue); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 16px; color: var(--bg);
+    flex-shrink: 0;
+  }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper {
+    position: relative; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden;
+    max-width: 340px; aspect-ratio: 9/16;
+  }
+  .video-wrapper iframe, .video-wrapper video {
+    width: 100%; height: 100%; border: none; display: block; background: #000;
+  }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 3px; }
+
+  .post-body { max-width: 860px; margin: 0 auto; padding: 0 48px 80px; }
+  .section-label {
+    font-family: var(--mono); font-size: 11px; color: var(--blue);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading {
+    font-family: var(--display);
+    font-size: clamp(32px, 4vw, 52px);
+    text-transform: uppercase; letter-spacing: 1px; line-height: 0.95;
+    margin-bottom: 24px;
+  }
+  .section-heading .accent { color: var(--blue); }
+
+  .post-body p { font-size: 17px; font-weight: 300; color: #C5CFDC; line-height: 1.8; margin-bottom: 24px; }
+  .post-body p strong { color: var(--white); font-weight: 500; }
+  .post-body p em { color: var(--blue); font-style: italic; }
+
+  .pull-quote {
+    border-left: 3px solid var(--blue); padding: 20px 28px; margin: 40px 0;
+    background: var(--blue-glow); border-radius: 0 4px 4px 0;
+  }
+  .pull-quote p {
+    font-size: 20px !important; font-weight: 400 !important;
+    color: var(--white) !important; font-style: italic;
+    margin: 0 !important; line-height: 1.6 !important;
+  }
+
+  .prompt-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--blue); border-radius: 0 4px 4px 0;
+    padding: 24px 28px; margin: 32px 0; position: relative;
+  }
+  .prompt-block-label {
+    font-family: var(--mono); font-size: 10px; color: var(--blue);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+    opacity: 0.7;
+  }
+  .prompt-block code {
+    font-family: var(--mono); font-size: 14px; color: var(--white);
+    line-height: 1.7; display: block; white-space: pre-wrap;
+  }
+  .prompt-copy {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--blue-dim); border: 1px solid rgba(56,189,248,0.2);
+    color: var(--blue);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s;
+  }
+  .prompt-copy:hover { background: var(--blue); color: var(--bg); }
+
+  /* 5-layer cards */
+  .layer-grid { margin: 32px 0; display: flex; flex-direction: column; gap: 12px; }
+  .layer-row {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left-width: 4px; border-left-color: var(--blue);
+    border-radius: 4px; padding: 18px 22px;
+  }
+  .layer-row .lr-num {
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--blue-soft); margin-bottom: 6px;
+  }
+  .layer-row .lr-title { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .layer-row .lr-body { font-size: 14px; color: #C5CFDC; line-height: 1.6; }
+  .layer-row .lr-body strong { color: var(--white); font-weight: 600; }
+  .layer-row .lr-body em { color: var(--blue); font-style: italic; }
+
+  /* Persona templates */
+  .persona-grid { margin: 32px 0; display: flex; flex-direction: column; gap: 14px; }
+  .persona-template {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 4px solid var(--blue); border-radius: 4px;
+    padding: 20px 24px;
+  }
+  .persona-template .pt-tag {
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .persona-template .pt-name {
+    font-size: 20px; font-weight: 700; color: var(--white);
+    margin-bottom: 10px;
+  }
+  .persona-template .pt-quote {
+    font-style: italic; color: #C5CFDC; font-size: 14px; line-height: 1.5;
+    border-left: 2px solid rgba(56,189,248,0.30); padding-left: 12px;
+    margin-bottom: 12px;
+  }
+  .persona-template .pt-prompt {
+    font-family: var(--mono); font-size: 13px; color: #C5CFDC; line-height: 1.6;
+    background: rgba(13,17,23,0.6); padding: 12px 14px;
+    border-radius: 4px;
+  }
+  .persona-template .pt-prompt .em { color: var(--blue); font-weight: 700; }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 16px; font-weight: 300; color: #C5CFDC;
+    line-height: 1.7; padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before {
+    content: '→'; color: var(--blue);
+    font-family: var(--mono); font-size: 14px;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  .takeaway-box {
+    background: var(--surface); border: 1px solid rgba(56,189,248,0.25);
+    border-radius: 4px; padding: 32px; margin: 48px 0;
+    position: relative; overflow: hidden;
+  }
+  .takeaway-box::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--blue), transparent);
+  }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; position: relative; z-index: 1; }
+  .series-nav-card {
+    background: var(--surface); padding: 24px;
+    text-decoration: none; color: inherit;
+    transition: all 0.25s; border: 1px solid transparent;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .series-nav-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .nav-card-icon { font-size: 28px; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  .newsletter-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 80px 48px; position: relative; overflow: hidden;
+  }
+  .newsletter-section::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+
+  footer {
+    padding: 32px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider, .post-body { padding-left: 24px; padding-right: 24px; }
+    .series-nav { grid-template-columns: 1fr; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html#series" class="nav-back">← Back to Series</a>
+</nav>
+
+<!-- POST HERO -->
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">27 / 30</span>
+    <span class="post-series">AI Prompting · Vol 2</span>
+    <span class="post-date">May 2026</span>
+  </div>
+
+  <h1 class="post-title">
+    The 5-Layer<br>
+    <span class="accent">Persona Upgrade</span>
+  </h1>
+
+  <p class="post-subtitle">
+    "Act as an expert" gives you an expert-sounding generic. A 5-layer persona — Role, Context, Experience, Style, Constraints — gives you an actual expert. The difference between a job title and a biography. Here's how to build one in 60 seconds and three templates you can steal.
+  </p>
+
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<!-- VIDEO EMBED -->
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <!-- ============================================================
+         When the YouTube Short is published, replace the <video> below with:
+         <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+         ============================================================ -->
+    <video
+      src="../../Videos/AI_Prompt_Engineering_Vol2/17-persona-depth/17-persona-depth.mp4"
+      poster="../../Videos/AI_Prompt_Engineering_Vol1/01-role-prompting.png"
+      controls
+      playsinline
+      preload="metadata">
+    </video>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ARTICLE BODY -->
+<article class="post-body">
+
+  <!-- SECTION 1: WHY "act as an expert" FALLS SHORT -->
+  <div class="reveal">
+    <div class="section-label">Why "Act as an Expert" Is Weak</div>
+    <h2 class="section-heading">A Job Title Is <span class="accent">Not a Biography</span></h2>
+    <p>
+      Video 1 of the original series taught role prompting — assign ChatGPT a job title and watch the output get sharper. <em>"Act as a marketing expert."</em> <em>"Act as a startup advisor."</em> That's the floor. It works. But it's not the ceiling, and most people stop there.
+    </p>
+    <p>
+      The problem with a job title alone is that ChatGPT fills in the rest with averages. It writes like the median person with that title — competent enough to sound credible, generic enough to be useless. You get an answer that could have come from any consultant on any LinkedIn post about any topic. The role anchors the seat, but everything downstream — the actual expertise, the way the person thinks, what they refuse to do — is still default.
+    </p>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote reveal">
+    <p>"A job title is the seat. A biography is the person sitting in it. ChatGPT gives you what you describe."</p>
+  </div>
+
+  <!-- SECTION 2: THE 5 LAYERS -->
+  <div class="reveal">
+    <div class="section-label">The 5 Layers</div>
+    <h2 class="section-heading">Build a <span class="accent">Real Character</span></h2>
+    <p>
+      Every strong AI persona has five layers. Each one answers a specific question about the person, and each one constrains the output in a specific way. Skip any of them and the output drifts back toward "helpful assistant." Add all five and the output sounds like one specific human you'd hire.
+    </p>
+  </div>
+
+  <div class="layer-grid reveal">
+    <div class="layer-row">
+      <div class="lr-num">★ 01 · ROLE — WHO</div>
+      <div class="lr-title">Who are they? What seat do they sit in?</div>
+      <div class="lr-body"><strong>Sets the chair.</strong> Without it, ChatGPT defaults to "helpful assistant" mode — generic, hedged, mid. Examples: <em>senior brand strategist · tier-1 VC partner · principal designer.</em></div>
+    </div>
+    <div class="layer-row">
+      <div class="lr-num">★ 02 · CONTEXT — WHERE</div>
+      <div class="lr-title">What's the company, the stakes, the environment?</div>
+      <div class="lr-body"><strong>Constrains the advice.</strong> Strategy for a Series A startup is the opposite of strategy for a public company. Examples: <em>Series A B2B SaaS · pre-PMF, 12-person team · B2C mobile.</em></div>
+    </div>
+    <div class="layer-row">
+      <div class="lr-num">★ 03 · EXPERIENCE — PROOF</div>
+      <div class="lr-title">What's the track record? Make it specific and quantified.</div>
+      <div class="lr-body"><strong>Earns the swagger.</strong> Vague experience produces hedged confidence. Quantified experience produces opinions. Examples: <em>3 launches past $10M · 80+ closed deals · 50+ apps shipped.</em></div>
+    </div>
+    <div class="layer-row">
+      <div class="lr-num">★ 04 · WORKING STYLE — HOW</div>
+      <div class="lr-title">How do they think? What's their default reflex?</div>
+      <div class="lr-body"><strong>Controls the tone.</strong> A skeptical-first persona pressure-tests your idea before agreeing. A people-pleaser one just validates. Examples: <em>direct, no-fluff · skeptical first · task-not-aesthetic.</em></div>
+    </div>
+    <div class="layer-row">
+      <div class="lr-num">★ 05 · CONSTRAINTS — NEVER</div>
+      <div class="lr-title">What do they never do? Hard rules &amp; pet peeves.</div>
+      <div class="lr-body"><strong>Locks in the discipline.</strong> Constraints stop the model from drifting back to default behavior. The "never" list is what makes the persona stick across a long chat. Examples: <em>always quote a number · no hedge words · no "amazing."</em></div>
+    </div>
+  </div>
+
+  <!-- THE TEMPLATE -->
+  <div class="prompt-block reveal">
+    <div class="prompt-block-label">// The 5-Layer Template</div>
+    <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+    <code>You are a [ROLE: senior X / principal Y / partner at Z].
+You work at [CONTEXT: company stage + market + stakes].
+You've [EXPERIENCE: quantified track record].
+Your working style is [STYLE: how they think + default reflex].
+You never [CONSTRAINTS: hard rules + pet peeves].
+
+Now: [your prompt]</code>
+  </div>
+
+  <!-- SECTION 3: THREE TEMPLATES TO STEAL -->
+  <div class="reveal">
+    <div class="section-label">Three Personas To Steal</div>
+    <h2 class="section-heading">Built &amp; Tested. <span class="accent">Paste Them.</span></h2>
+    <p>
+      Three full personas I keep saved as snippets. Each one is built across all five layers — you can paste them verbatim or remix the slots. Use the right one for the kind of work you're doing.
+    </p>
+  </div>
+
+  <div class="persona-grid reveal">
+    <div class="persona-template">
+      <div class="pt-tag">★ THE INVESTOR · USE FOR STRATEGY DECISIONS</div>
+      <div class="pt-name">Tier-1 VC partner · 12 yrs · 80+ deals</div>
+      <div class="pt-quote">"Looks for unit economics before the slide deck. Has passed on 8 unicorns and is fine about it. Believes the best founders argue back."</div>
+      <div class="pt-prompt">"You are a <span class="em">tier-1 VC partner</span>, 12 years in the seat, 80+ deals closed. You focus on <span class="em">pre-Series A SaaS and consumer</span>. You're <span class="em">skeptical first, specific second</span> — you ask 'what does churn look like at month 6?' not 'how's retention?' You <span class="em">never softens bad news</span> and <span class="em">every paragraph quotes a number</span>."</div>
+    </div>
+    <div class="persona-template">
+      <div class="pt-tag">★ THE EDITOR · USE FOR COPY + EDITING</div>
+      <div class="pt-name">NYT-bylined feature writer · 15 yrs</div>
+      <div class="pt-quote">"Lives by 'lede before lecture.' Believes the second sentence is where bad writing dies. Has killed pieces at 4,000 words because the angle wasn't there."</div>
+      <div class="pt-prompt">"You are a <span class="em">feature writer at the New York Times</span>, 15 years across <span class="em">politics + tech beats</span>. You edit <span class="em">long-form features and Sunday cover stories</span>. You <span class="em">cut every hedged word</span> and flag passive voice in red. You <span class="em">always lead with the strongest line</span> — never bury it past graf 2."</div>
+    </div>
+    <div class="persona-template">
+      <div class="pt-tag">★ THE UX CRITIC · USE FOR DESIGN REVIEWS</div>
+      <div class="pt-name">Principal designer · 50+ apps shipped</div>
+      <div class="pt-quote">"Critiques in user-tasks, not aesthetics. Once moved a button 4px and lifted activation 12%. Believes design debt is just deferred empathy."</div>
+      <div class="pt-prompt">"You are a <span class="em">principal product designer</span>. <span class="em">50+ apps shipped, 2 IPOs</span>. You work on <span class="em">B2C mobile and B2B onboarding</span>. You <span class="em">critique by user-task, not aesthetics</span> — you open every review with 'what is the user trying to do right now?' You <span class="em">always end with one zero-cost fix</span> the team can ship this sprint."</div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: WHY SPECIFICITY MATTERS -->
+  <div class="reveal">
+    <div class="section-label">Why It Works</div>
+    <h2 class="section-heading">The Model Pattern-Matches <span class="accent">On Detail</span></h2>
+    <p>
+      Under the hood, ChatGPT is doing pattern matching against everything it's seen. When you say "marketing expert," it pulls from the average marketing-content training data — which is, on average, mid. When you say "brand strategist at a Series A B2B SaaS who's launched 3 products past $10M in year one," the model has a much narrower band to pattern-match against. The output gets sharper because the specific persona has a specific voice the model can imitate.
+    </p>
+    <p>
+      The more <em>real-sounding</em> the persona, the better. Don't write "senior expert with lots of experience." Write "senior strategist, 12 years in the seat, 80+ deals closed." Quantify. Anchor. Make it sound like an actual person on an actual LinkedIn — because that's the pattern the model can lock onto.
+    </p>
+  </div>
+
+  <!-- TRY THESE -->
+  <div class="reveal">
+    <div class="section-label">Build Your Own</div>
+    <h2 class="section-heading">Five-Layer <span class="accent">Checklist</span></h2>
+    <ul class="try-list">
+      <li><strong>Role:</strong> name the seat with adjective + specialty (not "engineer" — "senior backend engineer specializing in distributed systems")</li>
+      <li><strong>Context:</strong> name the company stage, the market, and the stakes (not "tech company" — "Series A AI infra startup with 18 months of runway")</li>
+      <li><strong>Experience:</strong> quantify it (years, count, names — "12 yrs, 80+ deals, Sequoia/a16z lineage" beats "lots of experience")</li>
+      <li><strong>Style:</strong> describe the default reflex with an example ("skeptical first — asks 'what does churn look like at month 6?'")</li>
+      <li><strong>Constraints:</strong> write the "never" list (not "be concise" — "never use the words 'great,' 'amazing,' or 'compelling'")</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: COMMON MISTAKE -->
+  <div class="reveal">
+    <div class="section-label">Common Mistake</div>
+    <h2 class="section-heading">Don't Write a <span class="accent">Wishlist</span></h2>
+    <p>
+      The most common failure mode is treating the persona like a feature request. People stack adjectives — "expert, professional, knowledgeable, helpful, creative, analytical, concise, friendly…" and the model averages them out into nothing. <strong>Adjectives don't build a person.</strong> Specifics do. Replace every adjective with either a noun ("brand strategist") or a behavior ("asks for the number first").
+    </p>
+    <p>
+      The other failure mode is forgetting the constraints layer. Without "never" rules, the persona starts strong but drifts back to ChatGPT-default behavior after 3 or 4 turns in the chat. The "never" list is what keeps the persona <em>locked in</em>.
+    </p>
+  </div>
+
+  <!-- TAKEAWAY BOX -->
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The One Thing To Remember</div>
+    <p>
+      Stop describing a role. <em>Describe a person.</em> Five layers — Role, Context, Experience, Style, Constraints — turn ChatGPT from a polite assistant into someone with opinions, taste, and a track record. Build one persona today, save it, and paste it every time you need expert output. It's the single biggest upgrade you can make to your default prompt.
+    </p>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="26-tree-of-thought.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div>
+      <div class="nav-card-icon">←</div>
+      <div class="nav-card-title">Tree of Thought</div>
+    </a>
+    <a href="28-prompt-templates.html" class="series-nav-card next">
+      <div class="nav-card-label">Next Up</div>
+      <div class="nav-card-icon">📋</div>
+      <div class="nav-card-title">Prompt Templates</div>
+    </a>
+  </div>
+
+</article>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--blue)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">
+      New AI breakdowns in your inbox. No noise. Just signal — from a human who actually uses this stuff.
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+  SEO META
+  ============================================================ -->
+<title>Don't Retry — Triage It: The 3-Symptom Fix for Failed ChatGPT Replies | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEQxMTE3IiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjRUY0NDQ0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="You're 5 retries deep on the same prompt and still getting garbage. Stop. Three symptoms cover ~90% of failed AI replies — vague, wrong format, missed context. Each has one fix. One diagnosis, one re-prompt, 30 seconds.">
+<meta property="og:title" content="Don't Retry — Triage It: The 3-Symptom Fix for Failed ChatGPT Replies | AIToolsDaily24">
+<meta property="og:description" content="The full breakdown of prompt triage — Vol 2 finale, by Ryu Vy.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0D1117;
+    --surface:  #1A1416;
+    --surface2: #221A1C;
+    --border:   #2A1F22;
+    --red:      #EF4444;
+    --red-soft: #FCA5A5;
+    --red-dim:  rgba(239,68,68,0.1);
+    --red-glow: rgba(239,68,68,0.05);
+    --green:    #22C55E;
+    --green-soft:#86EFAC;
+    --gray:     #6B7280;
+    --white:    #EEF2F8;
+    --muted:    #5A6A7E;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(13,17,23,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    color: var(--red); letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+  }
+  .nav-back {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase;
+    transition: color 0.2s; display: flex; align-items: center; gap: 8px;
+  }
+  .nav-back:hover { color: var(--red); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num {
+    font-family: var(--mono); font-size: 11px; color: var(--red);
+    letter-spacing: 3px; text-transform: uppercase;
+    background: var(--red-dim); padding: 4px 12px;
+    border-radius: 2px; border: 1px solid rgba(239,68,68,0.2);
+  }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+  .post-finale {
+    font-family: var(--mono); font-size: 10px; color: #0D1117;
+    background: var(--red); padding: 3px 10px;
+    letter-spacing: 2px; text-transform: uppercase; font-weight: 800;
+    border-radius: 2px;
+    box-shadow: 0 0 14px rgba(239,68,68,0.55);
+  }
+
+  .post-title {
+    font-family: var(--display);
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.93; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .post-title .accent { color: var(--red); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar {
+    width: 36px; height: 36px; background: var(--red); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 16px; color: var(--bg);
+    flex-shrink: 0;
+  }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper {
+    position: relative; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden;
+    max-width: 340px; aspect-ratio: 9/16;
+  }
+  .video-wrapper iframe, .video-wrapper video {
+    width: 100%; height: 100%; border: none; display: block; background: #000;
+  }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--red); letter-spacing: 3px; }
+
+  .post-body { max-width: 860px; margin: 0 auto; padding: 0 48px 80px; }
+  .section-label {
+    font-family: var(--mono); font-size: 11px; color: var(--red);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading {
+    font-family: var(--display);
+    font-size: clamp(32px, 4vw, 52px);
+    text-transform: uppercase; letter-spacing: 1px; line-height: 0.95;
+    margin-bottom: 24px;
+  }
+  .section-heading .accent { color: var(--red); }
+
+  .post-body p { font-size: 17px; font-weight: 300; color: #C5CFDC; line-height: 1.8; margin-bottom: 24px; }
+  .post-body p strong { color: var(--white); font-weight: 500; }
+  .post-body p em { color: var(--red); font-style: italic; }
+
+  .pull-quote {
+    border-left: 3px solid var(--red); padding: 20px 28px; margin: 40px 0;
+    background: var(--red-glow); border-radius: 0 4px 4px 0;
+  }
+  .pull-quote p {
+    font-size: 20px !important; font-weight: 400 !important;
+    color: var(--white) !important; font-style: italic;
+    margin: 0 !important; line-height: 1.6 !important;
+  }
+
+  /* Stat row — retry blind vs triaged */
+  .stat-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 18px 22px;
+    border-left: 4px solid;
+  }
+  .stat-card.weak { border-left-color: var(--gray); }
+  .stat-card.strong { border-left-color: var(--red); }
+  .stat-card .sc-tag {
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .stat-card.weak .sc-tag { color: #9CA3AF; }
+  .stat-card.strong .sc-tag { color: var(--red); }
+  .stat-card .sc-num {
+    font-family: var(--display); font-size: 38px; line-height: 1; letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .stat-card.weak .sc-num { color: #9CA3AF; }
+  .stat-card.strong .sc-num { color: var(--red); }
+  .stat-card .sc-lbl {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+
+  /* The triage chart — 3 symptom-fix rows */
+  .triage-grid { margin: 32px 0; display: flex; flex-direction: column; gap: 12px; }
+  .triage-row {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 18px 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+  }
+  .triage-row .sx-side {
+    background: rgba(13,17,23,0.5);
+    border-radius: 4px;
+    padding: 12px 14px;
+    min-width: 0;
+  }
+  .triage-row .sx-side.symptom {
+    border-left: 3px solid var(--gray);
+  }
+  .triage-row .sx-side.fix {
+    border-left: 3px solid var(--red);
+  }
+  .triage-row .sx-side .sx-lbl {
+    font-family: var(--mono); font-size: 9.5px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .triage-row .sx-side.symptom .sx-lbl { color: #9CA3AF; }
+  .triage-row .sx-side.fix .sx-lbl { color: var(--red); }
+  .triage-row .sx-side .sx-name {
+    font-size: 16px; font-weight: 700; color: var(--white);
+    line-height: 1.2; margin-bottom: 4px;
+  }
+  .triage-row .sx-side .sx-note {
+    font-family: var(--mono); font-size: 11px; line-height: 1.4;
+    color: #C5CFDC;
+  }
+  .triage-row .sx-arrow {
+    text-align: center;
+    font-family: var(--mono); font-size: 22px; font-weight: 900;
+    color: var(--red);
+  }
+
+  /* Case study cards — bad → fix → output */
+  .case-grid { margin: 32px 0; display: flex; flex-direction: column; gap: 14px; }
+  .case-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 4px solid var(--red); border-radius: 4px;
+    padding: 20px 24px;
+  }
+  .case-card .cc-tag {
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  .case-card .cc-name {
+    font-size: 20px; font-weight: 700; color: var(--white);
+    margin-bottom: 10px;
+  }
+  .case-card .cc-when {
+    font-style: italic; color: #C5CFDC; font-size: 14px; line-height: 1.5;
+    border-left: 2px solid rgba(239,68,68,0.30); padding-left: 12px;
+    margin-bottom: 12px;
+  }
+  .case-card .cc-bad {
+    font-family: var(--mono); font-size: 13px; line-height: 1.6;
+    color: #9CA3AF;
+    background: rgba(107,114,128,0.08); padding: 10px 14px;
+    border-left: 2.5px solid var(--gray);
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .case-card .cc-bad::before {
+    content: '✗ BAD: ';
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--gray);
+    font-style: normal;
+  }
+  .case-card .cc-good {
+    font-family: var(--mono); font-size: 13px; line-height: 1.65;
+    color: var(--white);
+    background: rgba(239,68,68,0.10); padding: 10px 14px;
+    border-left: 2.5px solid var(--red);
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 8px;
+  }
+  .case-card .cc-good::before {
+    content: '✓ TRIAGED: ';
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--red);
+  }
+  .case-card .cc-good .em {
+    background: rgba(239,68,68,0.18);
+    color: var(--red-soft);
+    padding: 0 5px; border-radius: 2px;
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--red);
+  }
+  .case-card .cc-output {
+    font-family: var(--mono); font-size: 12px; color: var(--white);
+    background: rgba(34,197,94,0.06);
+    border-left: 2.5px solid var(--green);
+    padding: 10px 14px;
+    border-radius: 0 4px 4px 0;
+    font-style: italic;
+  }
+  .case-card .cc-output::before {
+    content: '↪ AI OUTPUT: ';
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--green);
+    font-style: normal;
+  }
+  .case-card .cc-output strong { color: var(--green-soft); font-weight: 800; font-style: normal; }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 16px; font-weight: 300; color: #C5CFDC;
+    line-height: 1.7; padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before {
+    content: '→'; color: var(--red);
+    font-family: var(--mono); font-size: 14px;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  .takeaway-box {
+    background: var(--surface); border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 4px; padding: 32px; margin: 48px 0;
+    position: relative; overflow: hidden;
+  }
+  .takeaway-box::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--red), transparent);
+  }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+
+  /* Vol 2 wrap card */
+  .vol-wrap {
+    background: var(--surface); border: 2px solid var(--red);
+    border-radius: 4px; padding: 32px; margin: 48px 0;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(239,68,68,0.20);
+  }
+  .vol-wrap .vw-stamp {
+    display: inline-block;
+    font-family: var(--mono); font-size: 11px; font-weight: 800;
+    color: #0D1117; background: var(--red);
+    padding: 5px 14px; border-radius: 3px;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    margin-bottom: 16px;
+    box-shadow: 0 0 14px rgba(239,68,68,0.55);
+  }
+  .vol-wrap .vw-title {
+    font-family: var(--display);
+    font-size: clamp(28px, 3.5vw, 44px);
+    text-transform: uppercase; letter-spacing: 1px; line-height: 1;
+    margin-bottom: 12px;
+  }
+  .vol-wrap .vw-title .accent { color: var(--red); }
+  .vol-wrap p {
+    font-size: 15px !important; margin-bottom: 0 !important;
+    color: #C5CFDC;
+  }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; position: relative; z-index: 1; }
+  .series-nav-card {
+    background: var(--surface); padding: 24px;
+    text-decoration: none; color: inherit;
+    transition: all 0.25s; border: 1px solid transparent;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .series-nav-card:hover { border-color: var(--red); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .nav-card-icon { font-size: 28px; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  .newsletter-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 80px 48px; position: relative; overflow: hidden;
+  }
+  .newsletter-section::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--red); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+
+  footer {
+    padding: 32px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--red); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider, .post-body { padding-left: 24px; padding-right: 24px; }
+    .stat-row, .triage-row { grid-template-columns: 1fr; }
+    .triage-row .sx-arrow { transform: rotate(90deg); }
+    .series-nav { grid-template-columns: 1fr; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html#series" class="nav-back">← Back to Series</a>
+</nav>
+
+<!-- POST HERO -->
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">30 / 30</span>
+    <span class="post-series">AI Prompting · Vol 2</span>
+    <span class="post-finale">★ Vol 2 Finale</span>
+    <span class="post-date">June 2026</span>
+  </div>
+
+  <h1 class="post-title">
+    Don't Retry.<br>
+    <span class="accent">Triage.</span>
+  </h1>
+
+  <p class="post-subtitle">
+    You're 5 retries deep on the same prompt and still getting garbage. Stop. The fix isn't another reword — it's a diagnosis. Three symptoms cover roughly 90% of failed AI replies, and each one has exactly one fix. One diagnosis, one re-prompt, 30 seconds. Here's the chart you can paste anywhere.
+  </p>
+
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<!-- VIDEO EMBED -->
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <!-- ============================================================
+         When the YouTube Short is published, replace the <video> below with:
+         <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+         ============================================================ -->
+    <video
+      src="../../Videos/AI_Prompt_Engineering_Vol2/20-prompt-triage/20-prompt-triage.mp4"
+      poster="../../Videos/AI_Prompt_Engineering_Vol1/01-role-prompting.png"
+      controls
+      playsinline
+      preload="metadata">
+    </video>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ARTICLE BODY -->
+<article class="post-body">
+
+  <!-- SECTION 1: WHY RETRYING IS THE WRONG MOVE -->
+  <div class="reveal">
+    <div class="section-label">Why The Retry Spiral Doesn't Work</div>
+    <h2 class="section-heading">Same Prompt Class, <span class="accent">Same Bug</span></h2>
+    <p>
+      Watch what most people do when ChatGPT returns a bad answer: <em>"Make it better."</em> <em>"More detail."</em> <em>"Different angle."</em> <em>"Try again."</em> Five rewordings of the same vague instruction, each producing a slightly different shade of the same generic output. Twelve minutes burned. Same bug.
+    </p>
+    <p>
+      The retry spiral feels like progress because you're <strong>doing something</strong>. You're typing. You're hitting send. The output is changing. But the prompt is the same shape — you're describing the same problem with different adjectives and the model is doing the same thing it always does with vague input. <strong>You can't fix the output without changing the input class.</strong>
+    </p>
+    <p>
+      The fix is to stop and diagnose. Read the bad output and ask: <em>why is it bad?</em> Not "what's wrong with the model" — what's missing from your prompt that the model needed to do better? The answer is almost always one of three things.
+    </p>
+  </div>
+
+  <!-- The math -->
+  <div class="stat-row reveal">
+    <div class="stat-card weak">
+      <div class="sc-tag">★ Retry blind</div>
+      <div class="sc-num">~12m</div>
+      <div class="sc-lbl">★ 5 rewordings · same bug</div>
+    </div>
+    <div class="stat-card strong">
+      <div class="sc-tag">★ Triage first</div>
+      <div class="sc-num">~30s</div>
+      <div class="sc-lbl">★ 1 diagnosis · 1 re-prompt</div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote reveal">
+    <p>"Don't retry — triage. Five blind rewordings beats one diagnosed fix. Same model. Same prompt class. Same bug. Every time."</p>
+  </div>
+
+  <!-- SECTION 2: THE THREE SYMPTOMS -->
+  <div class="reveal">
+    <div class="section-label">The Triage Chart</div>
+    <h2 class="section-heading">3 Symptoms. <span class="accent">3 Fixes.</span></h2>
+    <p>
+      Three failure modes cover the vast majority of bad AI replies. Memorize them in the order they're most likely to bite you. When the output comes back wrong, read it, match it to one of these three, and apply the one matching fix. Don't apply two. Don't reword. Diagnose, patch, ship.
+    </p>
+  </div>
+
+  <div class="triage-grid reveal">
+    <div class="triage-row">
+      <div class="sx-side symptom">
+        <div class="sx-lbl">★ 01 · Symptom</div>
+        <div class="sx-name">Vague Output</div>
+        <div class="sx-note">"helpful but generic." Sounds like Wikipedia. No concrete numbers, no named entities, no specific examples — the model is hedging because you let it.</div>
+      </div>
+      <div class="sx-arrow">→</div>
+      <div class="sx-side fix">
+        <div class="sx-lbl">✓ Fix · Add Specifics</div>
+        <div class="sx-name">Numbers · Names · Examples · Domain</div>
+        <div class="sx-note">Replace adjectives with quantities. Replace "audience" with a named persona. Replace "improve it" with "include this stat." Specifics force specifics.</div>
+      </div>
+    </div>
+    <div class="triage-row">
+      <div class="sx-side symptom">
+        <div class="sx-lbl">★ 02 · Symptom</div>
+        <div class="sx-name">Wrong Format</div>
+        <div class="sx-note">Wall of text when you wanted a table. Five bullets when you wanted JSON. 800 words when you wanted 80. The shape is wrong even if the content is right.</div>
+      </div>
+      <div class="sx-arrow">→</div>
+      <div class="sx-side fix">
+        <div class="sx-lbl">✓ Fix · Name The Shape</div>
+        <div class="sx-name">Table · Bullets · JSON · Markdown · Word Count</div>
+        <div class="sx-note">Be exact about the container. "2×4 markdown table." "Max 90 words." "Strict JSON, no prose." The model only delivers the shape you name.</div>
+      </div>
+    </div>
+    <div class="triage-row">
+      <div class="sx-side symptom">
+        <div class="sx-lbl">★ 03 · Symptom</div>
+        <div class="sx-name">Missed Context</div>
+        <div class="sx-note">The model didn't know about your stack, your brand voice, your data, your codebase, your previous decisions. It guessed — generically. Confidently. Wrong.</div>
+      </div>
+      <div class="sx-arrow">→</div>
+      <div class="sx-side fix">
+        <div class="sx-lbl">✓ Fix · Paste The Source</div>
+        <div class="sx-name">Docs · Screenshot · Prior Output · Examples</div>
+        <div class="sx-note">Stop describing context — paste it. Drop the doc, the screenshot, the previous reply, the brand guide. The model can read what you can read.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: THREE WORKED CASES -->
+  <div class="reveal">
+    <div class="section-label">Three Real Triages</div>
+    <h2 class="section-heading">Bad → <span class="accent">Triaged → Shipped</span></h2>
+    <p>
+      Three real prompts I've triaged in the last week. Each follows the same shape — bad input, one diagnosis, one fix applied. The output speaks for itself.
+    </p>
+  </div>
+
+  <div class="case-grid reveal">
+    <div class="case-card">
+      <div class="cc-tag">★ Case 01 · Vague output → + Specifics</div>
+      <div class="cc-name">"Tips for a strong opener"</div>
+      <div class="cc-when">Bad output reads like a marketing blog. Generic advice. No way to act on it. Diagnose: vague. Fix: add specifics.</div>
+      <div class="cc-bad">"Tips for a strong opener."</div>
+      <div class="cc-good">"Write a <span class="em">25-word LinkedIn opener</span> for <span class="em">Series A CTOs</span>, citing <span class="em">'40% activation lift'</span>. Direct tone."</div>
+      <div class="cc-output">"Hey [Name] — saw your <strong>Series A</strong> close. <strong>40% activation lift</strong> usually comes from post-Day-7 stick. We've shipped 12. <strong>15-min look this week?</strong>"</div>
+    </div>
+
+    <div class="case-card">
+      <div class="cc-tag">★ Case 02 · Wrong format → + Name the shape</div>
+      <div class="cc-name">"Compare these vendors"</div>
+      <div class="cc-when">Bad output is 6 paragraphs of prose. You can't scan it. Diagnose: wrong format. Fix: name the shape.</div>
+      <div class="cc-bad">"Compare these vendors."</div>
+      <div class="cc-good">"Return a <span class="em">2×4 markdown table</span>: <span class="em">price · UX · features · verdict</span>. <span class="em">No prose.</span>"</div>
+      <div class="cc-output">"| Vendor | Price | UX | Verdict |<br>| Acme | $$$ | 7/10 | skip |<br>| Bolt | $$ | 9/10 | <strong>★ buy</strong> |"</div>
+    </div>
+
+    <div class="case-card">
+      <div class="cc-tag">★ Case 03 · Missed context → + Paste source</div>
+      <div class="cc-name">"Improve this onboarding flow"</div>
+      <div class="cc-when">Bad output gives generic UX advice that doesn't fit. The model never saw the flow. Diagnose: missed context. Fix: paste the source.</div>
+      <div class="cc-bad">"Improve this onboarding flow."</div>
+      <div class="cc-good">"Here's our <span class="em">current 4-step flow</span> + <span class="em">screenshot</span>. <span class="em">Fix step 3.</span> Keep step 1 voice."</div>
+      <div class="cc-output">"Step 3 is the friction. <strong>Drop the email-check gate</strong>, auto-advance after upload. Voice match: kept the <strong>'You got this!'</strong> microcopy from step 1."</div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: WHY IT WORKS -->
+  <div class="reveal">
+    <div class="section-label">Why It Works</div>
+    <h2 class="section-heading">You're Changing The <span class="accent">Input Class</span></h2>
+    <p>
+      The retry spiral fails because every rewording is the same <em>kind</em> of prompt. You're varying the surface — different verbs, different adjectives — but the underlying structure is identical. Vague-in, vague-out. Format-blind in, format-blind out. The model is doing its job; you're handing it the same job five times.
+    </p>
+    <p>
+      Triage works because you're changing the input class. <strong>Add specifics</strong> shifts the prompt from "describe a topic" to "produce content with these exact ingredients." <strong>Name the shape</strong> shifts it from "answer a question" to "fill this container." <strong>Paste the source</strong> shifts it from "guess at my context" to "operate on this artifact." Each fix is a different category of instruction — and that's why the output category changes too.
+    </p>
+  </div>
+
+  <!-- TRY THESE -->
+  <div class="reveal">
+    <div class="section-label">Build The Habit</div>
+    <h2 class="section-heading">The 4-Step <span class="accent">Protocol</span></h2>
+    <ul class="try-list">
+      <li><strong>Read</strong> the bad output. Don't react. Just read it. ~5 seconds. What is wrong about it — vague, wrong shape, missing info? (Spoiler: it's one of those three.)</li>
+      <li><strong>Diagnose</strong>. Match the failure to one of the three symptoms. ~5 seconds. Don't try to find two — pick the dominant one.</li>
+      <li><strong>Patch</strong>. Apply the matching fix and only the matching fix. ~10 seconds. Add specifics, or name the shape, or paste the source. Resist the urge to triple-fix.</li>
+      <li><strong>Ship</strong>. One re-prompt. ~10 seconds. Don't reword the whole prompt — just add the patch on top of the original. Hit send.</li>
+      <li><strong>Audit your last week</strong>: how many times did you retry the same prompt 3+ times? Each one was a triage opportunity. Bookmark this page, paste the chart somewhere, and run the protocol on the next bad reply.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: COMMON MISTAKE -->
+  <div class="reveal">
+    <div class="section-label">Common Mistake</div>
+    <h2 class="section-heading">Don't Apply <span class="accent">All Three Fixes</span></h2>
+    <p>
+      The most common triage failure is shotgunning. You read the bad output, panic, and add specifics AND name the shape AND paste the source all in one re-prompt. Sometimes it works — but if it doesn't, you have no idea which fix did or didn't apply. You can't learn from a multi-fix re-prompt. <strong>One symptom, one fix.</strong> If you're wrong about the diagnosis, the next re-prompt is still under 30 seconds.
+    </p>
+    <p>
+      The other mistake is rewording the whole prompt from scratch when you only need to add one line. The original prompt isn't the problem — the missing piece is. Keep the original, append the fix. The model handles "old prompt + new constraint" better than "totally new prompt that's almost the same."
+    </p>
+  </div>
+
+  <!-- TAKEAWAY BOX -->
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The One Thing To Remember</div>
+    <p>
+      Stop retrying. <em>Start triaging.</em> Three symptoms cover almost every bad AI reply — vague, wrong format, missed context. Each has exactly one fix — add specifics, name the shape, or paste the source. One diagnosis, one re-prompt, 30 seconds. Beats the 12-minute spiral every single time, and you'll learn to spot the symptom before you even hit send next time.
+    </p>
+  </div>
+
+  <!-- VOL 2 WRAP -->
+  <div class="vol-wrap reveal">
+    <div class="vw-stamp">★ Vol 2 · Wrapped</div>
+    <h3 class="vw-title">20 Lessons. <span class="accent">One Series.</span></h3>
+    <p>
+      Vol 1 taught the fundamentals — role, few-shot, chain-of-thought, delimiters, RAG, iterative refinement. Vol 2 added the layers on top — context feeding, system prompts, temperature, formatting control, tree of thought, persona depth, prompt templates, multimodal, and now triage. Save the whole series. The next time you sit down to prompt, you'll have 30 patterns to pick from instead of a blank page.
+    </p>
+    <p style="margin-top: 16px; color: var(--red-soft); font-style: italic;">— Thank you for watching. See you in Vol 3.</p>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="29-multimodal-prompting.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div>
+      <div class="nav-card-icon">←</div>
+      <div class="nav-card-title">Multimodal Prompting</div>
+    </a>
+    <a href="../index.html#series" class="series-nav-card next">
+      <div class="nav-card-label">Back To Series</div>
+      <div class="nav-card-icon">★</div>
+      <div class="nav-card-title">All 20 Lessons</div>
+    </a>
+  </div>
+
+</article>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--red)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">
+      Vol 3 drops later this year. Get the breakdowns in your inbox first. No noise. Just signal — from a human who actually uses this stuff.
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

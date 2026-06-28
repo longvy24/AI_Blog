@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+  SEO META
+  ============================================================ -->
+<title>ChatGPT Keeps Forgetting What You Said — The Real Reason (And The Fix) | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEEwQzBBIiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjODRFMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="ChatGPT has no memory between prompts — there's no session, no recall, no history under the hood. Here's why context feeding works, why pasting everything fails (Context Rot), and the exact production stack behind the video.">
+<meta property="og:title" content="ChatGPT Keeps Forgetting What You Said — The Real Reason (And The Fix) | AIToolsDaily24">
+<meta property="og:description" content="The full breakdown of context feeding — by Ryu Vy.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0A0C0A;
+    --surface:  #111810;
+    --surface2: #161A14;
+    --border:   #1E2A1A;
+    --lime:     #84E000;
+    --lime-dim: rgba(132,224,0,0.1);
+    --lime-glow:rgba(132,224,0,0.05);
+    --white:    #F2F5EE;
+    --muted:    #5A6A52;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,12,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
+  .nav-back:hover { color: var(--lime); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; background: var(--lime-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .lime { color: var(--lime); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--lime); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: var(--bg); flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 340px; aspect-ratio: 9/16; }
+  .video-wrapper iframe, .video-wrapper video { width: 100%; height: 100%; border: none; display: block; background: #000; }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; }
+
+  /* SIDEBAR LAYOUT */
+  .content-with-sidebar { max-width: 1200px; margin: 0 auto; padding: 0 48px 80px; display: grid; grid-template-columns: 1fr 320px; gap: 48px; align-items: start; }
+  .sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 20px; }
+  .post-body-inner { min-width: 0; max-width: 100%; }
+  .post-body-inner p { font-size: 17px; font-weight: 300; color: #C8D4C0; line-height: 1.8; margin-bottom: 24px; }
+  .post-body-inner p strong { color: var(--white); font-weight: 500; }
+  .post-body-inner p em { color: var(--lime); font-style: italic; }
+  .post-body-inner a { color: var(--lime); text-decoration: none; border-bottom: 1px dotted rgba(132,224,0,0.4); }
+  .post-body-inner a:hover { border-bottom-style: solid; }
+
+  .post-body-inner .section-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .post-body-inner .section-label::before { content: '//'; opacity: 0.5; }
+  .post-body-inner .section-heading { font-family: var(--display); font-size: clamp(28px, 3.2vw, 44px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .post-body-inner .section-heading .lime { color: var(--lime); }
+
+  /* SIDEBAR CARDS */
+  .side-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 20px 22px; position: relative; }
+  .side-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .side-card .sc-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; opacity: 0.85; }
+  .side-card .sc-name { font-family: var(--display); font-size: 22px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--white); line-height: 1; margin-bottom: 14px; }
+  .side-card .sc-list { list-style: none; }
+  .side-card .sc-list li { padding: 6px 0; font-family: var(--mono); font-size: 12px; color: #C8D4C0; line-height: 1.5; border-bottom: 1px dashed var(--border); display: grid; grid-template-columns: 100px 1fr; gap: 8px; }
+  .side-card .sc-list li:last-child { border-bottom: none; }
+  .side-card .sc-list li .k { color: var(--muted); letter-spacing: 0.5px; }
+  .side-card .sc-list li .v { color: var(--white); }
+  .side-card .sc-list li .v.lime { color: var(--lime); }
+  .side-card .sc-stat { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; border-bottom: 1px dashed var(--border); }
+  .side-card .sc-stat:last-child { border-bottom: none; }
+  .side-card .sc-stat .num { font-family: var(--display); font-size: 26px; color: var(--lime); line-height: 1; letter-spacing: 0.5px; }
+  .side-card .sc-stat .lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .side-card .src-link { display: block; padding: 10px 0; border-bottom: 1px dashed var(--border); }
+  .side-card .src-link:last-child { border-bottom: none; }
+  .side-card .src-link .sl-title { font-family: var(--body); font-size: 13px; color: var(--white); font-weight: 500; line-height: 1.4; margin-bottom: 4px; }
+  .side-card .src-link .sl-author { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 1px; text-transform: uppercase; }
+
+  .pull-quote { border-left: 3px solid var(--lime); padding: 20px 28px; margin: 40px 0; background: var(--lime-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 18px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+  .pull-quote .cite { display: block; margin-top: 10px !important; font-size: 12px !important; color: var(--lime) !important; font-family: var(--mono); letter-spacing: 1.5px; text-transform: uppercase; font-style: normal !important; }
+
+  .prompt-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; position: relative; }
+  .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7; }
+  .prompt-block code { font-family: var(--mono); font-size: 13px; color: var(--white); line-height: 1.7; display: block; white-space: pre-wrap; }
+  .prompt-copy { position: absolute; top: 16px; right: 16px; background: var(--lime-dim); border: 1px solid rgba(132,224,0,0.2); color: var(--lime); font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+  .prompt-copy:hover { background: var(--lime); color: var(--bg); }
+
+  /* HONEST BOX — for "why this matters" callouts */
+  .honest-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; }
+  .honest-box .hb-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .honest-box p { font-size: 15px !important; font-weight: 300 !important; color: #C8D4C0 !important; line-height: 1.8 !important; margin-bottom: 12px !important; }
+  .honest-box p:last-child { margin-bottom: 0 !important; }
+  .honest-box p strong { color: var(--white); font-weight: 500; }
+
+  /* DATA TABLE — for context cost numbers */
+  .data-table { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin: 28px 0; overflow: hidden; }
+  .data-table-head { padding: 14px 20px; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; }
+  .data-table-head::before { content: '// '; opacity: 0.5; }
+  .data-row { display: grid; grid-template-columns: 1fr 100px 100px; gap: 16px; padding: 12px 20px; border-top: 1px solid var(--border); font-size: 14px; align-items: center; }
+  .data-row .what { color: #C8D4C0; }
+  .data-row .num { font-family: var(--mono); color: var(--lime); font-weight: 600; text-align: right; }
+  .data-row.head { background: rgba(0,0,0,0.2); font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+  .data-row.head .num { color: var(--muted); }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; font-weight: 300; color: #C8D4C0; line-height: 1.7; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before { content: '→'; color: var(--lime); font-family: var(--mono); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+  .try-list li strong { color: var(--white); font-weight: 500; }
+  .try-list li em { color: var(--lime); font-style: italic; }
+
+  /* FRAME-BY-FRAME ANALYSIS — for visual analysis section */
+  .frame-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--lime); border-radius: 0 4px 4px 0; padding: 18px 22px; margin: 16px 0; }
+  .frame-block .fb-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .frame-block p { font-size: 15px !important; margin-bottom: 0 !important; color: #C8D4C0 !important; line-height: 1.7 !important; }
+
+  /* PLATFORM DATA CARDS — analytics per platform */
+  .platform-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin: 20px 0; overflow: hidden; position: relative; }
+  .platform-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .platform-card-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .platform-card-head .platform-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .platform-card-head .platform-dot.yt { background: #ff0033; box-shadow: 0 0 8px rgba(255,0,51,0.4); }
+  .platform-card-head .platform-dot.tt { background: #25f4ee; box-shadow: 0 0 8px rgba(37,244,238,0.4); }
+  .platform-card-head .platform-dot.ig { background: #dd2a7b; box-shadow: 0 0 8px rgba(221,42,123,0.4); }
+  .platform-card-head .platform-name { font-family: var(--mono); font-size: 12px; color: var(--white); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+  .platform-card-head .platform-window { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-left: auto; }
+  .platform-card-head .platform-window.pending { color: rgba(132,224,0,0.55); border: 1px dashed rgba(132,224,0,0.35); padding: 3px 8px; border-radius: 2px; }
+  .platform-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 22px; padding: 20px; }
+  @media (max-width: 720px) { .platform-stats { grid-template-columns: 1fr; gap: 14px; } }
+  .platform-stats .stat-cell .value { font-family: var(--display); font-size: 30px; line-height: 1; letter-spacing: 0.5px; color: var(--white); margin-bottom: 4px; }
+  .platform-stats .stat-cell .value.primary { color: var(--lime); }
+  .platform-stats .stat-cell .value.muted { color: var(--muted); }
+  .platform-stats .stat-cell .label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+  .platform-note { padding: 14px 20px; background: rgba(0,0,0,0.20); border-top: 1px solid var(--border); font-family: var(--mono); font-size: 11px; color: #C8D4C0; line-height: 1.6; letter-spacing: 0.3px; }
+  .platform-note strong { color: var(--lime); font-weight: 600; }
+  .platform-note.pending { color: var(--muted); font-style: italic; }
+  .platform-card.is-pending { border-style: dashed; }
+  .platform-card.is-pending::before { background: linear-gradient(90deg, rgba(132,224,0,0.45), transparent); }
+  .platform-card.is-pending .platform-stats .value { color: var(--muted); font-size: 22px; }
+
+  /* Search queries list (TikTok-style) */
+  .search-queries { padding: 16px 20px 20px; border-top: 1px solid var(--border); }
+  .search-queries-label { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .search-queries-list { list-style: none; }
+  .search-queries-list li { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--border); font-family: var(--mono); font-size: 12px; }
+  .search-queries-list li:last-child { border-bottom: none; }
+  .search-queries-list li .query { color: #C8D4C0; }
+  .search-queries-list li .share { color: var(--lime); font-weight: 600; }
+
+  .takeaway-box { background: var(--surface); border: 1px solid rgba(132,224,0,0.25); border-radius: 4px; padding: 32px; margin: 48px 0; position: relative; overflow: hidden; }
+  .takeaway-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--lime), transparent); }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+  .takeaway-box p em { color: var(--lime); font-style: italic; }
+
+  /* SOURCES SECTION */
+  .sources-section { margin: 48px 0; }
+  .sources-section .sources-list { list-style: none; }
+  .sources-section .sources-list li { padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .sources-section .sources-list li:last-child { border-bottom: none; }
+  .sources-section .sources-list .src-num { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 1.5px; margin-right: 10px; }
+  .sources-section .sources-list .src-title { font-size: 15px; color: var(--white); font-weight: 500; }
+  .sources-section .sources-list .src-meta { display: block; margin-top: 4px; font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.5px; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; position: relative; z-index: 1; }
+  .series-nav-card { background: var(--surface); padding: 24px; text-decoration: none; color: inherit; transition: all 0.25s; border: 1px solid transparent; display: flex; flex-direction: column; gap: 8px; }
+  .series-nav-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .nav-card-icon { font-size: 28px; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--lime), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+
+  footer { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--border); }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--lime); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 1024px) {
+    .content-with-sidebar { grid-template-columns: 1fr; }
+    .sidebar { position: static; flex-direction: column; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider, .content-with-sidebar { padding-left: 24px; padding-right: 24px; }
+    .series-nav { grid-template-columns: 1fr; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+    .data-row { grid-template-columns: 1fr 80px 80px; gap: 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html#series" class="nav-back">← Back to Series</a>
+</nav>
+
+<!-- POST HERO -->
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">21 / 30</span>
+    <span class="post-series">AI Prompting · Vol 2</span>
+    <span class="post-date">May 2026</span>
+  </div>
+
+  <h1 class="post-title">
+    Give ChatGPT<br>
+    <span class="lime">A Memory</span>
+  </h1>
+
+  <p class="post-subtitle">
+    ChatGPT doesn't forget what you said — it never <em>knew</em> it. Under the hood there's no session, no recall, no history. Each prompt is processed against a single text blob called the context window, and the answer is: paste the previous output back in with one bridging line. Here's why that works, why pasting <strong>everything</strong> doesn't (Context Rot), and the full production stack behind the video.
+  </p>
+
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<!-- VIDEO EMBED -->
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <video
+      src="../../Videos/AI_Prompt_Engineering_Vol2/11-context-feeding/11-context-feeding.mp4"
+      poster="../../Videos/AI_Prompt_Engineering_Vol1/01-role-prompting.png"
+      controls
+      playsinline
+      preload="metadata">
+    </video>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="content-with-sidebar">
+
+<!-- ============ ARTICLE BODY ============ -->
+<article class="post-body-inner">
+
+  <!-- SECTION 1: THE FRUSTRATION -->
+  <div class="reveal">
+    <div class="section-label">The Frustration</div>
+    <h2 class="section-heading">ChatGPT Doesn't <span class="lime">Remember</span></h2>
+    <p>
+      Try this: ask ChatGPT to build you a three-pillar content strategy. You'll get a decent answer — SEO, social, email, the usual moves. Now in the very next message, type <em>"Now write the intro."</em> Watch what happens.
+    </p>
+    <p>
+      Most of the time, you'll get something like <strong>"What kind of intro? An intro for what?"</strong> The thing it just outlined two seconds ago is gone. Vanished. You're talking to someone with a severe case of amnesia.
+    </p>
+    <p>
+      Except it isn't amnesia. The model didn't forget. The model never <em>had</em> a memory of the previous message in the first place. Most explanations stop at "AI doesn't remember" and leave it there — which is true but useless, because it doesn't tell you what to do. The interesting bit is <strong>why</strong> it doesn't remember, and what that means for how you should write every prompt that depends on context.
+    </p>
+  </div>
+
+  <!-- SECTION 2: THE REAL REASON (NEW — sourced) -->
+  <div class="reveal">
+    <div class="section-label">The Real Reason</div>
+    <h2 class="section-heading">Stateless <span class="lime">By Design</span></h2>
+    <p>
+      An LLM is a function. Text in, text out. There's no database between calls. There's no session object. There's no log of what you asked yesterday — or two minutes ago. As Sean Warman puts it in <a href="https://sean-warman.medium.com/why-cant-ai-remember-anything-82f045320496" target="_blank" rel="noopener">"Why Can't AI Remember Anything?"</a>, the model uses <em>"a sliding window approach"</em> in which older parts of the conversation get "truncated or omitted" when the limit is hit. And as Nadia Makarevich frames it in <a href="https://www.developerway.com/posts/how-ai-remembers-and-forgets-part1" target="_blank" rel="noopener">"How AI Remembers and Why It Forgets"</a>, the situation is even simpler than that: there's no per-user state on the AI side at all.
+    </p>
+
+    <div class="pull-quote">
+      <p>"Context is the only thing the AI remembers about you. There is no memory on the AI side, there are no sessions, there is no ability to recall previous conversations in any form. What you send is what you have, always."</p>
+      <span class="cite">— Nadia Makarevich, developerway.com</span>
+    </div>
+
+    <p>
+      That's the whole truth, said plainly. Every time you press send in ChatGPT, the entire visible chat gets bundled into a single text blob (the <strong>context window</strong>) and shipped to the model. The model processes that blob — every token of it — and predicts the next batch of tokens. Then it forgets. The next message bundles everything again, including the model's last answer, and ships <em>that</em>. Each call is fresh. There's no "ChatGPT instance" carrying anything forward between them.
+    </p>
+    <p>
+      The "memory" features you see in modern chat apps — the ones where ChatGPT seems to remember your favorite food, or where Claude remembers what you uploaded to a project — are not memory in the architectural sense. Makarevich calls them <em>"really clever workarounds and sometimes genuine hacks"</em>. The app stores facts about you in a database. Then when you start a new chat, it stitches those facts into the system prompt before sending the conversation off. The model still doesn't remember anything. The <strong>application</strong> remembers, and re-injects.
+    </p>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote reveal">
+    <p>"You can't fix ChatGPT's memory. You can give it a new one every time you prompt."</p>
+  </div>
+
+  <!-- SECTION 3: THE FIX -->
+  <div class="reveal">
+    <div class="section-label">The Fix</div>
+    <h2 class="section-heading">Paste It Back. <span class="lime">Add One Line.</span></h2>
+    <p>
+      Context feeding is the user-side version of the same trick the app vendors use. You take the output you cared about from the previous message — the strategy, the outline, the character bio, whatever — and you <strong>paste it back into your next prompt verbatim.</strong> Then you add one bridging line that tells the model what to do with it.
+    </p>
+    <p>
+      That bridging line is the whole trick. Something like <em>"Using the strategy above, now write the intro."</em> or <em>"Using this character bio, write the next scene."</em> It's not glamorous. It takes maybe ten seconds. And it changes the model's output from generic to perfectly continuous with what came before — because the relevant context is now in <strong>this</strong> prompt, where the model can't possibly miss it.
+    </p>
+  </div>
+
+  <!-- PROMPT BLOCK -->
+  <div class="prompt-block reveal">
+    <div class="prompt-block-label">// The Template</div>
+    <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+    <code>[paste the previous output here in full]
+
+Using the [strategy / outline / draft / bio] above, now [your next task].
+Keep it consistent with what's already established.</code>
+  </div>
+
+  <!-- SECTION 4: WHY IT WORKS UNDER THE HOOD -->
+  <div class="reveal">
+    <div class="section-label">Why It Works Under The Hood</div>
+    <h2 class="section-heading">You're Front-Loading <span class="lime">The Context</span></h2>
+    <p>
+      A long ChatGPT chat already has everything you've said scattered through history. So why does pasting the same thing back in <em>again</em> change the output? Two reasons.
+    </p>
+    <p>
+      First: in a long chat, the application is quietly summarizing or truncating older messages on your behalf — that's the sliding window Warman describes — and the model only sees what survives the trimming. Whatever the model is currently producing references whatever has not yet been trimmed. By pasting the source material back into your latest prompt, you make sure it survives. The context the model can't reach is the context that doesn't influence the output.
+    </p>
+    <p>
+      Second: even when an older message <em>is</em> still in the window, attention to it is weak. Models attend more strongly to the most recent tokens — the ones at the bottom of the prompt. Makarevich notes the <strong>U-shaped performance curve</strong> documented in recent research: models handle text at the beginning of a long context well, handle text at the end well, and struggle in the middle. Pasting the relevant material right above your instruction puts it where the model is sharpest.
+    </p>
+    <p>
+      The bridging line matters because of how the model decides what to do. Without it, the pasted block looks like raw material with no task attached — the model often responds by summarizing it. With the bridging line, the prompt is a complete instruction: <em>here's the source material, here's what to do with it</em>. Clean task. Clean output.
+    </p>
+  </div>
+
+  <!-- SECTION 5: WHY YOU DON'T JUST PASTE EVERYTHING — CONTEXT ROT -->
+  <div class="reveal">
+    <div class="section-label">The Catch</div>
+    <h2 class="section-heading">Why You Don't Just <span class="lime">Paste Everything</span></h2>
+    <p>
+      Reasonable next question: if context is the only thing the model remembers, why not paste in <strong>everything</strong> at the start of every chat — every doc, every prior response, every brand guideline, the whole pile? The answer is that more context makes the model worse, not better. There's even a name for it: <strong>Context Rot</strong>.
+    </p>
+    <p>
+      Makarevich tested this directly. She injected real source material into prompts and measured what came back. The economics alone are punishing:
+    </p>
+
+    <div class="data-table">
+      <div class="data-table-head">Context size vs. cost · Claude Sonnet 4.6 baseline (per Makarevich)</div>
+      <div class="data-row head">
+        <div class="what">Prompt</div>
+        <div class="num">Tokens</div>
+        <div class="num">Latency</div>
+      </div>
+      <div class="data-row">
+        <div class="what">Short conversation ("Recommend dinner")</div>
+        <div class="num">184</div>
+        <div class="num">1.5 s</div>
+      </div>
+      <div class="data-row">
+        <div class="what">5 full articles injected</div>
+        <div class="num">~50,256</div>
+        <div class="num">8 s</div>
+      </div>
+      <div class="data-row">
+        <div class="what">20 full articles injected</div>
+        <div class="num">~112,184</div>
+        <div class="num">15 s</div>
+      </div>
+    </div>
+
+    <p>
+      Cost is the easy part. The harder part is quality. Even though current frontier models advertise context windows of 1 million tokens (some boast 10 million), Makarevich's experiments show degradation starting much earlier — often as soon as <strong>10,000 tokens</strong>, well below the advertised ceiling. In one of her tests, she dropped twenty of her own articles into a single conversation (about 130k tokens — only 65% of the model's stated limit) and asked the model to summarize each. Claude returned 16 to 19 summaries instead of 20, dropping articles from the <em>middle</em> of the list. It leaked content between articles. It hallucinated specific numbers. In one run, it added an entirely fabricated 21st article — the title was real, pulled from her older blog posts that weren't in the prompt, presumably from the model's training data. The summary was made up from scratch.
+    </p>
+
+    <div class="honest-box reveal">
+      <div class="hb-label">// What This Means For Context Feeding</div>
+      <p>
+        <strong>Paste back what's relevant to this task. Not the whole chat.</strong> If the model needs the character bio, paste the character bio. If it needs the outline, paste the outline. Don't bury the actual instruction under twelve pages of source material you don't need on this turn — the model will get distracted, drop pieces, and invent things to fill the gaps. The point of context feeding is to <em>concentrate</em> the relevant material at the bottom of the prompt, not to dump everything you've ever discussed back at the model.
+      </p>
+      <p>
+        Makarevich's blunter version of the same advice: <em>"Don't argue with the robot, it will pollute the Context even further. Just start a new session."</em>
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION 6: REAL USE CASES -->
+  <div class="reveal">
+    <div class="section-label">Real Use Cases</div>
+    <h2 class="section-heading">Where I Use This <span class="lime">Every Day</span></h2>
+    <ul class="try-list">
+      <li><strong>Story writing.</strong> Paste a character bio back in before every new scene. Keeps the character in character. <em>The model never has to "remember" the bio — it has it right above the instruction every single time.</em></li>
+      <li><strong>Long-form articles.</strong> Paste the outline back in before drafting each section. The article doesn't drift off-topic because the structure is sitting in the prompt the model is currently looking at.</li>
+      <li><strong>Meeting follow-ups.</strong> Paste the meeting summary back in before drafting the action plan. Nothing gets dropped because the source is present in the same call as the task.</li>
+      <li><strong>Brand-voice consistency.</strong> Paste two or three example captions back in before asking for the next one. The voice stays uniform because the examples carry the voice signal.</li>
+      <li><strong>Multi-step research.</strong> Paste the prior research summary back in before asking the next question. Each step builds on what came before — not on the model's drifting recollection of what came before.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 7: BEHIND THE SCENES — PRODUCTION STACK -->
+  <div class="reveal">
+    <div class="section-label">Behind The Scenes</div>
+    <h2 class="section-heading">Production <span class="lime">Stack Used</span></h2>
+    <p>
+      Worth noting up front: this video is the first in a series built on a completely different production stack than the first ten. The first ten videos (Vol 1) were generated end-to-end by <strong>Keyvello</strong> — AI script, AI voiceover, AI visuals, AI captions. That approach produced 30+ documented errors across the series. Vol 2 swapped the entire pipeline.
+    </p>
+    <p>
+      Every video in Vol 2 (V21 through V30) is built in <strong>HyperFrames</strong> — HTML + CSS + GSAP compositions that render deterministically to MP4. The text is hand-written. The voiceover is a local TTS model. Nothing is hallucinated, because nothing is being generated by a model at render time. Here are the exact settings used for this video, and every video in Vol 2:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// HyperFrames Production Settings · V21</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>Composition framework: HyperFrames 0.6.20
+Animation library:     GSAP 3.14.2 (paused timeline, seek-driven)
+Styling runtime:       Tailwind v4.2.4 (browser, no build step)
+Voice synthesis:       Kokoro · voice="am_adam" · speed 1.0
+Audio QA:              Whisper · model="small.en"
+Background music:      Infraction · "Never Leave" · volume 0.15
+Composition size:      1080 × 1920 (vertical 9:16)
+Frame rate:            30 fps · ~1110 frames per render
+Output format:         H.264 MP4 · "high" quality preset
+Renders per variant:   ~90s with 5 parallel workers
+Variants per brief:    3 (A original / B app-chrome / C illustrated)</code>
+    </div>
+
+    <p>
+      And here is the actual VO script that drove this video — the 5 lines that Kokoro turned into voice files, then HyperFrames timed against the visuals:
+    </p>
+
+    <div class="prompt-block reveal">
+      <div class="prompt-block-label">// VO Script (Kokoro Input · 5 lines)</div>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+      <code>VO 1 (hook, 0.2 – 3.9 s):
+"ChatGPT keeps forgetting what you said? Here's the one-line fix."
+
+VO 2 (anatomy, 5.7 – 11.0 s):
+"AI has no memory between prompts. Each message starts fresh. The fix: feed the previous output back in."
+
+VO 3 (3 use cases, 12.6 – 18.0 s):
+"Use it for story writing, long-form articles, and meeting follow-ups. Paste the previous output, add one bridging line."
+
+VO 4 (principle, 21.0 – 23.5 s):
+"Stop expecting AI to remember. Start handing it the memory."
+
+VO 5 (CTA, 25.7 – 29.3 s):
+"Save this. Try it tonight. Follow for the full series."</code>
+    </div>
+
+    <p>
+      The Vol 1 vs Vol 2 difference matters because it's why this blog post can confidently say "the script says X" and have you trust it. The Vol 1 scripts were AI-generated and shipped without a tight review loop, which is why the blog posts for those videos had to <em>correct</em> the videos. The Vol 2 scripts are hand-written, transcribed back with Whisper for QA, and every claim in the video is traceable to a source.
+    </p>
+
+    <div class="honest-box reveal">
+      <div class="hb-label">// Why This Section Exists</div>
+      <p>
+        Most "how I made this video" posts skip past the actual production config. They show the finished video and explain the concept. They never tell you the exact tools, the exact prompts, or the exact decisions in between. That gap is what these posts are here to fill.
+      </p>
+      <p>
+        The settings above are real. The script above is real. The render times are real. Nothing has been cleaned up or made to look smarter in hindsight. If the video looks better than the Vol 1 videos, it's because the stack changed — and the stack is mostly free to set up: HyperFrames, GSAP, Tailwind, Kokoro, Whisper, and the agent skills are all open source or free-tier. There is no add-on license to buy.
+      </p>
+      <p>
+        The honest catch: <strong>the part that drives the workflow isn't free.</strong> Each video in Vol 2 was authored inside Claude Code with a <strong>Claude Max subscription</strong>, and every iteration — scene layout, GSAP timing fixes, lint-error chasing, blog drafts — burns tokens against that plan's budget. In practice that means roughly <em>one video build per working session</em> before the rate limit catches up, not "a lot of videos in an afternoon". If you're rebuilding this stack on a pay-as-you-go API key instead of a flat subscription, the dollar cost rises with every rebuild round. Worth knowing before you start.
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION 8: VISUAL ANALYSIS -->
+  <div class="reveal">
+    <div class="section-label">Visual Analysis</div>
+    <h2 class="section-heading">What V21 <span class="lime">Actually Shows</span></h2>
+    <p>
+      A direct walk-through of the embedded video (V21A · the original aesthetic, lime color scheme), scene by scene. The whole render runs 37 seconds at 30 fps.
+    </p>
+
+    <div class="frame-block">
+      <div class="fb-label">// Scene 1 (0.0 – 5.5 s) · The Frustration</div>
+      <p>Hook scene. Two prompt cards appear side by side. The left card ("PROMPT 1") shows a generic "Build me a 3-pillar content strategy" request. The right card ("ANSWER LOST") shows the follow-up "Now write the intro" returning a confused AI response. The visual makes the failure mode legible at a glance: <em>same conversation, second prompt, model has lost the plot.</em></p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// Scene 2 (5.5 – 13.0 s) · The Fix</div>
+      <p>"PASTE OUTPUT. ADD ONE LINE." takes the screen. A revised prompt card shows the paste-back pattern with the actual content visible — <em>[paste] / "Pillar 1: SEO. Pillar 2: Social. Pillar 3: Email…"</em> — and the bridging line <em>"Using the strategy above, now write the intro."</em> A "CONSISTENT OUTPUT" card below shows what the model returns: <em>"Most marketing dies on one channel. A 3-pillar approach — SEO, social, and email — compounds because each feeds the next…"</em> Note the footnote: <em>↪ picks up exactly where it left off.</em></p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// Scene 3 (13.0 – 20.5 s) · 3 Real Use Cases</div>
+      <p>Three numbered template rows reveal in sequence — one for story writing, one for long-form articles, one for meeting follow-ups. Each row shows the same shape: a small example of the pasted material, the bridging line, the model's continuous output. The visual repetition reinforces that <em>this is one pattern, used three ways</em>, not three different tricks.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// Scene 4 (20.5 – 26.0 s) · The Principle</div>
+      <p>A single rule card slams in: <em>"Stop expecting AI to remember. Start handing it the memory."</em> Beneath the headline, a small stat — <em>"Context window is everything the AI knows about you."</em> No movement, no fade — held still for 3 seconds while the VO lands the principle.</p>
+    </div>
+
+    <div class="frame-block">
+      <div class="fb-label">// Scene 5 (25.5 – 37.0 s) · The CTA</div>
+      <p>Standard closer. "Save this. Try it tonight." in the hero. Follow / Save pills below. Final mark at the bottom: <em>"Video 11 of 20 · Variation A"</em>. Music fades from volume 0.15 to 0 over the last 3.5 seconds. Final cut to black at 35.8 s.</p>
+    </div>
+
+    <p>
+      V21B (the app-chrome variant) and V21C (the illustrated worksheet variant) cover the same 5-scene structure with completely different visual languages — B reframes everything as a chat-app mockup, C reframes it as a lesson-page diagram. Same VO, same brief, three independent renders. The Vol 2 retrospective has more on why we ship three variants per video.
+    </p>
+  </div>
+
+  <!-- SECTION 8.5: REAL PLATFORM DATA — V11 BENCHMARK -->
+  <div class="reveal">
+    <div class="section-label">Real Platform Data</div>
+    <h2 class="section-heading">What The Last <span class="lime">Comparable Video</span> Did</h2>
+    <p>
+      V21 hasn't been published yet at the time of writing, so it has no platform data of its own. But the closest cousin in this catalog — <strong>V11 "Role-Based Prompting"</strong> (the AI Prompt Engineering Vol 1 opener, re-released on TikTok as <em>"Stop Using ChatGPT Wrong — One Fix Changes Everything"</em>) — has been live since May 20, 2026. Same channel, same niche, same 30-second short-form shape, same target audience. It's the benchmark V21 has to clear.
+    </p>
+    <p>
+      Below is the actual cross-platform data for that video, pulled from each platform's analytics export between <strong>May 9 and June 6, 2026</strong>. No rounding, no estimation. The honest version, including the places where it didn't work.
+    </p>
+
+    <!-- TikTok -->
+    <div class="platform-card">
+      <div class="platform-card-head">
+        <span class="platform-dot tt"></span>
+        <span class="platform-name">TikTok</span>
+        <span class="platform-window">Posted 5/21/2026 · 28-day window</span>
+      </div>
+      <div class="platform-stats">
+        <div class="stat-cell"><div class="value primary">189</div><div class="label">Video Views</div></div>
+        <div class="stat-cell"><div class="value">12m 11s</div><div class="label">Total Play Time</div></div>
+        <div class="stat-cell"><div class="value">3.91s</div><div class="label">Average Watch Time</div></div>
+        <div class="stat-cell"><div class="value muted">0.5%</div><div class="label">Watched Full Video</div></div>
+        <div class="stat-cell"><div class="value">3 / 1 / 4</div><div class="label">Likes / Comments / Saves</div></div>
+        <div class="stat-cell"><div class="value muted">0</div><div class="label">New Followers</div></div>
+        <div class="stat-cell"><div class="value">94.1%</div><div class="label">From For You</div></div>
+        <div class="stat-cell"><div class="value">170 / 98%</div><div class="label">Total Viewers · Non-followers</div></div>
+      </div>
+      <div class="search-queries">
+        <div class="search-queries-label">// Top Search Queries (5-way tie at 11.1% each)</div>
+        <ul class="search-queries-list">
+          <li><span class="query">Uworld question chatgpt prompt</span><span class="share">11.1%</span></li>
+          <li><span class="query">does persona prompting actually work</span><span class="share">11.1%</span></li>
+          <li><span class="query">prompt to make chatgpt give direct answer</span><span class="share">11.1%</span></li>
+          <li><span class="query">an line trick</span><span class="share">11.1%</span></li>
+          <li><span class="query">chatgpt close change prompt</span><span class="share">11.1%</span></li>
+        </ul>
+      </div>
+      <div class="platform-note">
+        <strong>Age skew:</strong> 35–44 (29%) · 45–54 (28%) · 55+ (26%) · 25–34 (14%) · 18–24 (3%). The viewer base is older than the TikTok median by a wide margin — this is a work-tools audience, not an entertainment one.
+      </div>
+      <div class="platform-note">
+        <strong>Gender:</strong> 83% male · 17% female · 0% other. <strong>Top locations:</strong> United States 84.5% · Mexico 2.1% · Australia / Belgium / Germany / Philippines / Pakistan each 1.1% · Others 6.4%. The audience is overwhelmingly US-based and overwhelmingly male — both signals to lean into for caption phrasing and example choice on V21.
+      </div>
+    </div>
+
+    <!-- YouTube -->
+    <div class="platform-card">
+      <div class="platform-card-head">
+        <span class="platform-dot yt"></span>
+        <span class="platform-name">YouTube Shorts</span>
+        <span class="platform-window">5/9 – 6/5/2026</span>
+      </div>
+      <div class="platform-stats">
+        <div class="stat-cell"><div class="value primary">24</div><div class="label">Total Views</div></div>
+        <div class="stat-cell"><div class="value">57</div><div class="label">Impressions</div></div>
+        <div class="stat-cell"><div class="value muted">0%</div><div class="label">Impressions CTR</div></div>
+        <div class="stat-cell"><div class="value">~7m 10s</div><div class="label">Total Watch Time</div></div>
+        <div class="stat-cell"><div class="value muted">0</div><div class="label">New Subscribers</div></div>
+        <div class="stat-cell"><div class="value">11 / 7 / 5</div><div class="label">Top Days (5/20, 5/21, 5/24)</div></div>
+      </div>
+      <div class="platform-note">
+        <strong>What this tells us:</strong> YouTube served the video <strong>57 impressions</strong> and got zero click-throughs from any of them. Distribution wasn't the problem — the thumbnail and title combination didn't earn a single click. The 24 views are almost certainly self-traffic and direct shares, not algorithm-driven.
+      </div>
+    </div>
+
+    <!-- Instagram (live data) -->
+    <div class="platform-card">
+      <div class="platform-card-head">
+        <span class="platform-dot ig"></span>
+        <span class="platform-name">Instagram Reels</span>
+        <span class="platform-window">28-day window</span>
+      </div>
+      <div class="platform-stats">
+        <div class="stat-cell"><div class="value primary">121</div><div class="label">Views</div></div>
+        <div class="stat-cell"><div class="value">102</div><div class="label">Accounts Reached</div></div>
+        <div class="stat-cell"><div class="value muted">0</div><div class="label">Likes / Comments / Saves / Shares</div></div>
+        <div class="stat-cell"><div class="value muted">0</div><div class="label">Profile Activity</div></div>
+        <div class="stat-cell"><div class="value muted">0</div><div class="label">Follows From Reel</div></div>
+        <div class="stat-cell"><div class="value">99.2%</div><div class="label">From Non-followers</div></div>
+      </div>
+      <div class="platform-note">
+        <strong>The flattest of the three.</strong> 121 views reached 102 unique accounts — so each viewer rewatched about 1.2× on average. After that there's nothing: <strong>zero likes, zero comments, zero saves, zero shares, zero profile visits, zero follows.</strong> Just 0.8% of viewers were already following. The video reached people; none of them engaged or moved an inch closer to the channel.
+      </div>
+    </div>
+
+    <div class="honest-box reveal">
+      <div class="hb-label">// What This Data Says About V21</div>
+      <p>
+        The TikTok numbers contain the only real positive signal: <strong>4 saves on 189 views</strong> is a 2.1% save rate, and on TikTok, saves correlate strongly with people who plan to act on the content later. Five separate search queries also surfaced the video on intent-loaded searches like <em>"does persona prompting actually work"</em> and <em>"prompt to make chatgpt give direct answer"</em> — those are people typing the question into the bar, not idly scrolling. That's the audience V21 has to convert from "save for later" to "follow the channel."
+      </p>
+      <p>
+        The hard signals across all three platforms: <strong>0.5% TikTok completion</strong> (99.5% of viewers dropped before the end), <strong>0% YouTube CTR on 57 impressions</strong> (the title-thumbnail pair didn't earn a single click), and <strong>Instagram's perfect zero</strong> — 121 views, 102 accounts reached, and <em>zero</em> likes, comments, saves, shares, profile visits, or follows. Across <strong>334 cumulative views in 28 days</strong> the video produced <strong>0 new followers anywhere</strong>. The video taught a useful trick and the audience left without registering whose channel it was.
+      </p>
+      <p>
+        V21's launch has to fix three different things in the same render: the <strong>YouTube thumbnail</strong> (or it'll get the same impressions-with-no-clicks treatment), the <strong>last-2-second follow CTA</strong> (or it'll get the same zero-followers result), and the <strong>Instagram hook</strong> specifically — the platform where audience reach exists but engagement is flatlined. The Vol 2 3-variant approach (A original / B app-chrome / C illustrated) is partly a response to this: if V11's single render couldn't convert on any platform, maybe one of three differently-framed shorts will land on the one platform that fits it.
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION 9: COMMON MISTAKE -->
+  <div class="reveal">
+    <div class="section-label">Common Mistake</div>
+    <h2 class="section-heading">Don't Just <span class="lime">Paste And Hope</span></h2>
+    <p>
+      The biggest user-side mistake is pasting the previous output back in but skipping the bridging line. They assume the model will figure out what to do with it. Sometimes it does. Mostly it doesn't — you'll get back something that summarizes the pasted block instead of building on it.
+    </p>
+    <p>
+      The bridging line is non-negotiable. It has to explicitly tell the model what to do <strong>with</strong> the context, not just acknowledge that the context exists. <em>"Using the X above, now Y"</em> is the cleanest pattern. Five words, every time.
+    </p>
+    <p>
+      The other mistake is the Context Rot one — pasting too much. If the prompt-plus-paste is so long that the actual instruction is buried in the middle, you're working against the U-shaped attention curve and the model will quietly start missing things. If you're routinely above 10,000 tokens per turn and the answers are getting flaky, the fix isn't a bigger paste. It's a fresh chat with only the material this specific question needs.
+    </p>
+  </div>
+
+  <!-- TAKEAWAY -->
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The One Thing To Remember</div>
+    <p>
+      ChatGPT was never remembering. The context window is the only memory there is, and you control what's in it. <em>Hand the model the memory at the top of every prompt that needs continuity</em> — paste the relevant prior output back in, add a one-line bridging instruction, and keep the dump tight enough that the actual task still sits at the bottom where the model attends hardest. You'll never lose the thread again, and you won't trip into Context Rot trying.
+    </p>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="sources-section reveal">
+    <div class="section-label">Sources</div>
+    <h2 class="section-heading">Where The <span class="lime">Numbers Came From</span></h2>
+    <ul class="sources-list">
+      <li>
+        <span class="src-num">[1]</span>
+        <a href="https://sean-warman.medium.com/why-cant-ai-remember-anything-82f045320496" target="_blank" rel="noopener" class="src-title">Why Can't AI Remember Anything?</a>
+        <span class="src-meta">Sean Warman · Medium · 2024 — sliding window, statelessness, training-as-compilation framing</span>
+      </li>
+      <li>
+        <span class="src-num">[2]</span>
+        <a href="https://www.developerway.com/posts/how-ai-remembers-and-forgets-part1" target="_blank" rel="noopener" class="src-title">How AI Remembers and Why It Forgets: Part 1. The Context Problem</a>
+        <span class="src-meta">Nadia Makarevich · developerway.com · April 2026 — context window costs (184 / 50k / 112k tokens), Context Rot experiments, U-shaped curve, 10k-token degradation threshold</span>
+      </li>
+    </ul>
+    <p style="margin-top: 24px; font-size: 14px; color: var(--muted);">
+      All other technical specifics — production stack, render times, VO script, scene breakdowns — are first-hand from the AIToolsDaily24 build for V21. The HyperFrames CLI is open source at <a href="https://hyperframes.heygen.com/" target="_blank" rel="noopener">hyperframes.heygen.com</a>.
+    </p>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="../retrospectives/ai-tools.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div>
+      <div class="nav-card-icon">←</div>
+      <div class="nav-card-title">Vol 1 Retro</div>
+    </a>
+    <a href="22-system-prompts.html" class="series-nav-card next">
+      <div class="nav-card-label">Next Up</div>
+      <div class="nav-card-icon">⚙️</div>
+      <div class="nav-card-title">System Prompts</div>
+    </a>
+  </div>
+
+</article>
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar">
+
+  <!-- Production stack -->
+  <div class="side-card">
+    <div class="sc-label">// Production Stack</div>
+    <div class="sc-name">HyperFrames<br>+ GSAP</div>
+    <ul class="sc-list">
+      <li><span class="k">Framework</span><span class="v">HyperFrames 0.6.20</span></li>
+      <li><span class="k">Animation</span><span class="v">GSAP 3.14.2</span></li>
+      <li><span class="k">Styling</span><span class="v">Tailwind v4.2.4</span></li>
+      <li><span class="k">Voice</span><span class="v lime">Kokoro · am_adam</span></li>
+      <li><span class="k">Audio QA</span><span class="v">Whisper small.en</span></li>
+      <li><span class="k">Music</span><span class="v">Infraction · 0.15 vol</span></li>
+      <li><span class="k">Format</span><span class="v">1080×1920 · 30fps</span></li>
+      <li><span class="k">Render</span><span class="v">~90s · 5 workers</span></li>
+    </ul>
+  </div>
+
+  <!-- V21 quick stats -->
+  <div class="side-card">
+    <div class="sc-label">// V21 Renders</div>
+    <div class="sc-name">3 Variants<br>Per Brief</div>
+    <div class="sc-stat"><span class="num">37s</span><span class="lbl">Runtime each</span></div>
+    <div class="sc-stat"><span class="num">3</span><span class="lbl">Aesthetics (A / B / C)</span></div>
+    <div class="sc-stat"><span class="num">5</span><span class="lbl">VO files per render</span></div>
+    <div class="sc-stat"><span class="num">0</span><span class="lbl">Hallucinations</span></div>
+  </div>
+
+  <!-- V11 benchmark performance -->
+  <div class="side-card">
+    <div class="sc-label">// V11 Benchmark</div>
+    <div class="sc-name">The Bar<br>V21 Has<br>To Clear</div>
+    <div class="sc-stat"><span class="num">189</span><span class="lbl">TT views · 28 days</span></div>
+    <div class="sc-stat"><span class="num">121</span><span class="lbl">IG views · 28 days</span></div>
+    <div class="sc-stat"><span class="num">24</span><span class="lbl">YT views · 28 days</span></div>
+    <div class="sc-stat"><span class="num">334</span><span class="lbl">Cumulative views</span></div>
+    <div class="sc-stat"><span class="num">0</span><span class="lbl">New followers (all 3)</span></div>
+  </div>
+
+  <!-- Sources -->
+  <div class="side-card">
+    <div class="sc-label">// Sources Cited</div>
+    <div class="sc-name">Primary<br>Reading</div>
+    <a href="https://sean-warman.medium.com/why-cant-ai-remember-anything-82f045320496" target="_blank" rel="noopener" class="src-link" style="text-decoration:none;">
+      <div class="sl-title">Why Can't AI Remember Anything?</div>
+      <div class="sl-author">Sean Warman · Medium</div>
+    </a>
+    <a href="https://www.developerway.com/posts/how-ai-remembers-and-forgets-part1" target="_blank" rel="noopener" class="src-link" style="text-decoration:none;">
+      <div class="sl-title">How AI Remembers and Why It Forgets — Part 1</div>
+      <div class="sl-author">Nadia Makarevich · developerway.com</div>
+    </a>
+  </div>
+
+</aside>
+
+</div><!-- /content-with-sidebar -->
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--lime)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">
+      New AI breakdowns in your inbox. No noise. Just signal — from a human who actually uses this stuff.
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

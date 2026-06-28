@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+  SEO META
+  ============================================================ -->
+<title>Stop Typing 5-Paragraph Prompts — AI Can See Your Screen Now | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMEQxMTE3IiByeD0iOCIvPgogIDx0ZXh0IHg9IjMyIiB5PSI0NiIgZm9udC1mYW1pbHk9IkFyaWFsIEJsYWNrLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjM4IiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjMzhCREY4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iLTEiPkFJPC90ZXh0Pgo8L3N2Zz4=">
+<meta name="description" content="You're typing essays to describe what's on your screen. ChatGPT, Claude, and Gemini can just look at it. Drop the screenshot, type one line, ship. ~340 tokens of prose vs ~18 tokens + one image. 40% accuracy vs 95%. Here's the upgrade.">
+<meta property="og:title" content="Stop Typing 5-Paragraph Prompts — AI Can See Your Screen Now | AIToolsDaily24">
+<meta property="og:description" content="The full breakdown of multimodal prompting — by Ryu Vy.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0D1117;
+    --surface:  #141A22;
+    --surface2: #181F29;
+    --border:   #1F2A38;
+    --blue:     #38BDF8;
+    --blue-soft:#7dd3fc;
+    --blue-dim: rgba(56,189,248,0.1);
+    --blue-glow:rgba(56,189,248,0.05);
+    --white:    #EEF2F8;
+    --muted:    #5A6A7E;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(13,17,23,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    color: var(--blue); letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
+  }
+  .nav-back {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase;
+    transition: color 0.2s; display: flex; align-items: center; gap: 8px;
+  }
+  .nav-back:hover { color: var(--blue); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num {
+    font-family: var(--mono); font-size: 11px; color: var(--blue);
+    letter-spacing: 3px; text-transform: uppercase;
+    background: var(--blue-dim); padding: 4px 12px;
+    border-radius: 2px; border: 1px solid rgba(56,189,248,0.2);
+  }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-left: auto; }
+
+  .post-title {
+    font-family: var(--display);
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 0.93; letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .post-title .accent { color: var(--blue); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted); line-height: 1.6; max-width: 600px; margin-bottom: 32px; }
+
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar {
+    width: 36px; height: 36px; background: var(--blue); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 16px; color: var(--bg);
+    flex-shrink: 0;
+  }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper {
+    position: relative; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; overflow: hidden;
+    max-width: 340px; aspect-ratio: 9/16;
+  }
+  .video-wrapper iframe, .video-wrapper video {
+    width: 100%; height: 100%; border: none; display: block; background: #000;
+  }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 3px; }
+
+  .post-body { max-width: 860px; margin: 0 auto; padding: 0 48px 80px; }
+  .section-label {
+    font-family: var(--mono); font-size: 11px; color: var(--blue);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading {
+    font-family: var(--display);
+    font-size: clamp(32px, 4vw, 52px);
+    text-transform: uppercase; letter-spacing: 1px; line-height: 0.95;
+    margin-bottom: 24px;
+  }
+  .section-heading .accent { color: var(--blue); }
+
+  .post-body p { font-size: 17px; font-weight: 300; color: #C5CFDC; line-height: 1.8; margin-bottom: 24px; }
+  .post-body p strong { color: var(--white); font-weight: 500; }
+  .post-body p em { color: var(--blue); font-style: italic; }
+
+  .pull-quote {
+    border-left: 3px solid var(--blue); padding: 20px 28px; margin: 40px 0;
+    background: var(--blue-glow); border-radius: 0 4px 4px 0;
+  }
+  .pull-quote p {
+    font-size: 20px !important; font-weight: 400 !important;
+    color: var(--white) !important; font-style: italic;
+    margin: 0 !important; line-height: 1.6 !important;
+  }
+
+  .prompt-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--blue); border-radius: 0 4px 4px 0;
+    padding: 24px 28px; margin: 32px 0; position: relative;
+  }
+  .prompt-block-label {
+    font-family: var(--mono); font-size: 10px; color: var(--blue);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+    opacity: 0.7;
+  }
+  .prompt-block code {
+    font-family: var(--mono); font-size: 14px; color: var(--white);
+    line-height: 1.7; display: block; white-space: pre-wrap;
+  }
+  .prompt-block code .blank {
+    background: rgba(56,189,248,0.18);
+    color: var(--blue-soft);
+    padding: 0 6px; border-radius: 3px;
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--blue);
+  }
+  .prompt-block code .attach {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(56,189,248,0.14);
+    border: 1px solid var(--blue);
+    color: var(--blue-soft);
+    padding: 2px 8px; border-radius: 4px;
+    font-weight: 700;
+    font-size: 12px;
+    margin: 2px 0;
+  }
+  .prompt-copy {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--blue-dim); border: 1px solid rgba(56,189,248,0.2);
+    color: var(--blue);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s;
+  }
+  .prompt-copy:hover { background: var(--blue); color: var(--bg); }
+
+  /* Stat callout — text-only vs multimodal math */
+  .stat-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 18px 22px;
+    border-left: 4px solid;
+  }
+  .stat-card.weak { border-left-color: #a87878; }
+  .stat-card.strong { border-left-color: var(--blue); }
+  .stat-card .sc-tag {
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .stat-card.weak .sc-tag { color: #d8b8b8; }
+  .stat-card.strong .sc-tag { color: var(--blue); }
+  .stat-card .sc-num {
+    font-family: var(--display); font-size: 38px; line-height: 1; letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .stat-card.weak .sc-num { color: #d8b8b8; }
+  .stat-card.strong .sc-num { color: var(--blue); }
+  .stat-card .sc-lbl {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    letter-spacing: 1.5px; text-transform: uppercase;
+  }
+
+  /* 3-input cards (Sketch / Screenshot / Photo) */
+  .input-grid { margin: 32px 0; display: flex; flex-direction: column; gap: 12px; }
+  .input-row {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left-width: 4px; border-left-color: var(--blue);
+    border-radius: 4px; padding: 18px 22px;
+  }
+  .input-row .ir-num {
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--blue-soft); margin-bottom: 6px;
+  }
+  .input-row .ir-title { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .input-row .ir-body { font-size: 14px; color: #C5CFDC; line-height: 1.6; }
+  .input-row .ir-body strong { color: var(--white); font-weight: 600; }
+  .input-row .ir-body em { color: var(--blue); font-style: italic; }
+
+  /* Use-case template cards (Screenshot UI / Sketch / Fridge) */
+  .case-grid { margin: 32px 0; display: flex; flex-direction: column; gap: 14px; }
+  .case-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 4px solid var(--blue); border-radius: 4px;
+    padding: 20px 24px;
+  }
+  .case-card .cc-tag {
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .case-card .cc-name {
+    font-size: 20px; font-weight: 700; color: var(--white);
+    margin-bottom: 10px;
+  }
+  .case-card .cc-when {
+    font-style: italic; color: #C5CFDC; font-size: 14px; line-height: 1.5;
+    border-left: 2px solid rgba(56,189,248,0.30); padding-left: 12px;
+    margin-bottom: 12px;
+  }
+  .case-card .cc-prompt {
+    font-family: var(--mono); font-size: 13px; color: #C5CFDC; line-height: 1.65;
+    background: rgba(13,17,23,0.6); padding: 12px 14px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .case-card .cc-prompt .em {
+    background: rgba(56,189,248,0.18);
+    color: var(--blue-soft);
+    padding: 0 5px; border-radius: 2px;
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--blue);
+  }
+  .case-card .cc-output {
+    font-family: var(--mono); font-size: 12px; color: var(--white);
+    background: rgba(13,17,23,0.4);
+    border-left: 2px solid var(--blue);
+    padding: 10px 14px;
+    border-radius: 0 4px 4px 0;
+    font-style: italic;
+  }
+  .case-card .cc-output::before {
+    content: '↪ AI OUTPUT: ';
+    font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--blue);
+    font-style: normal;
+  }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 16px; font-weight: 300; color: #C5CFDC;
+    line-height: 1.7; padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before {
+    content: '→'; color: var(--blue);
+    font-family: var(--mono); font-size: 14px;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  .takeaway-box {
+    background: var(--surface); border: 1px solid rgba(56,189,248,0.25);
+    border-radius: 4px; padding: 32px; margin: 48px 0;
+    position: relative; overflow: hidden;
+  }
+  .takeaway-box::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--blue), transparent);
+  }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; position: relative; z-index: 1; }
+  .series-nav-card {
+    background: var(--surface); padding: 24px;
+    text-decoration: none; color: inherit;
+    transition: all 0.25s; border: 1px solid transparent;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .series-nav-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .nav-card-icon { font-size: 28px; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  .newsletter-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 80px 48px; position: relative; overflow: hidden;
+  }
+  .newsletter-section::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--blue); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+
+  footer {
+    padding: 32px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider, .post-body { padding-left: 24px; padding-right: 24px; }
+    .stat-row { grid-template-columns: 1fr; }
+    .series-nav { grid-template-columns: 1fr; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html#series" class="nav-back">← Back to Series</a>
+</nav>
+
+<!-- POST HERO -->
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">29 / 30</span>
+    <span class="post-series">AI Prompting · Vol 2</span>
+    <span class="post-date">June 2026</span>
+  </div>
+
+  <h1 class="post-title">
+    AI Can<br>
+    <span class="accent">See Now.</span>
+  </h1>
+
+  <p class="post-subtitle">
+    You're typing a paragraph to describe what's on your screen when ChatGPT, Claude, and Gemini can just look at it. Drop the screenshot, type one line, ship. The math is brutal: ~340 tokens of prose vs ~18 tokens plus one image. 40% accuracy vs 95%. Three to five iterations vs one. Here's the cheapest upgrade left in 2026.
+  </p>
+
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<!-- VIDEO EMBED -->
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <!-- ============================================================
+         When the YouTube Short is published, replace the <video> below with:
+         <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+         ============================================================ -->
+    <video
+      src="../../Videos/AI_Prompt_Engineering_Vol2/19-multimodal-prompting/19-multimodal-prompting.mp4"
+      poster="../../Videos/AI_Prompt_Engineering_Vol1/01-role-prompting.png"
+      controls
+      playsinline
+      preload="metadata">
+    </video>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ARTICLE BODY -->
+<article class="post-body">
+
+  <!-- SECTION 1: WHY text-only prompting is wasted effort -->
+  <div class="reveal">
+    <div class="section-label">Why You're Still Typing Essays</div>
+    <h2 class="section-heading">Your Screen Has <span class="accent">More Signal</span></h2>
+    <p>
+      Open your recent ChatGPT history and scroll. How many of those prompts start with <em>"on the dashboard, the headline says..."</em> or <em>"in the email it reads..."</em> or <em>"the button is currently labeled..."</em>? That's you, by hand, transcribing pixels into prose. You're describing a thing the model could just <strong>look at</strong> in one shot.
+    </p>
+    <p>
+      Until about 2024, that was the only option. Models were text-in, text-out. So we all learned to describe screens like radio narrators describing a movie. Then GPT-4V dropped. Then Claude got vision. Then Gemini. Now every major chat model can take an image as natively as a sentence, and most people are still typing paragraphs because the habit didn't update with the tool.
+    </p>
+    <p>
+      The cost of typing-instead-of-pasting isn't just time — it's <strong>information loss</strong>. Your screenshot contains color, spacing, hierarchy, mood, the actual font weight of that headline, the relationship between elements. Your prose contains maybe 10% of that and you have to rebuild it word by word every time you ask.
+    </p>
+  </div>
+
+  <!-- The math -->
+  <div class="stat-row reveal">
+    <div class="stat-card weak">
+      <div class="sc-tag">★ Text-only</div>
+      <div class="sc-num">~340</div>
+      <div class="sc-lbl">★ Tokens · 5-para essay</div>
+    </div>
+    <div class="stat-card strong">
+      <div class="sc-tag">★ Multimodal</div>
+      <div class="sc-num">~18</div>
+      <div class="sc-lbl">★ Tokens + 1 image</div>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote reveal">
+    <p>"One image is worth a thousand prompt tokens. Stop describing what's on your screen. Drop the screen."</p>
+  </div>
+
+  <!-- SECTION 2: THE ANATOMY -->
+  <div class="reveal">
+    <div class="section-label">The Anatomy</div>
+    <h2 class="section-heading">Text + Image = <span class="accent">Rich Answer</span></h2>
+    <p>
+      Multimodal prompting is one prompt with two parts. A text instruction and an attached image. That's it. The model reads the text the way it always has, and looks at the image the way you look at a photo — picking up content, layout, tone, color, and relationships in one parallel pass. Then it answers from both.
+    </p>
+    <p>
+      The trick isn't to write less. It's to <em>describe less</em> and <em>instruct more</em>. You stop saying "the headline says X, the button reads Y, the colors are Z" — because the model can already see all of that. You spend your prompt budget on the part the model can't see: <strong>what you want it to do</strong>. Rewrite. Critique. Convert. Match the tone. Translate. Build the component.
+    </p>
+  </div>
+
+  <div class="input-grid reveal">
+    <div class="input-row">
+      <div class="ir-num">★ 01 · INSTRUCTION — WHAT TO DO</div>
+      <div class="ir-title">One sentence. A verb and an object.</div>
+      <div class="ir-body"><strong>Carries the intent.</strong> Don't describe what's in the image. Tell the model what to do with it. Examples: <em>rewrite this UI copy · build this as a React component · summarize this whiteboard · convert this sketch into a wireframe.</em></div>
+    </div>
+    <div class="input-row">
+      <div class="ir-num">★ 02 · ATTACHMENT — WHAT TO LOOK AT</div>
+      <div class="ir-title">A screenshot, a sketch, a photo. The thing.</div>
+      <div class="ir-body"><strong>Carries the context.</strong> Drag, drop, paste, or upload. Any modern chat surface accepts PNG, JPG, and most accept PDF. Examples: <em>UI screenshot · napkin wireframe · whiteboard photo · error log image · pricing page screenshot.</em></div>
+    </div>
+  </div>
+
+  <!-- THE UNIVERSAL TEMPLATE -->
+  <div class="prompt-block reveal">
+    <div class="prompt-block-label">// The Universal Multimodal Template</div>
+    <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+    <code><span class="blank">[Verb]</span> this <span class="blank">[output type]</span>. <span class="blank">[Constraint or tone note]</span>.
+
+<span class="attach">📎 attach image</span></code>
+  </div>
+
+  <p>
+    Two slots. Verb + output type. Add a constraint when the default isn't what you want (length, tone, format, technology). Then drop the image. That's the whole shape of a multimodal prompt. The image carries all the context that used to take five paragraphs to set up.
+  </p>
+
+  <!-- SECTION 3: THREE USE CASES -->
+  <div class="reveal">
+    <div class="section-label">Three Use Cases To Steal</div>
+    <h2 class="section-heading">Built, Tested, <span class="accent">Try Tonight.</span></h2>
+    <p>
+      Three multimodal prompts I use most weeks. Each one is built around the same shape — short verb, what-to-produce, drop the image. Use them as-is or remix the verb. They cover most of what knowledge workers actually need.
+    </p>
+  </div>
+
+  <div class="case-grid reveal">
+    <div class="case-card">
+      <div class="cc-tag">★ 01 · DESIGNER · SCREENSHOT → COPY</div>
+      <div class="cc-name">The Screenshot Rewrite</div>
+      <div class="cc-when">When: a UI feels off and you can't articulate why — let the model see it and match the surrounding tone.</div>
+      <div class="cc-prompt">"<span class="em">Rewrite the copy</span> on this screen to feel more <span class="em">conversational</span>. Match the warmth of the illustration. Keep the button under 6 words. <span class="em">📎 dashboard-v3.png</span>"</div>
+      <div class="cc-output">"Headline: 'Good to see you again, Alex.' Button: 'Let's pick up where you left off →' (Matched the sage-green of the illustration. Reduced cold blue accents.)"</div>
+    </div>
+
+    <div class="case-card">
+      <div class="cc-tag">★ 02 · BUILDER · SKETCH → CODE</div>
+      <div class="cc-name">The Sketch-to-Component</div>
+      <div class="cc-when">When: you've got a napkin wireframe, a whiteboard sketch, or a Figma frame and you want runnable code in one shot — skip the spec doc, drop the picture.</div>
+      <div class="cc-prompt">"<span class="em">Build this</span> as a working React component. Tailwind, dark mode, props for the title and metric. <span class="em">📎 sketch.jpg</span>"</div>
+      <div class="cc-output">"&lt;Card variant='dark'&gt; ... 90 lines of Tailwind React, props typed, ready to drop in. Includes a Storybook example."</div>
+    </div>
+
+    <div class="case-card">
+      <div class="cc-tag">★ 03 · EVERYDAY · PHOTO → ANSWER</div>
+      <div class="cc-name">The Photo-of-Anything</div>
+      <div class="cc-when">When: a whiteboard you can't transcribe, a textbook page, a fridge full of ingredients, a parking sign in a language you don't speak — point your phone, ask one question.</div>
+      <div class="cc-prompt">"<span class="em">3 dinner ideas</span> I can make from what's in here. Rank by <span class="em">protein</span>. <span class="em">📎 fridge.jpg</span>"</div>
+      <div class="cc-output">"1. Eggs + spinach scramble (32g protein) 2. Chicken thigh + rice 3. Tuna pasta. Top pick: #1 — fastest and the spinach is closest to expiring."</div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: WHY IT WORKS -->
+  <div class="reveal">
+    <div class="section-label">Why It Works</div>
+    <h2 class="section-heading">Pixels Carry More <span class="accent">Than Tokens</span></h2>
+    <p>
+      A 1440×900 screenshot is roughly 1.3 million pixels. Even after the vision encoder compresses it down, the model receives a structured representation of layout, color, hierarchy, text, and relationships that would take you somewhere between 200 and 500 written words to approximate. <strong>And you'd miss things.</strong> You'd describe the headline and forget the button radius. You'd mention the colors and skip the spacing. The image is more reliable than the description because the description is your interpretation of the image, lossy by definition.
+    </p>
+    <p>
+      The other reason it works: <em>the model is doing less guessing.</em> When you describe a screen in prose, the model has to reconstruct the screen in its head before it can act on your request. That reconstruction is probabilistic and often wrong. When you paste the image, the reconstruction step disappears. The model goes straight to the answer.
+    </p>
+  </div>
+
+  <!-- TRY THESE -->
+  <div class="reveal">
+    <div class="section-label">Build the Habit</div>
+    <h2 class="section-heading">Multimodal <span class="accent">Checklist</span></h2>
+    <ul class="try-list">
+      <li><strong>Audit your last 20 prompts</strong> — count how many start with "the X says..." or "in this Y...". Every one is a candidate for replacement with a screenshot</li>
+      <li><strong>Make screenshot the default</strong> — bind <em>Cmd+Shift+4</em> (Mac) or <em>Win+Shift+S</em> (Windows) to muscle memory. Most prompts about screens should start with that keystroke, not typing</li>
+      <li><strong>Cut the description, keep the instruction</strong> — once the image is attached, delete every sentence that describes what's in it. Keep only what you want the model to do</li>
+      <li><strong>Try one new use case tonight</strong> — screenshot a UI, sketch a feature on paper, or photograph something you'd normally Google. Drop it in chat with one line of instruction</li>
+      <li><strong>Use sketches for code</strong> — wireframes don't have to be Figma. A photo of a napkin sketch is enough for a working React component. Stop building specs, start building shapes</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 5: COMMON MISTAKE -->
+  <div class="reveal">
+    <div class="section-label">Common Mistake</div>
+    <h2 class="section-heading">Don't Describe and <span class="accent">Attach</span></h2>
+    <p>
+      The most common failure mode is doing both. People paste the image and <em>then</em> write the same five-paragraph essay they would have written without it. <strong>The whole point is that the image replaces the essay.</strong> If you're describing what's in the picture, you're paying tokens twice for the same context — and worse, you're giving the model two slightly different versions to reconcile. Trust the image. Cut the prose.
+    </p>
+    <p>
+      The other failure mode is forgetting the instruction. A bare image with no text is "what is this?" which is not usually what you want. The image is the noun. <em>You still have to provide the verb.</em> One sentence. What do you want done.
+    </p>
+  </div>
+
+  <!-- TAKEAWAY BOX -->
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The One Thing To Remember</div>
+    <p>
+      Stop describing your screen. <em>Show it.</em> Two-part prompt — verb plus image. The pixels carry the context that used to take five paragraphs to set up, and the model goes straight to the answer with no reconstruction step in between. Try one tonight: screenshot a UI, drop it in chat, ask for the rewrite. Fifteen seconds beats eight minutes every single time.
+    </p>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="28-prompt-templates.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div>
+      <div class="nav-card-icon">←</div>
+      <div class="nav-card-title">Prompt Templates</div>
+    </a>
+    <a href="30-prompt-triage.html" class="series-nav-card next">
+      <div class="nav-card-label">Next Up</div>
+      <div class="nav-card-icon">🚦</div>
+      <div class="nav-card-title">Prompt Triage</div>
+    </a>
+  </div>
+
+</article>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--blue)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">
+      New AI breakdowns in your inbox. No noise. Just signal — from a human who actually uses this stuff.
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
