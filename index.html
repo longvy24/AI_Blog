@@ -1191,8 +1191,13 @@
 <!-- BUILD WITH AI · VOL 4 (COMING SOON) -->
 <section class="section" id="build-with-ai">
   <style>
-    #build-with-ai .series-card.locked { opacity: 0.5; cursor: default; pointer-events: none; }
-    #build-with-ai .vol4-soon { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--lime); padding: 3px 10px; border-radius: 2px; margin-top: 14px; }
+    #build-with-ai .series-card.locked { opacity: 0.62; cursor: default; pointer-events: none; position: relative; overflow: hidden; }
+    #build-with-ai .series-card.locked::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--c4, #84E000); }
+    #build-with-ai .series-card.locked .card-num { color: var(--c4, #84E000); }
+    #build-with-ai .c-lime { --c4: #84E000; }
+    #build-with-ai .c-red  { --c4: #EF4444; }
+    #build-with-ai .c-blue { --c4: #38BDF8; }
+    #build-with-ai .vol4-soon { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #0A0C0A; background: var(--c4, #84E000); padding: 3px 10px; border-radius: 2px; margin-top: 14px; }
   </style>
   <div class="section-header reveal">
     <div>
@@ -1202,70 +1207,70 @@
   </div>
 
   <div class="series-grid">
-    <div class="series-card locked reveal">
+    <div class="series-card locked reveal c-lime">
       <div class="card-num">31 / 40</div>
       <span class="card-icon">🛠️</span>
       <div class="card-title">Build an App</div>
       <div class="card-desc">One prompt, a working app — no code, no course. The series opener.</div>
       <span class="vol4-soon">In Production</span>
     </div>
-    <div class="series-card locked reveal">
+    <div class="series-card locked reveal c-blue">
       <div class="card-num">32 / 40</div>
       <span class="card-icon">🌐</span>
       <div class="card-title">Build a Website</div>
       <div class="card-desc">From idea to a live, full website in about ten minutes.</div>
       <span class="vol4-soon">In Production</span>
     </div>
-    <div class="series-card locked reveal">
+    <div class="series-card locked reveal c-red">
       <div class="card-num">33 / 40</div>
       <span class="card-icon">🚀</span>
       <div class="card-title">Build a Side Hustle</div>
       <div class="card-desc">A whole business in a weekend — name, site, content — AI only.</div>
       <span class="vol4-soon">In Production</span>
     </div>
-    <div class="series-card locked reveal">
+    <div class="series-card locked reveal c-blue">
       <div class="card-num">34 / 40</div>
       <span class="card-icon">🔧</span>
       <div class="card-title">Build a Custom Tool</div>
       <div class="card-desc">A tool that does your worst task — described once, built for good.</div>
       <span class="vol4-soon">In Production</span>
     </div>
-    <div class="series-card locked reveal">
+    <div class="series-card locked reveal c-lime">
       <div class="card-num">35 / 40</div>
       <span class="card-icon">🤖</span>
       <div class="card-title">Build a Custom AI</div>
       <div class="card-desc">An AI trained on your own work, answering in your voice.</div>
       <span class="vol4-soon">In Production</span>
     </div>
-    <div class="series-card locked reveal">
+    <div class="series-card locked reveal c-red">
       <div class="card-num">36 / 40</div>
       <span class="card-icon">🎮</span>
       <div class="card-title">Build a Game</div>
       <div class="card-desc">A playable game in fifteen minutes, zero code.</div>
       <span class="vol4-soon">In Production</span>
     </div>
-    <div class="series-card locked reveal">
+    <div class="series-card locked reveal c-blue">
       <div class="card-num">37 / 40</div>
       <span class="card-icon">📊</span>
       <div class="card-title">Spreadsheet → App</div>
       <div class="card-desc">Turn a messy spreadsheet into a real, shareable app.</div>
       <span class="vol4-soon">In Production</span>
     </div>
-    <div class="series-card locked reveal">
+    <div class="series-card locked reveal c-lime">
       <div class="card-num">38 / 40</div>
       <span class="card-icon">📄</span>
       <div class="card-title">Landing Page</div>
       <div class="card-desc">A page that actually converts — built in one prompt.</div>
       <span class="vol4-soon">In Production</span>
     </div>
-    <div class="series-card locked reveal">
+    <div class="series-card locked reveal c-red">
       <div class="card-num">39 / 40</div>
       <span class="card-icon">🧩</span>
       <div class="card-title">Browser Extension</div>
       <div class="card-desc">Build the extension that fixes your single biggest annoyance.</div>
       <span class="vol4-soon">In Production</span>
     </div>
-    <div class="series-card locked reveal">
+    <div class="series-card locked reveal c-lime">
       <div class="card-num">40 / 40</div>
       <span class="card-icon">✅</span>
       <div class="card-title">What's Actually Usable</div>
