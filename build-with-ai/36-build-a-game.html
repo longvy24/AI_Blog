@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================ SEO META ============================================================ -->
+<title>Your Words Are Weapons — I Built a Roguelike With AI, No Code (Claude) | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230C0A12'%20rx='8'/%3E%3Ctext%20x='32'%20y='46'%20font-family='Arial%20Black,sans-serif'%20font-size='38'%20font-weight='900'%20fill='%23F2C14E'%20text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
+<meta name="description" content="I can't write code. So I built a full roguelike game with AI instead — Grimoire, where Text Twist becomes a dungeon crawler and the words you spell are the weapons. Here's how I built a real game in Claude, zero code.">
+<meta property="og:title" content="Your Words Are Weapons — I Built a Roguelike With AI, No Code (Claude) | AIToolsDaily24">
+<meta property="og:description" content="The full breakdown of building a real roguelike word game with Claude — Build With AI, episode 6, by Ryu Vy.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0C0A12;
+    --surface:  #1B1626;
+    --surface2: #241C33;
+    --border:   #33283F;
+    --acc:      #F2C14E;
+    --acc-soft: #F7D98A;
+    --acc-dim:  rgba(242,193,78,0.1);
+    --acc-glow: rgba(242,193,78,0.05);
+    --green:    #5FD97A;
+    --white:    #ECE6DD;
+    --muted:    #6E6152;
+    --muted-light:#9B90A8;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--acc); border-radius: 2px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(12,10,18,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--acc); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted-light); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
+  .nav-back:hover { color: var(--acc); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; background: var(--acc-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(242,193,78,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted-light); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted-light); letter-spacing: 1px; margin-left: auto; }
+  .post-ep { font-family: var(--mono); font-size: 10px; color: #241C08; background: var(--acc); padding: 3px 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; border-radius: 2px; box-shadow: 0 0 14px rgba(242,193,78,0.5); }
+
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .acc { color: var(--acc); text-shadow: 0 0 40px rgba(242,193,78,0.35); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted-light); line-height: 1.6; max-width: 640px; margin-bottom: 32px; }
+
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--acc); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: #241C08; flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted-light); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 340px; aspect-ratio: 9/16; }
+  .video-wrapper iframe, .video-wrapper video { width: 100%; height: 100%; border: none; display: block; background: #000; }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; }
+
+  .post-body { max-width: 860px; margin: 0 auto; padding: 0 48px 80px; }
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading { font-family: var(--display); font-size: clamp(32px, 4vw, 52px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .section-heading .acc { color: var(--acc); }
+
+  .post-body p { font-size: 17px; font-weight: 300; color: #D8D2CA; line-height: 1.8; margin-bottom: 24px; }
+  .post-body p strong { color: var(--white); font-weight: 500; }
+  .post-body p em { color: var(--acc); font-style: italic; }
+
+  .pull-quote { border-left: 3px solid var(--acc); padding: 20px 28px; margin: 40px 0; background: var(--acc-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 20px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+
+  .prompt-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--acc); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; position: relative; }
+  .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--acc); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; opacity: 0.8; }
+  .prompt-block code { font-family: var(--mono); font-size: 15px; color: var(--white); line-height: 1.7; display: block; white-space: pre-wrap; }
+  .prompt-copy { position: absolute; top: 16px; right: 16px; background: var(--acc-dim); border: 1px solid rgba(242,193,78,0.2); color: var(--acc); font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+  .prompt-copy:hover { background: var(--acc); color: #241C08; }
+
+  .build-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+  .build-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 20px 22px; border-left: 4px solid var(--acc); }
+  .build-card .bc-tag { font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--acc); margin-bottom: 8px; }
+  .build-card .bc-name { font-size: 19px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .build-card .bc-note { font-family: var(--mono); font-size: 12px; line-height: 1.5; color: #D8D2CA; }
+
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 18px 22px; border-left: 4px solid; }
+  .stat-card.weak { border-left-color: var(--muted); }
+  .stat-card.strong { border-left-color: var(--acc); }
+  .stat-card .sc-tag { font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .stat-card.weak .sc-tag { color: var(--muted-light); }
+  .stat-card.strong .sc-tag { color: var(--acc); }
+  .stat-card .sc-num { font-family: var(--display); font-size: 38px; line-height: 1; letter-spacing: 1px; margin-bottom: 4px; }
+  .stat-card.weak .sc-num { color: var(--muted-light); }
+  .stat-card.strong .sc-num { color: var(--acc); }
+  .stat-card .sc-lbl { font-family: var(--mono); font-size: 11px; color: var(--muted-light); letter-spacing: 1.5px; text-transform: uppercase; }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; font-weight: 300; color: #D8D2CA; line-height: 1.7; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before { content: '→'; color: var(--acc); font-family: var(--mono); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+  .try-list li strong { color: var(--white); font-weight: 600; }
+
+  .reality { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+  .reality-col { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 22px 24px; }
+  .reality-col .rc-head { font-family: var(--mono); font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+  .reality-col.good .rc-head { color: var(--green); }
+  .reality-col.caveat .rc-head { color: var(--acc); }
+  .reality-col ul { list-style: none; }
+  .reality-col li { font-size: 14px; font-weight: 300; color: #D8D2CA; line-height: 1.5; padding: 8px 0; padding-left: 22px; position: relative; border-bottom: 1px solid var(--border); }
+  .reality-col li:last-child { border-bottom: none; }
+  .reality-col.good li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-family: var(--mono); font-weight: 700; }
+  .reality-col.caveat li::before { content: '!'; position: absolute; left: 2px; color: var(--acc); font-family: var(--mono); font-weight: 700; }
+
+  .takeaway-box { background: var(--surface); border: 1px solid rgba(242,193,78,0.25); border-radius: 4px; padding: 32px; margin: 48px 0; position: relative; overflow: hidden; }
+  .takeaway-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--acc), transparent); }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+
+  .meta-callout { background: var(--acc-dim); border: 1px solid rgba(242,193,78,0.3); border-radius: 4px; padding: 30px 32px; margin: 44px 0; position: relative; overflow: hidden; }
+  .meta-callout::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--acc); }
+  .meta-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px; }
+  .meta-callout p { font-size: 17px !important; font-weight: 300; color: var(--white) !important; margin-bottom: 0 !important; line-height: 1.7; }
+  .meta-callout p strong { color: var(--acc); font-weight: 600; }
+
+  .series-card-feat { background: var(--surface); border: 2px solid var(--acc); border-radius: 4px; padding: 32px; margin: 48px 0; text-align: center; box-shadow: 0 0 40px rgba(242,193,78,0.18); }
+  .series-card-feat .sf-stamp { display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 800; color: #241C08; background: var(--acc); padding: 5px 14px; border-radius: 3px; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px; box-shadow: 0 0 14px rgba(242,193,78,0.5); }
+  .series-card-feat .sf-title { font-family: var(--display); font-size: clamp(28px, 3.5vw, 44px); text-transform: uppercase; letter-spacing: 1px; line-height: 1; margin-bottom: 12px; }
+  .series-card-feat .sf-title .acc { color: var(--acc); }
+  .series-card-feat p { font-size: 15px !important; margin-bottom: 0 !important; color: #D8D2CA; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; position: relative; z-index: 1; }
+  .series-nav-card { background: var(--surface); padding: 24px; text-decoration: none; color: inherit; transition: all 0.25s; border: 1px solid transparent; display: flex; flex-direction: column; gap: 8px; }
+  .series-nav-card:hover { border-color: var(--acc); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted-light); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .nav-card-icon { font-size: 28px; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--acc), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted-light); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+
+  footer { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--border); }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--acc); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted-light); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider, .post-body { padding-left: 24px; padding-right: 24px; }
+    .build-grid, .stat-row, .reality { grid-template-columns: 1fr; }
+    .series-nav { grid-template-columns: 1fr; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html#build-with-ai" class="nav-back">← Back to Series</a>
+</nav>
+
+<!-- POST HERO -->
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">36 / 40</span>
+    <span class="post-series">Build With AI · Vol 4</span>
+    <span class="post-ep">★ Episode 06</span>
+    <span class="post-date">June 2026</span>
+  </div>
+
+  <h1 class="post-title">
+    Your Words<br>
+    <span class="acc">Are Weapons.</span>
+  </h1>
+
+  <p class="post-subtitle">
+    I can't write a line of code. So I built a full roguelike game with AI instead — Grimoire, where Text Twist becomes a dungeon crawler and the words you spell are the weapons. Here's how a real game got made in Claude, zero code, and why "I can't code" finally stopped being an excuse.
+  </p>
+
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<!-- VIDEO EMBED -->
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <!-- When the YouTube Short is published, replace the <video> below with:
+         <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+    <video
+      src="../../Videos/Build_With_AI/36-build-a-game/36-build-a-game.mp4"
+      controls
+      playsinline
+      preload="metadata">
+    </video>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ARTICLE BODY -->
+<article class="post-body">
+
+  <!-- SECTION 1: THE SHIFT -->
+  <div class="reveal">
+    <div class="section-label">The Excuse That Died</div>
+    <h2 class="section-heading">"I Can't Code" Used to Mean <span class="acc">"I Can't"</span></h2>
+    <p>
+      Making a game was the ultimate "someday" — the thing you'd do if you ever learned to program. For me that someday never came, because I <strong>can't write code.</strong> Not "I'm rusty" — I mean I couldn't build a working button on my own. A whole game with combat, loot, and bosses? Not a chance.
+    </p>
+    <p>
+      So I described one to Claude instead. The result is <strong>Grimoire</strong>: it's Text Twist — that anagram word game — crossed with a roguelike dungeon crawler. The twist that makes it mine: <em>your words are the weapons.</em> Every monster hands you a scrambled rack of letters, and the words you spell are how you attack. Claude wrote every line. Let me show you the build.
+    </p>
+  </div>
+
+  <!-- THE PROMPT -->
+  <div class="prompt-block reveal">
+    <div class="prompt-block-label">// The Pitch I Gave Claude</div>
+    <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+    <code>Make me a word game — Text Twist crossed with a roguelike. Each monster gives a scrambled 6-letter rack; spell words to attack, and longer/rarer words hit harder. Loot gear and spellbooks, descend through floors, fight bosses, permadeath.</code>
+  </div>
+
+  <p class="reveal" style="font-size:17px; font-weight:300; color:#D8D2CA; line-height:1.8; margin-bottom:24px;">
+    That was the seed. From there Claude built the whole thing — and I shaped it by playing and giving notes. <strong>The word engine, the combat math, the loot tables, the bosses, the juice.</strong> I wrote zero lines of code. I was the designer; Claude was the entire engineering team.
+  </p>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote reveal">
+    <p>"I can't write code. I still made a roguelike where your vocabulary is your damage. That sentence shouldn't be possible — and it is."</p>
+  </div>
+
+  <!-- SECTION 2: WHAT IT BUILT -->
+  <div class="reveal">
+    <div class="section-label">What Claude Built</div>
+    <h2 class="section-heading">A Real Game, <span class="acc">System by System</span></h2>
+    <p>
+      This isn't a toy demo — it's a full roguelike loop. Here's the stack that came out of a description:
+    </p>
+  </div>
+
+  <div class="build-grid reveal">
+    <div class="build-card">
+      <div class="bc-tag">★ 01 · Word Engine</div>
+      <div class="bc-name">Text Twist, 29k words</div>
+      <div class="bc-note">A real word-game lexicon validates anything you spell; every rack is pre-verified to hold a full 3/4/5/6-letter spread, so battles are always solvable.</div>
+    </div>
+    <div class="build-card">
+      <div class="bc-tag">★ 02 · Word-Combat</div>
+      <div class="bc-name">Longer = harder hit</div>
+      <div class="bc-note">Letters have values, length multiplies damage (×1 → ×4.2), combos and crits stack. Spell the 6-letter word — the TWIST — and it devastates.</div>
+    </div>
+    <div class="build-card">
+      <div class="bc-tag">★ 03 · Loot &amp; Spells</div>
+      <div class="bc-name">Gear that warps words</div>
+      <div class="bc-note">Weapons, armor, trinkets, spellbooks — with rarities and effects like "+dmg per vowel," "rare letters ×3," lifesteal. A merchant and a jackpot chest between floors.</div>
+    </div>
+    <div class="build-card">
+      <div class="bc-tag">★ 04 · Bosses &amp; Depth</div>
+      <div class="bc-name">Descend · permadeath</div>
+      <div class="bc-note">Floors scale, bosses get traits (Armored / Regenerating / Frenzied), a battle clock enrages foes, and death is permanent. A run you can actually lose.</div>
+    </div>
+  </div>
+
+  <!-- THE MATH -->
+  <div class="stat-row reveal">
+    <div class="stat-card weak">
+      <div class="sc-tag">★ Lines I wrote</div>
+      <div class="sc-num">0</div>
+      <div class="sc-lbl">★ I can't code</div>
+    </div>
+    <div class="stat-card strong">
+      <div class="sc-tag">★ Lines Claude wrote</div>
+      <div class="sc-num">Thousands</div>
+      <div class="sc-lbl">★ A shippable game · ~$0</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: DO IT YOURSELF -->
+  <div class="reveal">
+    <div class="section-label">Do It Yourself</div>
+    <h2 class="section-heading">Make the Game <span class="acc">In Your Head</span></h2>
+    <p>
+      You have a game idea. Everyone does — the one you'd make if you could. You can. Here's the loop:
+    </p>
+    <ul class="try-list">
+      <li><strong>Pitch the one-liner + the twist.</strong> Genre + the thing that makes it <em>yours</em>. "Snake, but the tail is your to-do list." "A typing game where fast words cast spells."</li>
+      <li><strong>Ask for a playable version first.</strong> Have Claude build the core loop as a single runnable file before any polish. Play it in your browser in minutes.</li>
+      <li><strong>Design by playing.</strong> "Too easy — make bosses hit harder." "Add a shop between levels." "The combo should decay faster." You feel the fun; Claude tunes the numbers.</li>
+      <li><strong>Layer the juice last.</strong> Once it's fun, ask for the screen shake, the sound, the win screen. That's the difference between a prototype and something people replay.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4: WHY IT WORKS -->
+  <div class="reveal">
+    <div class="section-label">Why It Works</div>
+    <h2 class="section-heading">The Bottleneck Was Never <span class="acc">the Idea</span></h2>
+    <p>
+      Games are just rules plus feedback, and describing rules is something you already do fluently — it's the <em>implementing</em> that stopped you. <strong>That's the exact part AI is best at.</strong> You hold the vision and the taste; the model does the thousands of lines of logic, math, and state that used to be a wall between "I wish this existed" and "I'm playing it."
+    </p>
+    <p>
+      So the skill that matters isn't syntax anymore — it's knowing what's fun and being able to say it clearly. <em>You don't need to code to make a game. You need an idea and the willingness to describe it.</em>
+    </p>
+  </div>
+
+  <!-- HONESTY SECTION -->
+  <div class="reveal">
+    <div class="section-label">The Honest Part</div>
+    <h2 class="section-heading">What AI Builds <span class="acc">and What You Do</span></h2>
+    <p>
+      No hype — building a real game this way is genuinely doable, but here's the honest split.
+    </p>
+  </div>
+
+  <div class="reality reveal">
+    <div class="reality-col good">
+      <div class="rc-head">✓ AI handles</div>
+      <ul>
+        <li>All the code — engine, combat math, state, the juice.</li>
+        <li>Turning a description into a playable build in minutes.</li>
+        <li>Balance tweaks and new systems, on request.</li>
+        <li>Zero engine to learn, zero cost, runs in a browser.</li>
+      </ul>
+    </div>
+    <div class="reality-col caveat">
+      <div class="rc-head">! Still on you</div>
+      <ul>
+        <li>Is it fun? Only you can feel that — AI can't playtest joy.</li>
+        <li>Scope: a big game is many rounds; ambition creeps.</li>
+        <li>You direct, cut, and decide — it drafts, you design.</li>
+        <li>Real "ship it" polish (portals, saves) takes intent.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="reveal" style="font-size:17px; font-weight:300; color:#D8D2CA; line-height:1.8; margin-bottom:24px;">
+    The honest promise: <strong>AI removes the coding wall completely</strong> — but it doesn't remove the taste. Grimoire is fun because I kept saying "no, harder / faster / meaner" until it clicked. The game design is still human. The <em>impossible</em> part — building it at all — is the part that got free.
+  </p>
+
+  <!-- SECTION: THE REAL ONE -->
+  <div class="reveal">
+    <div class="section-label">The One I Actually Built</div>
+    <h2 class="section-heading">A Whole Game, <span class="acc">From Someone Who Can't Code</span></h2>
+    <p>
+      Grimoire is real. It's a complete run — floors, bosses, loot, a merchant, a jackpot chest, a local leaderboard — and it's built to ship (it wires in the CrazyGames SDK so it can go live on a game portal). <strong>Every line written by Claude, every design call made by me.</strong> The tools that run this channel — a trend analyzer, a Reddit script-writer, a thumbnail generator — are the useful stuff. Grimoire is the proof that "useful" isn't the ceiling: you can build the <em>fun</em> stuff too.
+    </p>
+    <p>
+      That's the part I want you to take: the barrier to making the thing you've always wanted to make just fell over. The whole story of the stack — the wins, the flops, why I started — is on the <a href="../start-here.html" style="color:var(--acc); text-decoration:none; border-bottom:1px solid rgba(242,193,78,0.4);">Start Here</a> page. If a guy who can't code can build a roguelike, your "someday" game is a lot closer than you think.
+    </p>
+  </div>
+
+  <!-- TAKEAWAY BOX -->
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The One Thing To Remember</div>
+    <p>
+      "I can't code" is no longer the end of the sentence. <em>Describe the game you've always wanted to make to Claude, ask for a playable version, and shape it by playing.</em> You bring the idea and the taste for fun — that was always the hard part anyway. The code was never the point.
+    </p>
+  </div>
+
+  <!-- META CALLOUT -->
+  <div class="meta-callout reveal">
+    <div class="meta-label">// The Honest Version</div>
+    <p>
+      I can't write a line of code, and I built a roguelike where your words are weapons. If that's possible, the thing you keep saying you "can't" make is one honest description away. <strong>The wall is gone. Go make your someday.</strong>
+    </p>
+  </div>
+
+  <!-- SERIES CARD -->
+  <div class="series-card-feat reveal">
+    <div class="sf-stamp">★ Build With AI · Episode 06</div>
+    <h3 class="sf-title">Ten Things. <span class="acc">Zero Code.</span></h3>
+    <p>
+      An app. A website. A side hustle. A custom tool. A custom AI. A game. Every episode of Build With AI, I build a real, usable thing with AI and zero code — then show you exactly how. Save the series and build along; by the finale you'll have ten things you can actually use.
+    </p>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="35-build-a-custom-ai.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div>
+      <div class="nav-card-icon">🧠</div>
+      <div class="nav-card-title">Build a Custom AI</div>
+    </a>
+    <a href="37-build-a-workout-program.html" class="series-nav-card next">
+      <div class="nav-card-label">Next Up</div>
+      <div class="nav-card-icon">💪</div>
+      <div class="nav-card-title">Build a Workout Program</div>
+    </a>
+  </div>
+
+</article>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--acc)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">
+      A new "I built this with AI" breakdown every episode. No noise. Just signal — from a human who actually ships this stuff (and can't even code).
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

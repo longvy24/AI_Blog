@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================ SEO META ============================================================ -->
+<title>I Started a Business This Weekend — With Only AI (Claude) | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230A0C0A'%20rx='8'/%3E%3Ctext%20x='32'%20y='46'%20font-family='Arial%20Black,sans-serif'%20font-size='38'%20font-weight='900'%20fill='%23EF4444'%20text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
+<meta name="description" content="No team, no budget, no idea where to start. I gave Claude a blank slate — a weekly newsletter — and by Sunday it had a name, a logo, a live signup page, and issue one. A whole side hustle in a weekend, with only AI. Here's how, and what's actually usable.">
+<meta property="og:title" content="I Started a Business This Weekend — With Only AI (Claude) | AIToolsDaily24">
+<meta property="og:description" content="The full breakdown of building a side hustle from a blank slate with AI — Build With AI, episode 3, by Ryu Vy.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0A0C0A;
+    --surface:  #17100F;
+    --surface2: #1F1416;
+    --border:   #2A1C1E;
+    --acc:      #EF4444;
+    --acc-soft: #FCA5A5;
+    --acc-dim:  rgba(239,68,68,0.1);
+    --acc-glow: rgba(239,68,68,0.05);
+    --green:    #22C55E;
+    --white:    #F2F5EE;
+    --muted:    #6E5A5C;
+    --muted-light:#A89498;
+    --mono:     'IBM Plex Mono', monospace;
+    --display:  'Bebas Neue', sans-serif;
+    --body:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--acc); border-radius: 2px; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,12,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--acc); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .nav-back { font-family: var(--mono); font-size: 11px; color: var(--muted-light); text-decoration: none; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
+  .nav-back:hover { color: var(--acc); }
+
+  .post-hero { padding: 140px 48px 60px; max-width: 860px; margin: 0 auto; position: relative; }
+  .post-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .post-num { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; background: var(--acc-dim); padding: 4px 12px; border-radius: 2px; border: 1px solid rgba(239,68,68,0.2); }
+  .post-series { font-family: var(--mono); font-size: 11px; color: var(--muted-light); letter-spacing: 2px; text-transform: uppercase; }
+  .post-date { font-family: var(--mono); font-size: 11px; color: var(--muted-light); letter-spacing: 1px; margin-left: auto; }
+  .post-ep { font-family: var(--mono); font-size: 10px; color: #1A0606; background: var(--acc); padding: 3px 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; border-radius: 2px; box-shadow: 0 0 14px rgba(239,68,68,0.5); }
+
+  .post-title { font-family: var(--display); font-size: clamp(48px, 6vw, 88px); line-height: 0.93; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .post-title .acc { color: var(--acc); }
+  .post-subtitle { font-size: 18px; font-weight: 300; color: var(--muted-light); line-height: 1.6; max-width: 620px; margin-bottom: 32px; }
+
+  .post-byline { display: flex; align-items: center; gap: 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .byline-avatar { width: 36px; height: 36px; background: var(--acc); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 16px; color: #1A0606; flex-shrink: 0; }
+  .byline-name { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 1px; }
+  .byline-role { font-family: var(--mono); font-size: 10px; color: var(--muted-light); letter-spacing: 1px; text-transform: uppercase; }
+
+  .video-section { max-width: 860px; margin: 0 auto; padding: 0 48px 60px; }
+  .video-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .video-wrapper { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 340px; aspect-ratio: 9/16; }
+  .video-wrapper iframe, .video-wrapper video { width: 100%; height: 100%; border: none; display: block; background: #000; }
+
+  .divider { max-width: 860px; margin: 0 auto 60px; padding: 0 48px; display: flex; align-items: center; gap: 16px; }
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+  .divider-icon { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; }
+
+  .post-body { max-width: 860px; margin: 0 auto; padding: 0 48px 80px; }
+  .section-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-heading { font-family: var(--display); font-size: clamp(32px, 4vw, 52px); text-transform: uppercase; letter-spacing: 1px; line-height: 0.95; margin-bottom: 24px; }
+  .section-heading .acc { color: var(--acc); }
+
+  .post-body p { font-size: 17px; font-weight: 300; color: #D6CAC9; line-height: 1.8; margin-bottom: 24px; }
+  .post-body p strong { color: var(--white); font-weight: 500; }
+  .post-body p em { color: var(--acc); font-style: italic; }
+
+  .pull-quote { border-left: 3px solid var(--acc); padding: 20px 28px; margin: 40px 0; background: var(--acc-glow); border-radius: 0 4px 4px 0; }
+  .pull-quote p { font-size: 20px !important; font-weight: 400 !important; color: var(--white) !important; font-style: italic; margin: 0 !important; line-height: 1.6 !important; }
+
+  .prompt-block { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--acc); border-radius: 0 4px 4px 0; padding: 24px 28px; margin: 32px 0; position: relative; }
+  .prompt-block-label { font-family: var(--mono); font-size: 10px; color: var(--acc); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; opacity: 0.8; }
+  .prompt-block code { font-family: var(--mono); font-size: 15px; color: var(--white); line-height: 1.7; display: block; white-space: pre-wrap; }
+  .prompt-copy { position: absolute; top: 16px; right: 16px; background: var(--acc-dim); border: 1px solid rgba(239,68,68,0.2); color: var(--acc); font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+  .prompt-copy:hover { background: var(--acc); color: #1A0606; }
+
+  .build-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+  .build-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 20px 22px; border-left: 4px solid var(--acc); }
+  .build-card .bc-tag { font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--acc); margin-bottom: 8px; }
+  .build-card .bc-name { font-size: 19px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .build-card .bc-note { font-family: var(--mono); font-size: 12px; line-height: 1.5; color: #D6CAC9; }
+
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 18px 22px; border-left: 4px solid; }
+  .stat-card.weak { border-left-color: var(--muted); }
+  .stat-card.strong { border-left-color: var(--acc); }
+  .stat-card .sc-tag { font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+  .stat-card.weak .sc-tag { color: var(--muted-light); }
+  .stat-card.strong .sc-tag { color: var(--acc); }
+  .stat-card .sc-num { font-family: var(--display); font-size: 38px; line-height: 1; letter-spacing: 1px; margin-bottom: 4px; }
+  .stat-card.weak .sc-num { color: var(--muted-light); }
+  .stat-card.strong .sc-num { color: var(--acc); }
+  .stat-card .sc-lbl { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+
+  .try-list { list-style: none; margin: 24px 0 32px; }
+  .try-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 16px; font-weight: 300; color: #D6CAC9; line-height: 1.7; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .try-list li:last-child { border-bottom: none; }
+  .try-list li::before { content: '→'; color: var(--acc); font-family: var(--mono); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+  .try-list li strong { color: var(--white); font-weight: 600; }
+
+  .reality { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 32px 0; }
+  .reality-col { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 22px 24px; }
+  .reality-col .rc-head { font-family: var(--mono); font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+  .reality-col.good .rc-head { color: var(--green); }
+  .reality-col.caveat .rc-head { color: var(--acc); }
+  .reality-col ul { list-style: none; }
+  .reality-col li { font-size: 14px; font-weight: 300; color: #D6CAC9; line-height: 1.5; padding: 8px 0; padding-left: 22px; position: relative; border-bottom: 1px solid var(--border); }
+  .reality-col li:last-child { border-bottom: none; }
+  .reality-col.good li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-family: var(--mono); font-weight: 700; }
+  .reality-col.caveat li::before { content: '!'; position: absolute; left: 2px; color: var(--acc); font-family: var(--mono); font-weight: 700; }
+
+  .takeaway-box { background: var(--surface); border: 1px solid rgba(239,68,68,0.25); border-radius: 4px; padding: 32px; margin: 48px 0; position: relative; overflow: hidden; }
+  .takeaway-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--acc), transparent); }
+  .takeaway-title { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .takeaway-box p { font-size: 16px !important; margin-bottom: 0 !important; }
+
+  .meta-callout { background: var(--acc-dim); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 30px 32px; margin: 44px 0; position: relative; overflow: hidden; }
+  .meta-callout::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--acc); }
+  .meta-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px; }
+  .meta-callout p { font-size: 17px !important; font-weight: 300; color: var(--white) !important; margin-bottom: 0 !important; line-height: 1.7; }
+  .meta-callout p strong { color: var(--acc); font-weight: 600; }
+
+  .series-card-feat { background: var(--surface); border: 2px solid var(--acc); border-radius: 4px; padding: 32px; margin: 48px 0; text-align: center; box-shadow: 0 0 40px rgba(239,68,68,0.18); }
+  .series-card-feat .sf-stamp { display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 800; color: #1A0606; background: var(--acc); padding: 5px 14px; border-radius: 3px; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 16px; box-shadow: 0 0 14px rgba(239,68,68,0.5); }
+  .series-card-feat .sf-title { font-family: var(--display); font-size: clamp(28px, 3.5vw, 44px); text-transform: uppercase; letter-spacing: 1px; line-height: 1; margin-bottom: 12px; }
+  .series-card-feat .sf-title .acc { color: var(--acc); }
+  .series-card-feat p { font-size: 15px !important; margin-bottom: 0 !important; color: #D6CAC9; }
+
+  .series-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 60px 0; position: relative; z-index: 1; }
+  .series-nav-card { background: var(--surface); padding: 24px; text-decoration: none; color: inherit; transition: all 0.25s; border: 1px solid transparent; display: flex; flex-direction: column; gap: 8px; }
+  .series-nav-card:hover { border-color: var(--acc); transform: translateY(-2px); }
+  .nav-card-label { font-family: var(--mono); font-size: 10px; color: var(--muted-light); letter-spacing: 2px; text-transform: uppercase; }
+  .nav-card-title { font-family: var(--display); font-size: 24px; text-transform: uppercase; letter-spacing: 1px; line-height: 1; }
+  .nav-card-icon { font-size: 28px; }
+  .series-nav-card.next { text-align: right; }
+  .series-nav-card.next .nav-card-label::after { content: ' →'; }
+  .series-nav-card.prev .nav-card-label::before { content: '← '; }
+
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--acc), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted-light); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+
+  footer { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--border); }
+  .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--acc); letter-spacing: 2px; text-transform: uppercase; text-decoration: none; }
+  .footer-copy { font-family: var(--mono); font-size: 11px; color: var(--muted-light); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .post-hero, .video-section, .divider, .post-body { padding-left: 24px; padding-right: 24px; }
+    .build-grid, .stat-row, .reality { grid-template-columns: 1fr; }
+    .series-nav { grid-template-columns: 1fr; }
+    .newsletter-section { padding: 60px 24px; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html#build-with-ai" class="nav-back">← Back to Series</a>
+</nav>
+
+<!-- POST HERO -->
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">33 / 40</span>
+    <span class="post-series">Build With AI · Vol 4</span>
+    <span class="post-ep">★ Episode 03</span>
+    <span class="post-date">June 2026</span>
+  </div>
+
+  <h1 class="post-title">
+    I Started a Business<br>
+    <span class="acc">This Weekend.</span>
+  </h1>
+
+  <p class="post-subtitle">
+    No team. No budget. No idea where to start. I gave Claude a blank slate — a weekly newsletter — and by Sunday it had a name, a logo, a live signup page, and issue one drafted. A whole side hustle in a weekend, with only AI. Here's exactly how, and the honest part: what's actually usable.
+  </p>
+
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<!-- VIDEO EMBED -->
+<section class="video-section reveal">
+  <div class="video-label">// Watch First</div>
+  <div class="video-wrapper">
+    <!-- When the YouTube Short is published, replace the <video> below with:
+         <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+    <video
+      src="../../Videos/Build_With_AI/33-build-a-side-hustle/33-build-a-side-hustle.mp4"
+      controls
+      playsinline
+      preload="metadata">
+    </video>
+  </div>
+</section>
+
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-icon">// THE FULL BREAKDOWN</div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ARTICLE BODY -->
+<article class="post-body">
+
+  <!-- SECTION 1: THE SHIFT -->
+  <div class="reveal">
+    <div class="section-label">Why This Isn't a Pipe Dream</div>
+    <h2 class="section-heading">The Bottleneck Was Never <span class="acc">the Work</span></h2>
+    <p>
+      Everyone has the "I should start a side hustle" thought. Almost nobody starts. Not because the work is impossible — because the <em>beginning</em> is. You need a name, a brand, a website, something to actually show people. That pile of blank pages is where most ideas quietly die.
+    </p>
+    <p>
+      This weekend I gave Claude a blank slate — "a weekly newsletter for side-hustlers" — and let it build the whole front of the business. By Sunday I had a name, a logo, a live signup page, and the first issue drafted. No team. No budget. <strong>Only AI.</strong> Let me show you the build, and then be honest about the part that's still yours.
+    </p>
+  </div>
+
+  <!-- THE PROMPT -->
+  <div class="prompt-block reveal">
+    <div class="prompt-block-label">// The Starting Prompt</div>
+    <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
+    <code>Start a weekly newsletter for side-hustlers — name it, brand it, and build a signup page.</code>
+  </div>
+
+  <p class="reveal" style="font-size:17px; font-weight:300; color:#D6CAC9; line-height:1.8; margin-bottom:24px;">
+    One line. A blank slate. From there, I mostly just said yes — to the name, the logo, the layout, the copy. Claude assembled the pieces; I made the calls.
+  </p>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote reveal">
+    <p>"I didn't build a business. I removed every excuse not to start one — in a single afternoon."</p>
+  </div>
+
+  <!-- SECTION 2: WHAT IT BUILT -->
+  <div class="reveal">
+    <div class="section-label">What It Actually Built</div>
+    <h2 class="section-heading">A Whole Brand, <span class="acc">Piece by Piece</span></h2>
+    <p>
+      It named the thing — <strong>Sidebar</strong> — designed a logo, wrote a live signup page, and drafted issue one. Here's the stack that came out of one weekend:
+    </p>
+  </div>
+
+  <div class="build-grid reveal">
+    <div class="build-card">
+      <div class="bc-tag">★ 01 · Name + Idea</div>
+      <div class="bc-name">"Sidebar"</div>
+      <div class="bc-note">A name, a one-line promise ("a weekly edge for people building on the side"), and a positioning — the blank-page problem, solved.</div>
+    </div>
+    <div class="build-card">
+      <div class="bc-tag">★ 02 · Logo + Brand</div>
+      <div class="bc-name">A real mark</div>
+      <div class="bc-note">A simple logo and a color/type system — enough to look like a brand, not a draft.</div>
+    </div>
+    <div class="build-card">
+      <div class="bc-tag">★ 03 · Signup Page</div>
+      <div class="bc-name">Live + hosted</div>
+      <div class="bc-note">A real landing page with a working email capture — the thing you can actually send people to today.</div>
+    </div>
+    <div class="build-card">
+      <div class="bc-tag">★ 04 · Issue 01</div>
+      <div class="bc-name">Drafted, ready</div>
+      <div class="bc-note">A first issue written and queued — so launch day isn't "now what," it's "hit send."</div>
+    </div>
+  </div>
+
+  <!-- THE MATH -->
+  <div class="stat-row reveal">
+    <div class="stat-card weak">
+      <div class="sc-tag">★ The old way</div>
+      <div class="sc-num">Months</div>
+      <div class="sc-lbl">★ A designer · a dev · a budget</div>
+    </div>
+    <div class="stat-card strong">
+      <div class="sc-tag">★ This way</div>
+      <div class="sc-num">1 weekend</div>
+      <div class="sc-lbl">★ Solo · ~$0 · only Claude</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: DO IT YOURSELF -->
+  <div class="reveal">
+    <div class="section-label">Do It Yourself</div>
+    <h2 class="section-heading">Start Yours <span class="acc">This Weekend</span></h2>
+    <p>
+      You don't need a newsletter. You need to start the thing you keep not starting. The move is the same for almost any small business front:
+    </p>
+    <ul class="try-list">
+      <li><strong>Open Claude and hand it the blank slate.</strong> One line: what the business is and who it's for. "A meal-prep service for busy parents." "A Notion template shop for freelancers."</li>
+      <li><strong>Let it name and brand it.</strong> Ask for a name, a tagline, and a simple logo direction. Reject what's off, keep what lands — you're the taste, it's the output.</li>
+      <li><strong>Have it build the front.</strong> A signup or landing page as an Artifact, live to scroll. Then the first piece of content — issue one, first product, first post.</li>
+      <li><strong>Ship the smallest real version.</strong> Don't wait for perfect. A name + a page + one thing to send is a launch. You can improve it by talking to Claude next weekend.</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4: WHY IT WORKS -->
+  <div class="reveal">
+    <div class="section-label">Why It Works</div>
+    <h2 class="section-heading">AI Collapses the Gap to <span class="acc">Shipped</span></h2>
+    <p>
+      The reason most side hustles never launch isn't laziness — it's the distance between "idea" and "something real I can show people." That distance used to be weeks of unfamiliar work: design, copy, a website, the stuff you've never done. <strong>That gap is what AI collapses.</strong>
+    </p>
+    <p>
+      You describe the outcome — "a newsletter for side-hustlers" — and the model produces the brand, the page, the first draft. What's left isn't the intimidating part. It's the decisions only you can make: is this good, is this you, is this worth sending. <em>The bottleneck was never the work. It was starting</em> — and starting just got a lot cheaper.
+    </p>
+  </div>
+
+  <!-- HONESTY SECTION -->
+  <div class="reveal">
+    <div class="section-label">The Honest Part</div>
+    <h2 class="section-heading">What's <span class="acc">Actually</span> a Business</h2>
+    <p>
+      No hype here. AI gives you a real running start — but a "business" is more than a brand and a page. Here's the honest line.
+    </p>
+  </div>
+
+  <div class="reality reveal">
+    <div class="reality-col good">
+      <div class="rc-head">✓ Genuinely done</div>
+      <ul>
+        <li>A real name, logo, and brand — in an afternoon.</li>
+        <li>A live signup page you can share today.</li>
+        <li>Issue one drafted — launch isn't "now what."</li>
+        <li>$0 to set up; the starting friction is gone.</li>
+      </ul>
+    </div>
+    <div class="reality-col caveat">
+      <div class="rc-head">! Still on you</div>
+      <ul>
+        <li>You have to write it — every single week.</li>
+        <li>Subscribers don't appear; you bring the audience.</li>
+        <li>Pick the model: free, paid, what you sell.</li>
+        <li>Consistency is the whole game. AI can't show up for you.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="reveal" style="font-size:17px; font-weight:300; color:#D6CAC9; line-height:1.8; margin-bottom:24px;">
+    The honest promise: <strong>AI demolishes the reason you haven't started.</strong> The setup, the brand, the blank page — gone in a weekend. The business itself — showing up, building an audience, earning the trust — is still yours to build. That's not the bad news. That's the only part that was ever really worth doing.
+  </p>
+
+  <!-- SECTION: THE REAL ONE -->
+  <div class="reveal">
+    <div class="section-label">The One I Actually Built</div>
+    <h2 class="section-heading">This Site <span class="acc">Is</span> the Side Hustle</h2>
+    <p>
+      Sidebar is a demo. The realest example of this whole idea is the thing you're reading it on. <strong>AIToolsDaily24 — this blog, the channel, the videos — is a side hustle I started exactly this way.</strong> The posts are written with AI. The videos are built with AI (Claude + HeyGen HyperFrames). Even the behind-the-scenes tools — a trend analyzer, a thumbnail generator — got built by describing them to Claude. No agency, no team: one person and a blank slate.
+    </p>
+    <p>
+      And I won't pretend it's a finished success. It's an honest, in-progress side hustle — currently running at a loss, with every video's real platform numbers published right next to it. That's the whole point of the channel: show the build, including the parts that don't work yet. The unfiltered version — what it costs, what's flopped, why I started — is on the <a href="../start-here.html" style="color:var(--acc); text-decoration:none; border-bottom:1px solid rgba(239,68,68,0.4);">Start Here</a> page. You're not reading a case study about a side hustle. You're standing inside one.
+    </p>
+  </div>
+
+  <!-- TAKEAWAY BOX -->
+  <div class="takeaway-box reveal">
+    <div class="takeaway-title">// The One Thing To Remember</div>
+    <p>
+      Stop waiting until you "have time to set it all up." <em>Hand Claude the blank slate and let it set it up.</em> A name, a brand, a live page, and a first draft is a weekend away — which means the only thing between you and a started business is the decision to ask. The barrier was never the work. It was starting.
+    </p>
+  </div>
+
+  <!-- META CALLOUT -->
+  <div class="meta-callout reveal">
+    <div class="meta-label">// The Honest Version</div>
+    <p>
+      Described to AI, built piece by piece, shipped before it was perfect — then improved in public. That's how this site got made, and it's how yours can start this weekend. <strong>The proof is the page you're on.</strong>
+    </p>
+  </div>
+
+  <!-- SERIES CARD -->
+  <div class="series-card-feat reveal">
+    <div class="sf-stamp">★ Build With AI · Episode 03</div>
+    <h3 class="sf-title">Ten Things. <span class="acc">Zero Code.</span></h3>
+    <p>
+      An app. A website. A side hustle. A custom tool. A game. Every episode of Build With AI, I build a real, usable thing with AI and zero code — then show you exactly how. Save the series and build along; by the finale you'll have ten things you can actually use.
+    </p>
+  </div>
+
+  <!-- SERIES NAV -->
+  <div class="series-nav reveal">
+    <a href="32-build-a-website.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div>
+      <div class="nav-card-icon">🌐</div>
+      <div class="nav-card-title">Build a Website</div>
+    </a>
+    <a href="../index.html#build-with-ai" class="series-nav-card next">
+      <div class="nav-card-label">Next Up</div>
+      <div class="nav-card-icon">🔧</div>
+      <div class="nav-card-title">Build a Custom Tool</div>
+    </a>
+  </div>
+
+</article>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Don't Get<br><span style="color:var(--acc)">Left Behind</span></h2>
+    <p class="newsletter-sub reveal">
+      A new "I built this with AI" breakdown every episode. No noise. Just signal — from a human who actually ships this stuff.
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">By Ryu Vy · © 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function copyPrompt(btn) {
+    const code = btn.parentElement.querySelector('code').innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
