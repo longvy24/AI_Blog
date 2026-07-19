@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>8 Things I Had to Relearn When My AI Tools Got Taken Away | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230A0C0A'%20rx='8'/%3E%3Ctext%20x='32'%20y='46'%20font-family='Arial%20Black,sans-serif'%20font-size='38'%20font-weight='900'%20fill='%2384E000'%20text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Eight things to relearn when your AI tools get replaced or restricted — making prompts model-agnostic, stating implicit constraints, using examples as the portable layer, chunking context, re-verifying, owning your prompt file, and learning the new failure mode.">
+<meta property="og:title" content="8 Things I Had to Relearn When My AI Tools Got Taken Away">
+<meta property="og:description" content="The policy changed overnight. Most of what I called prompt skill turned out to be muscle memory for one model.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0A0C0A; --surface:#111410; --surface2:#161A14; --border:#1E2A1A;
+    --acc:#84E000; --acc-soft:#9FFF00; --acc-dim:rgba(132,224,0,0.10); --acc-glow:rgba(132,224,0,0.05);
+    --white:#F2F5EE; --muted:#5A6A52; --muted-light:#8A9A82;
+    --mono:'IBM Plex Mono',monospace; --display:'Bebas Neue',sans-serif; --body:'DM Sans',sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--acc); border-radius: 2px; }
+
+  nav { position: fixed; top:0; left:0; right:0; z-index:100; padding:18px 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,12,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:var(--mono); font-size:12px; font-weight:600; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .nav-back { font-family:var(--mono); font-size:11px; color:var(--muted-light); text-decoration:none; letter-spacing:1.5px; text-transform:uppercase; transition:color .2s; }
+  .nav-back:hover { color: var(--acc); }
+
+  .post-hero { padding:140px 48px 50px; max-width:860px; margin:0 auto; }
+  .post-meta { display:flex; align-items:center; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+  .post-num { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; background:var(--acc-dim); padding:4px 12px; border-radius:2px; border:1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .post-date { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:1px; margin-left:auto; }
+  .post-title { font-family:var(--display); font-size:clamp(46px,6vw,86px); line-height:.93; letter-spacing:1px; text-transform:uppercase; margin-bottom:22px; }
+  .post-title .acc { color:var(--acc); text-shadow:0 0 40px rgba(132,224,0,.3); }
+  .post-subtitle { font-size:18px; font-weight:300; color:var(--muted-light); line-height:1.6; max-width:640px; margin-bottom:30px; }
+  .post-byline { display:flex; align-items:center; gap:12px; padding-top:24px; border-top:1px solid var(--border); }
+  .byline-avatar { width:36px; height:36px; background:var(--acc); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-size:16px; color:#0A0C0A; }
+  .byline-name { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:1px; }
+  .byline-role { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:1px; text-transform:uppercase; }
+
+  .post-body { max-width:860px; margin:0 auto; padding:0 48px 60px; }
+  .post-body p { font-size:17px; font-weight:300; color:#CBD5C4; line-height:1.8; margin-bottom:22px; }
+  .post-body p strong { color:var(--white); font-weight:500; }
+  .post-body em { color:var(--white); font-style:italic; }
+  .section-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin:44px 0 14px; }
+  .section-label::before { content:'// '; opacity:.5; }
+  .section-heading { font-family:var(--display); font-size:clamp(30px,4vw,48px); text-transform:uppercase; letter-spacing:1px; line-height:.95; margin-bottom:20px; }
+  .section-heading .acc { color:var(--acc); }
+
+  .p-card { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--acc); border-radius:0 4px 4px 0; padding:26px 28px; margin:0 0 16px; }
+  .p-top { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .p-num { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; }
+  .p-cat { font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-left:auto; }
+  .p-head { font-family:var(--display); font-size:30px; letter-spacing:1px; text-transform:uppercase; line-height:1; margin-bottom:16px; }
+  .p-prompt { background:#0C0F0B; border:1px solid var(--border); border-radius:4px; padding:16px 18px; font-family:var(--mono); font-size:14px; color:var(--acc-soft); line-height:1.7; white-space:pre-wrap; margin-bottom:14px; }
+  .p-why { font-size:15px; font-weight:300; color:#CBD5C4; line-height:1.65; }
+  .p-why strong { color:var(--white); font-weight:500; }
+
+  .callout { background:var(--acc-dim); border:1px solid rgba(132,224,0,.28); border-radius:4px; padding:26px 28px; margin:36px 0; }
+  .callout-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; }
+  .callout p { margin-bottom:0 !important; color:var(--white) !important; }
+
+  .rule-box { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:30px 32px; margin:32px 0; text-align:center; }
+  .rule-box .rb-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
+  .rule-box .rb-rule { font-family:var(--display); font-size:clamp(24px,3.4vw,38px); letter-spacing:1px; text-transform:uppercase; line-height:1.05; color:var(--white); }
+  .rule-box .rb-rule .acc { color:var(--acc); }
+
+  .gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin:24px 0 8px; }
+  .gallery img { width:100%; display:block; border:1px solid var(--border); border-radius:3px; background:var(--surface); }
+  .gallery-note { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:1px; }
+
+  .series-nav { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin:56px 0; }
+  .series-nav-card { background:var(--surface); padding:24px; text-decoration:none; color:inherit; transition:all .25s; border:1px solid transparent; display:flex; flex-direction:column; gap:8px; }
+  .series-nav-card:hover { border-color:var(--acc); transform:translateY(-2px); }
+  .nav-card-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .nav-card-title { font-family:var(--display); font-size:24px; text-transform:uppercase; letter-spacing:1px; line-height:1; }
+  .nav-card-icon { font-size:26px; }
+  .series-nav-card.next { text-align:right; }
+  .series-nav-card.next .nav-card-label::after { content:' →'; }
+  .series-nav-card.prev .nav-card-label::before { content:'← '; }
+
+  footer { padding:32px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid var(--border); }
+  .footer-logo { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .footer-copy { font-family:var(--mono); font-size:11px; color:var(--muted-light); }
+
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media (max-width:768px) {
+    nav { padding:16px 24px; }
+    .post-hero, .post-body { padding-left:24px; padding-right:24px; }
+    .series-nav { grid-template-columns:1fr; }
+    footer { padding:24px; }
+  }
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--acc), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted-light); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+  @media (max-width: 640px) { .newsletter-section { padding: 60px 24px; } }
+  .emo { width:1em; height:1em; display:inline-block; vertical-align:-0.125em; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">&larr; Back to Site</a>
+</nav>
+
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">Carousel 05</span>
+    <span class="post-series">The Stack I Didn't Choose &middot; Stage 3</span>
+    <span class="post-date">July 2026</span>
+  </div>
+  <h1 class="post-title">8 Things I Had to<br><span class="acc">Relearn Overnight</span></h1>
+  <p class="post-subtitle">The policy changed and the external tools were gone. I found out how much of my &ldquo;prompt skill&rdquo; was really just muscle memory for one specific model.</p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 &middot; By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<article class="post-body">
+
+  <div class="reveal">
+    <p>
+      Stage three: the policy changed. External AI platforms were out, and everything moved to the internal tool.
+    </p>
+    <p>
+      I'm not going to characterise that decision — it wasn't mine to make and it isn't my business to assess in public. What I can tell you is what it felt like from the desk, because <strong>this is the stage most people reading are living in right now.</strong> One day a tool is part of how you work. The next day it isn't, and there's no transition period.
+    </p>
+    <p>
+      The surprise wasn't the disruption. It was discovering how much of what I called "being good at prompting" was really just <em>knowing one specific tool</em> — and finding out which parts came with me and which didn't.
+    </p>
+  </div>
+
+  <div class="section-label reveal">The Eight</div>
+  <h2 class="section-heading reveal">Every Lesson, <span class="acc">Copy-Paste Ready</span></h2>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">01 / 08</span><span class="p-cat">Portability</span></div>
+    <div class="p-head">Strip the Tool</div>
+    <div class="p-prompt">"Rewrite this prompt to work on any
+model. Remove anything tool-specific."</div>
+    <div class="p-why">The uncomfortable discovery: a good chunk of what I thought was prompt skill was really <strong>muscle memory for one model's quirks</strong> — phrasings it happened to like, shorthand it happened to understand. Strip that out and what's left is the part that actually transfers.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">02 / 08</span><span class="p-cat">Explicit</span></div>
+    <div class="p-head">Say the Quiet Part</div>
+    <div class="p-prompt">"Assume no context. State every
+constraint I'd normally leave unsaid."</div>
+    <div class="p-why">A tool you've used for months guesses right about the things you never bothered to specify. A new one guesses wrong about all of them <em>at once</em>, which is why a switch feels like falling off a cliff. Write down the implicit rules and the cliff mostly disappears.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">03 / 08</span><span class="p-cat">Examples</span></div>
+    <div class="p-head">Examples Travel</div>
+    <div class="p-prompt">"Here are 2 examples of what good
+looks like: [x] [y]. Match them."</div>
+    <div class="p-why">Instructions are model-specific; <strong>examples are universal.</strong> Every model, weak or strong, old or new, can pattern-match a sample of the output you want. If you keep one thing portable, keep your examples.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">04 / 08</span><span class="p-cat">Context</span></div>
+    <div class="p-head">Feed It in Pieces</div>
+    <div class="p-prompt">"I'll send this in 3 parts. Acknowledge
+each, answer after part 3."</div>
+    <div class="p-why">Don't assume the new tool holds what the last one held. Context windows differ wildly and nothing warns you when you've exceeded one — the answer just quietly starts ignoring the beginning. Chunk it and make it confirm receipt.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">05 / 08</span><span class="p-cat">Trust</span></div>
+    <div class="p-head">Start Checking Again</div>
+    <div class="p-prompt">"List anything here you're less than
+certain about, and say why."</div>
+    <div class="p-why">You stopped double-checking the old tool because it <em>earned</em> that over months. The new one hasn't earned anything. <strong>Trust is per-tool and it doesn't transfer</strong> — which means going back to a verification habit you'd happily retired.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">06 / 08</span><span class="p-cat">Backup</span></div>
+    <div class="p-head">Own Your Prompts</div>
+    <div class="p-prompt">Keep prompts in a text file you own —
+not in the tool's chat history.</div>
+    <div class="p-why">The one I wish I'd done before I needed it. When access goes, the history goes with it: every refined prompt, every worked example, every template. A plain text file survives every migration, every policy change, and every tool you'll ever be moved off.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">07 / 08</span><span class="p-cat">Failure</span></div>
+    <div class="p-head">Learn the New Wrong</div>
+    <div class="p-prompt">"Give me your least confident answer
+to this, and tell me why."</div>
+    <div class="p-why">Every model is wrong in its own particular way — one invents citations, one over-hedges, one quietly drops half your constraints. <strong>Find the failure mode deliberately, on something that doesn't matter</strong>, rather than discovering it in work you've already shipped.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">08 / 08</span><span class="p-cat">Judgment</span></div>
+    <div class="p-head">Compare, Don't Feel</div>
+    <div class="p-prompt">"Same task, same input. Here's what I
+got before: [x]. Compare them."</div>
+    <div class="p-why">Unfamiliar reads as worse. For the first week everything new feels clumsy, and it's genuinely hard to tell dislike from a real quality drop. Run the same input through both and compare the actual outputs — sometimes it's worse, often it's just different, and you'll write off a decent tool if you never check.</div>
+  </div>
+
+  <div class="callout reveal">
+    <div class="callout-label">// The one to do before you need it</div>
+    <p>
+      Number 6. Keep your prompts in a file you own. Everything else on this list is something you can figure out <em>after</em> a change lands — but the day access is switched off is the day your chat history stops being yours, and you can't retrieve it retroactively. It takes ten minutes to start and it's the only item here with a deadline you don't control.
+    </p>
+  </div>
+
+  <div class="section-label reveal">The Series</div>
+  <h2 class="section-heading reveal">Five Eras, <span class="acc">None of Them Mine</span></h2>
+  <div class="reveal">
+    <p>
+      Three down. The open era, the in-house build, and the lockdown. What comes next is the procurement era — licences start getting bought, and the tooling gets seriously good. Then the stack changes one more time and I have to learn a new editor from scratch.
+    </p>
+    <p>
+      Five stages, in order, none of them my decision. If your workplace hasn't walked this path yet, there's a reasonable chance it's about to.
+    </p>
+  </div>
+
+  <div class="section-label reveal">The Slides</div>
+  <h2 class="section-heading reveal">All Ten, <span class="acc">Full Size</span></h2>
+  <div class="reveal">
+    <p>The full set at full size. Save the ones you'll actually use — or screenshot the lot.</p>
+    <div class="gallery">
+      <img src="slides/c05/01-cover.png" alt="Carousel cover: 8 Things I Had to Relearn Overnight" loading="lazy">
+      <img src="slides/c05/02-technique-01.png" alt="Strip the Tool" loading="lazy">
+      <img src="slides/c05/03-technique-02.png" alt="Say the Quiet Part" loading="lazy">
+      <img src="slides/c05/04-technique-03.png" alt="Examples Travel" loading="lazy">
+      <img src="slides/c05/05-technique-04.png" alt="Feed It in Pieces" loading="lazy">
+      <img src="slides/c05/06-technique-05.png" alt="Start Checking Again" loading="lazy">
+      <img src="slides/c05/07-technique-06.png" alt="Own Your Prompts" loading="lazy">
+      <img src="slides/c05/08-technique-07.png" alt="Learn the New Wrong" loading="lazy">
+      <img src="slides/c05/09-technique-08.png" alt="Compare, Don't Feel" loading="lazy">
+      <img src="slides/c05/10-cta.png" alt="Save this for later — follow for daily AI prompts" loading="lazy">
+    </div>
+    <div class="gallery-note">Ten slides &middot; 1080&times;1350</div>
+  </div>
+
+  <!-- SERIES NAV — repoint `next` to 06-*.html when Stage 4 publishes -->
+  <div class="series-nav reveal">
+    <a href="04-weak-ai-tool.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous &middot; Stage 2</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="wrench" xmlns="http://www.w3.org/2000/svg"><path fill="#8899A6" d="M27.989 19.977c-.622 0-1.225.078-1.806.213L15.811 9.818c.134-.581.212-1.184.212-1.806C16.023 3.587 12.436 0 8.012 0 7.11 0 5.91.916 6.909 1.915l2.997 2.997s.999 1.998-.999 3.995-3.996.998-3.996.998L1.915 6.909C.916 5.91 0 7.105 0 8.012c0 4.425 3.587 8.012 8.012 8.012.622 0 1.225-.078 1.806-.212l10.371 10.371c-.135.581-.213 1.184-.213 1.806 0 4.425 3.588 8.011 8.012 8.011.901 0 2.101-.916 1.102-1.915l-2.997-2.997s-.999-1.998.999-3.995 3.995-.999 3.995-.999l2.997 2.997c1 .999 1.916-.196 1.916-1.102 0-4.425-3.587-8.012-8.011-8.012z"/></svg></div>
+      <div class="nav-card-title">A Tool That Isn't Good Yet</div>
+    </a>
+    <a href="../index.html#swipe-file" class="series-nav-card next">
+      <div class="nav-card-label">The Swipe File</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="pushpin" xmlns="http://www.w3.org/2000/svg"><path fill="#BE1931" d="M23.651 23.297L12.702 12.348l9.386-7.821 9.385 9.385z"/><path fill="#DD2E44" d="M34.6 13.912c-1.727 1.729-4.528 1.729-6.255 0l-6.257-6.256c-1.729-1.727-1.729-4.53 0-6.258 1.726-1.727 4.528-1.727 6.257 0L34.6 7.656c1.728 1.727 1.728 4.529 0 6.256z"/><path fill="#99AAB5" d="M14 17.823S-.593 35.029.188 35.813C.97 36.596 18.177 22 18.177 22L14 17.823z"/><path fill="#DD2E44" d="M25.215 27.991c-1.726 1.729-4.528 1.729-6.258 0L8.009 17.041c-1.727-1.728-1.727-4.528 0-6.256 1.728-1.729 4.53-1.729 6.258 0l10.948 10.949c1.728 1.729 1.728 4.528 0 6.257z"/></svg></div>
+      <div class="nav-card-title">Every Carousel</div>
+    </a>
+  </div>
+
+</article>
+
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Three Down.<br><span style="color:var(--acc)">Two To Go.</span></h2>
+    <p class="newsletter-sub reveal">
+      Still coming: the procurement era, and the stack change that made me learn a new editor from scratch. Each stage ships with prompts you can steal &mdash; the list gets them first.
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">&copy; 2026 Ryu Vy</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((es) => es.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- Emoji graphics: Twemoji by X/Twitter, CC-BY 4.0 (https://github.com/jdecked/twemoji) -->
+</body>
+</html>

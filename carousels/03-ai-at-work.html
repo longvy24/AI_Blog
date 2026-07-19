@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>10 Ways to Use AI at Work Without Leaking Anything | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230A0C0A'%20rx='8'/%3E%3Ctext%20x='32'%20y='46'%20font-family='Arial%20Black,sans-serif'%20font-size='38'%20font-weight='900'%20fill='%2384E000'%20text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Ten habits for using AI at work without leaking company data — generic twins, synthetic sample rows, placeholder tokens, stripping code before you paste, retyping errors instead of logs, and the weekly self-audit almost nobody runs. Each with a copy-paste prompt.">
+<meta property="og:title" content="10 Ways to Use AI at Work Without Leaking Anything">
+<meta property="og:description" content="One rule: use whatever AI you want, never put company data in it. These are the ten habits that keep you inside it.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0A0C0A; --surface:#111410; --surface2:#161A14; --border:#1E2A1A;
+    --acc:#84E000; --acc-soft:#9FFF00; --acc-dim:rgba(132,224,0,0.10); --acc-glow:rgba(132,224,0,0.05);
+    --white:#F2F5EE; --muted:#5A6A52; --muted-light:#8A9A82;
+    --mono:'IBM Plex Mono',monospace; --display:'Bebas Neue',sans-serif; --body:'DM Sans',sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--acc); border-radius: 2px; }
+
+  nav { position: fixed; top:0; left:0; right:0; z-index:100; padding:18px 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,12,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:var(--mono); font-size:12px; font-weight:600; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .nav-back { font-family:var(--mono); font-size:11px; color:var(--muted-light); text-decoration:none; letter-spacing:1.5px; text-transform:uppercase; transition:color .2s; }
+  .nav-back:hover { color: var(--acc); }
+
+  .post-hero { padding:140px 48px 50px; max-width:860px; margin:0 auto; }
+  .post-meta { display:flex; align-items:center; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+  .post-num { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; background:var(--acc-dim); padding:4px 12px; border-radius:2px; border:1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .post-date { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:1px; margin-left:auto; }
+  .post-title { font-family:var(--display); font-size:clamp(46px,6vw,86px); line-height:.93; letter-spacing:1px; text-transform:uppercase; margin-bottom:22px; }
+  .post-title .acc { color:var(--acc); text-shadow:0 0 40px rgba(132,224,0,.3); }
+  .post-subtitle { font-size:18px; font-weight:300; color:var(--muted-light); line-height:1.6; max-width:640px; margin-bottom:30px; }
+  .post-byline { display:flex; align-items:center; gap:12px; padding-top:24px; border-top:1px solid var(--border); }
+  .byline-avatar { width:36px; height:36px; background:var(--acc); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-size:16px; color:#0A0C0A; }
+  .byline-name { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:1px; }
+  .byline-role { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:1px; text-transform:uppercase; }
+
+  .post-body { max-width:860px; margin:0 auto; padding:0 48px 60px; }
+  .post-body p { font-size:17px; font-weight:300; color:#CBD5C4; line-height:1.8; margin-bottom:22px; }
+  .post-body p strong { color:var(--white); font-weight:500; }
+  .post-body em { color:var(--white); font-style:italic; }
+  .section-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin:44px 0 14px; }
+  .section-label::before { content:'// '; opacity:.5; }
+  .section-heading { font-family:var(--display); font-size:clamp(30px,4vw,48px); text-transform:uppercase; letter-spacing:1px; line-height:.95; margin-bottom:20px; }
+  .section-heading .acc { color:var(--acc); }
+
+  .p-card { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--acc); border-radius:0 4px 4px 0; padding:26px 28px; margin:0 0 16px; }
+  .p-top { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .p-num { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; }
+  .p-cat { font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-left:auto; }
+  .p-head { font-family:var(--display); font-size:30px; letter-spacing:1px; text-transform:uppercase; line-height:1; margin-bottom:16px; }
+  .p-prompt { background:#0C0F0B; border:1px solid var(--border); border-radius:4px; padding:16px 18px; font-family:var(--mono); font-size:14px; color:var(--acc-soft); line-height:1.7; white-space:pre-wrap; margin-bottom:14px; }
+  .p-why { font-size:15px; font-weight:300; color:#CBD5C4; line-height:1.65; }
+  .p-why strong { color:var(--white); font-weight:500; }
+
+  .callout { background:var(--acc-dim); border:1px solid rgba(132,224,0,.28); border-radius:4px; padding:26px 28px; margin:36px 0; }
+  .callout-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; }
+  .callout p { margin-bottom:0 !important; color:var(--white) !important; }
+
+  .rule-box { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:30px 32px; margin:32px 0; text-align:center; }
+  .rule-box .rb-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
+  .rule-box .rb-rule { font-family:var(--display); font-size:clamp(24px,3.4vw,38px); letter-spacing:1px; text-transform:uppercase; line-height:1.05; color:var(--white); }
+  .rule-box .rb-rule .acc { color:var(--acc); }
+
+  .gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin:24px 0 8px; }
+  .gallery img { width:100%; display:block; border:1px solid var(--border); border-radius:3px; background:var(--surface); }
+  .gallery-note { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:1px; }
+
+  .series-nav { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin:56px 0; }
+  .series-nav-card { background:var(--surface); padding:24px; text-decoration:none; color:inherit; transition:all .25s; border:1px solid transparent; display:flex; flex-direction:column; gap:8px; }
+  .series-nav-card:hover { border-color:var(--acc); transform:translateY(-2px); }
+  .nav-card-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .nav-card-title { font-family:var(--display); font-size:24px; text-transform:uppercase; letter-spacing:1px; line-height:1; }
+  .nav-card-icon { font-size:26px; }
+  .series-nav-card.next { text-align:right; }
+  .series-nav-card.next .nav-card-label::after { content:' →'; }
+  .series-nav-card.prev .nav-card-label::before { content:'← '; }
+
+  footer { padding:32px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid var(--border); }
+  .footer-logo { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .footer-copy { font-family:var(--mono); font-size:11px; color:var(--muted-light); }
+
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media (max-width:768px) {
+    nav { padding:16px 24px; }
+    .post-hero, .post-body { padding-left:24px; padding-right:24px; }
+    .series-nav { grid-template-columns:1fr; }
+    footer { padding:24px; }
+  }
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--acc), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted-light); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+  @media (max-width: 640px) { .newsletter-section { padding: 60px 24px; } }
+  .emo { width:1em; height:1em; display:inline-block; vertical-align:-0.125em; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">← Back to Site</a>
+</nav>
+
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">Carousel 03</span>
+    <span class="post-series">The Stack I Didn't Choose · Stage 1</span>
+    <span class="post-date">July 2026</span>
+  </div>
+  <h1 class="post-title">10 Ways to Use AI at Work<br><span class="acc">Without Leaking</span></h1>
+  <p class="post-subtitle">
+    The company I work for had exactly one rule about AI: use whatever you want — never put company data in it. Simple to say, harder to follow when the thing you need help with <em>is</em> the sensitive thing. These are the ten habits I built.
+  </p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 · By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<article class="post-body">
+
+  <div class="reveal">
+    <p>
+      For a while the policy where I work was remarkably relaxed. Use any AI you like — any model, any provider, whatever gets the job done. There was one condition attached, and it was one line long.
+    </p>
+  </div>
+
+  <div class="rule-box reveal">
+    <div class="rb-label">The entire policy</div>
+    <div class="rb-rule">Use whatever you want.<br><span class="acc">Never put company data in it.</span></div>
+  </div>
+
+  <div class="reveal">
+    <p>
+      That rule is easy to agree with and genuinely awkward to follow. The problems worth asking an AI about are the specific ones — <em>this</em> query is slow, <em>this</em> file has a bug, <em>this</em> spreadsheet won't reconcile. The specifics are exactly what you're not allowed to hand over.
+    </p>
+    <p>
+      So you learn to separate the two. What you actually need from the model is almost never the data — it's the reasoning about the <strong>shape</strong> of the problem. Once that clicks, most of these habits follow naturally. Here are the ten I ended up using every day.
+    </p>
+  </div>
+
+  <div class="section-label reveal">The Ten</div>
+  <h2 class="section-heading reveal">Every Prompt, <span class="acc">Copy-Paste Ready</span></h2>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">01 / 10</span><span class="p-cat">Reframe</span></div>
+    <div class="p-head">Generic Twin</div>
+    <div class="p-prompt">"Here's a generic version of my problem:
+[describe the shape, no names]. What causes it?"</div>
+    <div class="p-why">
+      The single highest-leverage habit here. Describe the <strong>structure</strong> of your problem with every identifying detail removed and the answer is just as good — because the structure was the part you needed help with. "Our billing service times out when two jobs claim the same record" becomes "a scheduling system deadlocks when two workers claim the same slot." Same diagnosis, nothing leaked.
+    </div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">02 / 10</span><span class="p-cat">Data</span></div>
+    <div class="p-head">Synthetic Rows</div>
+    <div class="p-prompt">"Generate 20 fake rows for this schema:
+[columns and types]. Realistic, no real people."</div>
+    <div class="p-why">
+      Never paste the real table. Hand over the <strong>schema</strong> — column names and types — and ask for invented rows. You get data that behaves exactly like yours for testing and debugging, and belongs to nobody. This is also the fix for the most common accidental leak there is: pasting a spreadsheet with real customer names in it because you only cared about column C.
+    </div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">03 / 10</span><span class="p-cat">Masking</span></div>
+    <div class="p-head">Placeholder Tokens</div>
+    <div class="p-prompt">"Treat [CLIENT_A] and [SYSTEM_1] as placeholders.
+I'll substitute the real values after."</div>
+    <div class="p-why">
+      When you can't avoid naming things, name them something else. Models reason about <code>[CLIENT_A]</code> exactly as well as about a real company — the label was never doing any work. Keep a consistent set of tokens so the answer is still readable when you swap the real values back in. <strong>Say the substitution out loud in the prompt</strong> or it will sometimes try to guess what the placeholders stand for.
+    </div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">04 / 10</span><span class="p-cat">Scope</span></div>
+    <div class="p-head">Ask the Category</div>
+    <div class="p-prompt">"How does a system like this usually handle
+[problem]? General patterns only."</div>
+    <div class="p-why">
+      Sometimes you don't need help with your instance at all — you need to know how the category works, then apply it yourself. Ask about the general pattern and <strong>nothing of yours crosses the wire</strong>, not even a redacted version. This is the safest prompt on the list and it solves more than you'd expect, because most problems at work are a common pattern wearing local clothes.
+    </div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">05 / 10</span><span class="p-cat">Code</span></div>
+    <div class="p-head">Strip Before You Paste</div>
+    <div class="p-prompt">"Here's the function with keys and hostnames
+removed. The bug is in the logic:"</div>
+    <div class="p-why">
+      API keys, internal endpoints, database hostnames and auth tokens are <strong>never where the bug is</strong>. Delete them before you paste — replace with <code>API_KEY</code> and <code>internal.host</code>. You lose nothing diagnostically and you stop shipping credentials into a chat log. Worth doing even with an approved tool, because pasted secrets have a way of ending up in screenshots later.
+    </div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">06 / 10</span><span class="p-cat">Logs</span></div>
+    <div class="p-head">Retype the Error</div>
+    <div class="p-prompt">"The error line is: 'connection refused on
+retry'. What causes that?"</div>
+    <div class="p-why">
+      Log dumps are the most underrated leak on this list. A stack trace carries internal hostnames, file paths, user IDs, session tokens and sometimes the actual payload — and you pasted 200 lines to ask about one. <strong>Type the line that matters.</strong> The friction is the point: retyping forces you to read what you were about to send.
+    </div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">07 / 10</span><span class="p-cat">Split</span></div>
+    <div class="p-head">Split the Task</div>
+    <div class="p-prompt">"Draft the generic logic. I'll wire it to the
+real data in the approved tool."</div>
+    <div class="p-why">
+      Most work divides cleanly into a thinking half and a sensitive half. Do the thinking wherever the best model is, then do the wiring where the data lives. <strong>Nothing has to cross.</strong> This one also survives policy changes gracefully — when the rules tighten, you shift where the boundary sits instead of relearning how you work.
+    </div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">08 / 10</span><span class="p-cat">Memory</span></div>
+    <div class="p-head">Kill the History</div>
+    <div class="p-prompt">Settings → Data controls → history &amp; training: OFF.
+Start a fresh chat for anything work-adjacent.</div>
+    <div class="p-why">
+      Not a prompt — a setting, and the one people skip. Anything you paste can outlive the conversation you pasted it into. Turn history and training off by default for work, and start clean sessions rather than letting one long thread accumulate context about your job. <strong>A single chat that remembers everything is a single chat that can reveal everything.</strong>
+    </div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">09 / 10</span><span class="p-cat">Drift</span></div>
+    <div class="p-head">Stay Anonymous</div>
+    <div class="p-prompt">"Don't reference my company, role or location
+in your answer. Keep it neutral."</div>
+    <div class="p-why">
+      You rarely leak in one dramatic paste. You leak by <strong>accumulation</strong> — a job title here, a city there, an industry term, a tool only three companies use. Individually harmless, collectively an identity. Telling the model to keep its answers generic stops it echoing those details back and quietly compounding them through a conversation.
+    </div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">10 / 10</span><span class="p-cat">Audit</span></div>
+    <div class="p-head">Audit Yourself</div>
+    <div class="p-prompt">"From this whole chat, what could you guess
+about my employer? Be specific."</div>
+    <div class="p-why">
+      The one almost nobody runs, and the reason to save this post. Ask the model to profile you from your own conversation. <strong>If it can name your industry, your role, or your region, you've been leaking without noticing</strong> — and now you know exactly which details did it. Run it once a week on a long-running thread. It's a two-second check that turns an abstract policy into something you can actually measure.
+    </div>
+  </div>
+
+  <div class="callout reveal">
+    <div class="callout-label">// The one that changes behaviour</div>
+    <p>
+      Number 10 is the only item here with a feedback loop. The other nine are habits you either follow or don't — you can't tell from the outside. The self-audit is the one that shows you, in the model's own words, how much of your working life you've handed over. Most people are surprised the first time.
+    </p>
+  </div>
+
+  <div class="section-label reveal">The Series</div>
+  <h2 class="section-heading reveal">Five Eras, <span class="acc">None of Them Mine</span></h2>
+  <div class="reveal">
+    <p>
+      This is the first unit of a new series about something I've never seen anyone publish honestly: <strong>what happens to you when your AI tools keep changing and you don't get a vote.</strong> The open era above was stage one. Then the company built its own tooling. Then external platforms were banned outright. Then licences started getting bought. Then the stack changed again and I had to learn a new editor from scratch.
+    </p>
+    <p>
+      Five stages, in order, none of them my decision. That's not an unusual career — it's roughly the path every company is walking right now, and most people are living somewhere in the middle of it. Every unit ships with prompts you can steal, because the story is what makes you watch and the prompts are what make you save it.
+    </p>
+  </div>
+
+  <div class="section-label reveal">The Slides</div>
+  <h2 class="section-heading reveal">All Twelve, <span class="acc">Full Size</span></h2>
+  <div class="reveal">
+    <p>
+      The full set at full size. Save the ones you'll actually use — or screenshot the lot.
+    </p>
+    <div class="gallery">
+      <img src="slides/c03/01-cover.png" alt="Carousel cover: 10 Ways to Use AI at Work Without Leaking" loading="lazy">
+      <img src="slides/c03/02-technique-01.png" alt="Generic Twin — example prompt and why it works" loading="lazy">
+      <img src="slides/c03/03-technique-02.png" alt="Synthetic Rows — example prompt and why it works" loading="lazy">
+      <img src="slides/c03/04-technique-03.png" alt="Placeholder Tokens — example prompt and why it works" loading="lazy">
+      <img src="slides/c03/05-technique-04.png" alt="Ask the Category — example prompt and why it works" loading="lazy">
+      <img src="slides/c03/06-technique-05.png" alt="Strip Before You Paste — example prompt and why it works" loading="lazy">
+      <img src="slides/c03/07-technique-06.png" alt="Retype the Error — example prompt and why it works" loading="lazy">
+      <img src="slides/c03/08-technique-07.png" alt="Split the Task — example prompt and why it works" loading="lazy">
+      <img src="slides/c03/09-technique-08.png" alt="Kill the History — the setting and why it matters" loading="lazy">
+      <img src="slides/c03/10-technique-09.png" alt="Stay Anonymous — example prompt and why it works" loading="lazy">
+      <img src="slides/c03/11-technique-10.png" alt="Audit Yourself — example prompt and why it works" loading="lazy">
+      <img src="slides/c03/12-cta.png" alt="Save this for later — follow for daily AI prompts" loading="lazy">
+    </div>
+    <div class="gallery-note">12 slides · 1080×1350</div>
+  </div>
+
+  <!-- SERIES NAV — repoint `next` to 04-*.html when Vol 5 Stage 2 ships -->
+  <div class="series-nav reveal">
+    <a href="02-advanced-prompts.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous Carousel</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="brain" xmlns="http://www.w3.org/2000/svg"><path fill="#EA596E" d="M29.896 26.667c.003.283-.07.653-.146.958-.531 2.145-2.889 4.552-6.208 4.333-3.008-.198-5.458-1.642-5.458-3.667s2.444-3.667 5.458-3.667 6.335.018 6.354 2.043z"/><path fill="#DD2E44" d="M23.542 24.964c-1.619 0-5.314.448-6.162.448-1.498 0-2.713.94-2.713 2.1 0 .558.286 1.062.744 1.438 0 0 1.006 1.009 2.818.525.793-.212 2.083-1.786 4.354-2.036 1.131-.125 3.25.75 6.974.771.16-.344.193-.583.193-.583 0-2.027-3.194-2.663-6.208-2.663z"/><path fill="#F4ABBA" d="M29.75 27.625s2.184-.443 3.542-2.229c1.583-2.083 1.375-4.312 1.375-4.312 1.604-3-.5-5.813-.5-5.813C33.958 12.104 32 10.792 32 10.792c-1.271-3.021-4.083-3.833-4.083-3.833-2.208-2.583-6.125-2.5-6.125-2.5s-3.67-1.345-8.708.167c-.833.25-3.625.833-5.667 2.083C.981 10.649.494 16.793.584 17.792 1.083 23.375 5 24.375 7.5 24.958c.583 1.583 2.729 4.5 6.583 3.417 4.75-.833 6.75-2.25 7.917-2.25s4.417 1.25 7.75 1.5z"/><g fill="#EA596E"><path d="M17.737 18.648c2.328-1.255 3.59-1.138 4.704-1.037.354.032.689.057 1.028.055 1.984-.045 3.591-.881 4.302-1.69.182-.208.161-.523-.046-.706-.206-.182-.521-.163-.706.045-.548.624-1.899 1.313-3.573 1.351-.3.009-.601-.021-.913-.05-1.195-.111-2.679-.247-5.271 1.152-.665.359-1.577.492-2.565.592-2.197-3.171-.875-5.933-.497-6.591.037.002.073.014.111.014.4 0 .802-.098 1.166-.304.24-.136.325-.441.189-.681s-.441-.325-.681-.189c-.64.362-1.482.153-1.88-.467-.149-.233-.458-.301-.69-.151-.232.149-.3.458-.151.69.237.371.571.65.948.837-.521 1.058-1.51 3.84.372 6.951-1.324.13-2.65.317-3.688.986-.67.432-1.355 1.064-1.878 1.791-.629-.108-2.932-.675-3.334-3.231.25-.194.452-.45.577-.766.102-.257-.024-.547-.281-.649s-.547.024-.649.281c-.089.225-.25.389-.454.461-.202.072-.431.048-.643-.07-.243-.135-.546-.046-.68.194-.134.241-.047.546.194.68.284.158.588.238.89.238.037 0 .072-.017.109-.019.476 2.413 2.383 3.473 3.732 3.794-.176.388-.295.788-.331 1.192-.024.274.179.518.454.542l.045.002c.256 0 .475-.195.498-.456.108-1.213 1.265-2.48 2.293-3.145.964-.621 2.375-.752 3.741-.879 1.325-.121 2.577-.237 3.558-.767zm12.866-1.504c-.131.242-.041.546.2.677.076.042.159.062.24.062.176 0 .347-.093.438-.259.019-.034 1.842-3.449-1.571-5.744-.228-.152-.539-.093-.694.136-.154.229-.093.54.136.694 2.644 1.778 1.309 4.326 1.251 4.434zM9.876 9.07c.156 0 .309-.072.406-.208 1.45-2.017 3.458-1.327 3.543-1.295.259.094.544-.038.64-.296.096-.259-.036-.546-.295-.642-.96-.356-3.177-.468-4.7 1.65-.161.223-.11.536.114.697.089.064.191.094.292.094zm13.072-1.888c2.225-.181 3.237 1.432 3.283 1.508.094.158.26.246.431.246.086 0 .174-.022.253-.069.238-.14.318-.446.179-.684-.054-.091-1.34-2.218-4.224-1.998-.275.021-.48.262-.459.538.022.275.271.484.537.459zm9.15 14.611c-.246-.014-.517.181-.539.457-.002.018-.161 1.719-1.91 2.294-.262.086-.405.368-.318.631.068.21.265.344.475.344.052 0 .104-.008.156-.025 2.372-.778 2.586-3.064 2.594-3.161.021-.276-.183-.518-.458-.54z"/><path d="M7.347 16.934c-.072.267.086.541.353.613.043.012.087.017.13.017.221 0 .422-.147.482-.37.19-.711.927-1.167 1.652-1.014.271.055.535-.116.592-.387.057-.27-.116-.535-.387-.592-.426-.09-.854-.048-1.248.086-1.166-1.994-.939-3.96-.936-3.981.036-.273-.156-.524-.429-.562-.272-.033-.524.154-.562.427-.013.097-.28 2.316 1.063 4.614-.334.301-.588.694-.71 1.149zm11.179-2.47c.407-.377 1.06-.37 1.455.015.098.094.223.141.349.141.131 0 .261-.051.358-.152.192-.198.188-.515-.01-.707-.23-.223-.505-.372-.797-.465.296-1.016.179-1.467-.096-2.312-.048-.147-.101-.311-.157-.498l-.03-.1c-.364-1.208-.605-2.005.087-3.13.145-.235.071-.543-.164-.688-.231-.144-.542-.073-.688.164-.928 1.508-.587 2.637-.192 3.944l.03.1c.059.194.113.364.163.517.247.761.322 1.016.02 1.936-.369.069-.722.236-1.01.504-.202.188-.213.505-.025.707.189.202.506.212.707.024zm6.365-2.985c.291 0 .585-.061.859-.191.25-.118.357-.416.239-.666-.117-.25-.419-.354-.665-.239-.502.236-1.121.031-1.384-.457-.131-.244-.436-.333-.677-.205-.243.13-.335.434-.204.677.18.336.448.601.76.785-.537 1.305-.232 2.691.017 3.426.07.209.265.34.474.34.053 0 .106-.008.16-.026.262-.088.402-.372.313-.633-.168-.498-.494-1.756-.002-2.826.038.002.073.015.11.015zm4.797 9.429c-.019-.275-.257-.492-.531-.467-1.014.072-1.878-.697-1.947-1.703-.02-.275-.265-.48-.533-.465-.275.019-.483.258-.465.533.041.59.266 1.122.608 1.555-.804.946-1.857 1.215-2.444 1.284-.519.062-.973.009-1.498-.053-.481-.055-1.025-.118-1.698-.098l-.005.001c-.02-.286-.088-.703-.305-1.05-.146-.233-.455-.304-.689-.158-.233.146-.305.455-.158.689.134.215.159.558.159.725-.504.181-.94.447-1.334.704-.704.458-1.259.82-2.094.632-.756-.173-1.513-.208-2.155-.118-.1-.251-.258-.551-.502-.782-.201-.19-.517-.182-.707.02-.189.2-.181.517.02.707.086.081.154.199.209.317-1.103.454-1.656 1.213-1.682 1.25-.16.224-.107.533.115.694.088.063.19.094.292.094.155 0 .308-.071.406-.205.005-.008.554-.743 1.637-1.04.56-.154 1.363-.141 2.146.037.219.05.422.067.619.07.093.218.129.477.134.573.016.266.236.472.499.472l.027-.001c.275-.015.486-.248.473-.523-.003-.05-.023-.346-.13-.686.461-.167.862-.428 1.239-.673.572-.373 1.113-.726 1.82-.749.592-.021 1.08.036 1.551.091.474.055.94.091 1.454.061.091.253.084.591.07.704-.033.273.16.523.434.559.021.003.042.004.063.004.247 0 .462-.183.495-.435.008-.062.059-.512-.059-.981.718-.193 1.608-.612 2.345-1.471.431.264.934.419 1.469.419.062 0 .125-.002.187-.006.275-.018.483-.255.465-.531z"/></g></svg></div>
+      <div class="nav-card-title">10 Advanced Tricks</div>
+    </a>
+    <a href="../index.html#swipe-file" class="series-nav-card next">
+      <div class="nav-card-label">The Swipe File</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="pushpin" xmlns="http://www.w3.org/2000/svg"><path fill="#BE1931" d="M23.651 23.297L12.702 12.348l9.386-7.821 9.385 9.385z"/><path fill="#DD2E44" d="M34.6 13.912c-1.727 1.729-4.528 1.729-6.255 0l-6.257-6.256c-1.729-1.727-1.729-4.53 0-6.258 1.726-1.727 4.528-1.727 6.257 0L34.6 7.656c1.728 1.727 1.728 4.529 0 6.256z"/><path fill="#99AAB5" d="M14 17.823S-.593 35.029.188 35.813C.97 36.596 18.177 22 18.177 22L14 17.823z"/><path fill="#DD2E44" d="M25.215 27.991c-1.726 1.729-4.528 1.729-6.258 0L8.009 17.041c-1.727-1.728-1.727-4.528 0-6.256 1.728-1.729 4.53-1.729 6.258 0l10.948 10.949c1.728 1.729 1.728 4.528 0 6.257z"/></svg></div>
+      <div class="nav-card-title">Every Carousel</div>
+    </a>
+  </div>
+
+</article>
+
+<!-- NEWSLETTER CTA -->
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Stage One<br><span style="color:var(--acc)">of Five.</span></h2>
+    <p class="newsletter-sub reveal">
+      Four more eras to go — the in-house build, the lockdown, the licences, and the stack change that made me learn a new editor. Each one ships with prompts you can steal. The list gets them first.
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">© 2026 Ryu Vy</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((es) => es.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+<!-- Emoji graphics: Twemoji by X/Twitter, CC-BY 4.0 (https://github.com/jdecked/twemoji) -->
+</body>
+</html>

@@ -204,6 +204,7 @@
     .data-block { padding: 18px 20px; }
     .data-block pre { font-size: 12px; }
   }
+  .emo { width:1em; height:1em; display:inline-block; vertical-align:-0.125em; }
 </style>
 </head>
 <body>
@@ -453,7 +454,7 @@
       <li><strong>Six title patterns, rotating.</strong> Five of the first 10 used the same "Stop using X" pattern and the last two got 0% CTR on 100+ impressions. The new series cycles through question, number, story, instruction, secret-reveal, and experiment formats — so the channel page stops reading like one repeated ad.</li>
       <li><strong>TikTok becomes the primary platform.</strong> Same first-10 content delivered ~30% more views on TikTok than YouTube, with the curve still accelerating (last 5 days vs. first 5: TikTok up 6.9×, YouTube down 71%). The new series posts to TikTok first and treats YouTube as secondary distribution until CTR recovers.</li>
       <li><strong>Cadence is now different per platform.</strong> YouTube: one video every 2–3 days (daily underperformers compound channel-level damage). TikTok: daily (recency is itself a ranking signal during the 7–10 day algorithm warmup). Instagram: 3–4 per week (daily posting reads as spam-adjacent and suppresses reach).</li>
-      <li><strong>Captions optimize for what each platform actually rewards.</strong> TikTok ranks comments heaviest — every caption now ends with a one-word-reply question. Instagram ranks saves heaviest — every caption ends with "Save this 🔖". YouTube descriptions front-load the search-friendly phrases the titles deliberately avoid.</li>
+      <li><strong>Captions optimize for what each platform actually rewards.</strong> TikTok ranks comments heaviest — every caption now ends with a one-word-reply question. Instagram ranks saves heaviest — every caption ends with "Save this <svg class="emo" viewBox="0 0 36 36" role="img" aria-label="bookmark" xmlns="http://www.w3.org/2000/svg"><path fill="#AAB8C2" d="M35 26c0 2.209-1.791 4-4 4H5c-2.209 0-4-1.791-4-4V6.313C1 4.104 6.791 0 9 0h20.625C32.719 0 35 2.312 35 5.375V26z"/><path fill="#F5F8FA" d="M33 30c0 2.209-1.791 4-4 4H7c-2.209 0-4-1.791-4-4V6c0-4.119-.021-4 5-4h21c2.209 0 4 1.791 4 4v24z"/><path fill="#FFF" d="M31 31c0 1.657-1.343 3-3 3H4c-1.657 0-3-1.343-3-3V7c0-1.657 1.343-3 3-3h24c1.657 0 3 1.343 3 3v24z"/><path fill="#AAB8C2" d="M31 32c0 2.209-1.791 4-4 4H6c-2.209 0-4-1.791-4-4V10c0-2.209 1.791-4 4-4h21c2.209 0 4 1.791 4 4v22z"/><path fill="#E1E8ED" d="M29 32c0 2.209-1.791 4-4 4H6c-2.209 0-4-1.791-4-4V12c0-2.209 1.791-4 4-4h19.335C27.544 8 29 9.456 29 11.665V32z"/><path fill="#AAB8C2" d="M6 6C4.312 6 4.269 4.078 5 3.25 5.832 2.309 7.125 2 9.438 2H11V0H8.281C4.312 0 1 2.5 1 5.375V32c0 2.209 1.791 4 4 4h2V6H6z"/><g fill="#DD2E44"><path d="M17 4v23l4-6 4 6V4z"/><path d="M25 28c-.328 0-.644-.162-.832-.445L21 22.803l-3.168 4.752c-.245.367-.701.531-1.122.402-.421-.128-.71-.517-.71-.957V4c0-.552.448-1 1-1h8c.553 0 1 .448 1 1v23c0 .44-.288.829-.71.957-.096.029-.193.043-.29.043zm-4-8c.334 0 .646.167.832.445L24 23.697V5h-6v18.697l2.168-3.252c.186-.278.498-.445.832-.445z"/></g><path fill="#F5F8FA" d="M15 2h12v2H15z"/></svg>". YouTube descriptions front-load the search-friendly phrases the titles deliberately avoid.</li>
       <li><strong>The Instagram bio gets rewritten before video 11 posts.</strong> 23 profile visits, 2 follows in the first 10 is a 91% leak rate — the single highest-leverage fix in the data. New bio names what the channel posts and how often, and a follow CTA is baked into the last 2 seconds of every Reel.</li>
       <li><strong>Each platform gets its own independent test.</strong> Three of the first 10 videos that flopped on YouTube were Instagram's top performers. No video gets killed because one platform rejected it — each gets its own week to find its audience.</li>
       <li><strong>Cross-linking from the existing hits.</strong> Every new video ships with a pinned comment on V01 "Google Drive AI" (1,002 views, still being served impressions) and on the May 12 TikTok (646 views, the platform's breakout) — funneling residual traffic from the wins of the first 10 into the new series.</li>
@@ -509,5 +510,6 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
+<!-- Emoji graphics: Twemoji by X/Twitter, CC-BY 4.0 (https://github.com/jdecked/twemoji) -->
 </body>
 </html>

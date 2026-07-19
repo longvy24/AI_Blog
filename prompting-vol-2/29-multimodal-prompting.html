@@ -344,6 +344,7 @@
     .newsletter-section { padding: 60px 24px; }
     footer { padding: 24px; }
   }
+  .emo { width:1em; height:1em; display:inline-block; vertical-align:-0.125em; }
 </style>
 </head>
 <body>
@@ -463,7 +464,7 @@
     <button class="prompt-copy" onclick="copyPrompt(this)">Copy</button>
     <code><span class="blank">[Verb]</span> this <span class="blank">[output type]</span>. <span class="blank">[Constraint or tone note]</span>.
 
-<span class="attach">📎 attach image</span></code>
+<span class="attach"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="paperclip" xmlns="http://www.w3.org/2000/svg"><path fill="#99AAB5" d="M35.354 25.254c.217-2.391-.513-4.558-2.057-6.102L17.033 2.89c-.391-.391-1.024-.391-1.414 0-.391.391-.391 1.024 0 1.414l16.264 16.263c1.116 1.117 1.642 2.717 1.479 4.506-.159 1.748-.957 3.456-2.188 4.686-1.23 1.23-2.938 2.027-4.685 2.187-1.781.161-3.39-.362-4.506-1.479L3.598 12.082c-.98-.98-1.059-2.204-.953-3.058.15-1.196.755-2.401 1.66-3.307 1.7-1.7 4.616-2.453 6.364-.707l14.85 14.849c1.119 1.12.026 2.803-.708 3.536-.733.735-2.417 1.826-3.535.707L9.962 12.789c-.391-.391-1.024-.39-1.414 0-.391.391-.391 1.023 0 1.414l11.313 11.314c1.859 1.858 4.608 1.05 6.363-.707 1.758-1.757 2.565-4.507.708-6.364L12.083 3.597c-2.62-2.62-6.812-1.673-9.192.706C1.677 5.517.864 7.147.661 8.775c-.229 1.833.312 3.509 1.523 4.721l18.384 18.385c1.365 1.365 3.218 2.094 5.281 2.094.27 0 .544-.013.82-.037 2.206-.201 4.362-1.209 5.918-2.765 1.558-1.556 2.565-3.713 2.767-5.919z"/></svg> attach image</span></code>
   </div>
 
   <p>
@@ -484,7 +485,7 @@
       <div class="cc-tag">★ 01 · DESIGNER · SCREENSHOT → COPY</div>
       <div class="cc-name">The Screenshot Rewrite</div>
       <div class="cc-when">When: a UI feels off and you can't articulate why — let the model see it and match the surrounding tone.</div>
-      <div class="cc-prompt">"<span class="em">Rewrite the copy</span> on this screen to feel more <span class="em">conversational</span>. Match the warmth of the illustration. Keep the button under 6 words. <span class="em">📎 dashboard-v3.png</span>"</div>
+      <div class="cc-prompt">"<span class="em">Rewrite the copy</span> on this screen to feel more <span class="em">conversational</span>. Match the warmth of the illustration. Keep the button under 6 words. <span class="em"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="paperclip" xmlns="http://www.w3.org/2000/svg"><path fill="#99AAB5" d="M35.354 25.254c.217-2.391-.513-4.558-2.057-6.102L17.033 2.89c-.391-.391-1.024-.391-1.414 0-.391.391-.391 1.024 0 1.414l16.264 16.263c1.116 1.117 1.642 2.717 1.479 4.506-.159 1.748-.957 3.456-2.188 4.686-1.23 1.23-2.938 2.027-4.685 2.187-1.781.161-3.39-.362-4.506-1.479L3.598 12.082c-.98-.98-1.059-2.204-.953-3.058.15-1.196.755-2.401 1.66-3.307 1.7-1.7 4.616-2.453 6.364-.707l14.85 14.849c1.119 1.12.026 2.803-.708 3.536-.733.735-2.417 1.826-3.535.707L9.962 12.789c-.391-.391-1.024-.39-1.414 0-.391.391-.391 1.023 0 1.414l11.313 11.314c1.859 1.858 4.608 1.05 6.363-.707 1.758-1.757 2.565-4.507.708-6.364L12.083 3.597c-2.62-2.62-6.812-1.673-9.192.706C1.677 5.517.864 7.147.661 8.775c-.229 1.833.312 3.509 1.523 4.721l18.384 18.385c1.365 1.365 3.218 2.094 5.281 2.094.27 0 .544-.013.82-.037 2.206-.201 4.362-1.209 5.918-2.765 1.558-1.556 2.565-3.713 2.767-5.919z"/></svg> dashboard-v3.png</span>"</div>
       <div class="cc-output">"Headline: 'Good to see you again, Alex.' Button: 'Let's pick up where you left off →' (Matched the sage-green of the illustration. Reduced cold blue accents.)"</div>
     </div>
 
@@ -492,7 +493,7 @@
       <div class="cc-tag">★ 02 · BUILDER · SKETCH → CODE</div>
       <div class="cc-name">The Sketch-to-Component</div>
       <div class="cc-when">When: you've got a napkin wireframe, a whiteboard sketch, or a Figma frame and you want runnable code in one shot — skip the spec doc, drop the picture.</div>
-      <div class="cc-prompt">"<span class="em">Build this</span> as a working React component. Tailwind, dark mode, props for the title and metric. <span class="em">📎 sketch.jpg</span>"</div>
+      <div class="cc-prompt">"<span class="em">Build this</span> as a working React component. Tailwind, dark mode, props for the title and metric. <span class="em"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="paperclip" xmlns="http://www.w3.org/2000/svg"><path fill="#99AAB5" d="M35.354 25.254c.217-2.391-.513-4.558-2.057-6.102L17.033 2.89c-.391-.391-1.024-.391-1.414 0-.391.391-.391 1.024 0 1.414l16.264 16.263c1.116 1.117 1.642 2.717 1.479 4.506-.159 1.748-.957 3.456-2.188 4.686-1.23 1.23-2.938 2.027-4.685 2.187-1.781.161-3.39-.362-4.506-1.479L3.598 12.082c-.98-.98-1.059-2.204-.953-3.058.15-1.196.755-2.401 1.66-3.307 1.7-1.7 4.616-2.453 6.364-.707l14.85 14.849c1.119 1.12.026 2.803-.708 3.536-.733.735-2.417 1.826-3.535.707L9.962 12.789c-.391-.391-1.024-.39-1.414 0-.391.391-.391 1.023 0 1.414l11.313 11.314c1.859 1.858 4.608 1.05 6.363-.707 1.758-1.757 2.565-4.507.708-6.364L12.083 3.597c-2.62-2.62-6.812-1.673-9.192.706C1.677 5.517.864 7.147.661 8.775c-.229 1.833.312 3.509 1.523 4.721l18.384 18.385c1.365 1.365 3.218 2.094 5.281 2.094.27 0 .544-.013.82-.037 2.206-.201 4.362-1.209 5.918-2.765 1.558-1.556 2.565-3.713 2.767-5.919z"/></svg> sketch.jpg</span>"</div>
       <div class="cc-output">"&lt;Card variant='dark'&gt; ... 90 lines of Tailwind React, props typed, ready to drop in. Includes a Storybook example."</div>
     </div>
 
@@ -500,7 +501,7 @@
       <div class="cc-tag">★ 03 · EVERYDAY · PHOTO → ANSWER</div>
       <div class="cc-name">The Photo-of-Anything</div>
       <div class="cc-when">When: a whiteboard you can't transcribe, a textbook page, a fridge full of ingredients, a parking sign in a language you don't speak — point your phone, ask one question.</div>
-      <div class="cc-prompt">"<span class="em">3 dinner ideas</span> I can make from what's in here. Rank by <span class="em">protein</span>. <span class="em">📎 fridge.jpg</span>"</div>
+      <div class="cc-prompt">"<span class="em">3 dinner ideas</span> I can make from what's in here. Rank by <span class="em">protein</span>. <span class="em"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="paperclip" xmlns="http://www.w3.org/2000/svg"><path fill="#99AAB5" d="M35.354 25.254c.217-2.391-.513-4.558-2.057-6.102L17.033 2.89c-.391-.391-1.024-.391-1.414 0-.391.391-.391 1.024 0 1.414l16.264 16.263c1.116 1.117 1.642 2.717 1.479 4.506-.159 1.748-.957 3.456-2.188 4.686-1.23 1.23-2.938 2.027-4.685 2.187-1.781.161-3.39-.362-4.506-1.479L3.598 12.082c-.98-.98-1.059-2.204-.953-3.058.15-1.196.755-2.401 1.66-3.307 1.7-1.7 4.616-2.453 6.364-.707l14.85 14.849c1.119 1.12.026 2.803-.708 3.536-.733.735-2.417 1.826-3.535.707L9.962 12.789c-.391-.391-1.024-.39-1.414 0-.391.391-.391 1.023 0 1.414l11.313 11.314c1.859 1.858 4.608 1.05 6.363-.707 1.758-1.757 2.565-4.507.708-6.364L12.083 3.597c-2.62-2.62-6.812-1.673-9.192.706C1.677 5.517.864 7.147.661 8.775c-.229 1.833.312 3.509 1.523 4.721l18.384 18.385c1.365 1.365 3.218 2.094 5.281 2.094.27 0 .544-.013.82-.037 2.206-.201 4.362-1.209 5.918-2.765 1.558-1.556 2.565-3.713 2.767-5.919z"/></svg> fridge.jpg</span>"</div>
       <div class="cc-output">"1. Eggs + spinach scramble (32g protein) 2. Chicken thigh + rice 3. Tuna pasta. Top pick: #1 — fastest and the spinach is closest to expiring."</div>
     </div>
   </div>
@@ -559,7 +560,7 @@
     </a>
     <a href="30-prompt-triage.html" class="series-nav-card next">
       <div class="nav-card-label">Next Up</div>
-      <div class="nav-card-icon">🚦</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="vertical traffic light" xmlns="http://www.w3.org/2000/svg"><path fill="#31373D" d="M27 32c0 2.209-1.791 4-4 4H13c-2.209 0-4-1.791-4-4V4c0-2.209 1.791-4 4-4h10c2.209 0 4 1.791 4 4v28z"/><path fill="#77B255" d="M17.999 25c2.209 0 4 1.791 4 4s-1.791 4-4 4-4-1.791-4-4 1.791-4 4-4z"/><path fill="#FFCC4D" d="M17.999 14c2.209 0 4 1.791 4 4s-1.791 4-4 4-4-1.791-4-4 1.791-4 4-4z"/><path fill="#DD2E44" d="M17.999 3c2.209 0 4 1.791 4 4s-1.791 4-4 4-4-1.791-4-4 1.791-4 4-4z"/></svg></div>
       <div class="nav-card-title">Prompt Triage</div>
     </a>
   </div>
@@ -605,5 +606,6 @@
   }
 </script>
 
+<!-- Emoji graphics: Twemoji by X/Twitter, CC-BY 4.0 (https://github.com/jdecked/twemoji) -->
 </body>
 </html>
