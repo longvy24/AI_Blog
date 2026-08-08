@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>8 Prompts That Replaced a Tool I Paid For | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230A0C0A'%20rx='8'/%3E%3Ctext%20x='32'%20y='46'%20font-family='Arial%20Black,sans-serif'%20font-size='38'%20font-weight='900'%20fill='%2384E000'%20text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
+<meta name="description" content="One AI chat quietly replaced half my app subscriptions. Eight copy-paste prompts that do the job of a grammar checker, a summarizer, a colour picker, a name generator, a translator, spreadsheet cleanup and a project planner.">
+<meta property="og:title" content="8 Prompts That Replaced a Tool I Paid For">
+<meta property="og:description" content="One chat, the right prompt, and half my subscriptions became unnecessary.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0A0C0A; --surface:#111410; --surface2:#161A14; --border:#1E2A1A;
+    --acc:#84E000; --acc-soft:#9FFF00; --acc-dim:rgba(132,224,0,0.10); --acc-glow:rgba(132,224,0,0.05);
+    --white:#F2F5EE; --muted:#5A6A52; --muted-light:#8A9A82;
+    --mono:'IBM Plex Mono',monospace; --display:'Bebas Neue',sans-serif; --body:'DM Sans',sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--acc); border-radius: 2px; }
+
+  nav { position: fixed; top:0; left:0; right:0; z-index:100; padding:18px 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,12,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:var(--mono); font-size:12px; font-weight:600; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .nav-back { font-family:var(--mono); font-size:11px; color:var(--muted-light); text-decoration:none; letter-spacing:1.5px; text-transform:uppercase; transition:color .2s; }
+  .nav-back:hover { color: var(--acc); }
+
+  .post-hero { padding:140px 48px 50px; max-width:860px; margin:0 auto; }
+  .post-meta { display:flex; align-items:center; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+  .post-num { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; background:var(--acc-dim); padding:4px 12px; border-radius:2px; border:1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .post-date { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:1px; margin-left:auto; }
+  .post-title { font-family:var(--display); font-size:clamp(46px,6vw,86px); line-height:.93; letter-spacing:1px; text-transform:uppercase; margin-bottom:22px; }
+  .post-title .acc { color:var(--acc); text-shadow:0 0 40px rgba(132,224,0,.3); }
+  .post-subtitle { font-size:18px; font-weight:300; color:var(--muted-light); line-height:1.6; max-width:640px; margin-bottom:30px; }
+  .post-byline { display:flex; align-items:center; gap:12px; padding-top:24px; border-top:1px solid var(--border); }
+  .byline-avatar { width:36px; height:36px; background:var(--acc); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-size:16px; color:#0A0C0A; }
+  .byline-name { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:1px; }
+  .byline-role { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:1px; text-transform:uppercase; }
+
+  .post-body { max-width:860px; margin:0 auto; padding:0 48px 60px; }
+  .post-body p { font-size:17px; font-weight:300; color:#CBD5C4; line-height:1.8; margin-bottom:22px; }
+  .post-body p strong { color:var(--white); font-weight:500; }
+  .post-body em { color:var(--white); font-style:italic; }
+  .section-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin:44px 0 14px; }
+  .section-label::before { content:'// '; opacity:.5; }
+  .section-heading { font-family:var(--display); font-size:clamp(30px,4vw,48px); text-transform:uppercase; letter-spacing:1px; line-height:.95; margin-bottom:20px; }
+  .section-heading .acc { color:var(--acc); }
+
+  .p-card { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--acc); border-radius:0 4px 4px 0; padding:26px 28px; margin:0 0 16px; }
+  .p-top { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .p-num { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; }
+  .p-cat { font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-left:auto; }
+  .p-head { font-family:var(--display); font-size:30px; letter-spacing:1px; text-transform:uppercase; line-height:1; margin-bottom:16px; }
+  .p-prompt { background:#0C0F0B; border:1px solid var(--border); border-radius:4px; padding:16px 18px; font-family:var(--mono); font-size:14px; color:var(--acc-soft); line-height:1.7; white-space:pre-wrap; margin-bottom:14px; }
+  .p-why { font-size:15px; font-weight:300; color:#CBD5C4; line-height:1.65; }
+  .p-why strong { color:var(--white); font-weight:500; }
+
+  .callout { background:var(--acc-dim); border:1px solid rgba(132,224,0,.28); border-radius:4px; padding:26px 28px; margin:36px 0; }
+  .callout-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; }
+  .callout p { margin-bottom:0 !important; color:var(--white) !important; }
+
+  .rule-box { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:30px 32px; margin:32px 0; text-align:center; }
+  .rule-box .rb-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
+  .rule-box .rb-rule { font-family:var(--display); font-size:clamp(24px,3.4vw,38px); letter-spacing:1px; text-transform:uppercase; line-height:1.05; color:var(--white); }
+  .rule-box .rb-rule .acc { color:var(--acc); }
+
+  .gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin:24px 0 8px; }
+  .gallery img { width:100%; display:block; border:1px solid var(--border); border-radius:3px; background:var(--surface); }
+  .gallery-note { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:1px; }
+
+  .series-nav { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin:56px 0; }
+  .series-nav-card { background:var(--surface); padding:24px; text-decoration:none; color:inherit; transition:all .25s; border:1px solid transparent; display:flex; flex-direction:column; gap:8px; }
+  .series-nav-card:hover { border-color:var(--acc); transform:translateY(-2px); }
+  .nav-card-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .nav-card-title { font-family:var(--display); font-size:24px; text-transform:uppercase; letter-spacing:1px; line-height:1; }
+  .nav-card-icon { font-size:26px; }
+  .series-nav-card.next { text-align:right; }
+  .series-nav-card.next .nav-card-label::after { content:' →'; }
+  .series-nav-card.prev .nav-card-label::before { content:'← '; }
+
+  footer { padding:32px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid var(--border); }
+  .footer-logo { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .footer-copy { font-family:var(--mono); font-size:11px; color:var(--muted-light); }
+
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media (max-width:768px) {
+    nav { padding:16px 24px; }
+    .post-hero, .post-body { padding-left:24px; padding-right:24px; }
+    .series-nav { grid-template-columns:1fr; }
+    footer { padding:24px; }
+  }
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--acc), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted-light); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+  @media (max-width: 640px) { .newsletter-section { padding: 60px 24px; } }
+  .emo { width:1em; height:1em; display:inline-block; vertical-align:-0.125em; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">&larr; Back to Site</a>
+</nav>
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">Carousel 11</span>
+    <span class="post-series">The Swipe File</span>
+    <span class="post-date">August 2026</span>
+  </div>
+  <h1 class="post-title">8 Prompts That Replaced<br><span class="acc">a Tool I Paid For</span></h1>
+  <p class="post-subtitle">One AI chat quietly ate half my app subscriptions. Here's the exact prompt that replaced each one.</p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div><div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 &middot; By a human, for humans</div></div>
+  </div>
+</header>
+<article class="post-body">
+
+  <div class="reveal"><p>I didn't plan to cancel anything. But one by one, the little single-purpose apps stopped earning their spot — because one AI chat, with the right prompt, quietly did the same job. Grammar checker, summarizer, translator, colour picker: gone, replaced by eight prompts I keep in a note.</p>
+  <p>Here they are, exactly as I use them. None of this needs a special tool — just the chat you already have open and the right ask.</p></div>
+
+  <div class="section-label reveal">The Eight</div>
+  <h2 class="section-heading reveal">Every Prompt, <span class="acc">Copy-Paste Ready</span></h2>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">01 / 08</span><span class="p-cat">Grammar</span></div>
+    <div class="p-head">Fix My Writing</div>
+    <div class="p-prompt">"Proofread this. Fix grammar and flow,
+keep my voice, list each change: [text]"</div>
+    <div class="p-why">Replaces the grammar checker. The change-list is the upgrade — you see what it fixed and why, so you learn instead of blindly accepting.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">02 / 08</span><span class="p-cat">Summarize</span></div>
+    <div class="p-head">TL;DR Anything</div>
+    <div class="p-prompt">"TL;DR this in 3 bullets, then one line on
+whether it's worth my time: [paste]"</div>
+    <div class="p-why">Replaces the read-later summarizer. The verdict line saves the click — it tells you whether to open the thing at all.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">03 / 08</span><span class="p-cat">Design</span></div>
+    <div class="p-head">Name the Palette</div>
+    <div class="p-prompt">"Give me a 5-colour palette for [mood]
+with hex codes and where to use each."</div>
+    <div class="p-why">Replaces the colour-picker app. Hex plus a usage note means you paste it straight into your design instead of eyeballing swatches.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">04 / 08</span><span class="p-cat">Naming</span></div>
+    <div class="p-head">Brainstorm Names</div>
+    <div class="p-prompt">"25 name ideas for [thing]. Short, no
+hyphens, and flag any obviously taken."</div>
+    <div class="p-why">Replaces the name generator. The constraints kill the junk — no three-word hyphenated messes, no names of famous brands.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">05 / 08</span><span class="p-cat">Rewrite</span></div>
+    <div class="p-head">Match a Tone</div>
+    <div class="p-prompt">"Rewrite this in the tone of [example].
+Same facts, their voice: [text]"</div>
+    <div class="p-why">Replaces the paraphrase tool. It mirrors a real writing sample instead of a preset “formal / casual” slider — much closer to what you actually want.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">06 / 08</span><span class="p-cat">Data</span></div>
+    <div class="p-head">Clean This Up</div>
+    <div class="p-prompt">"Turn this messy list into a tidy markdown
+table. Fix obvious typos: [paste]"</div>
+    <div class="p-why">Replaces the spreadsheet cleanup. It infers the columns you'd have built by hand and catches the typos you'd have missed.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">07 / 08</span><span class="p-cat">Translate</span></div>
+    <div class="p-head">Localize, Don't Translate</div>
+    <div class="p-prompt">"Translate to [language], but make it sound
+native — not literal. Flag the untranslatable."</div>
+    <div class="p-why">Replaces the translator. “Native, not literal” is the difference that matters — and flagging what won't carry over saves you an embarrassing mistranslation.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">08 / 08</span><span class="p-cat">Plan</span></div>
+    <div class="p-head">Turn It Into Steps</div>
+    <div class="p-prompt">"Break [goal] into a checklist I can start
+today. Order by what unblocks the most."</div>
+    <div class="p-why">Replaces the project template. Ordering by leverage — what unblocks the most next — is the part generic templates always skip.</div>
+  </div>
+
+  <div class="section-label reveal">The Slides</div>
+  <h2 class="section-heading reveal">All Ten, <span class="acc">Full Size</span></h2>
+  <div class="reveal">
+    <p>The full set at full size. Save the ones you'll actually use — or screenshot the lot.</p>
+    <div class="gallery">
+      <img src="slides/c11/01-cover.png" alt="Cover: Replaced a Tool I Paid For" loading="lazy">
+      <img src="slides/c11/02-technique-01.png" alt="Fix My Writing" loading="lazy">
+      <img src="slides/c11/03-technique-02.png" alt="TL;DR Anything" loading="lazy">
+      <img src="slides/c11/04-technique-03.png" alt="Name the Palette" loading="lazy">
+      <img src="slides/c11/05-technique-04.png" alt="Brainstorm Names" loading="lazy">
+      <img src="slides/c11/06-technique-05.png" alt="Match a Tone" loading="lazy">
+      <img src="slides/c11/07-technique-06.png" alt="Clean This Up" loading="lazy">
+      <img src="slides/c11/08-technique-07.png" alt="Localize Don't Translate" loading="lazy">
+      <img src="slides/c11/09-technique-08.png" alt="Turn It Into Steps" loading="lazy">
+      <img src="slides/c11/10-cta.png" alt="Save this for later" loading="lazy">
+    </div>
+    <div class="gallery-note">Ten slides &middot; 1080&times;1350</div>
+  </div>
+
+  <div class="series-nav reveal">
+    <a href="10-ai-gives-you-garbage.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div><div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="wastebasket" xmlns="http://www.w3.org/2000/svg"><path fill="#9AAAB4" d="M31.5 4l-1.784 4.542L27.932 4h-4.147l-1.926 4.903L19.932 4h-3.863l-1.926 4.903L12.216 4H8.068L6.284 8.542 4.5 4H2.133l3.735 28.013h24.263L33.867 4H31.5zm-5.642 1.678l2.459 6.425-2.601 6.621-2.457-6.254 2.599-6.792zM18 6.049l2.457 6.42L18 18.723l-2.457-6.254L18 6.049zm-7.858-.371l2.599 6.792-2.457 6.254-2.601-6.621 2.459-6.425zM5.958 16.611l.326-.853 2.549 6.66-1.573 4.004-1.302-9.811zM8.068 32l2.216-5.79L12.5 32H8.068zm3.668-9.582l2.407-6.288 2.406 6.288-2.406 6.126-2.407-6.126zM15.784 32L18 26.21 20.216 32h-4.432zm3.667-9.582l2.406-6.288 2.406 6.288-2.406 6.126-2.406-6.126zM23.5 32l2.216-5.79L27.932 32H23.5zm5.392-5.192l-1.725-4.39 2.549-6.659.411 1.074-1.235 9.975z"/><path fill="#67757F" d="M32 34c0-1.104-.896-2-2-2H6c-1.104 0-2 .896-2 2s.896 2 2 2h24c1.104 0 2-.896 2-2zm4-32c0-1.105-.896-2-2-2H2C.896 0 0 .896 0 2c0 1.105.896 2 2 2h32c1.104 0 2-.895 2-2z"/></svg></div>
+      <div class="nav-card-title">When AI Gives You Garbage</div></a>
+    <a href="12-three-way-showdown.html" class="series-nav-card next">
+      <div class="nav-card-label">Next</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="first place medal" xmlns="http://www.w3.org/2000/svg"><path fill="#55ACEE" d="M18 8l-7-8H0l14 17 11.521-4.75z"/><path fill="#3B88C3" d="M25 0l-7 8 5.39 7.312 1.227-1.489L36 0z"/><path fill="#FFAC33" d="M23.205 16.026c.08-.217.131-.448.131-.693 0-1.104-.896-2-2-2h-6.667c-1.105 0-2 .896-2 2 0 .245.05.476.131.693-3.258 1.826-5.464 5.307-5.464 9.307C7.335 31.224 12.111 36 18.002 36s10.667-4.776 10.667-10.667c0-4-2.206-7.481-5.464-9.307z"/><path fill="#9E5200" d="M19.404 18.6h-1.721l-2.73 2.132c-.056.056-.112.206-.112.28v1.178c0 .186.15.354.337.354h1.795v8.414c0 .188.15.355.355.355h2.076c.186 0 .336-.168.336-.355V18.954c0-.186-.149-.354-.336-.354z"/></svg></div><div class="nav-card-title">Three-Way Showdown</div></a>
+  </div>
+
+</article>
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Cancel a<br><span style="color:var(--acc)">Subscription.</span></h2>
+    <p class="newsletter-sub reveal">More prompts that replace paid tools, plus the builds I make with AI — the list gets them first.</p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">&copy; 2026 Ryu Vy</div>
+</footer>
+<script>
+  const io = new IntersectionObserver((es) => es.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- Emoji graphics: Twemoji by X/Twitter, CC-BY 4.0 (https://github.com/jdecked/twemoji) -->
+</body>
+</html>

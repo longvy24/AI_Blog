@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ChatGPT vs Claude: 10 Prompts, One Winner Each | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230A0C0A'%20rx='8'/%3E%3Ctext%20x='32'%20y='46'%20font-family='Arial%20Black,sans-serif'%20font-size='38'%20font-weight='900'%20fill='%2384E000'%20text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Ten common tasks, the exact copy-paste prompt for each, and which of ChatGPT or Claude I reach for — long docs, code review, brainstorming, data extraction, strict JSON and more.">
+<meta property="og:title" content="ChatGPT vs Claude: 10 Prompts, One Winner Each">
+<meta property="og:description" content="Same task, two bots. The prompt for each, and which one I'd actually use.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0A0C0A; --surface:#111410; --surface2:#161A14; --border:#1E2A1A;
+    --acc:#84E000; --acc-soft:#9FFF00; --acc-dim:rgba(132,224,0,0.10); --acc-glow:rgba(132,224,0,0.05);
+    --white:#F2F5EE; --muted:#5A6A52; --muted-light:#8A9A82;
+    --mono:'IBM Plex Mono',monospace; --display:'Bebas Neue',sans-serif; --body:'DM Sans',sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--acc); border-radius: 2px; }
+
+  nav { position: fixed; top:0; left:0; right:0; z-index:100; padding:18px 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,12,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:var(--mono); font-size:12px; font-weight:600; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .nav-back { font-family:var(--mono); font-size:11px; color:var(--muted-light); text-decoration:none; letter-spacing:1.5px; text-transform:uppercase; transition:color .2s; }
+  .nav-back:hover { color: var(--acc); }
+
+  .post-hero { padding:140px 48px 50px; max-width:860px; margin:0 auto; }
+  .post-meta { display:flex; align-items:center; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+  .post-num { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; background:var(--acc-dim); padding:4px 12px; border-radius:2px; border:1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .post-date { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:1px; margin-left:auto; }
+  .post-title { font-family:var(--display); font-size:clamp(46px,6vw,86px); line-height:.93; letter-spacing:1px; text-transform:uppercase; margin-bottom:22px; }
+  .post-title .acc { color:var(--acc); text-shadow:0 0 40px rgba(132,224,0,.3); }
+  .post-subtitle { font-size:18px; font-weight:300; color:var(--muted-light); line-height:1.6; max-width:640px; margin-bottom:30px; }
+  .post-byline { display:flex; align-items:center; gap:12px; padding-top:24px; border-top:1px solid var(--border); }
+  .byline-avatar { width:36px; height:36px; background:var(--acc); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-size:16px; color:#0A0C0A; }
+  .byline-name { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:1px; }
+  .byline-role { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:1px; text-transform:uppercase; }
+
+  .post-body { max-width:860px; margin:0 auto; padding:0 48px 60px; }
+  .post-body p { font-size:17px; font-weight:300; color:#CBD5C4; line-height:1.8; margin-bottom:22px; }
+  .post-body p strong { color:var(--white); font-weight:500; }
+  .post-body em { color:var(--white); font-style:italic; }
+  .section-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin:44px 0 14px; }
+  .section-label::before { content:'// '; opacity:.5; }
+  .section-heading { font-family:var(--display); font-size:clamp(30px,4vw,48px); text-transform:uppercase; letter-spacing:1px; line-height:.95; margin-bottom:20px; }
+  .section-heading .acc { color:var(--acc); }
+
+  .p-card { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--acc); border-radius:0 4px 4px 0; padding:26px 28px; margin:0 0 16px; }
+  .p-top { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .p-num { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; }
+  .p-cat { font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-left:auto; }
+  .p-head { font-family:var(--display); font-size:30px; letter-spacing:1px; text-transform:uppercase; line-height:1; margin-bottom:16px; }
+  .p-prompt { background:#0C0F0B; border:1px solid var(--border); border-radius:4px; padding:16px 18px; font-family:var(--mono); font-size:14px; color:var(--acc-soft); line-height:1.7; white-space:pre-wrap; margin-bottom:14px; }
+  .p-why { font-size:15px; font-weight:300; color:#CBD5C4; line-height:1.65; }
+  .p-why strong { color:var(--white); font-weight:500; }
+
+  .callout { background:var(--acc-dim); border:1px solid rgba(132,224,0,.28); border-radius:4px; padding:26px 28px; margin:36px 0; }
+  .callout-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; }
+  .callout p { margin-bottom:0 !important; color:var(--white) !important; }
+
+  .rule-box { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:30px 32px; margin:32px 0; text-align:center; }
+  .rule-box .rb-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
+  .rule-box .rb-rule { font-family:var(--display); font-size:clamp(24px,3.4vw,38px); letter-spacing:1px; text-transform:uppercase; line-height:1.05; color:var(--white); }
+  .rule-box .rb-rule .acc { color:var(--acc); }
+
+  .gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin:24px 0 8px; }
+  .gallery img { width:100%; display:block; border:1px solid var(--border); border-radius:3px; background:var(--surface); }
+  .gallery-note { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:1px; }
+
+  .series-nav { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin:56px 0; }
+  .series-nav-card { background:var(--surface); padding:24px; text-decoration:none; color:inherit; transition:all .25s; border:1px solid transparent; display:flex; flex-direction:column; gap:8px; }
+  .series-nav-card:hover { border-color:var(--acc); transform:translateY(-2px); }
+  .nav-card-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .nav-card-title { font-family:var(--display); font-size:24px; text-transform:uppercase; letter-spacing:1px; line-height:1; }
+  .nav-card-icon { font-size:26px; }
+  .series-nav-card.next { text-align:right; }
+  .series-nav-card.next .nav-card-label::after { content:' →'; }
+  .series-nav-card.prev .nav-card-label::before { content:'← '; }
+
+  footer { padding:32px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid var(--border); }
+  .footer-logo { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .footer-copy { font-family:var(--mono); font-size:11px; color:var(--muted-light); }
+
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media (max-width:768px) {
+    nav { padding:16px 24px; }
+    .post-hero, .post-body { padding-left:24px; padding-right:24px; }
+    .series-nav { grid-template-columns:1fr; }
+    footer { padding:24px; }
+  }
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--acc), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted-light); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+  @media (max-width: 640px) { .newsletter-section { padding: 60px 24px; } }
+  .emo { width:1em; height:1em; display:inline-block; vertical-align:-0.125em; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">&larr; Back to Site</a>
+</nav>
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">Carousel 08</span>
+    <span class="post-series">The Swipe File</span>
+    <span class="post-date">August 2026</span>
+  </div>
+  <h1 class="post-title">ChatGPT vs Claude<br><span class="acc">10 Prompts, One Winner Each</span></h1>
+  <p class="post-subtitle">They're both great, and they're not the same. Here are ten tasks, the exact prompt for each, and which one I actually reach for.</p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div><div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 &middot; By a human, for humans</div></div>
+  </div>
+</header>
+<article class="post-body">
+
+  <div class="reveal"><p>They're both excellent, and they're not the same. After enough hours in each, I stopped asking “which is better” and started asking “which do I reach for <em>right now</em>.” The answer changes by task — and once you know the pattern, you stop wasting the good tool on the wrong job.</p>
+  <p>Ten tasks below. Each has the exact copy-paste prompt and my pick between the two. The prompts work on either, so even if you only have one, you're covered — the winner is just where I'd spend the tokens if I had both open.</p></div>
+
+  <div class="section-label reveal">The Ten</div>
+  <h2 class="section-heading reveal">Every Prompt, <span class="acc">Copy-Paste Ready</span></h2>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">01 / 10</span><span class="p-cat">Long docs</span></div>
+    <div class="p-head">Summarize Without Lying</div>
+    <div class="p-prompt">"Summarize this in 5 bullets, then list
+what you're NOT sure about: [paste]"</div>
+    <div class="p-why">Reach for <strong>Claude</strong> on long text — it holds more of the document without dropping the middle. The uncertainty list is where the hallucinations own up before you paste them into something real.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">02 / 10</span><span class="p-cat">Ideas</span></div>
+    <div class="p-head">Go Wide</div>
+    <div class="p-prompt">"20 ideas, safe to unhinged. Don't
+self-censor. Number them, no explanations."</div>
+    <div class="p-why">Reach for <strong>ChatGPT</strong> to brainstorm — it ranges wider before it converges. “Safe to unhinged” gives you the boring ideas <em>and</em> the one you'd never have written down.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">03 / 10</span><span class="p-cat">Code</span></div>
+    <div class="p-head">Bugs First</div>
+    <div class="p-prompt">"Review this. Bugs first, style second,
+and say what you'd change: [code]"</div>
+    <div class="p-why">Reach for <strong>Claude</strong> on code. Ordering by severity stops it burying the one real bug under ten cosmetic nitpicks — the failure mode of every “review my code” prompt.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">04 / 10</span><span class="p-cat">Facts</span></div>
+    <div class="p-head">One Line, One Source</div>
+    <div class="p-prompt">"Answer in one line, then tell me exactly
+where I'd verify it."</div>
+    <div class="p-why">Reach for <strong>ChatGPT</strong> when it can search the web. The verify-line is the safety rail — it keeps you from trusting a confident one-liner that happens to be wrong.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">05 / 10</span><span class="p-cat">Tone</span></div>
+    <div class="p-head">Three Voices</div>
+    <div class="p-prompt">"Rewrite this 3 ways: formal, casual,
+blunt. Same meaning: [text]"</div>
+    <div class="p-why">Either tool handles this. Three versions in one shot beats asking for “make it better” and hoping — you pick the one that fits instead of describing it.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">06 / 10</span><span class="p-cat">Data</span></div>
+    <div class="p-head">Table Only</div>
+    <div class="p-prompt">"Pull every date, name and number into a
+markdown table. Nothing else: [paste]"</div>
+    <div class="p-why">Reach for <strong>Claude</strong> — it holds a strict output format without drifting back into prose halfway down. “Nothing else” is the instruction that actually sticks.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">07 / 10</span><span class="p-cat">Writing</span></div>
+    <div class="p-head">Hook Me</div>
+    <div class="p-prompt">"Write the first 150 words. Make me need
+to read the next line. Then stop."</div>
+    <div class="p-why">Reach for <strong>ChatGPT</strong> for a cold open — it commits to a voice faster. Capping it at 150 words forces a real hook instead of a warm-up paragraph.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">08 / 10</span><span class="p-cat">Reasoning</span></div>
+    <div class="p-head">Show the Work</div>
+    <div class="p-prompt">"Think step by step. Show each step. Then
+give the answer on its own line."</div>
+    <div class="p-why">Reach for <strong>Claude</strong> on multi-step logic. Visible steps let you catch the wrong turn — the answer on its own line means you can copy it without the working.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">09 / 10</span><span class="p-cat">Teaching</span></div>
+    <div class="p-head">Explain It Simple</div>
+    <div class="p-prompt">"Explain [topic] to a smart 12-year-old.
+One analogy, zero jargon."</div>
+    <div class="p-why">Either tool. The age cap and the one-analogy limit force real clarity instead of a glossary of terms you'd have to look up anyway.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">10 / 10</span><span class="p-cat">Format</span></div>
+    <div class="p-head">Strict JSON</div>
+    <div class="p-prompt">"Return ONLY valid JSON in this shape:
+[shape]. No prose, no markdown."</div>
+    <div class="p-why">Reach for <strong>Claude</strong> when the output feeds code — it breaks strict format far less often. If you're parsing the result, that reliability is the whole game.</div>
+  </div>
+
+  <div class="section-label reveal">The Slides</div>
+  <h2 class="section-heading reveal">All Twelve, <span class="acc">Full Size</span></h2>
+  <div class="reveal">
+    <p>The full set at full size. Save the ones you'll actually use — or screenshot the lot.</p>
+    <div class="gallery">
+      <img src="slides/c08/01-cover.png" alt="Cover: ChatGPT vs Claude" loading="lazy">
+      <img src="slides/c08/02-technique-01.png" alt="Summarize Without Lying" loading="lazy">
+      <img src="slides/c08/03-technique-02.png" alt="Go Wide" loading="lazy">
+      <img src="slides/c08/04-technique-03.png" alt="Bugs First" loading="lazy">
+      <img src="slides/c08/05-technique-04.png" alt="One Line One Source" loading="lazy">
+      <img src="slides/c08/06-technique-05.png" alt="Three Voices" loading="lazy">
+      <img src="slides/c08/07-technique-06.png" alt="Table Only" loading="lazy">
+      <img src="slides/c08/08-technique-07.png" alt="Hook Me" loading="lazy">
+      <img src="slides/c08/09-technique-08.png" alt="Show the Work" loading="lazy">
+      <img src="slides/c08/10-technique-09.png" alt="Explain It Simple" loading="lazy">
+      <img src="slides/c08/11-technique-10.png" alt="Strict JSON" loading="lazy">
+      <img src="slides/c08/12-cta.png" alt="Save this for later" loading="lazy">
+    </div>
+    <div class="gallery-note">Twelve slides &middot; 1080&times;1350</div>
+  </div>
+
+  <div class="series-nav reveal">
+    <a href="../index.html#swipe-file" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div><div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="pushpin" xmlns="http://www.w3.org/2000/svg"><path fill="#BE1931" d="M23.651 23.297L12.702 12.348l9.386-7.821 9.385 9.385z"/><path fill="#DD2E44" d="M34.6 13.912c-1.727 1.729-4.528 1.729-6.255 0l-6.257-6.256c-1.729-1.727-1.729-4.53 0-6.258 1.726-1.727 4.528-1.727 6.257 0L34.6 7.656c1.728 1.727 1.728 4.529 0 6.256z"/><path fill="#99AAB5" d="M14 17.823S-.593 35.029.188 35.813C.97 36.596 18.177 22 18.177 22L14 17.823z"/><path fill="#DD2E44" d="M25.215 27.991c-1.726 1.729-4.528 1.729-6.258 0L8.009 17.041c-1.727-1.728-1.727-4.528 0-6.256 1.728-1.729 4.53-1.729 6.258 0l10.948 10.949c1.728 1.729 1.728 4.528 0 6.257z"/></svg></div>
+      <div class="nav-card-title">Every Carousel</div></a>
+    <a href="09-stop-ai-agreeing.html" class="series-nav-card next">
+      <div class="nav-card-label">Next</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="octagonal sign" xmlns="http://www.w3.org/2000/svg"><path fill="#DD2E44" d="M12 3l-9 8.985V24l9 9h12l9-9V11.985L24 3z"/><path fill="#CCD6DD" d="M24.827 1H11.173L1 11.156v13.672L11.172 35h13.657L35 24.828V11.156L24.827 1zM33 24l-9 9H12l-9-9V11.985L12 3h12l9 8.985V24z"/></svg></div><div class="nav-card-title">Stop AI Agreeing</div></a>
+  </div>
+
+</article>
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Two Bots,<br><span style="color:var(--acc)">One Newsletter.</span></h2>
+    <p class="newsletter-sub reveal">New prompts, tool breakdowns and “I built this with AI” experiments — the list gets them first.</p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">&copy; 2026 Ryu Vy</div>
+</footer>
+<script>
+  const io = new IntersectionObserver((es) => es.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- Emoji graphics: Twemoji by X/Twitter, CC-BY 4.0 (https://github.com/jdecked/twemoji) -->
+</body>
+</html>
