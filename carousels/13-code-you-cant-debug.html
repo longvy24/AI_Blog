@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>10 Prompts for When AI Writes Code You Can't Debug | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230A0C0A'%20rx='8'/%3E%3Ctext%20x='32'%20y='46'%20font-family='Arial%20Black,sans-serif'%20font-size='38'%20font-weight='900'%20fill='%2384E000'%20text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
+<meta name="description" content="You can't debug code you can't read. Ten copy-paste prompts for when an AI build breaks: get the error in plain English, shrink it to the smallest failing case, change one thing at a time, log real values, and revert to the last version that worked.">
+<meta property="og:title" content="10 Prompts for When AI Writes Code You Can't Debug">
+<meta property="og:description" content="Ten prompts for debugging code you didn't write and can't read.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0A0C0A; --surface:#111410; --surface2:#161A14; --border:#1E2A1A;
+    --acc:#84E000; --acc-soft:#9FFF00; --acc-dim:rgba(132,224,0,0.10); --acc-glow:rgba(132,224,0,0.05);
+    --white:#F2F5EE; --muted:#5A6A52; --muted-light:#8A9A82;
+    --mono:'IBM Plex Mono',monospace; --display:'Bebas Neue',sans-serif; --body:'DM Sans',sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--acc); border-radius: 2px; }
+
+  nav { position: fixed; top:0; left:0; right:0; z-index:100; padding:18px 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,12,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:var(--mono); font-size:12px; font-weight:600; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .nav-back { font-family:var(--mono); font-size:11px; color:var(--muted-light); text-decoration:none; letter-spacing:1.5px; text-transform:uppercase; transition:color .2s; }
+  .nav-back:hover { color: var(--acc); }
+
+  .post-hero { padding:140px 48px 50px; max-width:860px; margin:0 auto; }
+  .post-meta { display:flex; align-items:center; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+  .post-num { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; background:var(--acc-dim); padding:4px 12px; border-radius:2px; border:1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .post-date { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:1px; margin-left:auto; }
+  .post-title { font-family:var(--display); font-size:clamp(46px,6vw,86px); line-height:.93; letter-spacing:1px; text-transform:uppercase; margin-bottom:22px; }
+  .post-title .acc { color:var(--acc); text-shadow:0 0 40px rgba(132,224,0,.3); }
+  .post-subtitle { font-size:18px; font-weight:300; color:var(--muted-light); line-height:1.6; max-width:640px; margin-bottom:30px; }
+  .post-byline { display:flex; align-items:center; gap:12px; padding-top:24px; border-top:1px solid var(--border); }
+  .byline-avatar { width:36px; height:36px; background:var(--acc); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-size:16px; color:#0A0C0A; }
+  .byline-name { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:1px; }
+  .byline-role { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:1px; text-transform:uppercase; }
+
+  .post-body { max-width:860px; margin:0 auto; padding:0 48px 60px; }
+  .post-body p { font-size:17px; font-weight:300; color:#CBD5C4; line-height:1.8; margin-bottom:22px; }
+  .post-body p strong { color:var(--white); font-weight:500; }
+  .post-body em { color:var(--white); font-style:italic; }
+  .section-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin:44px 0 14px; }
+  .section-label::before { content:'// '; opacity:.5; }
+  .section-heading { font-family:var(--display); font-size:clamp(30px,4vw,48px); text-transform:uppercase; letter-spacing:1px; line-height:.95; margin-bottom:20px; }
+  .section-heading .acc { color:var(--acc); }
+
+  .p-card { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--acc); border-radius:0 4px 4px 0; padding:26px 28px; margin:0 0 16px; }
+  .p-top { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .p-num { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; }
+  .p-cat { font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-left:auto; }
+  .p-head { font-family:var(--display); font-size:30px; letter-spacing:1px; text-transform:uppercase; line-height:1; margin-bottom:16px; }
+  .p-prompt { background:#0C0F0B; border:1px solid var(--border); border-radius:4px; padding:16px 18px; font-family:var(--mono); font-size:14px; color:var(--acc-soft); line-height:1.7; white-space:pre-wrap; margin-bottom:14px; }
+  .p-why { font-size:15px; font-weight:300; color:#CBD5C4; line-height:1.65; }
+  .p-why strong { color:var(--white); font-weight:500; }
+
+  .callout { background:var(--acc-dim); border:1px solid rgba(132,224,0,.28); border-radius:4px; padding:26px 28px; margin:36px 0; }
+  .callout-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; }
+  .callout p { margin-bottom:0 !important; color:var(--white) !important; }
+
+  .rule-box { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:30px 32px; margin:32px 0; text-align:center; }
+  .rule-box .rb-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
+  .rule-box .rb-rule { font-family:var(--display); font-size:clamp(24px,3.4vw,38px); letter-spacing:1px; text-transform:uppercase; line-height:1.05; color:var(--white); }
+  .rule-box .rb-rule .acc { color:var(--acc); }
+
+  .gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin:24px 0 8px; }
+  .gallery img { width:100%; display:block; border:1px solid var(--border); border-radius:3px; background:var(--surface); }
+  .gallery-note { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:1px; }
+
+  .series-nav { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin:56px 0; }
+  .series-nav-card { background:var(--surface); padding:24px; text-decoration:none; color:inherit; transition:all .25s; border:1px solid transparent; display:flex; flex-direction:column; gap:8px; }
+  .series-nav-card:hover { border-color:var(--acc); transform:translateY(-2px); }
+  .nav-card-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .nav-card-title { font-family:var(--display); font-size:24px; text-transform:uppercase; letter-spacing:1px; line-height:1; }
+  .nav-card-icon { font-size:26px; }
+  .series-nav-card.next { text-align:right; }
+  .series-nav-card.next .nav-card-label::after { content:' →'; }
+  .series-nav-card.prev .nav-card-label::before { content:'← '; }
+
+  footer { padding:32px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid var(--border); }
+  .footer-logo { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .footer-copy { font-family:var(--mono); font-size:11px; color:var(--muted-light); }
+
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media (max-width:768px) {
+    nav { padding:16px 24px; }
+    .post-hero, .post-body { padding-left:24px; padding-right:24px; }
+    .series-nav { grid-template-columns:1fr; }
+    footer { padding:24px; }
+  }
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--acc), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted-light); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+  @media (max-width: 640px) { .newsletter-section { padding: 60px 24px; } }
+  .emo { width:1em; height:1em; display:inline-block; vertical-align:-0.125em; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">&larr; Back to Site</a>
+</nav>
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">Carousel 13</span>
+    <span class="post-series">The Swipe File</span>
+    <span class="post-date">August 2026</span>
+  </div>
+  <h1 class="post-title">10 Prompts for When<br><span class="acc">AI Writes Code You Can&rsquo;t Debug</span></h1>
+  <p class="post-subtitle">I can&rsquo;t code &mdash; so when the thing AI built breaks, I can&rsquo;t just open the file and see the problem. These are the ten prompts I run instead of guessing.</p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div><div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 &middot; By a human, for humans</div></div>
+  </div>
+</header>
+<article class="post-body">
+
+  <div class="reveal">
+  <p>AI wrote the code &mdash; that&rsquo;s the whole point of building this way. You describe what you want and it hands you something that runs. Right up until it doesn&rsquo;t.</p>
+  <p>And when it breaks you&rsquo;re stuck, because you can&rsquo;t just open the file and spot the bug in code you didn&rsquo;t write. These ten prompts are how you debug something you can&rsquo;t read &mdash; copy-paste, in the order you&rsquo;d actually reach for them.</p></div>
+
+  <div class="section-label reveal">The Ten</div>
+  <h2 class="section-heading reveal">Every Fix, <span class="acc">Copy-Paste Ready</span></h2>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">01 / 10</span><span class="p-cat">Locate</span></div>
+    <div class="p-head">Read It Back to Me</div>
+    <div class="p-prompt">"Explain this error in
+plain English. What broke,
+where, and why — before
+you fix it."</div>
+    <div class="p-why">You can’t fix what you can’t name. Translation first, patch second.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">02 / 10</span><span class="p-cat">Narrow</span></div>
+    <div class="p-head">Cut It in Half</div>
+    <div class="p-prompt">"Delete everything not
+needed to reproduce this.
+Give me the smallest
+version that fails."</div>
+    <div class="p-why">A 400-line file has 400 suspects. A 20-line one has three.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">03 / 10</span><span class="p-cat">Prove</span></div>
+    <div class="p-head">Fail First</div>
+    <div class="p-prompt">"Before fixing, write the
+test that fails. Then fix
+it."</div>
+    <div class="p-why">A fix you can’t prove is a guess that happens to run.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">04 / 10</span><span class="p-cat">Isolate</span></div>
+    <div class="p-head">One Change at a Time</div>
+    <div class="p-prompt">"Change exactly one thing.
+Tell me what you changed
+and what you expect."</div>
+    <div class="p-why">Two changes at once and the result teaches you nothing.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">05 / 10</span><span class="p-cat">Log</span></div>
+    <div class="p-head">Print the Real Values</div>
+    <div class="p-prompt">"Add a log line before and
+after the failing step.
+Show me the actual
+values."</div>
+    <div class="p-why">What you assume the data is, and what it is, are rarely the same.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">06 / 10</span><span class="p-cat">History</span></div>
+    <div class="p-head">What Did You Touch</div>
+    <div class="p-prompt">"List every file you
+edited in the last step.
+What could that have
+broken?"</div>
+    <div class="p-why">Most ‘random’ bugs were introduced two prompts ago.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">07 / 10</span><span class="p-cat">Revert</span></div>
+    <div class="p-head">Go Back to Working</div>
+    <div class="p-prompt">"Undo everything since the
+last version that ran.
+Start again from there."</div>
+    <div class="p-why">Debugging forward from broken is slower than restarting from working.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">08 / 10</span><span class="p-cat">Fence</span></div>
+    <div class="p-head">Don't Touch Anything Else</div>
+    <div class="p-prompt">"Fix only this function.
+Change nothing else. List
+every edit you made."</div>
+    <div class="p-why">A fix that rewrites four files is a new bug with extra steps.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">09 / 10</span><span class="p-cat">Ask</span></div>
+    <div class="p-head">Make It Ask You</div>
+    <div class="p-prompt">"What do you need to know
+from me to fix this? Ask
+before you write code."</div>
+    <div class="p-why">Half of AI’s wrong fixes are answers to a question it guessed.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">10 / 10</span><span class="p-cat">Close</span></div>
+    <div class="p-head">Why Did It Happen</div>
+    <div class="p-prompt">"It works now. In two
+sentences: what was
+actually wrong?"</div>
+    <div class="p-why">The explanation is the part you keep. The code you’ll regenerate anyway.</div>
+  </div>
+
+  <div class="section-label reveal">The Slides</div>
+  <h2 class="section-heading reveal">All Twelve, <span class="acc">Full Size</span></h2>
+  <div class="reveal">
+    <p>The full set at full size. Save the ones you&rsquo;ll actually use &mdash; or screenshot the lot.</p>
+    <div class="gallery">
+      <img src="slides/c13/01-cover.png" alt="Cover" loading="lazy">
+      <img src="slides/c13/02-technique-01.png" alt="Read It Back to Me" loading="lazy">
+      <img src="slides/c13/03-technique-02.png" alt="Cut It in Half" loading="lazy">
+      <img src="slides/c13/04-technique-03.png" alt="Fail First" loading="lazy">
+      <img src="slides/c13/05-technique-04.png" alt="One Change at a Time" loading="lazy">
+      <img src="slides/c13/06-technique-05.png" alt="Print the Real Values" loading="lazy">
+      <img src="slides/c13/07-technique-06.png" alt="What Did You Touch" loading="lazy">
+      <img src="slides/c13/08-technique-07.png" alt="Go Back to Working" loading="lazy">
+      <img src="slides/c13/09-technique-08.png" alt="Don't Touch Anything Else" loading="lazy">
+      <img src="slides/c13/10-technique-09.png" alt="Make It Ask You" loading="lazy">
+      <img src="slides/c13/11-technique-10.png" alt="Why Did It Happen" loading="lazy">
+      <img src="slides/c13/12-cta.png" alt="Save this for later" loading="lazy">
+    </div>
+    <div class="gallery-note">Twelve slides &middot; 1080&times;1350</div>
+  </div>
+
+  <div class="series-nav reveal">
+    <a href="12-three-way-showdown.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="robot face" xmlns="http://www.w3.org/2000/svg"><ellipse fill="#F4900C" cx="33.5" cy="14.5" rx="2.5" ry="3.5"/><ellipse fill="#F4900C" cx="2.5" cy="14.5" rx="2.5" ry="3.5"/><path fill="#FFAC33" d="M34 19c0 .553-.447 1-1 1h-3c-.553 0-1-.447-1-1v-9c0-.552.447-1 1-1h3c.553 0 1 .448 1 1v9zM7 19c0 .553-.448 1-1 1H3c-.552 0-1-.447-1-1v-9c0-.552.448-1 1-1h3c.552 0 1 .448 1 1v9z"/><path fill="#FFCC4D" d="M28 5c0 2.761-4.478 4-10 4C12.477 9 8 7.761 8 5s4.477-5 10-5c5.522 0 10 2.239 10 5z"/><path fill="#F4900C" d="M25 4.083C25 5.694 21.865 7 18 7c-3.866 0-7-1.306-7-2.917 0-1.611 3.134-2.917 7-2.917 3.865 0 7 1.306 7 2.917z"/><path fill="#269" d="M30 5.5C30 6.881 28.881 7 27.5 7h-19C7.119 7 6 6.881 6 5.5S7.119 3 8.5 3h19C28.881 3 30 4.119 30 5.5z"/><path fill="#55ACEE" d="M30 6H6c-1.104 0-2 .896-2 2v26h28V8c0-1.104-.896-2-2-2z"/><path fill="#3B88C3" d="M35 33v-1c0-1.104-.896-2-2-2H22.071l-3.364 3.364c-.391.391-1.023.391-1.414 0L13.929 30H3c-1.104 0-2 .896-2 2v1c0 1.104-.104 2 1 2h32c1.104 0 1-.896 1-2z"/><circle fill="#FFF" cx="24.5" cy="14.5" r="4.5"/><circle fill="#DD2E44" cx="24.5" cy="14.5" r="2.721"/><circle fill="#FFF" cx="11.5" cy="14.5" r="4.5"/><path fill="#F5F8FA" d="M29 25.5c0 1.381-1.119 2.5-2.5 2.5h-17C8.119 28 7 26.881 7 25.5S8.119 23 9.5 23h17c1.381 0 2.5 1.119 2.5 2.5z"/><path fill="#CCD6DD" d="M17 23h2v5h-2zm-5 0h2v5h-2zm10 0h2v5h-2zM7 25.5c0 1.21.859 2.218 2 2.45v-4.9c-1.141.232-2 1.24-2 2.45zm20-2.45v4.899c1.141-.232 2-1.24 2-2.45s-.859-2.217-2-2.449z"/><circle fill="#DD2E44" cx="11.5" cy="14.5" r="2.721"/></svg></div>
+      <div class="nav-card-title">Three-Bot Showdown</div>
+    </a>
+    <a href="14-stop-ai-wrong-thing.html" class="series-nav-card next">
+      <div class="nav-card-label">Next</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="direct hit" xmlns="http://www.w3.org/2000/svg"><circle fill="#DD2E44" cx="18" cy="18" r="18"/><circle fill="#FFF" cx="18" cy="18" r="13.5"/><circle fill="#DD2E44" cx="18" cy="18" r="10"/><circle fill="#FFF" cx="18" cy="18" r="6"/><circle fill="#DD2E44" cx="18" cy="18" r="3"/><path opacity=".2" d="M18.24 18.282l13.144 11.754s-2.647 3.376-7.89 5.109L17.579 18.42l.661-.138z"/><path fill="#FFAC33" d="M18.294 19c-.255 0-.509-.097-.704-.292-.389-.389-.389-1.018 0-1.407l.563-.563c.389-.389 1.018-.389 1.408 0 .388.389.388 1.018 0 1.407l-.564.563c-.194.195-.448.292-.703.292z"/><path fill="#55ACEE" d="M24.016 6.981c-.403 2.079 0 4.691 0 4.691l7.054-7.388c.291-1.454-.528-3.932-1.718-4.238-1.19-.306-4.079.803-5.336 6.935zm5.003 5.003c-2.079.403-4.691 0-4.691 0l7.388-7.054c1.454-.291 3.932.528 4.238 1.718.306 1.19-.803 4.079-6.935 5.336z"/><path fill="#3A87C2" d="M32.798 4.485L21.176 17.587c-.362.362-1.673.882-2.51.046-.836-.836-.419-2.08-.057-2.443L31.815 3.501s.676-.635 1.159-.152-.176 1.136-.176 1.136z"/></svg></div>
+      <div class="nav-card-title">Stop the Wrong Build</div>
+    </a>
+  </div>
+
+</article>
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Fewer<br><span style="color:var(--acc)">3 A.M. Bugs.</span></h2>
+    <p class="newsletter-sub reveal">The prompts that unstick a broken build, plus new ones every week &mdash; from a human who can&rsquo;t code either and ships anyway.</p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">&copy; 2026 Ryu Vy</div>
+</footer>
+<script>
+  const io = new IntersectionObserver((es) => es.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- Emoji graphics: Twemoji by X/Twitter, CC-BY 4.0 (https://github.com/jdecked/twemoji) -->
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>9 Prompts for When You Built It and Nobody Came | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230A0C0A'%20rx='8'/%3E%3Ctext%20x='32'%20y='46'%20font-family='Arial%20Black,sans-serif'%20font-size='38'%20font-weight='900'%20fill='%2384E000'%20text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Building it was the easy part; getting anyone to show up is the real one. Nine copy-paste prompts for distribution: the one-line pitch, the first ten seconds, the place your people already are, and the post that actually travels.">
+<meta property="og:title" content="9 Prompts for When You Built It and Nobody Came">
+<meta property="og:description" content="Nine prompts for the stage nobody covers: getting people to show up.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0A0C0A; --surface:#111410; --surface2:#161A14; --border:#1E2A1A;
+    --acc:#84E000; --acc-soft:#9FFF00; --acc-dim:rgba(132,224,0,0.10); --acc-glow:rgba(132,224,0,0.05);
+    --white:#F2F5EE; --muted:#5A6A52; --muted-light:#8A9A82;
+    --mono:'IBM Plex Mono',monospace; --display:'Bebas Neue',sans-serif; --body:'DM Sans',sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--acc); border-radius: 2px; }
+
+  nav { position: fixed; top:0; left:0; right:0; z-index:100; padding:18px 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,12,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:var(--mono); font-size:12px; font-weight:600; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .nav-back { font-family:var(--mono); font-size:11px; color:var(--muted-light); text-decoration:none; letter-spacing:1.5px; text-transform:uppercase; transition:color .2s; }
+  .nav-back:hover { color: var(--acc); }
+
+  .post-hero { padding:140px 48px 50px; max-width:860px; margin:0 auto; }
+  .post-meta { display:flex; align-items:center; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+  .post-num { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; background:var(--acc-dim); padding:4px 12px; border-radius:2px; border:1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .post-date { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:1px; margin-left:auto; }
+  .post-title { font-family:var(--display); font-size:clamp(46px,6vw,86px); line-height:.93; letter-spacing:1px; text-transform:uppercase; margin-bottom:22px; }
+  .post-title .acc { color:var(--acc); text-shadow:0 0 40px rgba(132,224,0,.3); }
+  .post-subtitle { font-size:18px; font-weight:300; color:var(--muted-light); line-height:1.6; max-width:640px; margin-bottom:30px; }
+  .post-byline { display:flex; align-items:center; gap:12px; padding-top:24px; border-top:1px solid var(--border); }
+  .byline-avatar { width:36px; height:36px; background:var(--acc); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-size:16px; color:#0A0C0A; }
+  .byline-name { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:1px; }
+  .byline-role { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:1px; text-transform:uppercase; }
+
+  .post-body { max-width:860px; margin:0 auto; padding:0 48px 60px; }
+  .post-body p { font-size:17px; font-weight:300; color:#CBD5C4; line-height:1.8; margin-bottom:22px; }
+  .post-body p strong { color:var(--white); font-weight:500; }
+  .post-body em { color:var(--white); font-style:italic; }
+  .section-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin:44px 0 14px; }
+  .section-label::before { content:'// '; opacity:.5; }
+  .section-heading { font-family:var(--display); font-size:clamp(30px,4vw,48px); text-transform:uppercase; letter-spacing:1px; line-height:.95; margin-bottom:20px; }
+  .section-heading .acc { color:var(--acc); }
+
+  .p-card { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--acc); border-radius:0 4px 4px 0; padding:26px 28px; margin:0 0 16px; }
+  .p-top { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .p-num { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; }
+  .p-cat { font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-left:auto; }
+  .p-head { font-family:var(--display); font-size:30px; letter-spacing:1px; text-transform:uppercase; line-height:1; margin-bottom:16px; }
+  .p-prompt { background:#0C0F0B; border:1px solid var(--border); border-radius:4px; padding:16px 18px; font-family:var(--mono); font-size:14px; color:var(--acc-soft); line-height:1.7; white-space:pre-wrap; margin-bottom:14px; }
+  .p-why { font-size:15px; font-weight:300; color:#CBD5C4; line-height:1.65; }
+  .p-why strong { color:var(--white); font-weight:500; }
+
+  .callout { background:var(--acc-dim); border:1px solid rgba(132,224,0,.28); border-radius:4px; padding:26px 28px; margin:36px 0; }
+  .callout-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; }
+  .callout p { margin-bottom:0 !important; color:var(--white) !important; }
+
+  .rule-box { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:30px 32px; margin:32px 0; text-align:center; }
+  .rule-box .rb-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
+  .rule-box .rb-rule { font-family:var(--display); font-size:clamp(24px,3.4vw,38px); letter-spacing:1px; text-transform:uppercase; line-height:1.05; color:var(--white); }
+  .rule-box .rb-rule .acc { color:var(--acc); }
+
+  .gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:10px; margin:24px 0 8px; }
+  .gallery img { width:100%; display:block; border:1px solid var(--border); border-radius:3px; background:var(--surface); }
+  .gallery-note { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:1px; }
+
+  .series-nav { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin:56px 0; }
+  .series-nav-card { background:var(--surface); padding:24px; text-decoration:none; color:inherit; transition:all .25s; border:1px solid transparent; display:flex; flex-direction:column; gap:8px; }
+  .series-nav-card:hover { border-color:var(--acc); transform:translateY(-2px); }
+  .nav-card-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .nav-card-title { font-family:var(--display); font-size:24px; text-transform:uppercase; letter-spacing:1px; line-height:1; }
+  .nav-card-icon { font-size:26px; }
+  .series-nav-card.next { text-align:right; }
+  .series-nav-card.next .nav-card-label::after { content:' →'; }
+  .series-nav-card.prev .nav-card-label::before { content:'← '; }
+
+  footer { padding:32px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid var(--border); }
+  .footer-logo { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .footer-copy { font-family:var(--mono); font-size:11px; color:var(--muted-light); }
+
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media (max-width:768px) {
+    nav { padding:16px 24px; }
+    .post-hero, .post-body { padding-left:24px; padding-right:24px; }
+    .series-nav { grid-template-columns:1fr; }
+    footer { padding:24px; }
+  }
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--acc), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted-light); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+  @media (max-width: 640px) { .newsletter-section { padding: 60px 24px; } }
+  .emo { width:1em; height:1em; display:inline-block; vertical-align:-0.125em; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">&larr; Back to Site</a>
+</nav>
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">Carousel 18</span>
+    <span class="post-series">The Swipe File</span>
+    <span class="post-date">August 2026</span>
+  </div>
+  <h1 class="post-title">9 Prompts for When<br><span class="acc">You Built It and Nobody Came</span></h1>
+  <p class="post-subtitle">You built the thing. It works. You posted it once and&hellip; nothing. Nine prompts for the part nobody&rsquo;s prompt packs cover &mdash; getting people to actually show up.</p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div><div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 &middot; By a human, for humans</div></div>
+  </div>
+</header>
+<article class="post-body">
+
+  <div class="reveal">
+  <p>You built the thing. It works. You posted it once and&hellip; nothing. This is the stage nobody&rsquo;s prompt packs cover, because it isn&rsquo;t a build problem &mdash; it&rsquo;s everything after the build.</p>
+  <p>These nine prompts point the model at the part that actually decides whether anyone shows up: the one-line pitch, the first ten seconds, the place your people already are. Distribution, as copy-paste prompts.</p></div>
+
+  <div class="section-label reveal">The Nine</div>
+  <h2 class="section-heading reveal">Every Prompt, <span class="acc">Copy-Paste Ready</span></h2>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">01 / 09</span><span class="p-cat">Who</span></div>
+    <div class="p-head">Name One Real Person</div>
+    <div class="p-prompt">"Describe one actual
+person who needs this.
+Where are they right now?"</div>
+    <div class="p-why">‘Anyone who wants X’ is the same as nobody, and it always has been.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">02 / 09</span><span class="p-cat">Words</span></div>
+    <div class="p-head">Say It Their Way</div>
+    <div class="p-prompt">"Rewrite my pitch using
+the words that person
+would actually type into a
+search."</div>
+    <div class="p-why">You named it. They’re searching for it. Those are rarely the same words.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">03 / 09</span><span class="p-cat">Where</span></div>
+    <div class="p-head">Find the Room</div>
+    <div class="p-prompt">"List 10 places online
+where that person already
+complains about this
+problem."</div>
+    <div class="p-why">Go where the complaint already is instead of building an audience.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">04 / 09</span><span class="p-cat">Hook</span></div>
+    <div class="p-head">First Five Words</div>
+    <div class="p-prompt">"20 opening lines. Each
+under 8 words. No
+adjectives."</div>
+    <div class="p-why">Nobody scrolled past your product. They scrolled past your first line.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">05 / 09</span><span class="p-cat">Proof</span></div>
+    <div class="p-head">Show, Don't Pitch</div>
+    <div class="p-prompt">"Turn this feature into a
+15-second demo script. No
+talking about it — show
+it."</div>
+    <div class="p-why">A working thing on screen outsells any sentence describing it.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">06 / 09</span><span class="p-cat">Ask</span></div>
+    <div class="p-head">One Thing to Do</div>
+    <div class="p-prompt">"Every post ends with one
+action. What's mine? Give
+me one, not three."</div>
+    <div class="p-why">Three calls to action is a polite way of asking for none.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">07 / 09</span><span class="p-cat">Attack</span></div>
+    <div class="p-head">Argue Against Me</div>
+    <div class="p-prompt">"You're my target user.
+Give me 5 honest reasons
+you'd scroll straight past
+this."</div>
+    <div class="p-why">The objections are free. Hearing them from a stranger is not.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">08 / 09</span><span class="p-cat">Angles</span></div>
+    <div class="p-head">Say It Ten Ways</div>
+    <div class="p-prompt">"Same product, 10
+different angles. Rank
+them by least obvious."</div>
+    <div class="p-why">You shipped once and pitched once. The pitch is the part you repeat.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">09 / 09</span><span class="p-cat">Measure</span></div>
+    <div class="p-head">One Number Only</div>
+    <div class="p-prompt">"Name the single number
+that tells me this is
+working. Ignore all the
+others."</div>
+    <div class="p-why">Watching every metric is how you avoid learning what any of them mean.</div>
+  </div>
+
+  <div class="section-label reveal">The Slides</div>
+  <h2 class="section-heading reveal">All Eleven, <span class="acc">Full Size</span></h2>
+  <div class="reveal">
+    <p>The full set at full size. Save the ones you&rsquo;ll actually use &mdash; or screenshot the lot.</p>
+    <div class="gallery">
+      <img src="slides/c18/01-cover.png" alt="Cover" loading="lazy">
+      <img src="slides/c18/02-technique-01.png" alt="Name One Real Person" loading="lazy">
+      <img src="slides/c18/03-technique-02.png" alt="Say It Their Way" loading="lazy">
+      <img src="slides/c18/04-technique-03.png" alt="Find the Room" loading="lazy">
+      <img src="slides/c18/05-technique-04.png" alt="First Five Words" loading="lazy">
+      <img src="slides/c18/06-technique-05.png" alt="Show, Don't Pitch" loading="lazy">
+      <img src="slides/c18/07-technique-06.png" alt="One Thing to Do" loading="lazy">
+      <img src="slides/c18/08-technique-07.png" alt="Argue Against Me" loading="lazy">
+      <img src="slides/c18/09-technique-08.png" alt="Say It Ten Ways" loading="lazy">
+      <img src="slides/c18/10-technique-09.png" alt="One Number Only" loading="lazy">
+      <img src="slides/c18/11-cta.png" alt="Save this for later" loading="lazy">
+    </div>
+    <div class="gallery-note">Eleven slides &middot; 1080&times;1350</div>
+  </div>
+
+  <div class="series-nav reveal">
+    <a href="16-doesnt-look-like-ai.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="artist palette" xmlns="http://www.w3.org/2000/svg"><path fill="#D99E82" d="M18 3.143c-9.941 0-18 6.908-18 15.428 0 1.066.126 2.107.367 3.112C2.146 24.744 3.377 22.812 9 20c5.727-2.864 0 4-2 8-.615 1.23-.282 2.271.56 3.124C10.506 32.928 14.104 34 18 34c9.941 0 18-6.907 18-15.429 0-8.52-8.059-15.428-18-15.428zm2.849 24.447c-.395 1.346-2.46 1.924-4.613 1.291-2.153-.632-3.578-2.234-3.183-3.581.395-1.346 2.46-1.924 4.613-1.29 2.153.631 3.578 2.233 3.183 3.58z"/><circle fill="#5C913B" cx="10" cy="11" r="3"/><circle fill="#269" cx="20" cy="9" r="3"/><circle fill="#DD2E44" cx="29" cy="15" r="3"/><circle fill="#FFCC4D" cx="28" cy="24" r="3"/></svg></div>
+      <div class="nav-card-title">Doesn't Look Like AI</div>
+    </a>
+    <a href="../index.html#swipe-file" class="series-nav-card next">
+      <div class="nav-card-label">The Swipe File</div>
+      <div class="nav-card-icon"><svg class="emo" viewBox="0 0 36 36" role="img" aria-label="pushpin" xmlns="http://www.w3.org/2000/svg"><path fill="#BE1931" d="M23.651 23.297L12.702 12.348l9.386-7.821 9.385 9.385z"/><path fill="#DD2E44" d="M34.6 13.912c-1.727 1.729-4.528 1.729-6.255 0l-6.257-6.256c-1.729-1.727-1.729-4.53 0-6.258 1.726-1.727 4.528-1.727 6.257 0L34.6 7.656c1.728 1.727 1.728 4.529 0 6.256z"/><path fill="#99AAB5" d="M14 17.823S-.593 35.029.188 35.813C.97 36.596 18.177 22 18.177 22L14 17.823z"/><path fill="#DD2E44" d="M25.215 27.991c-1.726 1.729-4.528 1.729-6.258 0L8.009 17.041c-1.727-1.728-1.727-4.528 0-6.256 1.728-1.729 4.53-1.729 6.258 0l10.948 10.949c1.728 1.729 1.728 4.528 0 6.257z"/></svg></div>
+      <div class="nav-card-title">Every Carousel</div>
+    </a>
+  </div>
+
+</article>
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">Get People<br><span style="color:var(--acc)">To Show Up.</span></h2>
+    <p class="newsletter-sub reveal">The prompts for the part after you build it, plus new ones every week &mdash; from a human who ships this stuff.</p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">&copy; 2026 Ryu Vy</div>
+</footer>
+<script>
+  const io = new IntersectionObserver((es) => es.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- Emoji graphics: Twemoji by X/Twitter, CC-BY 4.0 (https://github.com/jdecked/twemoji) -->
+</body>
+</html>
