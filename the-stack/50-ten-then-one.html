@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Why GitHub Copilot Can't Make a PowerPoint (But Nails HTML) | AIToolsDaily24</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20fill='%230A0C0A'%20rx='8'/%3E%3Ctext%20x='32'%20y='46'%20font-family='Arial%20Black,sans-serif'%20font-size='38'%20font-weight='900'%20fill='%2384E000'%20text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E">
+<meta name="description" content="GitHub Copilot, in VS Code, took ten tries at one slide deck and never landed it — it wrote python-pptx, placing every shape at a coordinate it never saw rendered. It isn't bad at presentations; it's bad at .pptx. Ask for HTML and the browser does the layout. Disclosure: Claude Code built this channel.">
+<meta property="og:title" content="Ten Tries At One Deck. None Of Them Landed.">
+<meta property="og:description" content="It's not that the AI is blind — it's that .pptx forces the model to be the layout engine. Ask for HTML instead and watch the same tool nail it.">
+<meta property="og:type" content="article">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:#0A0C0A; --surface:#111410; --surface2:#161A14; --border:#1E2A1A;
+    --acc:#84E000; --acc-soft:#9FFF00; --acc-dim:rgba(132,224,0,0.10); --acc-glow:rgba(132,224,0,0.05);
+    --white:#F2F5EE; --muted:#5A6A52; --muted-light:#8A9A82;
+    --mono:'IBM Plex Mono',monospace; --display:'Bebas Neue',sans-serif; --body:'DM Sans',sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--body); overflow-x: hidden; line-height: 1.7; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--acc); border-radius: 2px; }
+
+  nav { position: fixed; top:0; left:0; right:0; z-index:100; padding:18px 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,12,10,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+  .nav-logo { font-family:var(--mono); font-size:12px; font-weight:600; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .nav-back { font-family:var(--mono); font-size:11px; color:var(--muted-light); text-decoration:none; letter-spacing:1.5px; text-transform:uppercase; transition:color .2s; }
+  .nav-back:hover { color: var(--acc); }
+
+  .post-hero { padding:140px 48px 40px; max-width:860px; margin:0 auto; }
+  .post-meta { display:flex; align-items:center; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+  .post-num { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; background:var(--acc-dim); padding:4px 12px; border-radius:2px; border:1px solid rgba(132,224,0,0.2); }
+  .post-series { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .post-date { font-family:var(--mono); font-size:11px; color:var(--muted-light); letter-spacing:1px; margin-left:auto; }
+  .post-title { font-family:var(--display); font-size:clamp(46px,6vw,86px); line-height:.93; letter-spacing:1px; text-transform:uppercase; margin-bottom:22px; }
+  .post-title .acc { color:var(--acc); text-shadow:0 0 40px rgba(132,224,0,.3); }
+  .post-subtitle { font-size:18px; font-weight:300; color:var(--muted-light); line-height:1.6; max-width:640px; margin-bottom:30px; }
+  .post-byline { display:flex; align-items:center; gap:12px; padding-top:24px; border-top:1px solid var(--border); }
+  .byline-avatar { width:36px; height:36px; background:var(--acc); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--display); font-size:16px; color:#0A0C0A; }
+  .byline-name { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:1px; }
+  .byline-role { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:1px; text-transform:uppercase; }
+
+  /* video hero — vertical 9:16 short */
+  .video-hero { max-width:860px; margin:0 auto 10px; padding:0 48px; }
+  .video-frame { position:relative; width:100%; max-width:340px; margin:0 auto; aspect-ratio:9/16; background:#000; border:1px solid var(--border); border-radius:8px; overflow:hidden; box-shadow:0 0 60px rgba(132,224,0,.08); }
+  .video-frame video { width:100%; height:100%; object-fit:cover; display:block; }
+  .video-cap { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:1px; text-align:center; margin-top:12px; }
+  .video-cap .acc { color:var(--muted-light); }
+
+  .post-body { max-width:860px; margin:0 auto; padding:26px 48px 60px; }
+  .post-body p { font-size:17px; font-weight:300; color:#CBD5C4; line-height:1.8; margin-bottom:22px; }
+  .post-body p strong { color:var(--white); font-weight:500; }
+  .post-body em { color:var(--white); font-style:italic; }
+  .section-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin:44px 0 14px; }
+  .section-label::before { content:'// '; opacity:.5; }
+  .section-heading { font-family:var(--display); font-size:clamp(30px,4vw,48px); text-transform:uppercase; letter-spacing:1px; line-height:.95; margin-bottom:20px; }
+  .section-heading .acc { color:var(--acc); }
+
+  .p-card { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--acc); border-radius:0 4px 4px 0; padding:26px 28px; margin:0 0 16px; }
+  .p-top { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+  .p-num { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; }
+  .p-cat { font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-left:auto; }
+  .p-head { font-family:var(--display); font-size:30px; letter-spacing:1px; text-transform:uppercase; line-height:1; margin-bottom:16px; }
+  .p-prompt { background:#0C0F0B; border:1px solid var(--border); border-radius:4px; padding:16px 18px; font-family:var(--mono); font-size:14px; color:var(--acc-soft); line-height:1.7; white-space:pre-wrap; margin-bottom:14px; }
+  .p-why { font-size:15px; font-weight:300; color:#CBD5C4; line-height:1.65; }
+  .p-why strong { color:var(--white); font-weight:500; }
+
+  .callout { background:var(--acc-dim); border:1px solid rgba(132,224,0,.28); border-radius:4px; padding:26px 28px; margin:36px 0; }
+  .callout-label { font-family:var(--mono); font-size:11px; color:var(--acc); letter-spacing:3px; text-transform:uppercase; margin-bottom:12px; }
+  .callout p { margin-bottom:0 !important; color:var(--white) !important; }
+
+  .rule-box { background:var(--surface2); border:1px solid var(--border); border-radius:4px; padding:30px 32px; margin:32px 0; text-align:center; }
+  .rule-box .rb-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
+  .rule-box .rb-rule { font-family:var(--display); font-size:clamp(24px,3.4vw,38px); letter-spacing:1px; text-transform:uppercase; line-height:1.05; color:var(--white); }
+  .rule-box .rb-rule .acc { color:var(--acc); }
+
+  .vo-box { background:#0C0F0B; border:1px solid var(--border); border-radius:4px; padding:24px 26px; margin:32px 0; }
+  .vo-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
+  .vo-box p { font-family:var(--mono); font-size:14px; color:var(--acc-soft); line-height:1.9; margin-bottom:0; font-weight:400; }
+
+  .series-nav { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin:56px 0; }
+  .series-nav-card { background:var(--surface); padding:24px; text-decoration:none; color:inherit; transition:all .25s; border:1px solid transparent; display:flex; flex-direction:column; gap:8px; }
+  .series-nav-card:hover { border-color:var(--acc); transform:translateY(-2px); }
+  .nav-card-label { font-family:var(--mono); font-size:10px; color:var(--muted-light); letter-spacing:2px; text-transform:uppercase; }
+  .nav-card-title { font-family:var(--display); font-size:24px; text-transform:uppercase; letter-spacing:1px; line-height:1; }
+  .nav-card-icon { font-size:26px; }
+  .series-nav-card.next { text-align:right; }
+  .series-nav-card.next .nav-card-label::after { content:' →'; }
+  .series-nav-card.prev .nav-card-label::before { content:'← '; }
+
+  footer { padding:32px 48px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid var(--border); }
+  .footer-logo { font-family:var(--mono); font-size:12px; color:var(--acc); letter-spacing:2px; text-transform:uppercase; text-decoration:none; }
+  .footer-copy { font-family:var(--mono); font-size:11px; color:var(--muted-light); }
+
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media (max-width:768px) {
+    nav { padding:16px 24px; }
+    .post-hero, .post-body, .video-hero { padding-left:24px; padding-right:24px; }
+    .series-nav { grid-template-columns:1fr; }
+    footer { padding:24px; }
+  }
+  .newsletter-section { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 48px; position: relative; overflow: hidden; }
+  .newsletter-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--acc), transparent); }
+  .newsletter-inner { max-width: 560px; margin: 0 auto; text-align: center; }
+  .newsletter-label { font-family: var(--mono); font-size: 11px; color: var(--acc); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+  .newsletter-title { font-family: var(--display); font-size: clamp(36px, 4vw, 56px); text-transform: uppercase; line-height: 0.95; letter-spacing: 1px; margin-bottom: 16px; }
+  .newsletter-sub { color: var(--muted-light); font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
+  .beehiiv-embed-wrapper { max-width: 480px; margin: 0 auto; }
+  @media (max-width: 640px) { .newsletter-section { padding: 60px 24px; } }
+  .emo { width:1em; height:1em; display:inline-block; vertical-align:-0.125em; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AIToolsDaily24</a>
+  <a href="../index.html" class="nav-back">&larr; Back to Site</a>
+</nav>
+
+<header class="post-hero">
+  <div class="post-meta">
+    <span class="post-num">Unit 50 &middot; Video</span>
+    <span class="post-series">The Stack I Didn't Choose &middot; Stage 4</span>
+    <span class="post-date">July 2026</span>
+  </div>
+  <h1 class="post-title">Ten Tries At One Deck.<br><span class="acc">None Of Them Landed.</span></h1>
+  <p class="post-subtitle">
+    GitHub Copilot, running in VS Code, took ten attempts at a single slide deck and never got there. It isn't bad at presentations &mdash; it's bad at one <em>specific</em> thing. Here's the real difference, and why the fix is to change what you ask for, not how you ask.
+  </p>
+  <div class="post-byline">
+    <div class="byline-avatar">R</div>
+    <div>
+      <div class="byline-name">Ryu Vy</div>
+      <div class="byline-role">AIToolsDaily24 &middot; By a human, for humans</div>
+    </div>
+  </div>
+</header>
+
+<div class="video-hero reveal">
+  <div class="video-frame">
+    <video controls playsinline preload="metadata"
+      poster="../Videos/Vol5_Stack_I_Didnt_Choose/50-ten-then-one/50-ten-then-one.png"
+      src="../Videos/Vol5_Stack_I_Didnt_Choose/50-ten-then-one/50-ten-then-one.mp4"></video>
+  </div>
+  <div class="video-cap">The 22-second version &middot; <span class="acc">Stage 4 of 5</span></div>
+</div>
+
+<article class="post-body">
+
+  <div class="reveal">
+    <p>
+      Stage four &mdash; the procurement era, the stretch where the tooling finally got good and I learned exactly where "good" stops. The test was mundane: turn a model I had in a spreadsheet into a slide deck. I handed it to <strong>GitHub Copilot, running in VS Code</strong>, and watched it try ten times. None of the ten landed.
+    </p>
+    <p>
+      Here's what it actually did. Asked for a PowerPoint, Copilot wrote python-pptx &mdash; code that places every shape on the slide by coordinate. It was positioning text boxes and charts at numbers it never saw rendered, guessing at a layout it had no way to look at. Ten guesses, ten near-misses, because <em>you cannot lay out a page you can't see.</em>
+    </p>
+  </div>
+
+  <div class="rule-box reveal">
+    <div class="rb-label">The real reason</div>
+    <div class="rb-rule">It's not blind.<br><span class="acc">It's the layout engine.</span></div>
+  </div>
+
+  <div class="section-label reveal">The Distinction</div>
+  <h2 class="section-heading reveal">Who Computes <span class="acc">The Layout</span></h2>
+  <div class="reveal">
+    <p>
+      This is the part worth keeping. Copilot isn't bad at presentations &mdash; it's bad at <em>.pptx specifically</em>, and the reason is who has to compute the layout. Ask for a PowerPoint and the model has to <strong>be</strong> the layout engine: it decides, blind, that this box sits at 1.4 inches and that one won't collide with it. Ask for an HTML deck and the browser computes the layout downstream &mdash; the model writes intent, the renderer does the geometry. Ask for an analysis brief and the reader's own eye does the arranging.
+    </p>
+    <p>
+      Give the same tool a target where <em>something else</em> owns the layout and it's genuinely excellent. The fix for "AI is bad at my slides" is almost never a better prompt. It's a better format.
+    </p>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">01 / 03</span><span class="p-cat">Reframe</span></div>
+    <div class="p-head">Ask For HTML, Not .pptx</div>
+    <div class="p-prompt">"Build this deck as a single HTML file,
+not PowerPoint. One section per slide."</div>
+    <div class="p-why">The whole fix in one line. HTML hands the geometry to the browser, so the model stops guessing coordinates and starts writing structure &mdash; the thing it's actually good at. You also get live charts and real data that .pptx can't touch.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">02 / 03</span><span class="p-cat">Delegate</span></div>
+    <div class="p-head">Put A Renderer Downstream</div>
+    <div class="p-prompt">"Output in a format something else lays
+out: HTML, Markdown, a table."</div>
+    <div class="p-why">The general version of the rule. Any time the output is arranged by a downstream renderer &mdash; a browser, a Markdown viewer, a human reader &mdash; you've moved the layout off the model and onto something that's genuinely good at it.</div>
+  </div>
+
+  <div class="p-card reveal">
+    <div class="p-top"><span class="p-num">03 / 03</span><span class="p-cat">Choose</span></div>
+    <div class="p-head">Pick A Tool With An Opinion</div>
+    <div class="p-prompt">"Before you build this, tell me what
+you'd change about the request."</div>
+    <div class="p-why">The other half of what I saw. Claude Code took a single attempt at the same deck &mdash; because it had an opinion about the request instead of just executing it. A tool that pushes back catches the bad idea <em>before</em> it costs you ten tries.</div>
+  </div>
+
+  <div class="callout reveal">
+    <div class="callout-label">// Disclosure</div>
+    <p>
+      Weigh this fairly: <strong>Claude Code built this channel, its videos, and this very blog post.</strong> So when I say it took one attempt where another tool took ten, I have an obvious bias, and you should read the head-to-head with that in mind. The technical point underneath &mdash; that .pptx forces the model to be the layout engine and HTML doesn't &mdash; holds no matter which tool you prefer.
+    </p>
+  </div>
+
+  <div class="section-label reveal">Straight From The Video</div>
+  <h2 class="section-heading reveal">The Whole Thing, <span class="acc">Word For Word</span></h2>
+  <div class="vo-box reveal">
+    <div class="vo-label">Transcript &middot; 50 &middot; Ten Then One</div>
+    <p>
+      "Ten attempts at one slide deck. None of them landed. GitHub Copilot, in Visual Studio Code, wrote Python &mdash; placing every shape by coordinate, blind. Claude Code had an opinion about the request. Copilot just executed it. Ten attempts with one tool, one with the other &mdash; the one I build with."
+    </p>
+  </div>
+
+  <div class="series-nav reveal">
+    <a href="48-tools-taken.html" class="series-nav-card prev">
+      <div class="nav-card-label">Previous &middot; Stage 3</div>
+      <div class="nav-card-title">Banned Overnight</div>
+    </a>
+    <a href="52-the-honest-ranking.html" class="series-nav-card next">
+      <div class="nav-card-label">Next &middot; Stage 5</div>
+      <div class="nav-card-title">The Honest Ranking</div>
+    </a>
+  </div>
+
+</article>
+
+<section class="newsletter-section">
+  <div class="newsletter-inner">
+    <div class="newsletter-label reveal">// Stay Ahead</div>
+    <h2 class="newsletter-title reveal">It's Not Blind.<br><span style="color:var(--acc)">It's The Format.</span></h2>
+    <p class="newsletter-sub reveal">
+      Stage 4 of five &mdash; where the tooling got good and I learned exactly where good stops. The list gets each era as I learn it, before it becomes a post.
+    </p>
+    <div class="beehiiv-embed-wrapper reveal">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="2647e6a9-5c8c-464c-bb30-63e7a258640c"></script>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="../index.html" class="footer-logo">AIToolsDaily24</a>
+  <div class="footer-copy">&copy; 2026 Ryu Vy</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((es) => es.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+    { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<!-- Emoji graphics: Twemoji by X/Twitter, CC-BY 4.0 (https://github.com/jdecked/twemoji) -->
+</body>
+</html>
